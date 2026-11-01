@@ -35,6 +35,7 @@ from __future__ import annotations
 import json
 import math
 import sqlite3
+import threading
 import time
 import uuid
 from dataclasses import dataclass, field, asdict
@@ -179,26 +180,35 @@ class Armazem:
         self.caminho = ":memory:" if memória else str(caminho)
         if not memória:
             Path(self.caminho).parent.mkdir(parents=True, exist_ok=True)
-        self.db = sqlite3.connect(self.caminho)
+        # check_same_thread=False: o servidor web atende em threads diferentes.
+        # A serialização é feita pelo lock do servidor, não pelo sqlite3 — que
+        # de outra forma recusa a ligação. Documentado aqui porque o erro
+        # original ("SQLite objects created in a thread can only be used in
+        # that same thread") só aparece em produção, nunca nos testes.
+        self.db = sqlite3.connect(self.caminho, check_same_thread=False)
         self.db.executescript(ESQUEMA)
         self.db.commit()
         self._escritas = 0
         self._leituras = 0
+        # Serializa o acesso entre threads (servidor web). Operações de
+        # memória são microssegundos, por isso o custo do lock é irrelevante.
+        self._trava = threading.RLock()
 
     # -- escrita ----------------------------------------------------------
     def guardar(self, m: Memoria) -> Memoria:
-        self.db.execute(
-            f"INSERT OR REPLACE INTO memorias ({COLUNAS}) VALUES ({','.join('?' * 19)})",
-            m.para_linha(),
-        )
-        if m.tipo == "relacional" and m.sujeito and m.objecto and m.relacao:
+        with self._trava:
             self.db.execute(
-                "INSERT INTO arestas (origem,destino,relacao,peso,criada_em) VALUES (?,?,?,?,?) "
-                "ON CONFLICT(origem,destino,relacao) DO UPDATE SET peso=peso+0.5",
-                (m.sujeito, m.objecto, m.relacao, 1.0, time.time()),
+                f"INSERT OR REPLACE INTO memorias ({COLUNAS}) VALUES ({','.join('?' * 19)})",
+                m.para_linha(),
             )
-        self._escritas += 1
-        self.db.commit()
+            if m.tipo == "relacional" and m.sujeito and m.objecto and m.relacao:
+                self.db.execute(
+                    "INSERT INTO arestas (origem,destino,relacao,peso,criada_em) VALUES (?,?,?,?,?) "
+                    "ON CONFLICT(origem,destino,relacao) DO UPDATE SET peso=peso+0.5",
+                    (m.sujeito, m.objecto, m.relacao, 1.0, time.time()),
+                )
+            self._escritas += 1
+            self.db.commit()
         return m
 
     def guardar_muitas(self, ms: Iterable[Memoria]) -> int:
@@ -210,8 +220,9 @@ class Armazem:
 
     # -- leitura ----------------------------------------------------------
     def obter(self, id_: str) -> Memoria | None:
-        r = self.db.execute(f"SELECT {COLUNAS} FROM memorias WHERE id=?", (id_,)).fetchone()
-        self._leituras += 1
+        with self._trava:
+            r = self.db.execute(f"SELECT {COLUNAS} FROM memorias WHERE id=?", (id_,)).fetchone()
+            self._leituras += 1
         return Memoria.de_linha(r) if r else None
 
     def todas(self, tipo: TipoMemoria | None = None, activa: bool = True) -> list[Memoria]:
@@ -222,14 +233,17 @@ class Armazem:
             args.append(tipo)
         if activa:
             q += " AND activa=1"
-        self._leituras += 1
-        return [Memoria.de_linha(r) for r in self.db.execute(q, args).fetchall()]
+        with self._trava:
+            self._leituras += 1
+            linhas = self.db.execute(q, args).fetchall()
+        return [Memoria.de_linha(r) for r in linhas]
 
     def estatisticas(self) -> dict:
-        row = self.db.execute(
-            "SELECT tipo, COUNT(*), AVG(importancia), AVG(confianca) FROM memorias "
-            "WHERE activa=1 GROUP BY tipo"
-        ).fetchall()
+        with self._trava:
+            row = self.db.execute(
+                "SELECT tipo, COUNT(*), AVG(importancia), AVG(confianca) FROM memorias "
+                "WHERE activa=1 GROUP BY tipo"
+            ).fetchall()
         total = sum(r[1] for r in row)
         return {
             "total": total,
@@ -247,12 +261,13 @@ class Armazem:
     def registar_acesso(self, ids: list[str]) -> None:
         """Reforço: aceder a uma memória torna-a mais forte."""
         agora = time.time()
-        self.db.executemany(
-            "UPDATE memorias SET n_acessos=n_acessos+1, acedida_em=? WHERE id=?",
-            [(agora, i) for i in ids],
-        )
-        self._escritas += len(ids)
-        self.db.commit()
+        with self._trava:
+            self.db.executemany(
+                "UPDATE memorias SET n_acessos=n_acessos+1, acedida_em=? WHERE id=?",
+                [(agora, i) for i in ids],
+            )
+            self._escritas += len(ids)
+            self.db.commit()
 
     def esquecer(self, limiar: float = 0.08, proteger: Iterable[str] = ()) -> list[Memoria]:
         """Esquecimento: desactiva memórias abaixo do limiar de força.
@@ -384,8 +399,9 @@ class Armazem:
         return saida
 
     def fechar(self) -> None:
-        self.db.commit()
-        self.db.close()
+        with self._trava:
+            self.db.commit()
+            self.db.close()
 
 
 def from_res(resolucao: str) -> float:

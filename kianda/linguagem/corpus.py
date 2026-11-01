@@ -370,6 +370,23 @@ def documentos_do_projecto() -> list[Documento]:
         ("recuperacao", "A recuperação é híbrida: BM25 mais um índice semântico treinado no próprio corpus "
                         "com skip-gram negativo. A fusão é por norma de postos. Cada resultado traz a explicação "
                         "de que termos e que componente contribuíram."),
+        ("indice_numeros", "O índice semântico tem 2.693 palavras e 96 dimensões, o que dá 517.056 "
+                           "parâmetros — cerca de 2 MB em float32. Treina em 12 segundos no corpus "
+                           "completo, com a perda a descer de 1,377 para 1,137. Comparar com um modelo "
+                           "de linguagem de mil milhões de parâmetros: o índice custa 0,05% da memória."),
+        ("custo_numeros", "Uma resposta custa em média 165 mil FLOPs e 4 milissegundos em CPU. "
+                          "A linha de base monolítica com 1,24 milhões de parâmetros custa 49,7 "
+                          "milhões de FLOPs por resposta: 13,9 vezes mais. As duas acertam 100% "
+                          "no conjunto visto; nas paráfrases não vistas, a Kianda acerta 42,9% "
+                          "e a linha de base 28,6%."),
+        ("memoria_numeros", "A memória tem 5 tipos e cada registo guarda importância, confiança, "
+                            "recência, frequência de recuperação, contexto, origem e valência "
+                            "emocional. O esquecimento desactiva em vez de apagar. A consolidação "
+                            "junta episódios no mesmo sujeito e cria uma memória semântica."),
+        ("eficiencia_resultados", "Resultados medidos: quantização int8 reduz os bytes de pesos em "
+                                  "96,8% com erro relativo abaixo de 2%; LoRA com rank 8 treina "
+                                  "3,12% dos parâmetros da camada base; poda estruturada a 50% "
+                                  "poupa 50% dos FLOPs quando o runtime salta as colunas zeradas."),
         ("eficiencia", "As técnicas de eficiência testadas incluem quantização int8, poda estruturada, "
                        "destilação, LoRA e computação condicional. Nenhuma é assumida como solução: "
                        "todas são medidas."),

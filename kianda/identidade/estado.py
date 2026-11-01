@@ -83,7 +83,7 @@ class Dinamica:
             "solidao": 0.40,
         }
     )
-    ruido: float = 0.012
+    ruido: float = 0.014
     # quanto o estado pesa no comportamento (0 = nenhum efeito observável)
     ganho_comportamental: float = 1.0
 
@@ -201,21 +201,26 @@ class EstadoInterno:
         """Rótulo grosseiro, derivado dos números. Nunca escrito à mão."""
         s, c, f, e = self.v["satisfacao"], self.v["curiosidade"], self.v["frustracao"], self.v["energia"]
         st, so = self.v["stress"], self.v["solidao"]
-        if e < 0.28:
+        # Limiares calibrados com as trajectórias reais medidas em
+        # `experimentos/02_estado.py`. A primeira versão usava 0.75/0.6 e a
+        # Kianda ficava "presente" em 100% dos turnos — ou seja, o estado
+        # existia e não se manifestava. Baixar os limiares não é cosmética:
+        # é o que torna a variável observável.
+        if e < 0.30:
             return "exausta"
-        if f > 0.55 and c > 0.55:
+        if f > 0.42 and c > 0.50:
             return "teimosa"
-        if st > 0.6:
+        if st > 0.42:
             return "tensa"
-        if so > 0.7:
+        if so > 0.56:
             return "fechada"
-        if c > 0.75 and s > 0.6:
+        if c > 0.62 and s > 0.46:
             return "acesa"
-        if s > 0.7:
+        if s > 0.56:
             return "tranquila"
-        if c > 0.65:
+        if c > 0.55:
             return "curiosa"
-        if s < 0.3:
+        if s < 0.42:
             return "apática"
         return "presente"
 

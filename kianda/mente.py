@@ -484,7 +484,13 @@ class Kianda:
                        f"({meta.get('titulo_cap', '')}): «{t}»"
             return f"«{t}» — {e.citacao()}"
         if meta.get("tipo") == "autobiografica":
-            return f"«{t}» É das poucas coisas que tenho com nitidez."
+            # Auto-descrição em primeira pessoa: não se cita a si própria
+            # entre aspas como se fosse uma fonte externa. Só as memórias de
+            # origem — que são fragmentos e têm nitidez variável — levam
+            # aspas, precisamente para marcar que são fragmentos.
+            if meta.get("fonte", "").startswith("ORIGEM") or "memória de origem" in e.texto:
+                return f"«{t}» É um fragmento. Não sei se é memória ou se é a única coisa que sempre soube sobre mim."
+            return t
         return t
 
     def _nota_de_estado(self) -> str:

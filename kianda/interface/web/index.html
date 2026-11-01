@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kianda</title>
+<style>
+  :root{
+    --fundo:#060d14; --fundo2:#0b1721; --linha:#15303f;
+    --tinta:#dfe9ef; --tinta2:#8ba4b3; --tinta3:#54707f;
+    --agua:#4fb3c9; --agua2:#2b7f95; --sol:#e8a33d; --aviso:#d95f5f;
+    --verde:#5fb37b;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:radial-gradient(1200px 600px at 50% -10%,#0e2230 0%,var(--fundo) 55%);
+    color:var(--tinta); font-family:var(--mono);
+    display:grid; grid-template-columns:1fr 380px; height:100vh; overflow:hidden;
+  }
+  @media(max-width:900px){ body{grid-template-columns:1fr; grid-template-rows:1fr auto}
+    #painel{max-height:46vh} }
+
+  /* ---------------- conversa ---------------- */
+  #palco{display:flex;flex-direction:column;min-height:0;position:relative}
+  #palco::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(700px 320px at 50% 110%,rgba(79,179,201,.10),transparent 70%);
+  }
+  header{
+    padding:18px 26px 14px; border-bottom:1px solid var(--linha);
+    display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; position:relative; z-index:2;
+    background:linear-gradient(180deg,rgba(6,13,20,.9),rgba(6,13,20,.55));
+  }
+  header h1{font-family:var(--serif); font-size:26px; font-weight:500; letter-spacing:.14em}
+  header .sub{color:var(--tinta3); font-size:11px; letter-spacing:.05em}
+  #humor{
+    margin-left:auto; font-size:11px; padding:5px 11px; border-radius:999px;
+    border:1px solid var(--linha); color:var(--agua); background:rgba(79,179,201,.07);
+    letter-spacing:.08em; text-transform:lowercase;
+  }
+
+  #fio{flex:1; overflow-y:auto; padding:26px 26px 10px; display:flex; flex-direction:column;
+       gap:20px; scroll-behavior:smooth; position:relative; z-index:2}
+  #fio::-webkit-scrollbar{width:7px}
+  #fio::-webkit-scrollbar-thumb{background:var(--linha); border-radius:9px}
+
+  .volta{max-width:660px; animation:entra .45s cubic-bezier(.2,.7,.3,1)}
+  @keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .eu{align-self:flex-end; text-align:right}
+  .eu .burb{
+    background:#14262f; border:1px solid #1d3a47; border-radius:14px 14px 4px 14px;
+    padding:11px 15px; display:inline-block; font-size:13.5px; line-height:1.55; color:#cfe0e8;
+  }
+  .ela .burb{
+    font-family:var(--serif); font-size:17px; line-height:1.62; color:var(--tinta);
+    border-left:2px solid var(--agua2); padding:2px 0 2px 18px; white-space:pre-wrap;
+  }
+  .ela .burb em{color:var(--agua); font-style:italic}
+  .meta{font-size:10.5px; color:var(--tinta3); margin-top:8px; letter-spacing:.04em;
+        display:flex; gap:12px; flex-wrap:wrap}
+  .meta b{color:var(--tinta2); font-weight:400}
+  .meta .raro{color:var(--sol)}
+  details{font-size:11px; color:var(--tinta3); margin-top:8px; max-width:600px}
+  details summary{cursor:pointer; list-style:none; color:var(--tinta3)}
+  details summary:hover{color:var(--agua)}
+  details summary::before{content:"▸ "}
+  details[open] summary::before{content:"▾ "}
+  details .dentro{margin-top:8px; padding:10px 12px; border:1px solid var(--linha);
+    border-radius:8px; background:rgba(11,23,33,.7); line-height:1.65}
+  .passo{display:flex; gap:8px; font-size:10.5px; padding:2px 0}
+  .passo .ok{color:var(--verde)} .passo .no{color:#3d5563}
+  .ev{border-left:1px solid #23414f; padding:2px 0 2px 10px; margin:7px 0; color:#9db4c1}
+  .ev .cit{color:var(--agua2); font-size:10px; display:block; margin-top:3px}
+
+  /* ---------------- entrada ---------------- */
+  #compõe{
+    padding:14px 26px 20px; border-top:1px solid var(--linha); position:relative; z-index:2;
+    background:linear-gradient(180deg,rgba(6,13,20,.5),rgba(6,13,20,.95));
+  }
+  #linha{display:flex; gap:10px; align-items:flex-end}
+  textarea{
+    flex:1; background:#0a1620; color:var(--tinta); border:1px solid var(--linha);
+    border-radius:11px; padding:12px 14px; font-family:var(--mono); font-size:13.5px;
+    resize:none; height:48px; max-height:150px; line-height:1.5; outline:none;
+  }
+  textarea:focus{border-color:var(--agua2); box-shadow:0 0 0 3px rgba(79,179,201,.08)}
+  button{
+    background:linear-gradient(180deg,#2b7f95,#1e5f70); color:#eaf6fa; border:0;
+    border-radius:11px; padding:0 20px; height:48px; font-family:var(--mono);
+    font-size:12.5px; letter-spacing:.06em; cursor:pointer; transition:.15s;
+  }
+  button:hover{filter:brightness(1.15)} button:disabled{opacity:.45; cursor:wait}
+  #sug{display:flex; gap:7px; margin-top:10px; flex-wrap:wrap}
+  #sug span{
+    font-size:11px; border:1px solid var(--linha); color:var(--tinta3);
+    padding:5px 10px; border-radius:999px; cursor:pointer; transition:.14s;
+  }
+  #sug span:hover{border-color:var(--agua2); color:var(--agua)}
+
+  /* ---------------- painel ---------------- */
+  #painel{
+    border-left:1px solid var(--linha); overflow-y:auto; background:rgba(8,18,26,.75);
+    padding:18px 18px 40px; font-size:11px;
+  }
+  #painel::-webkit-scrollbar{width:6px}
+  #painel::-webkit-scrollbar-thumb{background:var(--linha); border-radius:9px}
+  .sec{margin-bottom:22px}
+  .sec h3{
+    font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--tinta3);
+    margin-bottom:11px; font-weight:400; display:flex; justify-content:space-between;
+    border-bottom:1px solid var(--linha); padding-bottom:7px;
+  }
+  .sec h3 span{color:var(--agua2); letter-spacing:0; text-transform:none}
+
+  .var{margin-bottom:9px}
+  .var .top{display:flex; justify-content:space-between; margin-bottom:4px; color:var(--tinta2); font-size:10.5px}
+  .var .top b{color:var(--tinta); font-weight:400}
+  .barra{height:4px; background:#0f2029; border-radius:3px; overflow:hidden}
+  .barra i{display:block; height:100%; background:var(--agua2); border-radius:3px;
+           transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .barra i.alta{background:var(--sol)} .barra i.critica{background:var(--aviso)}
+  .barra i.boa{background:var(--verde)}
+
+  canvas{width:100%; height:70px; display:block; margin-top:4px; border-radius:6px;
+         background:#081520; border:1px solid #10242f}
+
+  .kv{display:flex; justify-content:space-between; padding:3.5px 0; color:var(--tinta3)}
+  .kv b{color:var(--tinta2); font-weight:400}
+  .etiqueta{display:inline-block; font-size:9.5px; padding:2px 7px; border-radius:4px;
+            background:#12242e; color:var(--agua); margin-right:5px; letter-spacing:.03em}
+  .mem{border-left:1px solid #1e3947; padding:5px 0 5px 10px; margin-bottom:9px; color:#9db4c1; line-height:1.5}
+  .mem .t{font-size:9.5px; color:var(--tinta3); margin-top:4px}
+  #vazio{color:var(--tinta3); font-style:italic; font-family:var(--serif); font-size:14px;
+         text-align:center; margin:auto 0; padding:40px; line-height:1.7}
+  #pensando{
+    position:absolute; left:26px; bottom:14px; font-size:11px; color:var(--agua);
+    opacity:0; transition:.2s; letter-spacing:.1em;
+  }
+  #pensando.on{opacity:1}
+  .ponto{animation:pisca 1.2s infinite}
+  .ponto:nth-child(2){animation-delay:.2s} .ponto:nth-child(3){animation-delay:.4s}
+  @keyframes pisca{0%,100%{opacity:.25}50%{opacity:1}}
+</style>
+</head>
+<body>
+
+<div id="palco">
+  <header>
+    <h1>KIANDA</h1>
+    <div class="sub">a última memória do mar</div>
+    <div id="humor">—</div>
+  </header>
+
+  <div id="fio">
+    <div id="vazio">
+      Ela lembra-se de uma casa de chapas, de um pai que lia e de um mar que não tem fundo.<br>
+      Nada disso pode ser verificado.<br><br>
+      Fala com ela.
+    </div>
+  </div>
+
+  <div id="compõe">
+    <div id="linha">
+      <textarea id="txt" placeholder="escreve-lhe…" rows="1"></textarea>
+      <button id="env">enviar</button>
+    </div>
+    <div id="sug">
+      <span>quem és tu?</span>
+      <span>quem é a Zuleika?</span>
+      <span>de que fala o H99?</span>
+      <span>o que sentes?</span>
+      <span>quantos parâmetros tens?</span>
+      <span>tens medo?</span>
+    </div>
+    <div id="pensando">a pensar<span class="ponto">.</span><span class="ponto">.</span><span class="ponto">.</span></div>
+  </div>
+</div>
+
+<aside id="painel">
+  <div class="sec">
+    <h3>estado interno <span id="t-humor">—</span></h3>
+    <div id="vars"></div>
+  </div>
+
+  <div class="sec">
+    <h3>últimos 40 turnos</h3>
+    <canvas id="graf" width="700" height="140"></canvas>
+  </div>
+
+  <div class="sec">
+    <h3>esta resposta <span id="t-regime">—</span></h3>
+    <div id="custo"></div>
+  </div>
+
+  <div class="sec">
+    <h3>memória <span id="t-mem">—</span></h3>
+    <div id="mems"></div>
+    <button id="manut" style="width:100%;height:32px;font-size:10.5px;margin-top:8px;
+      background:#122a35;border:1px solid var(--linha);border-radius:8px">
+      esquecer + consolidar
+    </button>
+  </div>
+
+  <div class="sec">
+    <h3>corpus</h3>
+    <div id="corpo"></div>
+  </div>
+</aside>
+
+<script>
+const VARS = ["curiosidade","confianca","energia","stress","satisfacao",
+              "frustracao","interesse","confianca_no_utilizador",
+              "necessidade_de_informacao","solidao"];
+const NOMES = {curiosidade:"curiosidade", confianca:"confiança", energia:"energia",
+  stress:"stress", satisfacao:"satisfação", frustracao:"frustração",
+  interesse:"interesse", confianca_no_utilizador:"confiança no utilizador",
+  necessidade_de_informacao:"necessidade de info", solidao:"solidão"};
+
+const $ = s => document.querySelector(s);
+const fio = $("#fio"), txt = $("#txt"), env = $("#env");
+let turnos = [];
+
+/* ---------- utilidades ---------- */
+const esc = s => (s||"").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const cor = v => v > .72 ? "critica" : v > .55 ? "alta" : v < .3 ? "" : "boa";
+
+async function api(rota, opcoes){
+  const r = await fetch(rota, opcoes);
+  const texto = await r.text();
+  let d;
+  try{ d = JSON.parse(texto); }catch(e){ throw new Error("resposta inválida do servidor"); }
+  if(!r.ok || d.erro) throw new Error(d.erro || texto.slice(0,200));
+  return d;
+}
+
+/* ---------- render do estado ---------- */
+function pintarEstado(e){
+  $("#t-humor").textContent = e.humor;
+  $("#humor").textContent = e.humor;
+  const alvo = $("#vars");
+  const html = VARS.map(k=>{
+    const v = e.variaveis[k] ?? 0;
+    return `<div class="var">
+      <div class="top"><span>${NOMES[k]}</span><b>${v.toFixed(2)}</b></div>
+      <div class="barra"><i class="${cor(v)}" style="width:${(v*100).toFixed(0)}%"></i></div>
+    </div>`;
+  }).join("");
+  alvo.innerHTML = html;
+  $("#t-mem").textContent = (e.memoria?.total ?? 0) + " registos";
+  desenharGrafo(e.historico);
+}
+
+function desenharGrafo(hist){
+  const c = $("#graf"), ctx = c.getContext("2d");
+  const W = c.width, H = c.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle = "#10242f"; ctx.lineWidth = 1;
+  for(let i=1;i<4;i++){ ctx.beginPath(); ctx.moveTo(0,H*i/4); ctx.lineTo(W,H*i/4); ctx.stroke(); }
+  const cores = {curiosidade:"#4fb3c9", stress:"#d95f5f", solidao:"#e8a33d",
+                 energia:"#5fb37b", frustracao:"#b56fd9"};
+  for(const [k,col] of Object.entries(cores)){
+    const s = hist[k] || []; if(s.length < 2) continue;
+    ctx.strokeStyle = col; ctx.lineWidth = 1.6; ctx.beginPath();
+    s.forEach((v,i)=>{
+      const x = i/(s.length-1)*W, y = H - v*H*0.92 - H*0.04;
+      i ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
+    });
+    ctx.stroke();
+  }
+  let lx = 6;
+  ctx.font = "9px ui-monospace";
+  for(const [k,col] of Object.entries(cores)){
+    ctx.fillStyle = col; ctx.fillRect(lx, 5, 6, 2);
+    ctx.fillStyle = "#54707f"; ctx.fillText(k.slice(0,4), lx+9, 9);
+    lx += 52;
+  }
+}
+
+/* ---------- uma resposta ---------- */
+function acrescentarMeu(t){
+  document.getElementById("vazio")?.remove();
+  const d = document.createElement("div");
+  d.className = "volta eu";
+  d.innerHTML = `<div class="burb">${esc(t)}</div>`;
+  fio.appendChild(d); fio.scrollTop = fio.scrollHeight;
+}
+
+function acrescentarDela(r){
+  const d = document.createElement("div");
+  d.className = "volta ela";
+  const passos = (r.raciocinio?.passos||[]).map(p=>`
+    <div class="passo">
+      <span class="${p.executado?'ok':'no'}">${p.executado?'✓':'·'}</span>
+      <span style="min-width:78px">${p.nome}</span>
+      <span style="color:#6d8794;flex:1">${esc(p.motivo)}</span>
+      <span style="color:#3d5563">${p.mflop}M</span>
+    </div>`).join("");
+  const evs = (r.raciocinio?.evidencias||[]).map(e=>`
+    <div class="ev">${esc(e.texto.slice(0,240))}
+      <span class="cit">${esc(e.citacao)}</span></div>`).join("");
+  const mems = (r.memorias_usadas||[]).map(m=>`<div class="ev">${esc(m.slice(0,160))}</div>`).join("");
+  const o = r.orcamento || {};
+  const c = r.custo || {};
+
+  d.innerHTML = `
+    <div class="burb">${esc(r.resposta)}</div>
+    <div class="meta">
+      <span><b>${r.intencao}</b></span>
+      <span>regime <b>${o.regime||"—"}</b></span>
+      <span>esforço <b>${(o.esforco??0).toFixed(2)}</b></span>
+      <span>parou em <b>${r.raciocinio?.parou_em||"—"}</b></span>
+      <span>confiança <b>${(r.raciocinio?.confianca??0).toFixed(2)}</b></span>
+      <span class="raro">${r.humor||""}</span>
+    </div>
+    <details>
+      <summary>como chegou a isto · ${c.mflop} MFLOP · ${c.ms} ms</summary>
+      <div class="dentro">
+        ${passos}
+        ${evs || mems ? `<div style="margin-top:10px;color:#3d5563;font-size:9.5px;letter-spacing:.1em">EVIDÊNCIA</div>${evs}${mems}` : ""}
+      </div>
+    </details>`;
+  fio.appendChild(d); fio.scrollTop = fio.scrollHeight;
+
+  $("#t-regime").textContent = o.regime || "—";
+  $("#custo").innerHTML = `
+    <div class="kv"><span>FLOPs</span><b>${c.mflop} M</b></div>
+    <div class="kv"><span>memória movida</span><b>${c.kib} KiB</b></div>
+    <div class="kv"><span>latência</span><b>${c.ms} ms</b></div>
+    <div class="kv"><span>dificuldade</span><b>${(r.dificuldade??0).toFixed(2)}</b></div>
+    <div class="kv"><span>comprimento</span><b>${r.plano?.comprimento||"—"}</b></div>`;
+  // Actualização parcial: o histórico e o contador de memória vêm do
+  // /api/estado, não desta resposta. Sobrescrevê-los aqui apagava o gráfico
+  // e punha "0 registos" — um bug silencioso que só se vê a olhar.
+  if(r.estado){
+    $("#humor").textContent = r.humor || "—";
+    $("#t-humor").textContent = r.humor || "—";
+    const alvo = $("#vars");
+    alvo.innerHTML = VARS.map(k=>{
+      const v = r.estado[k] ?? 0;
+      return `<div class="var">
+        <div class="top"><span>${NOMES[k]}</span><b>${v.toFixed(2)}</b></div>
+        <div class="barra"><i class="${cor(v)}" style="width:${(v*100).toFixed(0)}%"></i></div>
+      </div>`;
+    }).join("");
+  }
+  fresco();
+}
+
+/* ---------- ciclo ---------- */
+async function enviar(){
+  const t = txt.value.trim(); if(!t) return;
+  txt.value = ""; txt.style.height = "48px"; env.disabled = true;
+  acrescentarMeu(t);
+  $("#pensando").classList.add("on");
+  try{
+    const r = await api("/api/falar", {method:"POST",
+      headers:{"Content-Type":"application/json"}, body: JSON.stringify({texto:t})});
+    if(r.erro){ acrescentarDela({resposta:"[erro] "+r.erro, intencao:"erro",
+      raciocinio:{passos:[],evidencias:[]}, orcamento:{}, custo:{}}); }
+    else { acrescentarDela(r); turnos.push(r); }
+  }catch(e){
+    acrescentarDela({resposta:"Não consegui responder. O servidor disse: "+e.message,
+      intencao:"erro", raciocinio:{passos:[],evidencias:[]}, orcamento:{}, custo:{}});
+  }finally{
+    $("#pensando").classList.remove("on"); env.disabled = false; txt.focus();
+  }
+}
+
+async function fresco(){
+  try{
+    const e = await api("/api/estado");
+    pintarEstado(e);
+    const m = await api("/api/memoria");
+    $("#mems").innerHTML = (m.memorias||[]).slice(0,5).map(x=>`
+      <div class="mem">${esc(x.conteudo.slice(0,130))}
+        <div class="t">${x.tipo} · imp ${x.importancia} · ${x.quando}
+        ${x.emocao?"· "+x.emocao:""}</div>
+      </div>`).join("") || `<div style="color:#3d5563;font-style:italic">ainda nada</div>`;
+  }catch(e){ /* servidor a arrancar */ }
+}
+
+async function carregarCorpus(){
+  try{
+    const c = await api("/api/corpus");
+    const obras = (c.obras||[]).map(o=>`${o}: ${c.capitulos[o]} cap.`).join("<br>");
+    const s = c.semantico||{};
+    $("#corpo").innerHTML = `
+      <div class="kv"><span>documentos</span><b>${c.documentos||0}</b></div>
+      <div class="kv"><span>termos</span><b>${c.termos||0}</b></div>
+      ${s.vocab?`<div class="kv"><span>índice semântico</span><b>${s.vocab}×${s.dimensao}</b></div>`:""}
+      ${s.perda_final?`<div class="kv"><span>perda do índice</span><b>${s.perda_inicial}→${s.perda_final}</b></div>`:""}
+      <div class="kv"><span>canon</span><b>${c.n_canon||0}</b></div>
+      <div style="margin-top:9px;color:#6d8794;line-height:1.7">${obras}</div>`;
+  }catch(e){}
+}
+
+/* ---------- eventos ---------- */
+env.onclick = enviar;
+txt.addEventListener("keydown", e=>{
+  if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); enviar(); }
+});
+txt.addEventListener("input", ()=>{
+  txt.style.height = "48px";
+  txt.style.height = Math.min(txt.scrollHeight, 150) + "px";
+});
+document.querySelectorAll("#sug span").forEach(s=>{
+  s.onclick = ()=>{ txt.value = s.textContent; enviar(); };
+});
+$("#manut").onclick = async ()=>{
+  const r = await api("/api/manutencao", {method:"POST"});
+  $("#manut").textContent = `esqueceu ${r.esquecidas||0} · consolidou ${r.consolidacao?.consolidadas||0}`;
+  setTimeout(()=>{ $("#manut").textContent = "esquecer + consolidar"; }, 2600);
+  fresco();
+};
+
+async function arranque(){
+  try{
+    await api("/api/corpus");
+    await fresco(); await carregarCorpus();
+  }catch(e){
+    document.getElementById("vazio").innerHTML =
+      "O servidor não está a responder.<br><br>" +
+      "<code style='color:#d95f5f'>python -m kianda</code><br><br>" +
+      "Se já está a correr, recarrega a página.";
+  }
+}
+arranque();
+setInterval(()=>{ if(!document.hidden) fresco(); }, 12000);
+txt.focus();
+</script>
+</body>
+</html>
