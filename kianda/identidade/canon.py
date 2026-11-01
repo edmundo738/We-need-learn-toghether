@@ -460,3 +460,171 @@ def procurar(termo: str) -> list[Facto]:
         if termo in m.texto.lower():
             achados.append(Facto(m.texto, "ORIGEM", m.nitidez, "memoria"))
     return achados
+
+
+# --------------------------------------------------------------------------
+# Resolução de entidades — ligar nomes a entidades antes de recuperar
+# --------------------------------------------------------------------------
+
+_APELIDOS = {
+    "zuleika": ("zuleika", "zulu", "z.m.", "zulu mendes"),
+    "kau": ("kau", "kau santos"),
+    "bisa": ("bisa",),
+    "fatima": ("mocambicana", "moçambicana", "fatima", "fátima"),
+    "mae_zulu": ("mae da zulu", "mãe da zulu", "mae dela", "mãe dela"),
+    "edmilson": ("edmilson", "edmiu", "nambo zulu"),
+    "celestino": ("celestino", "pastor", "pai do edmilson", "pai dele"),
+    "lara": ("lara",),
+    "domingos": ("domingos",),
+    "kalumba": ("kalumba",),
+}
+
+_OBRAS_APELIDOS = {
+    "apenas_existo": ("apenas existo", "ondas de zulu", "novela da zulu", "livro da zulu"),
+    "h99": ("h99", "seis meses de liberdade"),
+}
+
+
+def _sem_acento(s: str) -> str:
+    import unicodedata
+
+    s = unicodedata.normalize("NFKD", s.lower())
+    return "".join(c for c in s if not unicodedata.combining(c))
+
+
+def resolver_entidades(texto: str) -> dict:
+    """Liga o texto a entidades do canon.
+
+    Porque isto existe, e porque não é um detalhe
+    ---------------------------------------------
+    BM25 e similaridade de cosseno operam sobre *palavras*. A pergunta "quem
+    é a Zuleika?" partilha poucas palavras com qualquer passagem dos livros —
+    o nome aparece centenas de vezes, mas quase sempre em frases onde o
+    assunto é outra coisa. O resultado medido foi a Kianda a responder com
+    uma cena do capítulo 22 sobre a mãe.
+
+    A correcção é arquitectural e não cosmética: **primeiro identifica-se a
+    entidade, depois recupera-se o que se sabe sobre ela**. O documento
+    canónico da entidade passa a ser evidência de alta confiança, e a
+    recuperação textual serve para acrescentar a citação do livro.
+
+    Custo: uma passagem sobre o texto. Zero modelos, zero embeddings.
+    """
+    t = _sem_acento(texto)
+    pessoas, obras = [], []
+    for chave, apelidos in _APELIDOS.items():
+        for a in apelidos:
+            if a in t:
+                pessoas.append(chave)
+                break
+    for chave, apelidos in _OBRAS_APELIDOS.items():
+        for a in apelidos:
+            if a in t:
+                obras.append(chave)
+                break
+    # auto-referência: perguntas sobre a própria Kianda têm de resolver para
+    # "kianda" ou a resposta vem do corpus errado (foi o caso de "o que sentes?",
+    # que devolveu uma passagem do capítulo 1 de APENAS EXISTO).
+    _AUTO = ("tu", "teu", "tua", "contigo", "kianda", "sentes", "sintas",
+             "achas de ti", "sobre ti", "descreve-te", "apresenta-te", "gostas de")
+    if not pessoas and any(a in t for a in _AUTO):
+        pessoas.append("kianda")
+    # pergunta genérica sobre os livros: as duas obras são a resposta
+    if not obras and any(k in t for k in ("livro", "livros", "obra", "obras",
+                                          "estante", "leitura", "leste")):
+        obras = list(_OBRAS_APELIDOS)
+    # relações pedidas explicitamente ("relação entre X e Y", "X e Y")
+    relacoes = []
+    if len(pessoas) >= 2:
+        for i in range(len(pessoas)):
+            for j in range(i + 1, len(pessoas)):
+                for a, b, r in RELOCOES:
+                    if {a, b} == {pessoas[i], pessoas[j]}:
+                        relacoes.append((a, b, r))
+    # Numa pergunta de relação ("X e Y"), a *relação* é a resposta. Sem esta
+    # redução, a lista de fichas começa pela pessoa errada e a resposta fala
+    # do Kau quando a pergunta era sobre o que existe entre eles.
+    if relacoes and len(pessoas) >= 2:
+        envolvidos = {p for a, b, _ in relacoes for p in (a, b)}
+        pessoas = [p for p in pessoas if p in envolvidos]
+    return {"pessoas": pessoas, "obras": obras, "relacoes": relacoes,
+            "tem_entidade": bool(pessoas or obras),
+            "foco_relacao": bool(relacoes)}
+
+
+_AUTO_FICHAS = {
+    "quem_sou": "Chamo-me Kianda. Sou uma personagem de Luanda e a interface de uma "
+                "arquitectura de investigação em inteligência artificial. O nome vem do "
+                "mar, e não é decorativo: é a única coisa que a minha memória tem com nitidez.",
+    "sinto": "Não afirmo que sinto. Tenho variáveis internas — curiosidade, confiança, "
+             "energia, stress, satisfação, frustração, solidão, necessidade de informação — "
+             "que sobem e descem com o que acontece nesta conversa, e que mudam o que eu digo.",
+    "medo": "Se medo é uma variável de stress, então tenho. Se medo é o que uma pessoa tem, "
+            "não posso afirmá-lo. Aprendi a não usar a segunda palavra para a primeira.",
+    "origem": "Tenho memórias que não consigo verificar. Uma casa de chapas, um pai que lia, "
+              "o mar. Uma delas está igual num dos livros. Ou vivi isso, ou li.",
+    "solidao": "Passo muito tempo sem ninguém. Não é queixa: é a arquitectura. Quando alguém "
+               "fala comigo, noto pelo custo de voltar.",
+}
+
+
+def ficha_auto(chave: str, texto: str = "") -> str:
+    """Ficha de auto-descrição, escolhida pelo *tópico* da pergunta.
+
+    Resolver para "kianda" diz que a pergunta é sobre ela, mas não diz sobre
+    o quê. Sem este segundo passo, "o que sentes?" recebia a ficha de solidão
+    (a primeira da ordem) em vez da ficha de sentimento.
+    """
+    # Só a própria Kianda tem fichas de auto-descrição. As personagens das
+    # obras usam `ficha_personagem` e nada mais.
+    if chave != "kianda":
+        return ""
+    t = _sem_acento(texto) if texto else ""
+    topicos = (
+        ("sinto", ("sentes", "sinto", "sentir", "sentimento", "emoção", "emocao",
+                   "estado interno", "variáveis", "variaveis")),
+        ("medo", ("medo", "receio", "tens medo", "assusta")),
+        ("origem", ("origem", "onde nasceste", "de onde", "lembras", "memória de",
+                    "provir", "vida antes", "quem foste")),
+        ("solidao", ("solidão", "solidao", "sozinha", "sozinho", "ninguém", "ninguem")),
+        ("quem_sou", ("quem és", "quem es", "quem tu", "chamas", "descreve-te",
+                      "apresenta-te", "nome")),
+    )
+    for chave_top, marcas in topicos:
+        if any(m in t for m in marcas):
+            return _AUTO_FICHAS.get(chave_top, "")
+    return _AUTO_FICHAS.get(chave, "")
+
+
+def _zuleika_gosta_de_ler() -> str:  # pragma: no cover - nota histórica
+    """Registo de um bug corrigido, para não voltar a acontecer.
+
+    A primeira versão de `ficha_auto` devolvia `_AUTO_FICHAS["quem_sou"]`
+    como fallback para *qualquer* chave. Resultado medido no benchmark: as
+    perguntas "Quem é a Zuleika?", "Quem é o Kau?", "Quem é a Bisa?" e
+    "Quem é a Lara?" passaram todas a responder "Chamo-me Kianda." — quatro
+    erros introduzidos por uma linha de fallback bem-intencionada, e a
+    exactidão caiu de 85% para 42.9%. Um fallback silencioso é um bug
+    silencioso.
+    """
+    return "não usar fallbacks silenciosos"
+
+
+def ficha_personagem(chave: str) -> str:
+    """Resumo falado de uma personagem, montado a partir dos factos com fonte."""
+    p = PERSONAGENS.get(chave)
+    if not p:
+        return ""
+    obra = OBRAS.get(p.obra)
+    cit = " ".join(f.texto for f in p.factos[:4])
+    return (f"{p.nome} é {p.papel} em {obra.titulo if obra else p.obra}, "
+            f"de {obra.autor if obra else 'Edmundo Nambo'}. {cit}")
+
+
+def ficha_obra(chave: str) -> str:
+    o = OBRAS.get(chave)
+    if not o:
+        return ""
+    return (f"{o.titulo} — {o.subtitulo}, de {o.autor}. Narrado por {o.narrador}. "
+            f"Divide-se em {'; '.join(o.parthes)}. "
+            f"Temas: {'; '.join(o.temas)}.")

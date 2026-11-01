@@ -396,7 +396,15 @@ class Recuperador:
                 m[i] = v
         return m
 
-    def consultar(self, texto: str, top_k: int = 6, peso_semantico: float = 0.5) -> list[Resultado]:
+    def consultar(self, texto: str, top_k: int = 6, peso_semantico: float = 0.5,
+                  pesos_tipo: dict[str, float] | None = None) -> list[Resultado]:
+        """Consulta híbrida com prior opcional por tipo de documento.
+
+        `pesos_tipo` é o mecanismo que impede o sistema de responder com uma
+        passagem aleatória de um livro quando a pergunta era sobre si própria.
+        É um prior, não um filtro duro: se não houver nada melhor, a evidência
+        de outro tipo aparece na mesma — só que atrás.
+        """
         t0 = time.perf_counter()
         lista_bm25 = self.bm25.pontuar(texto, top_k=len(self.docs))
         por_id = {d.id: i for i, d in enumerate(self.docs)}
@@ -418,7 +426,10 @@ class Recuperador:
         for i, d in enumerate(self.docs):
             rb = postos_bm25.get(d.id, len(self.docs))
             rs = postos_sem.get(d.id, len(self.docs))
-            combinado[d.id] = (1 - peso_semantico) / (k_rrf + rb) + peso_semantico / (k_rrf + rs)
+            base = (1 - peso_semantico) / (k_rrf + rb) + peso_semantico / (k_rrf + rs)
+            if pesos_tipo:
+                base *= pesos_tipo.get(str(d.meta.get("tipo", "")), 1.0)
+            combinado[d.id] = base
 
         ordenados = sorted(combinado.items(), key=lambda x: x[1], reverse=True)[:top_k]
         bm25_map = {d.id: (s, det) for d, s, det in lista_bm25}
