@@ -1,0 +1,40 @@
+[project]
+name = "kianda"
+version = "0.1.0"
+description = "Project Kianda — arquitectura experimental de IA modular, persistente e eficiente"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Edmundo", email = "edmundo@example.com" }]
+keywords = ["ia", "cognicao", "memoria", "eficiencia", "luanda", "kianda"]
+
+# Dependência única obrigatória: NumPy. Tudo o resto é opcional.
+# O núcleo de autograd, a rede neuronal, o motor de memória e a cognição
+# são implementados do zero neste repositório.
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+# Linguagem natural real (opcional). Sem isto, a Kianda fala com o
+# gerador de n-gramas neuronais treinado do zero no seu próprio corpus.
+llm = ["urllib3"]          # usa apenas a stdlib para HTTP; lista por completude
+voz = ["pyttsx3"]
+visao = ["opencv-python"]
+dev = ["pytest", "rich"]
+
+[project.scripts]
+kianda = "kianda.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["kianda*"]
+
+[tool.pytest.ini_options]
+testpaths = ["testes"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
