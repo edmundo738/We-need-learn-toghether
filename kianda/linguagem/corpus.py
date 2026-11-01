@@ -317,9 +317,17 @@ def documentos_do_canon() -> list[Documento]:
         ))
 
     for o, d, r in canon.RELOCOES:
+        # Os nomes têm de ser os nomes, não as chaves internas. A primeira
+        # versão escrevia "Relação entre zuleika e mae_zulu", e como a
+        # recuperação cita o documento literalmente, a Kianda dizia em voz
+        # alta "mae_zulu" — um identificador de base de dados numa frase
+        # portuguesa. O erro é invisível nos testes porque nenhum teste
+        # verificava o texto, só o acerto.
+        nome_o = canon.PERSONAGENS[o].nome if o in canon.PERSONAGENS else o
+        nome_d = canon.PERSONAGENS[d].nome if d in canon.PERSONAGENS else d
         docs.append(Documento(
             id=f"canon:relacao:{o}:{d}",
-            texto=f"Relação entre {o} e {d}: {r}.",
+            texto=f"Relação entre {nome_o} e {nome_d}: {r}.",
             meta={"tipo": "canon", "fonte": "RELOCOES"},
         ))
 

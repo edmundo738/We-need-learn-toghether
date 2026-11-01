@@ -471,7 +471,13 @@ _APELIDOS = {
     "kau": ("kau", "kau santos"),
     "bisa": ("bisa",),
     "fatima": ("mocambicana", "moçambicana", "fatima", "fátima"),
-    "mae_zulu": ("mae da zulu", "mãe da zulu", "mae dela", "mãe dela"),
+    # a forma com underscore ("mae_zulu") tem de estar aqui: é a chave do
+    # canon e aparecia em perguntas de teste. Sem ela, "a relação entre a
+    # zuleika e a mae_zulu" resolvia só uma entidade e a relação não
+    # aparecia — o sistema respondia com a ficha da Zuleika, factualmente
+    # correcta e fora da pergunta.
+    "mae_zulu": ("mae da zulu", "mãe da zulu", "mae dela", "mãe dela",
+                 "mae_zulu", "mãe_zulu", "mae zulu", "mãe zulu"),
     "edmilson": ("edmilson", "edmiu", "nambo zulu"),
     "celestino": ("celestino", "pastor", "pai do edmilson", "pai dele"),
     "lara": ("lara",),

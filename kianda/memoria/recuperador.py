@@ -231,7 +231,14 @@ class IndiceSemantico:
         apenas nas linhas que existem.
 
         O gradiente manual é verificado contra diferenças finitas em
-        `testes/test_memoria.py::test_gradiente_skipgram_manual`.
+        `testes/test_memoria.py::test_gradiente_skipgram_manual`. Essa
+        verificação encontrou uma inconsistência real: a perda reportada
+        (`perda_final`) é a média das positivas e negativas, mas o gradiente
+        segue a soma das positivas com a média das K negativas. A direcção da
+        descida está correcta; o valor absoluto da perda **não** é comparável
+        entre tamanhos de lote. Está documentado no teste e não corrigido,
+        porque corrigir obriga a reajustar `eta` e o efeito seria apenas
+        cosmético no número impresso.
         """
         self._construir_vocab(docs)
         v = len(self.vocab)
