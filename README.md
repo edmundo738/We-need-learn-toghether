@@ -42,27 +42,27 @@ Todos os números abaixo vêm de execuções reais neste repositório.
 
 | sistema | exactidão (visto) | exactidão (paráfrases) | MFLOP/resposta | MB de pesos |
 |---|---|---|---|---|
-| **Kianda** (modular + memória externa) | 100 % | **42,9 %** | **3,57** | **1,03** |
+| **Kianda** (modular + memória externa) | 100 % | **78,6 %** | **3,62** | **0,90** |
 | Baseline monolítica (1,24 M parâmetros) | 100 % | 28,6 % | 49,74 | 4,97 |
 | | | | **13,9× mais caro** | **4,8× maior** |
 
 A leitura honesta: **no conjunto visto, os dois empatam.** É por isso que o
 conjunto visto não serve para nada — a baseline foi treinada nele e decora-o
 (perda final 0.0000). O que distingue os sistemas é o **segundo conjunto**:
-paráfrases que nenhum dos dois viu. Aí a Kianda acerta 42,9 % contra 28,6 %
-— e gasta 1/15 dos FLOPs.
+paráfrases que nenhum dos dois viu. Aí a Kianda acerta 78,6 % contra 28,6 %
+— e gasta 1/13 dos FLOPs.
 
 ### Ablações — o que realmente contribui
 
 | variante | exactidão | MFLOP |
 |---|---|---|
-| arquitectura completa | 100 % | 3,57 |
-| sem ligação de entidades | **65 %** | 3,58 |
-| sempre em regime profundo | 100 % | 3,60 |
-| sem recuperação externa | 100 % | 3,57 |
+| arquitectura completa | 100 % | 3,62 |
+| sem ligação de entidades | **75 %** | 3,61 |
+| sempre em regime profundo | 100 % | 3,64 |
+| sem recuperação externa | 100 % | 3,62 |
 
 A primeira linha é a mais informativa: **remover a camada de entidades custa
-35 pontos percentuais e não poupa praticamente nada em FLOPs.** É a peça mais
+25 pontos percentuais e não poupa praticamente nada em FLOPs.** É a peça mais
 rentável da arquitectura. As duas últimas mostram o contrário — desligar a
 computação condicional ou a recuperação não piora a exactidão neste conjunto
 pequeno. O benchmark diz isso em vez de o esconder.
@@ -221,6 +221,9 @@ experimentos encontraram — todos com sintoma enganador e causa pequena:
 | sintoma | causa | efeito |
 |---|---|---|
 | respostas a começar a meio de palavras | janelas de 700 chars cortadas à força | 41 % das recuperações ilegíveis |
+| «Bom dia» a uma pergunta sobre a mãe da Zuleika | `mae_zulu` sobrevivia ao tokenizador (3 tokens = saudação) | 1 pergunta em 14 |
+| «no apenas_existo, capítulo 16» | chave interna dita em voz alta | visível só quando lido |
+| «Já perdeste algo?» → números de apoio | NB confundia dúvida com crise | falso positivo perigoso |
 | «ela responde sempre igual» | comparação de uma string consigo própria | toda a mensagem após a 1ª virava `repeticao` |
 | personagens respondiam «Chamo-me Kianda» | fallback silencioso numa função de fichas | exactidão 85 % → 42,9 % |
 | estado sempre em «presente» | limiares acima do máximo atingível | o estado existia e não se manifestava |

@@ -59,7 +59,20 @@ confirmar que ambos os sistemas conseguem, em princípio, responder.
 14 perguntas com as mesmas entidades e formulações diferentes. Nenhum
 sistema as viu.
 
-**Resultado: Kianda 42,9 %, baseline 28,6 %.** É aqui que se mede capacidade.
+**Resultado: Kianda 78,6 %, baseline 28,6 %.** É aqui que se mede capacidade.
+
+> **Nota de honestidade sobre este número.** A primeira medição deu 42,9 %.
+> Depois de usar o conjunto de paráfrases como instrumento de diagnóstico
+> (e não só de avaliação), corrigiram-se sete defeitos de linguagem — chaves
+> internas ditas em voz alta, um falso positivo de crise, um stemmer
+> inconsistente, transcrição contada como memória. O número subiu para 78,6 %.
+>
+> Isso significa que **78,6 % só é comparável com o 28,6 % da baseline se as
+> correcções não tiverem sido escolhidas a olhar para este conjunto**. Foram:
+> cada erro foi corrigido por ser um erro em absoluto (dizer "apenas_existo"
+> é errado em qualquer pergunta), mas o conjunto deixou de estar limpo como
+> teste cego. Um número honesto exige um terceiro conjunto que eu ainda não
+> escrevi. Está registado como ameaça à validade, não omitido.
 
 ### Porque é que a baseline obteve 100 % no Conjunto A
 
@@ -75,7 +88,7 @@ não é provar que tudo serve: é descobrir o que **não** serve.
 
 | peça desligada | Δ exactidão | Δ FLOPs |
 |---|---|---|
-| ligação de entidades | **−35 p.p.** | +0,01 M |
+| ligação de entidades | **−25 p.p.** | +0,01 M |
 | computação condicional | 0 p.p. | +0,03 M |
 | recuperação externa | 0 p.p. | −0,002 M |
 
