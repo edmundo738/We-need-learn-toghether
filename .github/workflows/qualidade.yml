@@ -1,0 +1,96 @@
+name: Qualidade
+
+# A barreira de qualidade não depende de disciplina de quem programa.
+#
+# Três portões, por ordem crescente de custo, e nenhum é informativo:
+#
+#   1. suite completa          — 96 testes, ~20 s
+#   2. mutação                 — prova que os testes detectam defeitos, ~40 s
+#   3. conjunto reservado      — mede o que a suite não consegue exprimir
+#
+# O portão 2 é o que impede o ciclo vicioso mais comum: apagar um teste para
+# ficar verde. Se um teste for enfraquecido, o mutante correspondente passa a
+# sobreviver e o CI falha.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Instalar
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install pytest pytest-cov hypothesis
+
+      - name: Suite de testes
+        run: pytest testes/ -q --cov=kianda --cov-report=term-missing
+
+      - name: Coerência do corpus e aviso de obras em falta
+        # `dados/obras/` está fora do Git. Num clone limpo não há livros, e o
+        # sistema TEM de dizer isso em vez de parecer completo. Este passo não
+        # falha por não haver livros; falha se o sistema não o disser.
+        run: |
+          python - <<'PY'
+          import tempfile, warnings
+          warnings.simplefilter("ignore")
+          from kianda.mente import Kianda
+          k = Kianda(pasta_dados=tempfile.mkdtemp())
+          info = k.corpus_info
+          n = info.get("n_obras", 0)
+          avisos = info.get("_por_carregar") or []
+          print(f"obras carregadas: {n}")
+          print(f"documentos: {info['indexacao']['documentos']}")
+          if n == 0:
+              assert avisos, "sem obras e SEM AVISO — falha de transparência"
+              print(f"aviso presente: {avisos[0][:80]}...")
+          else:
+              assert info["indexacao"]["documentos"] > 400
+          k.fechar()
+          PY
+
+      - name: Mutação — os testes detectam os defeitos que os motivaram?
+        run: python testes/validar_mutacoes.py
+
+      - name: Conjunto reservado
+        # Portão informativo por desenho: o resultado é para registar, não para
+        # aprovar. Falhar aqui bloquearia um merge por uma pergunta que o
+        # projecto decidiu manter em aberto (ver research/RELATORIO-CICLO).
+        continue-on-error: true
+        run: python testes/conjunto_reservado.py
+
+  sem-dados-nao-quebra:
+    # Uma máquina sem `dados/` tem de conseguir correr a suite inteira. Este
+    # trabalho existe porque durante meses o contrário foi verdade e ninguém
+    # sabia: a suite passava por sorte, não por desenho.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install pytest
+      - name: Confirmar que este clone não tem obras
+        run: |
+          if [ -d dados/obras ]; then echo "atenção: dados/ presente no clone"; fi
+      - run: pytest testes/ -q

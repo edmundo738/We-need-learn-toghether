@@ -31,7 +31,9 @@ from __future__ import annotations
 
 import json
 import random
+import re
 import time
+import warnings
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
 
@@ -42,7 +44,7 @@ from .identidade.estado import EstadoInterno, Politica
 from .linguagem.corpus import construir_tudo
 from .linguagem.voz import ConfigLM, GeradorNeuronal, Resposta, Voz
 from .memoria.armazenamento import Armazem, Memoria
-from .memoria.recuperador import Recuperador
+from .memoria.recuperador import Recuperador, stem_leve, tokenizar
 from .nucleo.autograd import Custo
 
 # --------------------------------------------------------------------------
@@ -178,8 +180,46 @@ class Kianda:
 
     # -- inicialização ----------------------------------------------------
     def carregar_corpus(self, treinar_lm: bool = False, verbose: bool = False) -> dict:
+        """Carrega as obras e indexa tudo.
+
+        ZERO OBRAS É UM ERRO, NÃO UM ESTADO VÁLIDO.
+
+        `dados/` está fora do Git (são as obras, e são texto de autor). Isso
+        significa que qualquer clone novo — incluindo este — arranca sem os
+        livros. Até agora isso não produzia erro nenhum: `carregar_tudo()`
+        devolvia `{}`, `documentos_das_obras({})` devolvia `[]`, e a Kianda
+        indexava 66 documentos (canon + documentação) e funcionava. As
+        respostas sobre personagens continuavam a parecer certas porque o canon
+        basta para "quem é a Zuleika"; nada dizia que os livros não estavam lá.
+
+        O sintoma que o revelou: `test_corpus_carrega_as_duas_obras` falhou com
+        "esperava >400 documentos, obtive 66". O teste apanhou o que o sistema
+        inteiro escondia.
+
+        Duas saídas más: (a) falhar sempre que não há livros — torna impossível
+        trabalhar sem eles, e há partes (benchmark do canon, testes de estado)
+        que não os precisam; (b) continuar em silêncio — foi o que aconteceu.
+
+        A escolha: continuar, mas **dizer**. O aviso fica em `corpus_info`
+        (portanto no relatório do benchmark e no `/api/estado`) e no log.
+        Quem mede tem de saber se mediu com livros ou sem eles.
+        """
         c = construir_tudo()
         self.corpus_info = {k: v for k, v in c.items() if k != "texto_treino"}
+        # Nota de ordem: o aviso tem de ser escrito DEPOIS de `corpus_info` ser
+        # substituído. A primeira versão escrevia-o antes e a atribuição
+        # apagava-o — um aviso que existia durante três linhas e ninguém podia
+        # ler. Foi o próprio teste que o apanhou, porque verifica o dicionário
+        # final e não um estado intermédio.
+        if not c.get("n_obras"):
+            aviso = ("nenhuma obra carregada: dados/obras/ está vazio ou ausente. "
+                     "A Kianda está a responder só com o canon e a documentação; "
+                     "qualquer pergunta que precise do texto dos livros vai falhar "
+                     "sem dizer que falhou.")
+            self.corpus_info["_por_carregar"] = [aviso]
+            if verbose:
+                print(f"[corpus] AVISO: {aviso}")
+            warnings.warn(aviso, RuntimeWarning, stacklevel=2)
         self._texto_treino = c["texto_treino"]
         info = self.recuperador.indexar(c["documentos"])
         self.corpus_info["indexacao"] = info
@@ -287,12 +327,22 @@ class Kianda:
             resposta.texto = self._alternativa_para(resposta.texto)
 
         # ---- 7. gravar
-        mid = self._registar_episodio(
-            texto, resposta.texto, per, "conversa",
-            valencia=_valencia(per), importancia=_importancia(per),
-        )
-        if memorias:
-            self.armazem.registar_acesso([m.id for m in memorias])
+        # `guardar` tem de governar TODA a escrita, não só o ficheiro de
+        # estado. Antes, `guardar=False` impedia `guardar_estado()` mas o
+        # episódio entrava na base de dados na mesma. Medido: três turnos com
+        # guardar=False deixavam três memórias novas, e o benchmark usava a
+        # mesma instância para o conjunto inteiro — cada pergunta podia
+        # recuperar os episódios das anteriores. A precisão do conjunto visto
+        # estava inflacionada por contaminação: 100% numa instância partilhada,
+        # 90% numa instância limpa por pergunta.
+        mid = ""
+        if guardar:
+            mid = self._registar_episodio(
+                texto, resposta.texto, per, "conversa",
+                valencia=_valencia(per), importancia=_importancia(per),
+            )
+            if memorias:
+                self.armazem.registar_acesso([m.id for m in memorias])
 
         turno = self._fechar(
             t0, texto, per, estado_antes, plano, orcamento, raciocinio, resposta,
@@ -465,12 +515,12 @@ class Kianda:
         evidencias = rac.evidencia if rac else []
         if evidencias:
             e = evidencias[0]
-            corpo = self._naturalizar_evidencia(e, per)
+            corpo = self._naturalizar_evidencia(e, per, pergunta=texto)
             if corpo:
                 partes.append(corpo)
             if len(evidencias) > 1 and plano.get("comprimento") == "longa":
                 e2 = evidencias[1]
-                extra = self._naturalizar_evidencia(e2, per, curto=True)
+                extra = self._naturalizar_evidencia(e2, per, curto=True, pergunta=texto)
                 if extra and extra not in partes[0]:
                     partes.append(f"E há também {e2.citacao()}: {extra}")
 
@@ -547,7 +597,8 @@ class Kianda:
             confianca=rac.confianca if rac else 0.5,
         )
 
-    def _naturalizar_evidencia(self, e: Evidencia, per: Percepcao, curto: bool = False) -> str:
+    def _naturalizar_evidencia(self, e: Evidencia, per: Percepcao,
+                              curto: bool = False, pergunta: str = "") -> str:
         """Transforma evidência recuperada em fala.
 
         Sem isto a Kianda cita a base de dados. Com isto, cita o livro — e
@@ -557,8 +608,40 @@ class Kianda:
         t = " ".join(e.texto.split())
         limite = 140 if curto else 260
         if len(t) > limite:
-            corte = t.rfind(". ", 0, limite)
-            t = t[: corte + 1] if corte > 80 else t[:limite].rstrip() + "…"
+            # DEFEITO CORRIGIDO: o corte a 260 caracteres apagava a resposta.
+            #
+            # O documento de memória tem 343 caracteres e a frase que responde
+            # a "o que acontece quando esqueceres algo" é a TERCEIRA — começa
+            # aos 262. A resposta saía correcta no conteúdo e vazia na
+            # pergunta: listava os cinco tipos e calava o esquecimento.
+            # Medido: 257 caracteres devolvidos, nenhum deles sobre esquecer.
+            #
+            # O limite não é arbitrário — uma resposta longa deixa de ser fala.
+            # Mas cortar por posição é cortar ao acaso relativamente à
+            # pergunta. A correcção: quando a evidência é uma frase composta,
+            # escolher primeiro a sentença que partilha vocabulário com o que
+            # foi perguntado, e só depois encolher.
+            # `pergunta` tem de ser um parâmetro explícito. A primeira versão
+            # desta correcção usou `locals().get("pergunta")` dentro de um
+            # método cujo parâmetro se chama `per` — devolvia sempre "" e a
+            # correcção nunca corria. Passava despercebido porque o texto
+            # continuava plausível.
+            perguntou = {stem_leve(x) for x in tokenizar(pergunta)}
+            frases = re.split(r"(?<=[.!?])\s+", t)
+            if len(frases) > 1 and perguntou:
+                ordem = sorted(
+                    range(len(frases)),
+                    key=lambda i: -len(perguntou & {stem_leve(x) for x in tokenizar(frases[i])}),
+                )
+                escolhidas = [frases[i] for i in ordem[:2]]
+                # manter a ordem original dentro das escolhidas
+                escolhidas.sort(key=frases.index)
+                candidata = " ".join(escolhidas)
+                if len(candidata) <= limite:
+                    t = candidata
+            if len(t) > limite:
+                corte = t.rfind(". ", 0, limite)
+                t = t[: corte + 1] if corte > 80 else t[:limite].rstrip() + "…"
         # limpar marcas técnicas que não se dizem em voz alta
         t = t.replace("[memória de origem] ", "").replace("[contestada] ", "")
         t = t.replace("[hipótese, confiança", "(não sei se isto é verdade — a minha confiança é")

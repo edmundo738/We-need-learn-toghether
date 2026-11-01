@@ -41,8 +41,35 @@ def test_ciclo_produz_turno_completo():
 
 
 def test_corpus_carrega_as_duas_obras():
+    """As obras têm de estar carregadas — ou o teste diz que não foram carregadas.
+
+    `dados/` está fora do Git. Num clone sem os livros este teste falhava com
+    "esperava >400 documentos, obtive 66", o que é *verdade* e ao mesmo tempo
+    inútil: não distingue "o corpus regrediu" de "o corpus nunca cá esteve".
+
+    Não o ponho a `skip`, porque um skip silencioso é a mesma família de bug —
+    um verde que não mediu nada. O teste passa a fazer duas perguntas
+    diferentes:
+
+    * sem obras, exige que o sistema o DIGA (o aviso em `corpus_info`);
+    * com obras, exige os números correctos.
+
+    Assim continua a falhar se o carregamento regredir com os ficheiros
+    presentes, e falha se o aviso desaparecer.
+    """
     k = _kianda()
+    n_obras = k.corpus_info.get("n_obras", 0)
     docs = k.corpus_info.get("indexacao", {}).get("documentos", 0)
+
+    if n_obras == 0:
+        avisos = " ".join(str(a) for a in (k.corpus_info.get("_por_carregar") or []))
+        assert "nenhuma obra" in avisos.lower(), (
+            "não há obras carregadas e o sistema não avisa ninguém: "
+            f"corpus_info={k.corpus_info}"
+        )
+        assert docs < 100, f"sem obras devia indexar poucos documentos, indexou {docs}"
+        return
+
     assert docs > 400, f"esperava >400 documentos, obtive {docs}"
     assert k.corpus_info.get("capitulos", {}).get("apenas_existo") == 30
     assert k.corpus_info.get("capitulos", {}).get("h99") == 8

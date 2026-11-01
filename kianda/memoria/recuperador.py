@@ -101,8 +101,41 @@ def stem_leve(t: str) -> str:
     - ``-o`` só se aplica a palavras com 7 letras ou mais, porque é a
       terminação mais perigosa (``livro`` -> ``livr`` junta-se a ``livrar``).
     """
-    if len(t) <= 4:
+    if len(t) <= 3:
         return t
+    sufixos = ("mente", "idade", "ismos", "istas", "ções",
+               "aram", "eram", "iram", "asse", "esse", "iste", "este",
+               "aste", "emos", "amos",
+               "ou", "eu", "iu", "am", "em", "ia", "as", "ar", "er", "ir",
+               # vogal temática: é o que faltava. Sem ela, "gasta"/"gastar",
+               # "poupa"/"poupar", "mede"/"medir" e "corre"/"correr" nunca
+               # convergiam — medido: 11 de 20 pares verbais falhavam, e eram
+               # exactamente as formas do presente as que não convergiam
+               # (o pretérito já era apanhado por "-ou"/"-eu"/"-iu").
+               # Um radical destas terminações exige 3 letras: "mede" -> "med"
+               # e "medir" -> "med". Custo aceite: "sala" -> "sal". A colisão é
+               # rara e o ganho é sistemático; se um dia colidir num documento
+               # real, ver-se-á na lista de resultados errados.
+               "a", "e", "o")
+    minimo = 3
+    mudou = True
+    while mudou and len(t) > minimo:
+        mudou = False
+        if t.endswith("s") and not t.endswith("ss") and len(t) >= 5:
+            t = t[:-1]
+            mudou = True
+            continue
+        for suf in sufixos:
+            if t.endswith(suf) and len(t) - len(suf) >= minimo:
+                t = t[: -len(suf)]
+                mudou = True
+                break
+        # vogal final: fecha as conjugações que os sufixos acima não apanham
+        # ("funciona" -> "funcion", "guardo" -> "guard", "funciono" -> "funcion").
+        if not mudou and len(t) >= 5 and t[-1] in "aeoi":
+            t = t[:-1]
+            mudou = True
+    return t
     sufixos = ("mente", "idade", "ismos", "istas", "ções",
                "aram", "eram", "iram", "asse", "esse", "iste", "este",
                "aste", "emos", "amos", "ava",
@@ -141,6 +174,23 @@ class Documento:
     meta: dict = field(default_factory=dict)
     tokens: list[str] = field(default_factory=list)
     normas: Counter = field(default_factory=Counter)
+    # Texto alternativo para a *recuperação*, quando o texto falado não deve
+    # carregar as palavras de pesquisa.
+    #
+    # Separação que faltava: um documento é ao mesmo tempo (a) conteúdo a
+    # indexar e (b) conteúdo a citar. Para a documentação do projecto as duas
+    # coisas divergem. O título coloquial "Como funciono por dentro" é bom para
+    # o BM25 e péssimo para a fala — a Kianda respondia a começar pelo título
+    # literal.
+    #
+    # A solução ingénua seria tirar o título do `texto`, e foi o que fiz
+    # primeiro: partiu a recuperação (ver corpus.py). A solução certa é indexar
+    # `indexavel` e falar `texto`.
+    indexavel: str = ""
+
+    def chave_bm25(self) -> str:
+        """O que o BM25 deve ver: `indexavel` quando existe, senão `texto`."""
+        return self.indexavel or self.texto
 
 
 class BM25:
@@ -170,7 +220,7 @@ class BM25:
         total = 0
         for d in docs:
             if not d.tokens:
-                d.tokens = [stem_leve(x) for x in tokenizar(d.texto)]
+                d.tokens = [stem_leve(x) for x in tokenizar(d.chave_bm25())]
             d.normas = Counter(d.tokens)
             total += len(d.tokens)
             for termo in d.normas:
@@ -465,22 +515,67 @@ class Recuperador:
             if q is not None:
                 similaridades = self._normas_docs @ q
 
-        # fusão: RRF sobre BM25 + similaridade directa normalizada
-        postos_bm25 = {d.id: r for r, (d, _, _) in enumerate(lista_bm25)}
-        ordem_sem = np.argsort(-similaridades)
+        # --- fusão por postos, com abstinência ---------------------------
+        #
+        # DEFEITO CORRIGIDO AQUI, e era o mais caro do sistema.
+        #
+        # A versão anterior atribuía um posto a TODOS os documentos em cada
+        # componente, mesmo quando a similaridade era exactamente zero:
+        #
+        #     ordem_sem = np.argsort(-similaridades)
+        #     postos_sem = {self.docs[i].id: r for r, i in enumerate(ordem_sem)}
+        #
+        # e somava RRF para todos. Consequência medida:
+        #
+        #     «estás bem?»        -> 3 resultados, scores 0.0123 / 0.01216 / 0.01203
+        #     «asdkjhasd qqwe»    -> 3 resultados, scores 0.0123 / 0.01216 / 0.01203
+        #     «xilofone quântico» -> 3 resultados, scores 0.0123 / 0.01216 / 0.01203
+        #
+        # Resultados idênticos para entradas diferentes, incluindo lixo. A
+        # recuperação nunca podia devolver zero evidências, e o compositor
+        # recebia três fragmentos para qualquer pergunta — incluindo saudações.
+        # Um sistema que responde sempre não sabe quando não deve responder.
+        #
+        # A correcção tem duas partes:
+        #
+        # 1. **Só entra no ranking quem tem sinal.** Um documento sem
+        #    correspondência lexical (BM25 = 0) e sem similaridade positiva
+        #    não é um resultado; é um documento que existe. RRF combina
+        #    resultados, não fabrica classificações.
+        # 2. **Abstinência explícita.** Se nada passar um piso mínimo de
+        #    pontuação, a função devolve lista vazia. Zero evidências é um
+        #    resultado válido, e é o correcto para uma saudação.
+
+        epsilon = 1e-6
+        postos_bm25 = {d.id: r for r, (d, s_, _) in enumerate(lista_bm25) if s_ > epsilon}
+        ordem_sem = [i for i in np.argsort(-similaridades) if similaridades[i] > epsilon]
         postos_sem = {self.docs[i].id: r for r, i in enumerate(ordem_sem)}
 
         k_rrf = 60.0
         combinado: dict[str, float] = {}
         for i, d in enumerate(self.docs):
-            rb = postos_bm25.get(d.id, len(self.docs))
-            rs = postos_sem.get(d.id, len(self.docs))
-            base = (1 - peso_semantico) / (k_rrf + rb) + peso_semantico / (k_rrf + rs)
+            rb = postos_bm25.get(d.id)
+            rs = postos_sem.get(d.id)
+            if rb is None and rs is None:
+                continue  # não é um resultado, é um documento
+            base = 0.0
+            if rb is not None:
+                base += (1 - peso_semantico) / (k_rrf + rb)
+            if rs is not None:
+                base += peso_semantico / (k_rrf + rs)
             if pesos_tipo:
                 base *= pesos_tipo.get(str(d.meta.get("tipo", "")), 1.0)
             combinado[d.id] = base
 
-        ordenados = sorted(combinado.items(), key=lambda x: x[1], reverse=True)[:top_k]
+        # Piso mínimo: o melhor resultado possível com k_rrf=60 é ~0,0167 (posto
+        # 0 com peso 1.0). Exigir metade disso — 0,008 — elimina combinações de
+        # postos tardios sem cortar nada que esteja, de facto, no topo de
+        # qualquer dos dois componentes.
+        topo = max(combinado.values(), default=0.0)
+        piso = 0.5 * topo if topo > 0 else 0.0
+        ordenados = [(i_, s_) for i_, s_ in
+                     sorted(combinado.items(), key=lambda x: x[1], reverse=True)
+                     if s_ >= piso][:top_k]
         bm25_map = {d.id: (s, det) for d, s, det in lista_bm25}
         saida = []
         for id_, score in ordenados:

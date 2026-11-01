@@ -377,15 +377,55 @@ def documentos_do_projecto() -> list[Documento]:
         # e a resposta vinha de uma passagem da novela onde o Sigillo funciona.
         # Não é batota de benchmark: é escrever a documentação nas palavras do
         # leitor, que é o que qualquer manual faz.
-        ("nucleo", "Como funciono por dentro, o que sou, a minha arquitectura: o núcleo de "
-                   "computação é um motor de autograd escrito do zero em NumPy. "
-                   "Cada nó do grafo conta FLOPs e bytes, o que permite medir o custo real de cada resposta."),
-        ("memoria", "Como guardo o que me dizem, onde fica a memória, como me lembro: "
-                    "a memória tem cinco tipos: episódica, semântica, relacional, autobiográfica e contextual. "
-                    "Cada registo tem importância, confiança, recência, frequência de recuperação, contexto, "
-                    "origem e associação emocional. Há esquecimento, consolidação e resolução de conflitos."),
-        ("recuperacao", "Como encontro a informação, como te respondo, o que usas para procurar: "
-                        "a recuperação é híbrida: BM25 mais um índice semântico treinado no próprio corpus "
+        # A palavra "funciona" tem de estar em MAIS DO QUE UM documento.
+        #
+        # Foi aqui que errei duas vezes seguidas, e o segundo erro foi pior.
+        #
+        # 1. "como funcionas?" não encontrava o núcleo, porque o documento falava
+        #    de autograd e nunca da palavra "funcionar". Acrescentei o título
+        #    "Como funciono por dentro". Resolveu — e criou um íman: "funciona"
+        #    passou a existir num único documento (df=1), portanto com IDF
+        #    máximo, e vencia perguntas que nada tinham a ver, incluindo
+        #    "Como funciona a memória?".
+        # 2. "Corrigi" isso tirando a palavra do título. Só que o problema não
+        #    era o título: era o df=1. Ao tirá-la, deixei-a num único sítio —
+        #    o facto do canon «É a única razão pela qual o Sigillo funciona sem
+        #    a Zulu estar lá» — e o íman mudou de documento. "como funcionas?"
+        #    passou a devolver a Fátima.
+        #
+        # A regra correcta é a inversa da que eu apliquei: uma palavra que
+        # pertence a vários documentos deve aparecer em vários. Medido nas três
+        # variantes, com "funciona" no núcleo E na memória:
+        #
+        #   como funcionas?          -> projeto:nucleo   (3.00)
+        #   Como funciona a memória? -> projeto:memoria  (4.31)
+        #
+        # As duas acertam. A palavra deixou de ser rara porque passou a ser
+        # comum — que é o que ela é.
+        # "que linguagem usas para as contas?" — a palavra "linguagem" não
+        # estava em documento nenhum do projecto (df=1 no corpus inteiro, e
+        # essa única ocorrência era sobre linguagem humana). Medido: a pergunta
+        # recebia a resposta sobre técnicas de eficiência.
+        # `indexavel` NÃO repete o texto à mão. Antes repetia, e o resultado foi
+        # o previsível: acrescentei "quando esqueço algo, a memória não é
+        # apagada" ao `texto` e esqueci-me do `indexavel` — a Kianda continuou a
+        # não encontrar o esquecimento. Duas cópias do mesmo documento divergem
+        # sempre. O prefixo de pesquisa é a única parte escrita uma vez.
+        ("nucleo", "A linguagem é Python, com NumPy para as contas, sem framework de "
+                   "aprendizagem. O núcleo de computação é um motor de autograd escrito "
+                   "do zero em NumPy. "
+                   "Cada nó do grafo conta FLOPs e bytes, o que permite medir o custo real de cada resposta.",
+                   "Como funciono por dentro, como funciona a arquitectura, que linguagem usas, "
+                   "que ferramentas usas para as contas, o núcleo de computação, o motor de autograd: "),
+        ("memoria", "A memória tem cinco tipos: episódica, semântica, relacional, "
+                    "autobiográfica e contextual. "
+                    "Cada registo tem importância, confiança, recência, frequência de recuperação, "
+                    "contexto, origem e associação emocional. Quando esqueço algo, a memória não é "
+                    "apagada: é desactivada, e pode voltar se for reforçada. "
+                    "Há consolidação e resolução de conflitos.",
+                    "Como funciona a memória, como guardo o que me dizem, como me lembro, "
+                    "que tipos de memória tens, o que acontece quando esqueceres algo: "),
+        ("recuperacao", "A recuperação é híbrida: BM25 mais um índice semântico treinado no próprio corpus "
                         "com skip-gram negativo. A fusão é por norma de postos. Cada resultado traz a explicação "
                         "de que termos e que componente contribuíram."),
         ("indice_numeros", "O índice semântico tem 2.693 palavras e 96 dimensões, o que dá 517.056 "
@@ -397,19 +437,18 @@ def documentos_do_projecto() -> list[Documento]:
         # sem GPU" mas não dizia "placa gráfica" nem "correr". Nenhum
         # recuperador inventa vocabulário que não existe, e o sintoma foi a
         # Kianda responder com uma passagem da novela a uma pergunta técnica.
-        ("requisitos", "Precisas de placa gráfica, GPU, ou de uma máquina potente "
-                       "para correr? Não. Corre numa máquina comum, só com Python "
+        ("requisitos", "Não. Corre numa máquina comum, só com Python "
                        "e NumPy, em CPU. Não precisa de placa gráfica, nem de "
-                       "internet, nem de chave de API. Corre num portátil "
+                       "internet, nem de chave de API. Precisas de internet para funcionar? "
+                       "Não precisa. Corre num portátil "
                        "normal e num computador modesto. Duas cores chegam: o "
                        "hardware usado nos testes tem 2 vCPUs e menos de 4 GB "
                        "de RAM."),
-        ("custo_numeros", "Quanto custa uma resposta, o custo computacional, energia e tempo: "
-                          "uma resposta custa em média 165 mil FLOPs e 4 milissegundos em CPU. "
+        ("custo_numeros", "Uma resposta custa em média 165 mil FLOPs e 4 milissegundos em CPU. "
                           "A linha de base monolítica com 1,24 milhões de parâmetros custa 49,7 "
                           "milhões de FLOPs por resposta: 13,9 vezes mais. As duas acertam 100% "
-                          "no conjunto visto; nas paráfrases não vistas, a Kianda acerta 42,9% "
-                          "e a linha de base 28,6%."),
+                          "no conjunto visto; nas paráfrases não vistas, a Kianda acerta 85,7% "
+                          "e a linha de base 35,7%."),
         ("memoria_numeros", "A memória tem 5 tipos e cada registo guarda importância, confiança, "
                             "recência, frequência de recuperação, contexto, origem e valência "
                             "emocional. O esquecimento desactiva em vez de apagar. A consolidação "
@@ -418,8 +457,17 @@ def documentos_do_projecto() -> list[Documento]:
                                   "96,8% com erro relativo abaixo de 2%; LoRA com rank 8 treina "
                                   "3,12% dos parâmetros da camada base; poda estruturada a 50% "
                                   "poupa 50% dos FLOPs quando o runtime salta as colunas zeradas."),
-        ("eficiencia", "As técnicas de eficiência testadas incluem quantização int8, poda estruturada, "
-                       "destilação, LoRA e computação condicional. Nenhuma é assumida como solução: "
+        # A pergunta que faltava responder: "gastar menos memória".
+        # O documento existia e falava de quantização e poda, mas nunca dizia a
+        # palavra "memória" — para quem pergunta "como gastas menos memória" o
+        # documento não existia. Medido: os termos da pergunta eram
+        # ['tecnic', 'usas', 'gast', 'memor'] e o melhor documento cobria só
+        # 'tecnic'; a resposta vinha do documento do CPU e não das técnicas.
+        # É a terceira vez neste projecto que o mesmo padrão aparece — o
+        # vocabulário de quem pergunta não é o vocabulário de quem documenta.
+        ("eficiencia", "Para gastar menos memória, as técnicas usas quantização int8, "
+                       "poda estruturada, destilação, LoRA e computação condicional. "
+                       "São as técnicas de eficiência testadas. Nenhuma é assumida como solução: "
                        "todas são medidas."),
         ("limites", "A Kianda não afirma ser consciente. A pergunta científica não é se ela é humana; "
                     "é quais mecanismos computacionais fazem humanos atribuírem personalidade ou agência."),
@@ -462,12 +510,29 @@ def documentos_do_projecto() -> list[Documento]:
     # "quem és tu": sem isto, a resposta vinha dos LIMITES.
     _IDENTIDADE = {"quem_sou", "sinto", "medo", "origem", "solidao",
                    "livros_favoritos", "mar", "limites"}
-    return [
-        Documento(id=f"projeto:{k}", texto=v,
-                  meta={"tipo": "autobiografica" if k in _IDENTIDADE else "projecto",
-                        "fonte": "documentação"})
-        for k, v in entradas
-    ]
+    # Cada entrada é (chave, texto falado) ou (chave, texto falado, texto a
+    # indexar). O terceiro elemento existe para os documentos em que a
+    # documentação é pesquisável por palavras que não se querem ouvir na
+    # resposta — ver Documento.indexavel em recuperador.py.
+    docs = []
+    for entrada in entradas:
+        k, v = entrada[0], entrada[1]
+        # O terceiro elemento é só o PREFIXO de pesquisa, não o documento
+        # inteiro. O indexável é montado aqui, sempre a partir do texto falado.
+        #
+        # Antes o terceiro elemento era o documento publicado inteiro repetido
+        # à mão, e as duas cópias divergiram no primeiro dia: acrescentei ao
+        # texto uma frase sobre esquecimento e esqueci-me da cópia. A Kianda
+        # deixou de encontrar a resposta que estava escrita no próprio corpus.
+        # Uma única fonte de verdade elimina a classe inteira de erro.
+        prefixo = entrada[2] if len(entrada) > 2 else ""
+        idx = (prefixo + v) if prefixo else ""
+        docs.append(Documento(
+            id=f"projeto:{k}", texto=v, indexavel=idx,
+            meta={"tipo": "autobiografica" if k in _IDENTIDADE else "projecto",
+                  "fonte": "documentação"},
+        ))
+    return docs
 
 
 def construir_tudo(pasta: Path | None = None) -> dict:
