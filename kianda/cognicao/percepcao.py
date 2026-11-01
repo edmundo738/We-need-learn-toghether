@@ -112,6 +112,19 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
         "o que é o orçamento computacional",
         "quanto tempo demoras a responder",
         "tens gpu",
+        # Perguntas sobre o próprio funcionamento são técnicas, não literárias.
+        # "como funcionas?" não tem nenhum termo da lista antiga e caía em
+        # pergunta_livro a 0,38, o que fazia o raciocínio recuperar com o prior
+        # de obras e devolver uma passagem da novela do Jorge.
+        "como funcionas",
+        "como é que funcionas",
+        "explica como funcionas",
+        "como funciona o sistema",
+        "como funciona por dentro",
+        "explica a tua arquitectura",
+        "como estás construída",
+        "o que te compõe",
+        "como é que tu funcionas",
         "que técnicas de eficiência foram testadas",
         "que técnicas de eficiência usas",
         "que técnicas foram testadas",

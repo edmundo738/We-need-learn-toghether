@@ -59,8 +59,13 @@ confirmar que ambos os sistemas conseguem, em princípio, responder.
 14 perguntas com as mesmas entidades e formulações diferentes. Nenhum
 sistema as viu.
 
-**Resultado: Kianda 78,6 %, baseline 28,6 %.** É aqui que se mede capacidade.
+**Resultado: Kianda 78,6 %, baseline 35,7 %.** É aqui que se mede capacidade.
 
+> **A baseline também subiu.** Estava em 28,6 %; depois da correcção do
+> stemmer passou a 35,7 %, porque usa o mesmo índice. A margem real é 42,9
+> pontos percentuais. Guardar o valor antigo teria dado uma comparação mais
+> favorável e falsa.
+>
 > **Nota de honestidade sobre este número.** A primeira medição deu 42,9 %.
 > Depois de usar o conjunto de paráfrases como instrumento de diagnóstico
 > (e não só de avaliação), corrigiram-se sete defeitos de linguagem — chaves

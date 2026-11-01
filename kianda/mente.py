@@ -482,7 +482,14 @@ class Kianda:
         # com a relação. Devolver "já leste até ao fim?" muda de assunto e faz
         # a resposta parecer um clube de leitura em vez de um sistema que sabe
         # quem são as pessoas.
+        # A pergunta de volta tem de pertencer ao registo da resposta. "Qual
+        # dos dois te deixou pior?" é apropriada depois de falar de um livro e
+        # absurda depois de explicar o núcleo de autograd. O banco já tem uma
+        # entrada por intenção; o que faltava era não a usar quando a resposta
+        # veio de outra.
         relacao = bool(per.entidades.get("foco_relacao"))
+        if per.intencao == "pergunta_livro" and not _pergunta_sobre_obra(evidencias):
+            relacao = True
         if plano.get("devolve_pergunta") and not relacao \
                 and self.rng.random() < self.personalidade.curiosidade_social:
             partes.append(self._pergunta_de_volta(per))

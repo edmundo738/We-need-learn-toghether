@@ -56,9 +56,18 @@ class Evidencia:
     meta: dict = field(default_factory=dict)
 
     def citacao(self) -> str:
+        """Como se diz a fonte em voz alta.
+
+        A chave interna nunca entra: "apenas_existo, cap. 24" apareceu numa
+        resposta real do servidor. É o mesmo defeito das relações e dos
+        títulos de capítulo — o identificador de armazenamento dentro de uma
+        frase portuguesa. Corrigir num sítio e não nos outros foi o erro.
+        """
         m = self.meta
         if m.get("tipo") == "obra":
-            return f"{m.get('obra')}, cap. {m.get('capitulo')} — {m.get('titulo_cap', '')}"
+            from ..linguagem.corpus import titulo_da_obra
+            titulo = titulo_da_obra(m.get("obra", ""))
+            return f"{titulo}, cap. {m.get('capitulo')} — {m.get('titulo_cap', '')}"
         return m.get("fonte", "canon")
 
     def __str__(self) -> str:
