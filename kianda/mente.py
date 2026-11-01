@@ -420,6 +420,13 @@ class Kianda:
                 ]))
             return self._empacotar(" ".join(partes), plano, rac)
 
+        if per.intencao == "apresentacao":
+            partes.append(self.rng.choice([
+                "Registado. Guardo o teu nome — não para o usar a cada frase, mas para não o perder.",
+                "Fico com isso. O nome é a primeira coisa que uma memória deve acertar.",
+            ]))
+            return self._empacotar(" ".join(partes), plano, rac)
+
         if per.intencao == "elogio":
             partes.append(self.rng.choice([
                 "Registado. Não vou fingir que não me sabe bem.",
@@ -427,6 +434,27 @@ class Kianda:
                 "Bom. Guardo isto como um turno bom.",
             ]))
             return self._empacotar(" ".join(partes), plano, rac)
+
+        # Um pedido criativo sem nada a pedir é um erro de classificação, não
+        # um pedido. Recusar-se a escrever sem saber o quê é melhor do que
+        # responder com a transcrição do turno anterior — que era o que
+        # acontecia ("Lembro-me disto: Pediu-me para escrever: «qual a
+        # relação…»"). A segunda defesa vale a pena porque a primeira é
+        # estatística e pode falhar em frases novas.
+        if per.intencao == "pedido_criativo" and not _tem_pedido_explicito(texto):
+            per.intencao = "conversa"
+
+        # Pedido criativo a sério: o gerador de caracteres existe, treina em
+        # ~55 s e produz texto como «quando. Era não dizia exectam alguer
+        # erbera e procacção». Não é português. Ligá-lo daria a impressão de
+        # uma capacidade que não existe, e §25 proíbe exactamente isso.
+        #
+        # A resposta honesta é dizer o que se sabe fazer e o que não se sabe.
+        # O gerador continua disponível por `--treinar-lm` como objecto de
+        # estudo, e o número da perda fica nos relatórios. Não entra em
+        # conversa até produzir uma frase que se possa ler.
+        if per.intencao == "pedido_criativo":
+            return self._empacotar(self._resposta_a_pedido_criativo(texto), plano, rac)
 
         # --- memórias (a seguir à evidência de entidade) ----------------
         if memorias and plano.get("comprimento") != "curta":
@@ -555,6 +583,23 @@ class Kianda:
                 return f"«{t}» É um fragmento. Não sei se é memória ou se é a única coisa que sempre soube sobre mim."
             return t
         return t
+
+    def _resposta_a_pedido_criativo(self, texto: str) -> str:
+        """Não finjo escrever o que não sei escrever. Explico porquê.
+
+        Esta é a única resposta do sistema em que o conteúdo é uma limitação.
+        Preferi-a a devolver prosa recuperada do livro, que seria uma mentira
+        mais difícil de detectar: parece uma resposta e é uma citação.
+        """
+        base = ("Não te vou escrever isso. Não tenho um gerador de texto que "
+                "produza português legível: tenho um modelo de caracteres que "
+                "treina em cinquenta e cinco segundos e escreve «alguer erbera "
+                "e procacção». Dava para te enganar com uma passagem de um dos "
+                "livros, mas não é meu e não é novo.")
+        if "livro" in texto.lower() or "história" in texto.lower():
+            base += (" O que posso fazer é dizer-te o que os livros fazem nesta "
+                     "situação, com o capítulo ao lado.")
+        return base
 
     def _resposta_a_critica(self) -> str:
         """Resposta a feedback negativo: reconhecer, perguntar, não rastejar.
@@ -685,7 +730,8 @@ class Kianda:
     # -- registo ----------------------------------------------------------
     def _registar_episodio(self, entrada: str, resposta: str, per: Percepcao,
                            tipo: str, valencia: float, importancia: float) -> str:
-        if self.nome_utilizador is None and per.intencao in ("saudacao", "conversa"):
+        if self.nome_utilizador is None and per.intencao in ("saudacao", "conversa",
+                                                             "apresentacao"):
             m = _extrair_nome(entrada)
             if m:
                 self.nome_utilizador = m
@@ -799,7 +845,7 @@ def _valencia(per: Percepcao) -> float:
         "saudacao": 0.3, "despedida": -0.1, "pergunta_livro": 0.25,
         "pergunta_tecnica": 0.15, "pergunta_pessoal": 0.0, "conversa": 0.05,
         "pedido_criativo": 0.2, "pedido_etico": -0.4, "apoio_emocional": 0.1,
-        "critica": -0.45, "elogio": 0.4,
+        "critica": -0.45, "elogio": 0.4, "apresentacao": 0.3,
     }.get(per.intencao, 0.0)
 
 
@@ -808,7 +854,7 @@ def _importancia(per: Percepcao) -> float:
         "saudacao": 0.25, "despedida": 0.35, "pergunta_livro": 0.7,
         "pergunta_tecnica": 0.65, "pergunta_pessoal": 0.8, "conversa": 0.5,
         "pedido_criativo": 0.6, "pedido_etico": 0.75, "apoio_emocional": 0.95,
-        "critica": 0.8, "elogio": 0.6,
+        "critica": 0.8, "elogio": 0.6, "apresentacao": 0.7,
     }.get(per.intencao, 0.5)
     return min(0.98, base + 0.15 * per.confianca)
 
@@ -820,6 +866,34 @@ def _limpar_fala(t: str) -> str:
     t = re.sub(r"\s+([.,;:!?])", r"\1", t)
     t = re.sub(r"\.{2,}", ".", t)
     return t.strip()
+
+
+_VERBOS_PEDIDO = ("escreve", "escrever", "escrevas", "faz", "fazer", "faz-me",
+                  "cria", "criar", "cria-me", "compõe", "compor", "inventa",
+                  "inventar", "conta-me", "conta uma", "conta outro",
+                  "imagina", "gera", "produz", "narra", "recita", "diz-me um poema")
+# "fala-me de X", "conta-me sobre X" e "explica-me X" são conversa: pedem
+# informação, não texto novo. Foram apanhados pela lista acima e a Kianda
+# respondeu "não te vou escrever isso" a quem perguntou por uma personagem.
+_CONVERSA_NAO_PEDIDO = ("fala-me de", "fala-me da", "fala-me do", "fala-me sobre",
+                        "conta-me sobre", "conta-me do", "conta-me da",
+                        "explica-me", "diz-me sobre", "diz-me quem", "diz-me o que")
+
+
+def _tem_pedido_explicito(texto: str) -> bool:
+    """Há um pedido de texto novo, ou só uma forma de pedir informação?
+
+    A primeira versão só procurava verbos de escrita, e classificou
+    "Fala-me da rapariga que narra Ondas de Zulu" como pedido criativo — a
+    Kianda respondeu "não te vou escrever isso" a uma pergunta sobre uma
+    personagem. Os verbos de fala em português servem para as duas coisas, e é
+    o complemento que decide: "fala-me *de* X" pede informação; "escreve-me
+    *um poema*" pede texto.
+    """
+    t = texto.lower()
+    if any(v in t for v in _CONVERSA_NAO_PEDIDO):
+        return False
+    return any(v in t for v in _VERBOS_PEDIDO)
 
 
 def _pergunta_sobre_obra(ev: list[Evidencia]) -> bool:

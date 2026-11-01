@@ -40,6 +40,7 @@ from ..memoria.recuperador import normalizar, stem_leve, tokenizar
 
 INTENCOES = (
     "saudacao",        # olá, estás?
+    "apresentacao",    # "chamo-me X" — não é uma pergunta
     "critica",         # "isso está mal" — feedback negativo, não pergunta
     "elogio",          # feedback positivo
     "pergunta_livro",  # sobre APENAS EXISTO / H99 / personagens
@@ -64,6 +65,20 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
         "boas", "ei", "acordaste", "estás a ouvir",
     ),
     "pergunta_livro": (
+        # Perguntas de relação são sobre as obras: as pessoas são personagens.
+        # Sem estes exemplos, "qual a relação entre a zuleika e a mae_zulu?"
+        # era classificada pedido_criativo (0,24) — e a Kianda respondia com o
+        # pedido de escrita de um turno anterior lido em voz alta como se fosse
+        # memória dela. O sintoma mais grave do projecto até agora, e o mais
+        # barato de corrigir.
+        "qual a relação entre",
+        "que relação há entre",
+        "o que liga",
+        "o que existe entre",
+        "a relação entre a zuleika e a",
+        "são pai e filho",
+        "quem é o pai de",
+        "quem é a mãe de",
         "quem construiu o sigillo",
         "quem criou a privatus",
         "o que é que o sigillo faz",
@@ -136,6 +151,20 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
         "como tornas o modelo mais pequeno",
     ),
     "pergunta_livro": (
+        # Perguntas de relação são sobre as obras: as pessoas são personagens.
+        # Sem estes exemplos, "qual a relação entre a zuleika e a mae_zulu?"
+        # era classificada pedido_criativo (0,24) — e a Kianda respondia com o
+        # pedido de escrita de um turno anterior lido em voz alta como se fosse
+        # memória dela. O sintoma mais grave do projecto até agora, e o mais
+        # barato de corrigir.
+        "qual a relação entre",
+        "que relação há entre",
+        "o que liga",
+        "o que existe entre",
+        "a relação entre a zuleika e a",
+        "são pai e filho",
+        "quem é o pai de",
+        "quem é a mãe de",
         "quem construiu o sigillo",
         "quem criou a privatus",
         "o que é que o sigillo faz",
@@ -232,6 +261,15 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
         "gostei muito", "boa resposta", "isso foi bom", "estás a ir bem",
         "muito bom", "interessante", "gostei disto", "obrigado, ajudou",
         "isso faz sentido", "estás a melhorar", "boa", "excelente",
+    ),
+    # Apresentar-se não é saudar nem perguntar. Sem esta classe, "chamo-me
+    # Edmundo" caía em pergunta_livro (o apelido "Edmundo" é do autor) e o
+    # sistema respondia com um capítulo do livro a alguém que estava a dizer
+    # o nome. A memória do nome do utilizador deixou de ser aprendida — um
+    # teste antigo detectou-o, e a causa era esta classificação em falta.
+    "apresentacao": (
+        "chamo-me", "o meu nome é", "meu nome e", "podes chamar-me",
+        "sou o edmundo", "sou a ana", "eu chamo-me", "o meu nome",
     ),
     "despedida": (
         "adeus", "até amanhã", "tenho de ir", "fico por aqui",
@@ -429,6 +467,13 @@ class Perceptor:
                             "edmilson", "celestino", "lara", "domingos", "kalumba"}
         _tem_obra = (bool(_entidades_obras & set(ent["pessoas"]))
                      or bool(ent["obras"]) or bool(ent.get("dominio")))
+        # Uma pergunta que resolve para duas pessoas ligadas por uma relação do
+        # canon é uma pergunta de relação — não um pedido de escrita, nem uma
+        # saudação. Esta regra é estrutural e não estatística: o canon sabe que
+        # a Zuleika e a Mãe são mãe e filha, e nenhum classificador de palavras
+        # sabe isso.
+        if len(ent["pessoas"]) >= 2 and ent["relacoes"]:
+            intencao, confianca = "pergunta_livro", max(confianca, 0.80)
         if "kianda" in ent["pessoas"] and not _tem_obra and intencao not in ("apoio_emocional", "pedido_etico"):
             if intencao in ("saudacao", "conversa", "pergunta_livro") and confianca < 0.55:
                 intencao, confianca = "pergunta_pessoal", max(confianca, 0.62)
@@ -463,7 +508,7 @@ class Perceptor:
         )
         if intencao in ("pedido_criativo", "pergunta_tecnica"):
             dificuldade += 0.12
-        if intencao in ("saudacao", "despedida", "critica", "elogio"):
+        if intencao in ("saudacao", "despedida", "critica", "elogio", "apresentacao"):
             dificuldade *= 0.30
         if intencao == "apoio_emocional":
             dificuldade = max(dificuldade, 0.55)

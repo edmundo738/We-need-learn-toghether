@@ -392,6 +392,18 @@ def documentos_do_projecto() -> list[Documento]:
                            "parâmetros — cerca de 2 MB em float32. Treina em 12 segundos no corpus "
                            "completo, com a perda a descer de 1,377 para 1,137. Comparar com um modelo "
                            "de linguagem de mil milhões de parâmetros: o índice custa 0,05% da memória."),
+        # Perguntas de quem chega ("preciso de GPU?", "corre no meu portátil?")
+        # não tinham resposta em documento nenhum: o corpus dizia "corre em CPU
+        # sem GPU" mas não dizia "placa gráfica" nem "correr". Nenhum
+        # recuperador inventa vocabulário que não existe, e o sintoma foi a
+        # Kianda responder com uma passagem da novela a uma pergunta técnica.
+        ("requisitos", "Precisas de placa gráfica, GPU, ou de uma máquina potente "
+                       "para correr? Não. Corre numa máquina comum, só com Python "
+                       "e NumPy, em CPU. Não precisa de placa gráfica, nem de "
+                       "internet, nem de chave de API. Corre num portátil "
+                       "normal e num computador modesto. Duas cores chegam: o "
+                       "hardware usado nos testes tem 2 vCPUs e menos de 4 GB "
+                       "de RAM."),
         ("custo_numeros", "Quanto custa uma resposta, o custo computacional, energia e tempo: "
                           "uma resposta custa em média 165 mil FLOPs e 4 milissegundos em CPU. "
                           "A linha de base monolítica com 1,24 milhões de parâmetros custa 49,7 "

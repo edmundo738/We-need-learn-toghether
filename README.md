@@ -42,21 +42,20 @@ Todos os números abaixo vêm de execuções reais neste repositório.
 
 | sistema | exactidão (visto) | exactidão (paráfrases) | MFLOP/resposta | MB de pesos |
 |---|---|---|---|---|
-| **Kianda** (modular + memória externa) | 100 % | **78,6 %** | **3,61** | **0,90** |
+| **Kianda** (modular + memória externa) | 100 % | **85,7 %** | **3,62** | **0,90** |
 | Baseline monolítica (1,24 M parâmetros) | 100 % | 35,7 % | 49,74 | 4,97 |
 | | | | **13,9× mais caro** | **4,8× maior** |
 
 A leitura honesta: **no conjunto visto, os dois empatam.** É por isso que o
 conjunto visto não serve para nada — a baseline foi treinada nele e decora-o
 (perda final 0.0000). O que distingue os sistemas é o **segundo conjunto**:
-paráfrases que nenhum dos dois viu. Aí a Kianda acerta 78,6 % contra 35,7 %
+paráfrases que nenhum dos dois viu. Aí a Kianda acerta 85,7 % contra 35,7 %
 — e gasta 1/13 dos FLOPs.
 
 > A baseline estava em 28,6 % antes de o stemmer ser corrigido. A mesma
 > correcção que ajudou a Kianda ajudou-a a ela, porque ambas recuperam do mesmo
-> índice. Foi por isso que a comparação foi refeita em vez de se guardar o
-> número antigo, que era mais favorável. A margem real é 78,6 − 35,7 = 42,9
-> pontos, não 50.
+> índice. A comparação foi refeita em vez de se guardar o número antigo, que
+> era mais favorável à Kianda. A margem é 50 pontos percentuais.
 
 ### Ablações — o que realmente contribui
 
@@ -226,6 +225,9 @@ experimentos encontraram — todos com sintoma enganador e causa pequena:
 
 | sintoma | causa | efeito |
 |---|---|---|
+| «Não te vou escrever isso» a quem pediu uma personagem | `fala-me de X` apanhado pela lista de verbos de escrita | 1 pergunta em 14 |
+| «chamo-me Edmundo» respondido com um capítulo | o apelido do autor vencia; faltava a intenção `apresentacao` | o nome do utilizador deixou de ser aprendido |
+| «preciso de placa gráfica?» → passagem da novela | a palavra não existia em documento nenhum | nenhum recuperador inventa vocabulário ausente |
 | respostas a começar a meio de palavras | janelas de 700 chars cortadas à força | 41 % das recuperações ilegíveis |
 | «Bom dia» a uma pergunta sobre a mãe da Zuleika | `mae_zulu` sobrevivia ao tokenizador (3 tokens = saudação) | 1 pergunta em 14 |
 | «no apenas_existo, capítulo 16» | chave interna dita em voz alta | visível só quando lido |
