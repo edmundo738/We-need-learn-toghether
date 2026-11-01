@@ -176,7 +176,7 @@ não por sorte.
 | 1. Não alterar o sistema principal | `git status` limpo em `kianda/` | ✅ |
 | 2. Testes de codificação/descodificação | round-trip em corpus inteiro, linha a linha, e 10 500 strings aleatórias (fuzz) | ✅ |
 | 3. Acentos, pontuação, especiais | 38 casos explícitos + fuzz de code points Unicode arbitrários (plano astral incluído) | ✅ |
-| 4. Guardar vocabulário e metadados | `vocabulario.json` + `vocabulario.txt` legível + `relatorio.json` | ✅ |
+| 4. Guardar vocabulário e metadados | `nucleo/tokenizador/vocabulario/` — json + txt legível + relatório, **versionados** | ✅ |
 | 5. Proveniência e licença | `metadados` + nota no artefacto — **licença pendente de decisão sua** | ⚠️ |
 | 6. Texto fora do treino | `nucleo/dados/validacao_tokenizador.txt`, escrito à mão, nunca dado a `treinar()` — o script aborta se o hold-out estiver dentro do corpus | ✅ |
 
@@ -275,7 +275,7 @@ porque construir um avaliador antes do gerador é construir uma balança sem nad
 nucleo/
 ├── tokenizador/
 │   ├── bpe.py                      # 260 linhas, stdlib apenas
-│   └── artefactos/
+│   └── vocabulario/
 │       ├── vocabulario.json        # 91 KB — o artefacto auditável
 │       ├── vocabulario.txt         # legível, para inspecção humana
 │       └── relatorio.json          # métricas treino vs hold-out
@@ -309,6 +309,18 @@ $ git status --porcelain kianda/
 - Não instalei corpus novo: aguarda aprovação do §5.
 - Não afirmo que o gerador actual «aprende linguagem». Aprende ortografia; a validação diz
   exactamente isso com números.
+
+### Nota: um artefacto que quase não chegou ao repositório
+
+A pasta de saída chamava-se `artefactos/`, e o `.gitignore` do projecto já tinha uma
+regra `artefactos/` (destinada aos artefactos de treino locais). O vocabulário treinado
+foi escrito, foi usado nos testes, e **não estava a ser versionado** — enquanto este
+relatório o declarava entregue. Detectado na verificação pré-PR, não por um teste.
+
+Corrigido: a saída passou a `nucleo/tokenizador/vocabulario/`, que é versionada. E fica
+a lição — um artefacto que se declara tem de ser verificado com `git ls-files`, não com
+`ls`. É o mesmo tipo de erro que o defeito do fallback silencioso: a ausência não faz
+barulho.
 
 ### Pendências que dependem de si
 

@@ -1,0 +1,31 @@
+{
+  "treino": {
+    "caracteres": 254637,
+    "bytes": 264206,
+    "tokens": 56479,
+    "palavras": 46172,
+    "tokens_por_palavra": 1.223,
+    "tokens_por_byte": 0.2138,
+    "cobertura_palavra_inteira": 0.4157
+  },
+  "holdout": {
+    "caracteres": 1650,
+    "bytes": 1738,
+    "tokens": 551,
+    "palavras": 296,
+    "tokens_por_palavra": 1.861,
+    "tokens_por_byte": 0.317,
+    "cobertura_palavra_inteira": 0.3243
+  },
+  "penalizacao_holdout_tokens_por_palavra": 0.638,
+  "meta_treino": {
+    "vocab_alvo": 4096,
+    "vocab_final": 4096,
+    "fusoes": 3840,
+    "caracteres_corpus": 254637,
+    "bytes_corpus": 264206
+  },
+  "tempo_treino_s": 92.7,
+  "ficheiro_vocabulario": "nucleo/tokenizador/vocabulario/vocabulario.json",
+  "aviso_metodologico": "tokens/palavra depende do domínio; o número só é interpretável comparado com outro tokenizador no mesmo texto"
+}
