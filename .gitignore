@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Artefactos de treino e dados gerados localmente
+dados/
+artefactos/
+*.npz
+*.npy
+*.db
+*.db-wal
+*.db-shm
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
