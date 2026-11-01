@@ -349,7 +349,19 @@ class Kianda:
             # em turnos anteriores é ruído: a resposta está no corpus.
             if intencao in ("pergunta_livro", "pergunta_tecnica") and m.tipo == "episodica":
                 continue
-            minimo = 0.18 if intencao in ("pergunta_livro", "pergunta_tecnica") else 0.10
+            # Episódios que são apenas o registo de turnos anteriores ("o
+            # utilizador perguntou X") não são conhecimento: são transcrição.
+            # Contá-los como memória produz "Lembro-me disto: Perguntou-me algo
+            # pessoal: «O que é a Privatus?»" como resposta a uma pergunta
+            # diferente. Medido: apareceu em 3 de 14 perguntas de
+            # generalização. Episódios de conversa exigem agora uma sobreposição
+            # muito maior para entrarem.
+            if m.tipo == "episodica" and m.conteudo.startswith(("Perguntou", "Contou",
+                                                               "Quis saber", "Disse-me",
+                                                               "Pediu", "Cumprimentou")):
+                minimo = 0.55
+            else:
+                minimo = 0.18 if intencao in ("pergunta_livro", "pergunta_tecnica") else 0.10
             if sobrep < minimo:
                 # irrelevante: a força não compensa a falta de relação com a
                 # pergunta. Sem este corte, memórias antigas e fortes dominam
@@ -445,7 +457,14 @@ class Kianda:
         if nota_estado and plano.get("comprimento") != "curta":
             partes.insert(0, nota_estado)
 
-        if per.intencao in ("pergunta_livro", "conversa") and len(evidencias) >= 2:
+        # A opinião só entra quando a pergunta é sobre a obra em si. A condição
+        # anterior era "a evidência tem campo obra" — e *todas* as fichas de
+        # personagem o têm. Resultado medido: "que relação há entre a Zuleika e
+        # a mãe?" respondia a relação seguida do parágrafo de opinião sobre o
+        # livro, que não tinha sido perguntado. A opinião é boa; aparecia no
+        # sítio errado.
+        if per.intencao in ("pergunta_livro", "conversa") and len(evidencias) >= 2 \
+                and _pergunta_sobre_obra(evidencias):
             opiniao = self._opiniao(per, evidencias)
             if opiniao:
                 partes.append(opiniao)
@@ -459,7 +478,13 @@ class Kianda:
             ]))
 
         # --- pergunta de volta ------------------------------------------
-        if plano.get("devolve_pergunta") and self.rng.random() < self.personalidade.curiosidade_social:
+        # Uma pergunta de relação ("que relação há entre X e Y?") é respondida
+        # com a relação. Devolver "já leste até ao fim?" muda de assunto e faz
+        # a resposta parecer um clube de leitura em vez de um sistema que sabe
+        # quem são as pessoas.
+        relacao = bool(per.entidades.get("foco_relacao"))
+        if plano.get("devolve_pergunta") and not relacao \
+                and self.rng.random() < self.personalidade.curiosidade_social:
             partes.append(self._pergunta_de_volta(per))
 
         if not partes:
@@ -507,7 +532,11 @@ class Kianda:
         meta = e.meta
         if meta.get("tipo") == "obra":
             if per.intencao == "pergunta_livro":
-                return f"No {meta.get('obra')}, capítulo {meta.get('capitulo')} " \
+                # Título, não chave. `meta['obra']` é 'apenas_existo' e chegou
+                # a ser dito em voz alta: "No apenas_existo, capítulo 16…".
+                from .linguagem.corpus import titulo_da_obra
+                titulo = titulo_da_obra(meta.get("obra", ""))
+                return f"No {titulo}, capítulo {meta.get('capitulo')} " \
                        f"({meta.get('titulo_cap', '')}): «{t}»"
             return f"«{t}» — {e.citacao()}"
         if meta.get("tipo") == "autobiografica":
@@ -776,6 +805,29 @@ def _limpar_fala(t: str) -> str:
     t = re.sub(r"\s+([.,;:!?])", r"\1", t)
     t = re.sub(r"\.{2,}", ".", t)
     return t.strip()
+
+
+def _pergunta_sobre_obra(ev: list[Evidencia]) -> bool:
+    """A pergunta é *sobre a obra* ou apenas menciona personagens dela?
+
+    A opinião sobre o livro só deve entrar quando o assunto é o livro. Uma
+    pergunta de relação entre duas personagens tem de tudo: personagens, uma
+    relação, e passagens citadas — e mesmo assim a opinião sobre a obra não
+    vem ao caso.
+
+    A primeira tentativa de filtro olhava para a *evidência* (existe uma
+    citação textual?), e falhou: as perguntas de relação trazem sempre uma
+    citação do corpus. O critério certo é sobre a *pergunta*: se as entidades
+    resolvidas incluem uma obra, ou se existe um foco de relação que não pediu
+    opinião nenhuma.
+
+    Na prática: só há opinião quando pelo menos metade da evidência de topo são
+    fichas de obra — ou seja, quando a resposta é, de facto, sobre o livro.
+    """
+    de_obra = sum(1 for e in ev
+                  if str(e.fonte).startswith("canon:") and
+                  any(k in str(e.fonte) for k in ("apenas_existo", "h99", ":obra:")))
+    return de_obra >= max(1, len(ev) // 2)
 
 
 def _encolher(t: str, limite: int) -> str:

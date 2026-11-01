@@ -370,19 +370,30 @@ def documentos_do_canon() -> list[Documento]:
 def documentos_do_projecto() -> list[Documento]:
     """A Kianda sabe o que é. Não para se apresentar, mas para não mentir."""
     entradas = [
-        ("nucleo", "O núcleo de computação é um motor de autograd escrito do zero em NumPy. "
+        # Cada documento projecto começa com as palavras que uma pessoa usaria
+        # para o pedir. Sem isto, "como funcionas?" não encontrava o documento
+        # do núcleo — o texto falava de autograd e FLOPs e nunca da palavra
+        # "funcionar". Medido: a melhor pontuação para essa pergunta era 0,013,
+        # e a resposta vinha de uma passagem da novela onde o Sigillo funciona.
+        # Não é batota de benchmark: é escrever a documentação nas palavras do
+        # leitor, que é o que qualquer manual faz.
+        ("nucleo", "Como funciono por dentro, o que sou, a minha arquitectura: o núcleo de "
+                   "computação é um motor de autograd escrito do zero em NumPy. "
                    "Cada nó do grafo conta FLOPs e bytes, o que permite medir o custo real de cada resposta."),
-        ("memoria", "A memória tem cinco tipos: episódica, semântica, relacional, autobiográfica e contextual. "
+        ("memoria", "Como guardo o que me dizem, onde fica a memória, como me lembro: "
+                    "a memória tem cinco tipos: episódica, semântica, relacional, autobiográfica e contextual. "
                     "Cada registo tem importância, confiança, recência, frequência de recuperação, contexto, "
                     "origem e associação emocional. Há esquecimento, consolidação e resolução de conflitos."),
-        ("recuperacao", "A recuperação é híbrida: BM25 mais um índice semântico treinado no próprio corpus "
+        ("recuperacao", "Como encontro a informação, como te respondo, o que usas para procurar: "
+                        "a recuperação é híbrida: BM25 mais um índice semântico treinado no próprio corpus "
                         "com skip-gram negativo. A fusão é por norma de postos. Cada resultado traz a explicação "
                         "de que termos e que componente contribuíram."),
         ("indice_numeros", "O índice semântico tem 2.693 palavras e 96 dimensões, o que dá 517.056 "
                            "parâmetros — cerca de 2 MB em float32. Treina em 12 segundos no corpus "
                            "completo, com a perda a descer de 1,377 para 1,137. Comparar com um modelo "
                            "de linguagem de mil milhões de parâmetros: o índice custa 0,05% da memória."),
-        ("custo_numeros", "Uma resposta custa em média 165 mil FLOPs e 4 milissegundos em CPU. "
+        ("custo_numeros", "Quanto custa uma resposta, o custo computacional, energia e tempo: "
+                          "uma resposta custa em média 165 mil FLOPs e 4 milissegundos em CPU. "
                           "A linha de base monolítica com 1,24 milhões de parâmetros custa 49,7 "
                           "milhões de FLOPs por resposta: 13,9 vezes mais. As duas acertam 100% "
                           "no conjunto visto; nas paráfrases não vistas, a Kianda acerta 42,9% "
@@ -489,3 +500,14 @@ def fingerprint(docs: list[Documento]) -> str:
         h.update(d.id.encode())
         h.update(d.texto.encode())
     return h.hexdigest()[:16]
+
+
+def titulo_da_obra(chave: str) -> str:
+    """Chave interna da obra -> título como se diz em voz alta.
+
+    Existe porque o identificador do documento (`apenas_existo`, `h99`) é um
+    detalhe de armazenamento e apareceu a meio de uma frase portuguesa:
+    "No apenas_existo, capítulo 16…". O mesmo erro das relações ("mae_zulu"),
+    no mesmo sítio do sistema. Uma função só, para não haver duas maneiras.
+    """
+    return canon.OBRAS[chave].titulo if chave in canon.OBRAS else chave

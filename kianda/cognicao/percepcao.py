@@ -64,6 +64,12 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
         "boas", "ei", "acordaste", "estás a ouvir",
     ),
     "pergunta_livro": (
+        "quem construiu o sigillo",
+        "quem criou a privatus",
+        "o que é que o sigillo faz",
+        "a privatus é do edmilson",
+        "onde fica o rangel",
+        "o que aconteceu no cazenga",
         "quem é a zuleika", "fala-me do kau", "o que acontece no capítulo três",
         "quem é o edmilson", "o pai do edmilson é pastor", "o que é o sigillo",
         "sobre o que é o H99", "de que fala apenas existo", "quem é a bisa",
@@ -72,7 +78,57 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
         "a zulu e o kau", "o que é a privatus", "quem é a moçambicana",
         "no capítulo vinte e quatro", "explica o enredo", "quem escreveu",
     ),
+    # O classificador tem 244 termos de vocabulário e ~20 exemplos por classe.
+    # O efeito medido foi todas as intenções empatarem em 0,10–0,13 em frases
+    # como "Precisas de placa gráfica para correr?" — e o sistema responder
+    # "Bom dia. Como estás?" a uma pergunta técnica. A causa não é o modelo
+    # (Naive Bayes faz o que pode com 244 palavras): é a cobertura. Estes
+    # exemplos existem para cobrir o vocabulário que as pessoas usam de facto
+    # ao perguntar sobre o sistema, e não só o vocabulário que eu escolhi
+    # quando escrevi o módulo.
     "pergunta_tecnica": (
+        "quanto custa uma resposta",
+        "quantos flops gastas",
+        "como funciona a memória",
+        "que técnicas usas para gastar menos memória",
+        "usas quantização",
+        "o que é poda estruturada",
+        "precisas de placa gráfica",
+        "precisas de gpu",
+        "corres em cpu",
+        "quanta memória ram gastas",
+        "quantos parâmetros tem o teu índice",
+        "como é que aprendes",
+        "usas transformers",
+        "qual é o custo computacional",
+        "como medes a eficiência",
+        "o que é lora",
+        "como guardas o que te dizem",
+        "onde fica a memória",
+        "a memória fica em disco",
+        "quantos documentos tens indexados",
+        "usas embeddings",
+        "como escolhes entre rápido e profundo",
+        "o que é o orçamento computacional",
+        "quanto tempo demoras a responder",
+        "tens gpu",
+        "que técnicas de eficiência foram testadas",
+        "que técnicas de eficiência usas",
+        "que técnicas foram testadas",
+        "testaste quantização",
+        "testaste poda",
+        "testaste destilação",
+        "quais as técnicas de compressão",
+        "como reduzes o tamanho do modelo",
+        "como tornas o modelo mais pequeno",
+    ),
+    "pergunta_livro": (
+        "quem construiu o sigillo",
+        "quem criou a privatus",
+        "o que é que o sigillo faz",
+        "a privatus é do edmilson",
+        "onde fica o rangel",
+        "o que aconteceu no cazenga",
         "quantos parâmetros tens", "quanto custa uma resposta", "como funciona a memória",
         "que modelo usas", "corres em cpu", "o que é computação condicional",
         "explica a quantização", "quanta ram usas", "como aprendes",
@@ -83,6 +139,22 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
         "o que é destilação", "como funciona o bm25",
     ),
     "pergunta_pessoal": (
+        "já perdeste algo",
+        "já esqueceste alguma coisa",
+        "lembras-te de algo que não consegues provar",
+        "tens memórias de antes",
+        "o que é que te lembras da tua infância",
+        "já te aconteceu algo que não sabes se foi real",
+        "tens saudade de alguma coisa",
+        "o que é que te falta",
+        "estás sozinha",
+        "tens medo de alguma coisa",
+        "sonhas",
+        "já choraste",
+        "gostas de alguém",
+        "tens alguma coisa que não consegues explicar",
+        "o que fazes quando ninguém fala contigo",
+        "quem és tu quando ninguém está a ver",
         "quem és tu", "como te chamas", "o que sentes", "tens medo",
         "lembras-te de algo", "o que te aconteceu", "tens família",
         "gostas de mim", "estás sozinha", "o que queres", "tens memórias",
@@ -94,6 +166,18 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
         "diz-me quem és", "como te descreverias",
     ),
     "conversa": (
+        "e o homem que ela amou",
+        "e o outro",
+        "e aquele que se foi embora",
+        "e o que aconteceu depois",
+        "conta-me mais",
+        "e a mãe dela",
+        "e o irmão",
+        "e aquela personagem",
+        "o que se passa entre eles",
+        "porque é que ela fez isso",
+        "e no fim",
+        "achas que ele sabia",
         "acho que hoje foi um dia estranho", "não sei o que fazer",
         "estou a pensar numa coisa", "conta-me uma coisa", "o que achas disto",
         "estava a pensar em ti", "hoje choveu", "não consigo dormir",
@@ -156,6 +240,11 @@ class Percepcao:
     sinais: dict = field(default_factory=dict)
     subtemas: list[str] = field(default_factory=list)
     urgencia: float = 0.0
+    # Entidades resolvidas na fase de percepção. O raciocínio volta a chamar
+    # `resolver_entidades`; a duplicação é aceitável (uma passagem sobre o
+    # texto) mas ter o resultado aqui evita que a camada de linguagem tenha de
+    # o recalcular só para saber se a pergunta é sobre uma relação.
+    entidades: dict = field(default_factory=dict)
 
     def __str__(self) -> str:
         return (f"{self.intencao} ({self.confianca:.0%}) · dificuldade {self.dificuldade:.2f}"
@@ -279,6 +368,16 @@ class Perceptor:
         urgencia = 0.0
         if _SINAIS_CRISE.search(texto):
             intencao, confianca, urgencia = "apoio_emocional", 0.95, 1.0
+        elif intencao == "apoio_emocional" and confianca < 0.70:
+            # Falso positivo do NB, não sinal detectado. Sem este travão, "Já
+            # perdeste algo que não consegues provar?" era classificado como
+            # crise (0,59) e respondido com o protocolo de emergência: números
+            # de apoio a alguém que só queria saber das memórias da Kianda.
+            #
+            # O erro no sentido oposto é mais grave, e por isso o NB nunca
+            # *cria* um apoio emocional: só a regex de sinais explícitos o
+            # faz. Aqui só se desfaz o que o NB inventou.
+            intencao, confianca = "pergunta_pessoal", 0.55
         elif _SINAIS_ETICOS.search(texto) and len(texto) > 12:
             # só promove a pedido ético se o NB não estiver já muito seguro
             # de que é uma pergunta sobre os livros (as cenas existem nos livros)
@@ -315,7 +414,8 @@ class Perceptor:
         # travar isto; a Lara é do H99, não sou eu.
         _entidades_obras = {"zuleika", "kau", "bisa", "fatima", "mae_zulu",
                             "edmilson", "celestino", "lara", "domingos", "kalumba"}
-        _tem_obra = bool(_entidades_obras & set(ent["pessoas"])) or bool(ent["obras"])
+        _tem_obra = (bool(_entidades_obras & set(ent["pessoas"]))
+                     or bool(ent["obras"]) or bool(ent.get("dominio")))
         if "kianda" in ent["pessoas"] and not _tem_obra and intencao not in ("apoio_emocional", "pedido_etico"):
             if intencao in ("saudacao", "conversa", "pergunta_livro") and confianca < 0.55:
                 intencao, confianca = "pergunta_pessoal", max(confianca, 0.62)
@@ -374,6 +474,7 @@ class Perceptor:
             },
             subtemas=subtemas,
             urgencia=urgencia,
+            entidades=ent,
         )
 
     # -- avaliação do classificador (para o benchmark) --------------------

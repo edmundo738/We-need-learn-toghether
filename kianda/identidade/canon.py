@@ -498,6 +498,21 @@ def _sem_acento(s: str) -> str:
     return "".join(c for c in s if not unicodedata.combining(c))
 
 
+# Objectos e organizações das obras que não são personagens mas definem o
+# assunto. Sem isto, "O que é a Privatus?" não resolvia para nada — a palavra
+# não está em nenhum facto do canon (só aparece nas passagens) e o
+# classificador ficou sem sinais: respondeu "pergunta_pessoal" a 0,15 e a
+# Kianda apresentou-se. O mesmo para "Sigillo", que existe nos factos da
+# Zuleika mas nunca é o *sujeito* de uma ficha.
+_ENTIDADES_DOMINIO = {
+    "sigillo": ("obra", "a plataforma criada pela Zuleika; o seu nome não aparece nela"),
+    "privatus": ("obra", "o projecto privado do Edmilson, separado do Sigillo"),
+    "cz": ("obra", "Cazenga, o bairro"),
+    "rangel": ("obra", "o bairro de onde a Zuleika saiu aos catorze anos"),
+    "minars": ("mundo", "Ministério da Acção Social, Família e Promoção da Mulher"),
+}
+
+
 def resolver_entidades(texto: str) -> dict:
     """Liga o texto a entidades do canon.
 
@@ -528,12 +543,17 @@ def resolver_entidades(texto: str) -> dict:
             if a in t:
                 obras.append(chave)
                 break
+    # objectos do universo narrativo (Sigillo, Privatus, bairros)
+    dominio = [k for k in _ENTIDADES_DOMINIO if k in t]
     # auto-referência: perguntas sobre a própria Kianda têm de resolver para
     # "kianda" ou a resposta vem do corpus errado (foi o caso de "o que sentes?",
     # que devolveu uma passagem do capítulo 1 de APENAS EXISTO).
     _AUTO = ("tu", "teu", "tua", "contigo", "kianda", "sentes", "sintas",
              "achas de ti", "sobre ti", "descreve-te", "apresenta-te", "gostas de")
-    if not pessoas and any(a in t for a in _AUTO):
+    # "o que é a Privatus?" continha "o que é" e resolvia para auto-referência,
+    # fazendo a Kianda apresentar-se quando lhe perguntavam pela Privatus. Uma
+    # entidade de domínio explícita pesa mais do que um pronome.
+    if not pessoas and not dominio and any(a in t for a in _AUTO):
         pessoas.append("kianda")
     # pergunta genérica sobre os livros: as duas obras são a resposta
     if not obras and any(k in t for k in ("livro", "livros", "obra", "obras",
@@ -554,7 +574,8 @@ def resolver_entidades(texto: str) -> dict:
         envolvidos = {p for a, b, _ in relacoes for p in (a, b)}
         pessoas = [p for p in pessoas if p in envolvidos]
     return {"pessoas": pessoas, "obras": obras, "relacoes": relacoes,
-            "tem_entidade": bool(pessoas or obras),
+            "dominio": dominio,
+            "tem_entidade": bool(pessoas or obras or dominio),
             "foco_relacao": bool(relacoes)}
 
 

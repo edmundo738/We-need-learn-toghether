@@ -274,6 +274,18 @@ class Raciocinador:
                         meta={"tipo": "canon", "fonte": f"PERSONAGENS[{chave}]",
                               "entidade": chave},
                     ))
+            for chave in ent.get("dominio", []):
+                # Objectos do universo narrativo: o que a obra diz sobre eles.
+                # Não há ficha canónica — são objectos, não personagens — mas há
+                # um facto que os define, e esse facto evita que a resposta
+                # venha de uma passagem aleatória onde a palavra aparece.
+                tipo_d, desc = canon._ENTIDADES_DOMINIO[chave]
+                fichas.append(Evidencia(
+                    texto=f"{chave.capitalize()}: {desc}.",
+                    fonte=f"canon:dominio:{chave}", pontuacao=0.88,
+                    meta={"tipo": "canon", "fonte": f"DOMINIO[{chave}]",
+                          "entidade": chave, "obra": "apenas_existo"},
+                ))
             for chave in ent["obras"]:
                 f = canon.ficha_obra(chave)
                 if f:
@@ -305,11 +317,25 @@ class Raciocinador:
                 self._registar(ev, passos, conf, parou, orcamento, total, pergunta)
                 return self.historico[-1]
         elif ja_tem_ficha:
-            # ainda vale a pena buscar a citação do livro, mas com prior de obra
+            # Ainda vale a pena buscar a citação do livro — mas só se ela tiver
+            # relação com o que foi perguntado. Sem este filtro, "que relação há
+            # entre a Zuleika e a mãe?" devolvia a relação certa seguida de uma
+            # frase sobre um livro, porque o recuperador devolve *alguma* coisa
+            # para qualquer consulta e o texto era colado sem verificação.
+            # Medido: 3 de 3 perguntas de relação vinham com uma cauda alheia.
             ev_r, c_r, cu = self._recuperar(pergunta, max(2, k // 2), "pergunta_livro")
             total = total + cu
-            ev = ev + ev_r[:2]
-            passos.append(Passo("RECUPERAR", True, "citação adicional do corpus", cu, c_r))
+            # limiar relativo ao melhor resultado: um fragmento que pontua menos
+            # de metade do melhor não está a falar do mesmo assunto
+            if ev_r:
+                melhor = ev_r[0].pontuacao
+                relevantes = [e for e in ev_r if e.pontuacao >= 0.5 * melhor]
+                ev = ev + relevantes[:2]
+            passos.append(Passo(
+                "RECUPERAR", True,
+                f"{min(2, len(relevantes)) if ev_r else 0} citação(ões) do corpus",
+                cu, c_r,
+            ))
         else:
             passos.append(Passo("RECUPERAR", False, "paragem antecipada", Custo()))
 

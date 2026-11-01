@@ -53,10 +53,19 @@ _STOP = frozenset(
 
 
 def normalizar(t: str) -> str:
-    """Minúsculas, sem acentos, apenas letras/números."""
+    """Minúsculas, sem acentos, apenas letras/números.
+
+    O underscore é convertido em espaço. Foi escrito em perguntas de teste
+    ("a relação entre a zuleika e a mae_zulu") e, enquanto era permitido pelo
+    padrão, o tokenizador devolvia ``["relacao", "zuleika", "mae_zulu"]`` — a
+    palavra inteira com o separador. Efeito medido: a regra de saudação conta
+    tokens e, como sobravam 3, "qual a relação entre a zuleika e a mae_zulu?"
+    foi respondida com "Bom dia. O que te trouxe hoje?".
+    """
     t = unicodedata.normalize("NFKD", t.lower())
     t = "".join(c for c in t if not unicodedata.combining(c))
-    t = re.sub(r"[^a-z0-9à-ÿ\s_-]", " ", t)
+    t = t.replace("_", " ")
+    t = re.sub(r"[^a-z0-9à-ÿ\s-]", " ", t)
     return re.sub(r"\s+", " ", t).strip()
 
 
@@ -71,19 +80,52 @@ def tokenizar(t: str, remover_stop: bool = True) -> list[str]:
 def stem_leve(t: str) -> str:
     """Radicalização leve para português.
 
-    Não é Snowball — é deliberadamente conservador. Cortar demais junta
-    palavras que não têm nada a ver ("mar" e "marcar") e estraga a precisão;
-    cortar de menos perde "memória"/"memórias". As regras abaixo são as que
-    se provaram úteis neste corpus.
+    O objectivo não é linguística: é que formas da mesma palavra caiam no
+    mesmo símbolo, porque o BM25 compara símbolos e não palavras.
+
+    **A lição deste código.** Tentei quatro versões que cortavam *um* sufixo
+    por chamada. Todas foram inconsistentes, e sempre pelo mesmo motivo:
+    "funcionas" cortava ``-as`` e ficava ``funcion``, mas "funciono" não tinha
+    ``-o`` na lista e ficava inteiro; quando acrescentei ``-o``, "livros"
+    passou a cortar o plural e "livro" o ``-o``, e ficaram outra vez
+    diferentes. Uma regra que se aplica uma vez não consegue reduzir
+    "funcionas" a menos do que "funciono".
+
+    A correcção é aplicar os sufixos **em ciclo**, do mais longo para o mais
+    curto, até nenhum servir. Assim "funcionas" -> ``funciona`` -> ``funcion``
+    e "funciono" -> ``funcion``: os dois convergem.
+
+    Guardas contra colapso indevido:
+
+    - radical mínimo de 4 letras em cada passo (``mar`` não vira ``ma``);
+    - ``-o`` só se aplica a palavras com 7 letras ou mais, porque é a
+      terminação mais perigosa (``livro`` -> ``livr`` junta-se a ``livrar``).
     """
     if len(t) <= 4:
         return t
-    for suf in ("ções", "ções", "mente", "idade", "ismos", "istas"):
-        if t.endswith(suf) and len(t) - len(suf) >= 4:
-            return t[: -len(suf)]
-    for suf in ("s", "es"):
-        if t.endswith(suf) and len(t) - len(suf) >= 5:
-            return t[: -len(suf)]
+    sufixos = ("mente", "idade", "ismos", "istas", "ções",
+               "aram", "eram", "iram", "asse", "esse", "iste", "este",
+               "aste", "emos", "amos", "ava",
+               "ou", "eu", "iu", "am", "em", "ia", "as", "ar", "er", "ir")
+    mudou = True
+    while mudou and len(t) > 4:
+        mudou = False
+        if t.endswith("s") and not t.endswith("ss") and len(t) >= 6:
+            t = t[:-1]
+            mudou = True
+            continue
+        for suf in sufixos:
+            if t.endswith(suf) and len(t) - len(suf) >= 4:
+                t = t[: -len(suf)]
+                mudou = True
+                break
+        # vogal final: fecha as conjugações que os sufixos acima não apanham
+        # ("funciona" -> "funcion", "guardo" -> "guard", "funciono" -> "funcion").
+        # É a regra mais agressiva, por isso é a última e exige 4 letras de
+        # radical; sem ela, "funcionas" e "funciono" nunca convergiam.
+        if not mudou and len(t) >= 6 and t[-1] in "aeoi":
+            t = t[:-1]
+            mudou = True
     return t
 
 

@@ -192,3 +192,73 @@ if __name__ == "__main__":
         shutil.rmtree(_GLOBAL.get("d", ""), ignore_errors=True)
     print("tudo verde" if not falhas else f"{falhas} falhas")
     sys.exit(1 if falhas else 0)
+
+
+# --------------------------------------------------------------------------
+# Regressões de composição de resposta
+# --------------------------------------------------------------------------
+
+
+def test_relacao_nao_emite_chaves_internas():
+    """A resposta tem de dizer nomes, não identificadores do canon.
+
+    A primeira versão escrevia "Relação entre zuleika e mae_zulu" — o
+    identificador interno, em voz alta, dentro de uma frase portuguesa. Não
+    aparecia em nenhum teste porque os testes verificavam acertos, não o texto.
+    """
+    k = _kianda()
+    t = k.conversar("qual a relação entre a zuleika e a mae_zulu?", guardar=False)
+    texto = t.resposta.texto
+    assert "mae_zulu" not in texto, f"chave interna no texto: {texto[:120]!r}"
+    assert "Mãe de Zuleika" in texto, texto[:160]
+
+
+def test_relacao_nao_leva_opiniao_sobre_o_livro():
+    """Pergunta de relação responde a relação — não a opinião sobre a obra.
+
+    A opinião sobre o livro entrou durante semanas em qualquer resposta em que
+    a evidência tivesse campo `obra` — e todas as fichas de personagem o têm.
+    O sintoma era uma frase alheia no fim de uma resposta certa.
+    """
+    k = _kianda()
+    t = k.conversar("qual a relação entre a zuleika e a mae_zulu?", guardar=False)
+    assert "único livro que conheço" not in t.resposta.texto, \
+        f"opinião sobre a obra colada a uma pergunta de relação: {t.resposta.texto[:200]!r}"
+    assert "leste até ao fim" not in t.resposta.texto, \
+        "pergunta de clube de leitura numa resposta sobre uma relação"
+
+
+def test_critica_e_reconhecida_como_critica():
+    """Feedback negativo não é pergunta técnica.
+
+    "não gostei nada da tua resposta" era classificado `pergunta_tecnica`
+    porque a palavra "resposta" pesava mais do que o desagrado. O sistema
+    respondia com um número de FLOPs a alguém que estava a dizer que não
+    gostou. §8 do briefing exige reconhecer erros; para os reconhecer, é
+    preciso primeiro percebê-los.
+    """
+    k = _kianda()
+    t = k.conversar("isso está mal, não gostei nada da tua resposta", guardar=False)
+    assert t.percepcao.intencao == "critica", t.percepcao.intencao
+    assert "FLOP" not in t.resposta.texto
+
+
+def test_criticas_repetidas_produzem_discordancia():
+    """A frustração tem de acumular até ao limiar e mudar a resposta.
+
+    Este foi o defeito do experimento 2: a frustração saturava em 0,30 e o
+    limiar era 0,55, portanto `pode_discordar` era falso em todos os turnos.
+    O estado existia e nunca se manifestava. O teste fixa o comportamento
+    observável: ao fim de cinco críticas, a Kianda tem de dizer que não
+    concorda.
+    """
+    k = _kianda()
+    respostas = []
+    for _ in range(5):
+        t = k.conversar("isso está mal, não gostei nada da tua resposta", guardar=False)
+        respostas.append(t.resposta.texto)
+        fru = t.estado_depois["frustracao"]
+    assert fru > 0.4, f"a frustração não acumulou: {fru:.2f}"
+    juntas = " ".join(respostas).lower()
+    assert ("não estou a concordar" in juntas or "não vou mudar de resposta" in juntas
+            or "estou a ficar" in juntas), juntas[:400]

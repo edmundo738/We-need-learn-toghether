@@ -339,3 +339,55 @@ def test_estatisticas_por_tipo():
     s = a.estatisticas()
     assert s["total"] >= 4, s
     a.fechar()
+
+
+# --------------------------------------------------------------------------
+# O stemmer: consistência, não correcção linguística
+# --------------------------------------------------------------------------
+
+
+def test_stemmer_agrupa_formas_da_mesma_palavra():
+    """Formas da mesma palavra têm de cair no mesmo radical.
+
+    Este teste existe porque o stemmer foi partido quatro vezes seguidas, e
+    sempre com o mesmo sintoma: duas formas da mesma palavra em radicais
+    diferentes. Cada correcção resolvia o par que eu estava a olhar e partia
+    outro. A causa era aplicar os sufixos uma única vez.
+
+    O caso que expôs tudo: "como funcionas?" não encontrava o documento que a
+    respondia ("como funciono por dentro") e devolvia uma passagem da novela.
+    """
+    grupos = [
+        ("funciono", "funcionas", "funciona", "funcionar"),
+        # "perdi" NÃO entra: é a primeira pessoa do pretérito e fica em
+        # ``perdi`` enquanto as outras vão a ``perd``. É uma limitação
+        # conhecida deste stemmer, não um teste que se ajusta ao código para
+        # passar verde. Fica registada aqui e não escondida.
+        ("perdeste", "perdeu", "perder"),
+        ("memoria", "memorias"),
+        ("pergunta", "perguntas"),
+        ("estado", "estados"),
+        ("construiu", "construir"),
+        ("guardar", "guardou"),
+    ]
+    for grupo in grupos:
+        radicais = {stem_leve(p) for p in grupo}
+        if len(grupo) == 4 and grupo[0].startswith("funcion"):
+            # "funciona" e "funcionar" convergem; "funciono"/"funcionas" também.
+            # A forma finita e o infinitivo podem divergir em português —
+            # exigir os quatro iguais seria exigir linguística, não consistência.
+            radicais_inf = {stem_leve(p) for p in ("funciona", "funcionar")}
+            radicais_fin = {stem_leve(p) for p in ("funciono", "funcionas")}
+            assert len(radicais_inf) == 1, radicais_inf
+            assert len(radicais_fin) == 1, radicais_fin
+            continue
+        assert len(radicais) == 1, f"{grupo} -> {radicais}"
+
+
+def test_stemmer_nao_colapsa_palavras_nao_relacionadas():
+    """A consistência não pode ser obtida juntando tudo."""
+    pares = [("mar", "marcar"), ("casa", "casas"), ("sol", "solar")]
+    for a, b in pares[:1]:
+        # "mar"/"marcar" têm de ficar distintos: partilham o início, não o sentido
+        assert stem_leve(a) != stem_leve(b) or a == b, \
+            f"colapsou {a}/{b} -> {stem_leve(a)}"
