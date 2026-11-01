@@ -14,6 +14,8 @@ Código de saída 0 apenas se todos os mutantes forem mortos.
 
 from __future__ import annotations
 
+import json
+import signal
 import shutil
 import subprocess
 import sys
@@ -106,10 +108,56 @@ def correr_suite(seleccao: list[str]) -> bool:
     return r.returncode == 0
 
 
+# Um mutante deixa o ficheiro alterado enquanto corre. O `finally` restaura,
+# mas `finally` não corre quando o processo é morto por SIGTERM/SIGKILL — e foi
+# exactamente isso que aconteceu: uma execução interrompida por `timeout` deixou
+# `corpus.py` truncado (`v[:-40]`) e `percepcao.py` com `if (False`, em cima do
+# trabalho seguinte. A árvore só ficou sã porque alguém reparou no `git diff`.
+#
+# Duas defesas, porque uma não chega:
+#   1. handlers de SIGTERM/SIGINT/SIGHUP que restauram antes de sair;
+#   2. um diário em disco (`_MUTACAO_ACTIVA.json`) que permite recuperar mesmo
+#      depois de um SIGKILL, onde nenhum código Python chega a correr.
+_DIARIO = RAIZ / ".mutacao_activa.json"
+_ESTADO: dict[str, str] = {}
+
+
+def _restaurar_tudo(*_):
+    for ficheiro, conteudo in list(_ESTADO.items()):
+        (RAIZ / ficheiro).write_text(conteudo)
+        _ESTADO.pop(ficheiro, None)
+    _DIARIO.unlink(missing_ok=True)
+
+
+def _sinal(signum, frame):
+    print(f"\n  interrompido (sinal {signum}) — a restaurar ficheiros mutados…")
+    _restaurar_tudo()
+    raise SystemExit(130)
+
+
+def _recuperar_de_crash_anterior() -> None:
+    """Restaura o que um mutador morto à força deixou alterado."""
+    if not _DIARIO.exists():
+        return
+    try:
+        pendente = json.loads(_DIARIO.read_text())
+    except Exception:
+        _DIARIO.unlink(missing_ok=True)
+        return
+    for ficheiro, conteudo in pendente.items():
+        (RAIZ / ficheiro).write_text(conteudo)
+        print(f"  RECUPERADO de execução anterior: {ficheiro}")
+    _DIARIO.unlink(missing_ok=True)
+
+
 def main() -> int:
     print("=" * 74)
     print("MUTATION TESTING — os testes detectam os defeitos que os motivaram?")
     print("=" * 74)
+
+    _recuperar_de_crash_anterior()
+    for s_ in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP):
+        signal.signal(s_, _sinal)
 
     sobreviventes = []
     for nome, ficheiro, alvo, troca, testes in MUTANTES:
@@ -123,6 +171,8 @@ def main() -> int:
 
         backup = Path(tempfile.mkdtemp()) / caminho.name
         shutil.copy(caminho, backup)
+        _ESTADO[str(caminho.relative_to(RAIZ))] = original
+        _DIARIO.write_text(json.dumps(_ESTADO))
         try:
             caminho.write_text(original.replace(alvo, troca, 1))
             if testes == ["_reservado"]:
@@ -149,6 +199,11 @@ def main() -> int:
                 print(f"  MATADO      {nome}")
         finally:
             shutil.copy(backup, caminho)
+            _ESTADO.pop(str(caminho.relative_to(RAIZ)), None)
+            if _ESTADO:
+                _DIARIO.write_text(json.dumps(_ESTADO))
+            else:
+                _DIARIO.unlink(missing_ok=True)
 
     print("-" * 74)
     total = len(MUTANTES)

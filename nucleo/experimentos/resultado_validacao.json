@@ -1,0 +1,16 @@
+{
+  "corpus_caracteres": 254637,
+  "treino_caracteres": 229173,
+  "validacao_caracteres": 25464,
+  "epocas": 6,
+  "parametros": 192955,
+  "vocab": 91,
+  "perda_treino": 1.4601,
+  "perda_validacao": 2.0942,
+  "perplexidade_treino": 4.306,
+  "perplexidade_validacao": 8.119,
+  "lacuna_val_menos_treino": 0.6341,
+  "tempo_treino_s": 280.0,
+  "memorizacao_media": 0.0,
+  "nota": "perplexidade de caracteres — NÃO comparável com perplexidade de modelo BPE; vocabulários de tamanhos diferentes"
+}

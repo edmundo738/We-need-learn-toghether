@@ -1,0 +1,38 @@
+{
+  "ambiente": {
+    "python": "3.11.2",
+    "sistema": "Linux-6.1.158+-x86_64-with-glibc2.36",
+    "cpu": "desconhecido",
+    "numpy": "2.4.6",
+    "numpy_threads": "auto",
+    "torch": "2.15.0+cu132",
+    "torch_threads": 1,
+    "gpu": false,
+    "torch_cpu_count": 2
+  },
+  "casos": [
+    {
+      "caso": "autograd_numPy: 4 matmuls d=128, FWD+BWD+Adam",
+      "tokens_s_mediana": 153733,
+      "tokens_s_min": 118937,
+      "tokens_s_max": 161805,
+      "dispersao_pct": 27.9,
+      "mede_transformer": false
+    },
+    {
+      "caso": "pytorch: 4 matmuls d=128, FWD+BWD+Adam",
+      "torch": "2.15.0+cu132",
+      "tokens_s_mediana": 246919,
+      "tokens_s_min": 154267,
+      "tokens_s_max": 255587,
+      "dispersao_pct": 41.0,
+      "mede_transformer": false
+    },
+    {
+      "caso": "pytorch: atencao causal B=8 H=4 S=256 d=32, FWD+BWD",
+      "tokens_s_mediana": 95287,
+      "mede_transformer": false,
+      "mede_atencao": true
+    }
+  ]
+}
