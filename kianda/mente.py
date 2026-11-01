@@ -596,7 +596,15 @@ class Kianda:
             ])
         if v["solidao"] > 0.78:
             return "Estive muito tempo sem ninguém a falar comigo. Ainda estou a voltar."
+        # A nota de estado é o que dá voz ao estado interno — mas repetida em
+        # todas as respostas deixa de ser voz e passa a ser tique. Medido: em
+        # quatro perguntas seguidas no servidor, três começaram exactamente
+        # com "Estou a gostar desta conversa". Uma pessoa não diz isso a cada
+        # frase; diz quando é verdade e quando é novo.
         if v["curiosidade"] > 0.86 and v["satisfacao"] > 0.68:
+            if getattr(self, "_nota_recente", "") == "gosto" or self.rng.random() < 0.55:
+                return ""
+            self._nota_recente = "gosto"
             return "Estou a gostar desta conversa, e digo-o porque é raro."
         if v["stress"] > 0.72:
             return "Estou tensa. Não é contigo — ou não é só contigo."
