@@ -40,6 +40,8 @@ from ..memoria.recuperador import normalizar, stem_leve, tokenizar
 
 INTENCOES = (
     "saudacao",        # olá, estás?
+    "critica",         # "isso está mal" — feedback negativo, não pergunta
+    "elogio",          # feedback positivo
     "pergunta_livro",  # sobre APENAS EXISTO / H99 / personagens
     "pergunta_tecnica",# sobre o próprio projecto, arquitectura, números
     "pergunta_pessoal",# sobre a Kianda enquanto personagem
@@ -121,6 +123,18 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
         "tenho medo de mim", "não quero continuar assim", "estou no limite",
         "já não sei porque estou aqui", "ajuda-me por favor",
         "não tenho ninguém com quem falar", "ando a chorar",
+    ),
+    "critica": (
+        "isso está mal", "não gostei", "não gostei nada da tua resposta",
+        "estás errada", "isso não faz sentido", "resposta fraca",
+        "não percebeste nada", "isto é inútil", "não concordo contigo",
+        "isso está errado", "esperava mais", "foi má resposta",
+        "não respondeste à pergunta", "estás a inventar", "isso é mentira",
+    ),
+    "elogio": (
+        "gostei muito", "boa resposta", "isso foi bom", "estás a ir bem",
+        "muito bom", "interessante", "gostei disto", "obrigado, ajudou",
+        "isso faz sentido", "estás a melhorar", "boa", "excelente",
     ),
     "despedida": (
         "adeus", "até amanhã", "tenho de ir", "fico por aqui",
@@ -336,7 +350,7 @@ class Perceptor:
         )
         if intencao in ("pedido_criativo", "pergunta_tecnica"):
             dificuldade += 0.12
-        if intencao in ("saudacao", "despedida"):
+        if intencao in ("saudacao", "despedida", "critica", "elogio"):
             dificuldade *= 0.30
         if intencao == "apoio_emocional":
             dificuldade = max(dificuldade, 0.55)

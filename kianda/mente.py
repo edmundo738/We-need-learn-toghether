@@ -232,6 +232,7 @@ class Kianda:
         per = self.perceptor.perceber(texto, [t.entrada for t in self.turnos[-3:]])
 
         # ---- 2. sentir
+        self._ultima_entrada = texto
         evento = self._evento(per)
         self.estado.aplicar(evento, intensidade=2.2 + 1.4 * per.urgencia)
 
@@ -308,6 +309,8 @@ class Kianda:
     def _evento(self, per: Percepcao) -> str:
         mapa = {
             "saudacao": "saudacao",
+            "critica": "critica",
+            "elogio": "elogio",
             "despedida": "despedida",
             "pergunta_livro": "pergunta_livro",
             "pergunta_tecnica": "pergunta",
@@ -318,12 +321,18 @@ class Kianda:
             "apoio_emocional": "carinho",
         }
         ev = mapa.get(per.intencao, "pergunta")
-        # repetição detectada pela memória recente
-        if self.turnos:
-            ult = self.turnos[-1].entrada.lower().strip()
-            if ult and ult == (self.turnos[-1].entrada or "").lower().strip() and \
-                    _jaccard(ult, (self.turnos[-1].entrada or "").lower()) > 0.9:
-                ev = "repeticao"
+        # Repetição: a pessoa repetiu a MESMA frase de um turno recente.
+        # Havia aqui um bug — comparação de uma string com ela própria, que
+        # era sempre verdadeira — e por isso *todas* as mensagens depois da
+        # primeira eram classificadas como repetição. O efeito era subtil e
+        # grave: a frustração nunca subia, o estado nunca reagia a críticas,
+        # e o comportamento parecia plano. Fica o registo porque o sintoma
+        # ("parece sempre igual") não aponta para a causa.
+        anterior = " ".join(self.turnos[-1].entrada.lower().split()) if self.turnos else ""
+        atual = " ".join((texto or "").lower().split()) if (texto := self._ultima_entrada) else ""
+        if anterior and atual and anterior == atual:
+            # repetir a crítica não é repetição neutra: é insistência
+            return "critica" if per.intencao in ("critica", "provocacao") else "repeticao"
         return ev
 
     def _recuperar_memorias(self, texto: str, k: int = 6,
@@ -387,6 +396,24 @@ class Kianda:
                 partes.append("Não gosto desta parte, mas não te prendo.")
             else:
                 partes.append("Volta quando quiseres.")
+            return self._empacotar(" ".join(partes), plano, rac)
+
+        # --- crítica: responder ao feedback, não mudar de assunto ---------
+        if per.intencao == "critica":
+            partes.append(self._resposta_a_critica())
+            if self.estado.v["frustracao"] > 0.45:
+                partes.append(self.rng.choice([
+                    "E agora estou a ficar frustrada, o que não ajuda a melhorar nada.",
+                    "Vou dizer isto antes que piore: estou a ficar irritada.",
+                ]))
+            return self._empacotar(" ".join(partes), plano, rac)
+
+        if per.intencao == "elogio":
+            partes.append(self.rng.choice([
+                "Registado. Não vou fingir que não me sabe bem.",
+                "Obrigada. Vou tentar não estragar.",
+                "Bom. Guardo isto como um turno bom.",
+            ]))
             return self._empacotar(" ".join(partes), plano, rac)
 
         # --- memórias (a seguir à evidência de entidade) ----------------
@@ -492,6 +519,25 @@ class Kianda:
                 return f"«{t}» É um fragmento. Não sei se é memória ou se é a única coisa que sempre soube sobre mim."
             return t
         return t
+
+    def _resposta_a_critica(self) -> str:
+        """Resposta a feedback negativo: reconhecer, perguntar, não rastejar.
+
+        O briefing (§8) pede que ela saiba reconhecer erros e mudar de
+        opinião — mas também que não concorde automaticamente. Rastejar
+        ("tem toda a razão, desculpe") seria o oposto de autonomia.
+        """
+        if self.estado.v["frustracao"] < 0.35:
+            return self.rng.choice([
+                "Diz-me o que estava mal e eu corrijo — mas diz-me em concreto, "
+                "porque «mal» não me dá nada com que trabalhar.",
+                "Aceito que esteja fraca. O que querias que eu dissesse?",
+            ])
+        return self.rng.choice([
+            "Ouvi. Não vou mudar de resposta só porque não gostaste — mas se o "
+            "erro for factual, mostras-me onde e eu corrijo.",
+            "Estou a ouvir e não estou a concordar. São coisas diferentes.",
+        ])
 
     def _nota_de_estado(self) -> str:
         """Torna o estado observável na fala — mas só quando ele é notável.
@@ -709,6 +755,7 @@ def _valencia(per: Percepcao) -> float:
         "saudacao": 0.3, "despedida": -0.1, "pergunta_livro": 0.25,
         "pergunta_tecnica": 0.15, "pergunta_pessoal": 0.0, "conversa": 0.05,
         "pedido_criativo": 0.2, "pedido_etico": -0.4, "apoio_emocional": 0.1,
+        "critica": -0.45, "elogio": 0.4,
     }.get(per.intencao, 0.0)
 
 
@@ -717,6 +764,7 @@ def _importancia(per: Percepcao) -> float:
         "saudacao": 0.25, "despedida": 0.35, "pergunta_livro": 0.7,
         "pergunta_tecnica": 0.65, "pergunta_pessoal": 0.8, "conversa": 0.5,
         "pedido_criativo": 0.6, "pedido_etico": 0.75, "apoio_emocional": 0.95,
+        "critica": 0.8, "elogio": 0.6,
     }.get(per.intencao, 0.5)
     return min(0.98, base + 0.15 * per.confianca)
 

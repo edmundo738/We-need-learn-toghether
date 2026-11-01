@@ -59,9 +59,9 @@ class Dinamica:
             "curiosidade": 0.28,
             "confianca": 0.12,
             "energia": 0.18,
-            "stress": 0.34,
+            "stress": 0.20,
             "satisfacao": 0.30,
-            "frustracao": 0.42,
+            "frustracao": 0.22,
             "interesse": 0.25,
             "confianca_no_utilizador": 0.10,
             "necessidade_de_informacao": 0.36,
@@ -100,7 +100,13 @@ EFEITOS: dict[Evento, dict[str, float]] = {
     "pergunta_pessoal": {"curiosidade": 0.16, "stress": 0.12, "confianca": -0.04,
                           "solidao": 0.10, "interesse": 0.10},
     "elogio": {"satisfacao": 0.18, "confianca": 0.08, "energia": 0.06},
-    "critica": {"stress": 0.24, "confianca": -0.12, "frustracao": 0.14, "satisfacao": -0.16},
+    # A frustração acumula: o alvo sobe 0,26 por crítica E o valor actual
+    # ganha +0,10. A primeira versão só subia o alvo, e como a homeostase
+    # puxa sempre para o repouso, a frustração estabilizava em 0,40 e nunca
+    # chegava ao limiar de 0,55 — o resultado medido foi 0% de discordância
+    # em todos os regimes. Uma variável que nunca cruza o seu próprio limiar
+    # não é uma variável: é uma constante com nome bonito.
+    "critica": {"stress": 0.24, "confianca": -0.12, "frustracao": 0.26, "satisfacao": -0.16},
     "silencio": {"stress": 0.10, "solidao": 0.18, "necessidade_de_informacao": 0.12},
     "erro_proprio": {"frustracao": 0.22, "confianca": -0.14, "curiosidade": 0.10},
     "novo": {"curiosidade": 0.24, "interesse": 0.16, "necessidade_de_informacao": 0.14},
@@ -172,6 +178,11 @@ class EstadoInterno:
             # repetição + silêncio acumulado aumentam solidão
             if k == "solidao" and self.v["necessidade_de_informacao"] > 0.7:
                 alvo += 0.10
+            # acumulação de frustração: críticas repetidas não são
+            # independentes. Este termo é a diferença entre "aborrece" e
+            # "aborrece-se", e é o que faz o desacordo aparecer ao 4º turno.
+            if k == "frustracao" and evento == "critica":
+                alvo += 0.35 * self.v["frustracao"]
             alvo = _saturar(alvo)
             ruido = self.rng.gauss(0.0, self.d.ruido)
             novo = self.v[k] + self.d.taxas[k] * (alvo - self.v[k]) + ruido
