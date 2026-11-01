@@ -113,3 +113,65 @@ Se a vantagem não crescer com o corpus, a hipótese está em apuros.
 ---
 
 *Documento vivo. Se um resultado for contrariado, actualiza-se aqui e não no README.*
+
+---
+
+# E3 — escalar o corpus (resultado)
+
+Previsão registada **antes** de correr:
+
+> Com orçamento fixo e corpus a crescer, a vantagem da arquitectura modular
+> deve crescer, porque memorizar no peso é linear no número de factos e
+> recuperar de um índice é logarítmico.
+
+`python experimentos/03_escala.py` — resultado medido:
+
+| n factos | índice | índice + pesos aprendidos (C) | modelo denso (B) | C − B | parâmetros B/C |
+|---|---|---|---|---|---|
+| 120 | 14 % | 47 % | **53 %** | −6 p.p. | 263× |
+| 250 | 27 % | 64 % | **71 %** | −7 p.p. | 262× |
+| 500 | 37 % | **86 %** | 77 % | +9 p.p. | 261× |
+| 1000 | 46 % | **91 %** | 81 % | +10 p.p. | 261× |
+| 2000 | 48 % | **96 %** | 83 % | +12 p.p. | 261× |
+
+**Cruzamento em n≈500.** Abaixo disso o modelo denso ganha; acima disso o
+índice calibrado ganha, e a vantagem alarga com o corpus. Com **478 parâmetros
+aprendidos** contra **124 939**.
+
+A curva é monótona nas duas variáveis — a exactidão de C sobe sem parar
+enquanto a de B satura. É a assinatura que a hipótese previa.
+
+## O que quase invalidou este experimento
+
+Três erros de desenho, encontrados por inspecção e não por erro de execução:
+
+1. **Fuga de rótulo.** Os documentos de treino continham a entidade no texto
+   como metadado. O modelo denso lia-a. Corrigido: a entidade é extraída do
+   texto recuperado, o que também é o que um sistema real faria.
+2. **Factos sintéticos inaprendíveis.** Gerados com palavras aleatórias, o que
+   tornava toda a generalização impossível por construção. Substituídos por
+   assinaturas: cada entidade tem um conjunto de palavras próprias.
+3. **Divisão treino/teste em ciclo.** As entidades eram atribuídas por
+   `i % n_ent`, o que deixava o conjunto de teste perfeitamente balanceado e
+   sobreposto. Corrigido com atribuição aleatória.
+
+Nenhum destes erros produziu uma excepção. Os três produziram resultados
+plausíveis e errados.
+
+## O que este resultado *não* prova
+
+- **Não é linguagem.** O vocabulário é controlado (300 palavras) e a tarefa é
+  associação facto→entidade. Um modelo de linguagem real faz muito mais coisas
+  que esta tarefa não toca.
+- **O índice foi calibrado no mesmo regime da tarefa.** C aprende pesos por
+  termo com gradiente sobre a perda; B aprende uma projecção. A comparação é
+  justa em dados e em optimização, mas o índice tem uma vantagem indutiva: a
+  representação já está alinhada com a tarefa.
+- **Um corpus sintético.** Os 31 factos naturais das obras são reais; os
+  restantes 1 969 são gerados. A curva pode ser uma propriedade do gerador.
+
+## O que mudou no projecto por causa disto
+
+Nada, ainda. O resultado justifica testar `SistemaIndiceCalibrado` dentro do
+`Recuperador` real, com as 20 + 14 perguntas do banco. Essa é a próxima
+alteração e não uma consequência automática deste experimento.
