@@ -195,6 +195,15 @@ def _corpus(k) -> dict:
         "termos": idx.get("termos"),
         "semantico": idx.get("semantico", {}),
         "n_canon": c.get("n_canon"),
+        "n_obras": c.get("n_obras"),
+        # O aviso tem de atravessar a serialização.
+        #
+        # Defeito encontrado pelo teste HTTP: `carregar_corpus` passou a avisar
+        # quando não há livros, mas `_corpus` só copiava as chaves que conhecia
+        # e o aviso ficava para trás. Na API Python o sistema sabia que estava
+        # incompleto; no HTTP apresentava-se completo. Um aviso que não chega ao
+        # utilizador não é um aviso.
+        "por_carregar": c.get("_por_carregar", []),
     }
 
 

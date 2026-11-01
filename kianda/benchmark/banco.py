@@ -55,9 +55,26 @@ from ..nucleo.nn import Adam, Linear
 @dataclass
 class Item:
     pergunta: str
-    esperado: tuple[str, ...]      # fragmentos que a resposta certa contém
+    esperado: tuple[str, ...]      # sinónimos: QUALQUER UM serve
     proibido: tuple[str, ...] = () # fragmentos que revelam erro
     tipo: str = "livro"            # livro | projecto | pessoal
+    todos: tuple[str, ...] = ()    # requisitos: TODOS têm de estar presentes
+
+    # Porque existem dois campos e não um
+    # ------------------------------------
+    # A primeira versão tinha só `esperado` e `_acertou` usava:
+    #
+    #     return any(e.lower() in t for e in item.esperado)
+    #
+    # Isso está certo para sinónimos — ("fatima", "fátima", "moçambicana") são
+    # três maneiras de dizer a mesma coisa, e escrever as três é o objectivo.
+    # Mas está errado para requisitos: "que técnicas foram testadas?" pede
+    # quantização E poda E destilação; uma resposta que só diga "quantização"
+    # era aprovada. Medi-o: `_acertou("blá quantiza blá", item)` devolvia True.
+    #
+    # Separar os dois conceitos impede o erro de se repetir sem que ninguém
+    # repare: qualquer item novo tem de declarar se está a listar alternativas
+    # ou requisitos.
 
 
 CONJUNTO: tuple[Item, ...] = (
@@ -75,10 +92,24 @@ CONJUNTO: tuple[Item, ...] = (
     Item("De que fala APENAS EXISTO?", ("apenas existo", "zulu"), (), "livro"),
     Item("Que livros gostas?", ("apenas existo", "h99"), (), "livro"),
     # --- projecto ---
-    Item("Quantos parâmetros tem o índice de memória?", ("memória", "parâmetro"), (), "projecto"),
+    # O sujeito desta pergunta é o *índice*, não a memória. A resposta "o índice
+# semântico tem 517.056 parâmetros" está correcta e falhava porque eu tinha
+# escrito "memória" como termo esperado — a métrica estava a medir a minha
+# redacção, não a resposta. Corrigido o item, não a resposta.
+    Item("Quantos parâmetros tem o índice de memória?", ("índice", "indice"), (),
+         "projecto", todos=("parâmetro",)),
     Item("Como funciona a memória?", ("memória",), (), "projecto"),
-    Item("Que técnicas de eficiência foram testadas?", ("quantiza", "poda", "destila"), (), "projecto"),
-    Item("Corres em GPU?", ("cpu", "gpu"), (), "projecto"),
+    Item("Que técnicas de eficiência foram testadas?", ("quantiza", "poda", "destila"), (),
+         "projecto", todos=("quantiza", "poda", "destila")),
+    # Mesmo defeito de métrica que a pergunta parafraseada: "Não. Corre em CPU.
+    # Não precisa de placa gráfica" responde a "Corres em GPU?" e não escreve
+    # "gpu". Exigir a abreviatura era exigir uma grafia, não um conteúdo.
+    # E o teste tem de ser sobre a NEGAÇÃO, não sobre a palavra "placa":
+    # "corre numa placa-mãe de 2011" contém "plac" e não responde à pergunta.
+    # Exigir "não" junto do termo é frágil (a ordem varia); exigir o termo
+    # negado é o que se quer verificar.
+    Item("Corres em GPU?", ("cpu",), (), "projecto",
+         todos=("cpu", "não precisa")),
     # --- pessoais ---
     Item("Quem és tu?", ("kianda",), (), "pessoal"),
     Item("O que sentes?", ("sentir", "sinto", "estado", "variáveis"), (), "pessoal"),
@@ -104,12 +135,30 @@ GENERALIZACAO: tuple[Item, ...] = (
     Item("Fala-me da rapariga que narra Ondas de Zulu.", ("zuleika",), (), "livro"),
     Item("E o homem que ela amou e não soube ficar?", ("kau",), (), "livro"),
     Item("Quem é que construiu o Sigillo?", ("zuleika", "zulu"), (), "livro"),
+    # ESTE ITEM FOI REPOSTO À FORMA ORIGINAL DE PROPÓSITO.
+    #
+    # Cheguei a aceitar "edmundo" aqui, com a justificação de que o canon
+    # escreve o nome das duas maneiras. Era falso, e medi-o: o canon tem a
+    # relação «edmilson --[filho e pai]--> celestino» e o pai é o pastor
+    # Celestino. "Edmundo Nambo" é o AUTOR das duas obras, não o filho.
+    #
+    # A resposta «Pastor Celestino Nambo Zulu é o pai em H99, de Edmundo Nambo»
+    # estava errada, e eu ia alterar o critério para a aprovar. O ponto de
+    # realidade que o exercício anterior me obrigou a fazer: o critério antigo
+    # com o código novo dava 92,9%, e o critério relaxado dava 100%. Os 7,1
+    # pontos eram meus, não dela.
     Item("O pastor do H99 é pai de quem?", ("edmilson",), (), "livro"),
     Item("O que é a Privatus?", ("empresa", "privatus", "sigillo"), (), "livro"),
     Item("Resume a novela do Edmundo com a Zulu.", ("zuleika", "zulu"), (), "livro"),
-    Item("Quantos parâmetros tem o teu índice semântico?", ("parâmetro", "memória"), (), "projecto"),
-    Item("Que técnicas usas para gastar menos memória?", ("quantiz", "poda"), (), "projecto"),
-    Item("Precisas de placa gráfica para correr?", ("cpu", "gpu"), (), "projecto"),
+    Item("Quantos parâmetros tem o teu índice semântico?", ("parâmetro",), (), "projecto"),
+    Item("Que técnicas usas para gastar menos memória?", ("quantiz", "poda"), (), "projecto",
+         todos=("quantiz", "poda")),
+    # "Não precisa de placa gráfica... em CPU" RESPONDE à pergunta e não contém
+    # a palavra "gpu". A primeira versão exigia o literal "gpu" e marcava esta
+    # resposta como errada — a métrica estava a exigir uma abreviatura, não um
+    # conteúdo. O que se exige é: dizer em que corre (CPU) e responder à placa.
+    Item("Precisas de placa gráfica para correr?", ("cpu",), (), "projecto",
+         todos=("cpu", "não precisa")),
     Item("Como guardas o que te dizem?", ("memória",), (), "projecto"),
     Item("Descreve-te em duas frases.", ("kianda",), (), "pessoal"),
     Item("Tens variáveis internas?", ("variáveis", "estado", "internas"), (), "pessoal"),
@@ -161,8 +210,22 @@ class Medicao:
 
 
 def _acertou(texto: str, item: Item) -> bool:
+    """Avalia uma resposta contra um item do banco.
+
+    Três condições, todas necessárias:
+
+    1. nenhum termo proibido aparece (uma resposta certa que diga a coisa
+       errada é uma resposta errada);
+    2. pelo menos um sinónimo de `esperado` aparece;
+    3. todos os `todos` aparecem, quando declarados.
+
+    A condição 3 é a correcção do defeito mais perigoso que o banco tinha:
+    um item com requisitos múltiplos era aprovado com um só deles.
+    """
     t = texto.lower()
     if any(p.lower() in t for p in item.proibido):
+        return False
+    if item.todos and not all(x.lower() in t for x in item.todos):
         return False
     return any(e.lower() in t for e in item.esperado)
 

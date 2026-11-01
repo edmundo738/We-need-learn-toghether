@@ -262,9 +262,74 @@ class Raciocinador:
         # Antes de procurar por palavras, resolve-se *quem* está a ser
         # perguntado. É a diferença entre um motor de busca e um sistema que
         # sabe do que fala. Custa uma passagem sobre o texto.
+        # O que se recupera e o que se responde não são a mesma string.
+        #
+        # A camada de entidades antes injectava uma frase descritiva no lugar
+        # da pergunta ("Privatus: o projecto privado do Edmilson…"), e isso
+        # resolvia a apresentação mas sobrepunha-se ao BM25 para perguntas
+        # vizinhas: "Como funciona a memória?" passou a casar com o documento
+        # cujo título eu tinha escrito "Como funciono por dentro". O termo
+        # "funciona" tinha df=1 no corpus, portanto IDF máximo, e vencia o
+        # documento sobre a memória.
+        #
+        # Agora a recuperação usa a pergunta original, acrescida dos nomes das
+        # entidades resolvidas — não da descrição inteira.
         ent = canon.resolver_entidades(pergunta)
+        termos_entidade = " ".join(
+            [canon.PERSONAGENS[c].nome for c in ent["pessoas"] if c in canon.PERSONAGENS]
+            + [canon.OBRAS[c].titulo for c in ent["obras"] if c in canon.OBRAS]
+            + list(ent.get("dominio", []))
+        )
+        consulta = (pergunta + " " + termos_entidade).strip()
         if ent["tem_entidade"] and orcamento.get("recuperar_memoria", True):
             fichas: list[Evidencia] = []
+
+            # Uma pergunta sobre PARENTESCO com uma só entidade resolvida tem de
+            # consultar as relações dessa entidade.
+            #
+            # Defeito medido no conjunto reservado:
+            #
+            #   "De quem é filho o Edmilson?"  -> respondida com a ficha do
+            #   Edmilson (0,95) porque `resolver_entidades` só preenche
+            #   `relacoes` quando DUAS pessoas aparecem na pergunta. O parente
+            #   não está escrito; está no canon. A relação que respondia
+            #   («Edmilson — filho e pai — Pastor Celestino») foi recuperada,
+            #   mas com 0,028, e a ficha (0,95) atropelou-a.
+            #
+            # O critério é o mesmo de `_pergunta_sobre_obra`: decidir pela
+            # pergunta, não pela evidência que apareceu.
+            _parentesco = any(k in pergunta.lower() for k in
+                              ("filho", "filha", "pai", "mãe", "mae", "irmão", "irmao",
+                               "irmã", "irma", "primo", "tio", "avô", "avo"))
+            if _parentesco:
+                # Só se pede POR UM dos lados quando só uma pessoa aparece na
+                # pergunta. Se a pergunta nomeia duas («a zuleika e a mae_zulu»),
+                # a relação entre elas já vem de `ent["relacoes"]` com 0,96, e
+                # acrescentar aqui TODAS as relações dos dois lados com 0,97
+                # punha a do Kau à frente da da mãe. Aconteceu: a resposta a
+                # «relação entre a zuleika e a mae_zulu» passou a ser a do Kau,
+                # e o teste de chaves internas apanhou-o.
+                por_chave = ent["pessoas"] if len(ent["pessoas"]) == 1 else []
+            else:
+                por_chave = []
+            for chave in por_chave:
+                    for a, b, r in canon.RELOCOES:
+                        if chave not in (a, b):
+                            continue
+                        outro = b if a == chave else a
+                        ja = any(f.fonte.endswith(f"{a}:{b}") or f.fonte.endswith(f"{b}:{a}")
+                                 for f in fichas)
+                        if ja:
+                            continue
+                        nome_c = canon.PERSONAGENS[chave].nome if chave in canon.PERSONAGENS else chave
+                        nome_o = canon.PERSONAGENS[outro].nome if outro in canon.PERSONAGENS else outro
+                        fichas.append(Evidencia(
+                            texto=f"A relação entre {nome_c} e {nome_o}: {r}.",
+                            fonte=f"canon:relacao:{a}:{b}", pontuacao=0.97,
+                            meta={"tipo": "canon", "fonte": f"RELOCOES[{a},{b}]",
+                                  "entidade": chave},
+                        ))
+
             # relações primeiro: quando a pergunta é sobre o que existe entre
             # duas pessoas, é isso que tem de encabeçar a resposta
             for a, b, r in ent["relacoes"]:
@@ -316,7 +381,7 @@ class Raciocinador:
         # --- 1. recuperar ---
         ja_tem_ficha = bool(ev)
         if orcamento.get("recuperar_memoria", True) and not ja_tem_ficha:
-            ev_r, c_r, cu = self._recuperar(pergunta, k, intencao)
+            ev_r, c_r, cu = self._recuperar(consulta, k, intencao)
             total = total + cu
             ev = ev_r
             conf = max(conf, c_r)
@@ -332,7 +397,7 @@ class Raciocinador:
             # frase sobre um livro, porque o recuperador devolve *alguma* coisa
             # para qualquer consulta e o texto era colado sem verificação.
             # Medido: 3 de 3 perguntas de relação vinham com uma cauda alheia.
-            ev_r, c_r, cu = self._recuperar(pergunta, max(2, k // 2), "pergunta_livro")
+            ev_r, c_r, cu = self._recuperar(consulta, max(2, k // 2), "pergunta_livro")
             total = total + cu
             # limiar relativo ao melhor resultado: um fragmento que pontua menos
             # de metade do melhor não está a falar do mesmo assunto

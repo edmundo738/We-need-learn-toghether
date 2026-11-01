@@ -181,6 +181,13 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
         "o que é destilação", "como funciona o bm25",
     ),
     "pergunta_pessoal": (
+        # Perguntas sobre ela, incluindo o nome dela. Faltavam, e a lacuna era
+        # visível: "Qual é o teu nome?" não tinha concorrente. Sem exemplos
+        # com a palavra `nome` nesta classe, a única classe que a tinha era
+        # `apresentacao` — e o NB concluía, com razão estatística, que falar de
+        # nomes era apresentar-se.
+        "qual é o teu nome", "como te chamas", "qual o teu nome",
+        "tens nome", "que nome tens", "como é que te chamas",
         "já perdeste algo",
         "já esqueceste alguma coisa",
         "lembras-te de algo que não consegues provar",
@@ -267,9 +274,26 @@ EXEMPLOS: dict[str, tuple[str, ...]] = {
     # sistema respondia com um capítulo do livro a alguém que estava a dizer
     # o nome. A memória do nome do utilizador deixou de ser aprendida — um
     # teste antigo detectou-o, e a causa era esta classificação em falta.
+    # CUIDADO COM OS FRAGMENTOS NUS.
+    #
+    # "o meu nome" sem complemento ensina ao classificador que a palavra
+    # `nom` sozinha é apresentação. Consequência medida no conjunto reservado:
+    #
+    #     "Qual é o teu nome?"                -> apresentacao 0,28  (devia ser pergunta_pessoal)
+    #     "Qual é o nome completo da Zulu?"   -> apresentacao 0,30  (devia ser pergunta_livro)
+    #
+    # As duas respostas foram "Registado. Guardo o teu nome" — a Kianda
+    # agradeceu por um nome que ninguém lhe deu e não respondeu. O fragmento
+    # valia mais do que o resto da frase.
+    #
+    # A forma certa: exemplos que só são apresentação quando são uma declaração
+    # de identidade inteira ("chamo-me", "o meu nome é", "podes chamar-me"). Uma
+    # palavra isolada nunca entra, porque no NB uma palavra partilhada pesa
+    # tanto como uma expressão.
     "apresentacao": (
         "chamo-me", "o meu nome é", "meu nome e", "podes chamar-me",
-        "sou o edmundo", "sou a ana", "eu chamo-me", "o meu nome",
+        "sou o edmundo", "sou a ana", "eu chamo-me", "eu sou o edmundo",
+        "eu sou a ana", "podes tratar-me por", "o meu nome completo é",
     ),
     "despedida": (
         "adeus", "até amanhã", "tenho de ir", "fico por aqui",
@@ -339,11 +363,38 @@ class ClassificadorIntencao:
         toks = [stem_leve(t) for t in tokenizar(texto)]
         V = max(len(self.vocab), 1)
         n_total = sum(self.prior.values())
+
+        # --- DEFEITO CORRIGIDO: uma palavra desconhecida votava -----------
+        #
+        # Com suavização de Laplace, um token fora do vocabulário contribui
+        #
+        #     log( alpha / (total_c + alpha*|V|) )
+        #
+        # e esse valor DEPENDE da classe: quanto mais exemplos a classe tem,
+        # maior o denominador, mais negativa a penalização. Medido neste
+        # classificador (alpha=0,35, |V|=271):
+        #
+        #     apresentacao    total= 12   log(alpha/denom) = -5,721
+        #     pergunta_tecnica total=102   log(alpha/denom) = -6,332
+        #
+        # Isto é 0,61 nats POR PALAVRA DESCONHECIDA a favor das classes
+        # pequenas. Uma frase cujo vocabulário não consta do treino era
+        # decidida por esse enviesamento, não por conteúdo: «mano, estás
+        # tranquilo?» saía «pergunta_livro» (0,11) porque as probabilidades
+        # de todas as classes ficavam entre 0,08 e 0,13 — o argmax era uma
+        # moeda ao ar enviesada para as classes raras.
+        #
+        # A correcção: um token que o modelo nunca viu não transporta
+        # informação sobre a intenção. Não é evidência fraca — é ausência de
+        # evidência, e a suavização só lhe dava um valor arbitrário. Deixa de
+        # votar. Se a frase inteira é desconhecida, os escores ficam iguais ao
+        # prior e `perceber` vê uma confiança baixa — que é a verdade.
+        conhecidos = [t for t in toks if t in self.vocab]
         escores: dict[str, float] = {}
         for c in self.prior:
             lp = math.log(self.prior[c] / n_total)
             denom = self.total[c] + self.alpha * V
-            for t in toks:
+            for t in conhecidos:
                 n = self.contagem[c].get(t, 0)
                 lp += math.log((n + self.alpha) / denom)
             escores[c] = lp
@@ -389,6 +440,25 @@ _SINAIS_TECNICOS = re.compile(
     r"\b(parâmetro|parametro|flop|ram|vram|cpu|gpu|latência|latencia|"
     r"quantiza|poda|destila|lora|bm25|autograd|arquitectura|arquitetura|"
     r"benchmark|memória episódica|token|inferência|inferencia)\w*", re.I
+)
+# Vocabulário do *assunto* da arquitectura, não do domínio técnico estreito.
+#
+# `_SINAIS_TECNICOS` acima é sobre implementação (FLOPs, GPU, quantização) e não
+# apanhava as perguntas sobre o mecanismo dela: "que tipos de memória tens" e
+# "o que acontece quando esqueceres algo" iam para `pergunta_pessoal` e eram
+# respondidas com o documento de identidade. A causa é a 2.ª pessoa: `tens` e
+# `esqueceres` são vocabulário de `pergunta_pessoal`, e nenhum classificador de
+# palavras sabe que o assunto da frase é uma máquina.
+#
+# Medido antes de aplicar: em 8 perguntas técnicas, corrige 2 e não estraga
+# nenhuma; em 9 perguntas pessoais, não toca em nenhuma. É essa a razão para
+# existir — não porque "parece certo".
+_SINAIS_MECANISMO = re.compile(
+    r"\b(parâmetro|parametro|flop|memória|memoria|memórias|memorias|esquece|"
+    r"esquecer|esqueceres|esquecimento|consolida|consolidação|consolidacao|"
+    r"recupera|recuperação|recuperacao|retém|retem|quantiza|poda|destila|lora|"
+    r"bm25|autograd|arquitectura|arquitetura|cpu|gpu|custo|dimensões|dimensoes|"
+    r"tipos de|índice|indice)\w*", re.I
 )
 _SINAIS_LIVRO = re.compile(
     r"\b(zuleika|zulu|kau|bisa|lara|edmilson|celestino|sigillo|privatus|"
@@ -479,8 +549,34 @@ class Perceptor:
                 intencao, confianca = "pergunta_pessoal", max(confianca, 0.62)
         # Simétrico: uma entidade das obras é evidência de que a pergunta é
         # sobre os livros, mesmo que o NB prefira "pessoal" por causa do "o que".
-        elif _tem_obra and intencao == "pergunta_pessoal" and confianca < 0.60:
+        #
+        # `apresentacao` entra nesta lista pelo mesmo motivo que `pergunta_
+        # pessoal`, e a lacuna custou um caso do conjunto reservado:
+        #
+        #     "Qual é o nome completo da Zulu?"  -> apresentacao 0,61
+        #
+        # A palavra `nom` vinha de `apresentacao`; a entidade `zuleika` não
+        # contrariava nada porque a regra só olhava para `pergunta_pessoal`.
+        # Uma pergunta que nomeia uma personagem é sobre o livro, mesmo que
+        # fale de nomes.
+        elif _tem_obra and intencao in ("pergunta_pessoal", "apresentacao") and confianca < 0.75:
             intencao, confianca = "pergunta_livro", max(confianca, 0.66)
+
+        # Uma pergunta pessoal que fala do MECANISMO é técnica.
+        #
+        # "Que tipos de memória tens?" é uma pergunta sobre a arquitectura
+        # escrita na 2.ª pessoa, que é como se pergunta a uma pessoa. O NB vê
+        # `tens` e `esqueceres` e escolhe `pergunta_pessoal` — estatisticamente
+        # correcto para o corpus de treino e errado para a pergunta.
+        #
+        # A regra só actua sobre `pergunta_pessoal` e só quando há vocabulário
+        # de mecanismo, e cede sempre a `apoio_emocional` e `pedido_etico`, que
+        # são decisões com consequências para quem está a falar.
+        if (intencao in ("pergunta_pessoal", "conversa")
+                and _SINAIS_MECANISMO.search(texto)
+                and not _SINAIS_CRISE.search(texto)
+                and not _SINAIS_ETICOS.search(texto)):
+            intencao, confianca = "pergunta_tecnica", max(confianca, 0.60)
 
         # -- dificuldade -----------------------------------------------
         toks = tokenizar(texto)

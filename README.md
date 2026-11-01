@@ -42,15 +42,35 @@ Todos os números abaixo vêm de execuções reais neste repositório.
 
 | sistema | exactidão (visto) | exactidão (paráfrases) | MFLOP/resposta | MB de pesos |
 |---|---|---|---|---|
-| **Kianda** (modular + memória externa) | 100 % | **85,7 %** | **3,62** | **0,90** |
-| Baseline monolítica (1,24 M parâmetros) | 100 % | 35,7 % | 49,74 | 4,97 |
-| | | | **13,9× mais caro** | **4,8× maior** |
+| **Kianda** (modular + memória externa) | 95 % | **100 %** | **0,53** | **0,10** |
+| Baseline monolítica (188 k parâmetros) | 90 % | 14,3 % | 7,15 | 0,71 |
+| | | | **13,6× mais caro** | **7,1× maior** |
 
-A leitura honesta: **no conjunto visto, os dois empatam.** É por isso que o
-conjunto visto não serve para nada — a baseline foi treinada nele e decora-o
-(perda final 0.0000). O que distingue os sistemas é o **segundo conjunto**:
-paráfrases que nenhum dos dois viu. Aí a Kianda acerta 85,7 % contra 35,7 %
-— e gasta 1/13 dos FLOPs.
+A leitura honesta: **no conjunto visto, os dois quase empatam** (95 % contra
+90 %). É por isso que o conjunto visto não serve para nada — a baseline foi
+treinada nele e decora-o. O que distingue os sistemas é o **segundo conjunto**:
+paráfrases que nenhum dos dois viu.
+
+> ### O 100 % não é prova de nada
+>
+> Corrigi 11 defeitos **olhando para o conjunto de paráfrases**. A partir desse
+> momento ele deixou de ser um conjunto de avaliação e passou a ser um conjunto
+> de treino com outro nome. O número honesto para uma versão futura é o
+> **conjunto reservado**: escrito de uma vez, medido antes de qualquer
+> correcção.
+>
+> | conjunto | 1.ª medição | depois de corrigir |
+> |---|---|---|
+> | paráfrases (usado para corrigir) | 78,6 % | 100 % |
+> | reservado v1 | **46,7 %** | 93,3 % |
+>
+> As 93,3 % **já não valem como generalização**: corrigi 7 das 15 perguntas
+> depois de ver os resultados. É necessária uma quarta reserva.
+>
+> Medido também: com o critério que o banco tinha *antes* deste ciclo e o código
+> de hoje, o resultado é 92,9 %, não 100 %. A diferença vem das minhas alterações
+> ao critério, não de melhorias na Kianda. Ver
+> `research/RELATORIO-CICLO-2026-11-01.md`.
 
 > A baseline estava em 28,6 % antes de o stemmer ser corrigido. A mesma
 > correcção que ajudou a Kianda ajudou-a a ela, porque ambas recuperam do mesmo
@@ -236,6 +256,33 @@ experimentos encontraram — todos com sintoma enganador e causa pequena:
 | personagens respondiam «Chamo-me Kianda» | fallback silencioso numa função de fichas | exactidão 85 % → 42,9 % |
 | estado sempre em «presente» | limiares acima do máximo atingível | o estado existia e não se manifestava |
 | 0 % de discordância | homeostase a puxar abaixo do limiar | a variável nunca cruzava o próprio gatilho |
+| `consultar("asdkjhasd qqwe")` → 3 resultados | o RRF dava um posto a todos os documentos, mesmo com similaridade zero | a recuperação nunca devolvia "não sei" |
+| benchmark a 100 % no conjunto visto | `guardar=False` não impedia a escrita, e a instância era partilhada | 100 % contaminado contra 90 % limpo |
+| resposta a «que técnicas foram testadas» com metade | `_acertou` usava `any()` sobre requisitos conjuntos | aprovaria uma resposta incompleta |
+| «o que acontece quando esqueceres algo» sem esquecimento | a evidência era cortada aos 260 caracteres e a frase começava aos 262 | resposta certa no conteúdo, vazia na pergunta |
+| 66 documentos em vez de 400, sem aviso | `dados/obras/` ausente e `carregar_tudo()` devolvia `{}` | o sistema parecia completo sem os livros |
+| aviso de corpus visível no Python e não no HTTP | `_corpus()` copiava só as chaves que conhecia | a interface mostrava um sistema completo |
+| «mano, estás tranquilo?» → pergunta do livro | palavras desconhecidas votavam com peso que dependia da classe | 0,61 nats por palavra a favor das classes pequenas |
+| «Qual é o teu nome?» → «Registado. Guardo o teu nome» | o fragmento nu `"o meu nome"` dava 2,11 nats à palavra `nom` | pedia-se o nome e ela agradecia |
+| «De quem é filho o Edmilson?» → ficha do Edmilson | a ficha valia 0,95 e a relação pedida 0,028 | a resposta certa era atropelada |
+
+---
+
+## Como se verifica
+
+```bash
+pytest testes/ -q                    # 96 testes
+python testes/validar_mutacoes.py    # 9 defeitos reintroduzidos, 9 detectados
+python testes/conjunto_reservado.py  # barreira fora do conjunto de treino
+```
+
+O segundo comando é o que impede o ciclo vicioso: apagar um teste para ficar
+verde faz com que o mutante correspondente sobreviva e o comando falhe. Está em
+CI (`.github/workflows/qualidade.yml`), em duas versões de Python, mais um
+trabalho separado que corre a suite num clone **sem** `dados/obras`.
+
+O relatório do último ciclo — com os defeitos ainda em aberto — está em
+`research/RELATORIO-CICLO-2026-11-01.md`.
 
 ---
 
