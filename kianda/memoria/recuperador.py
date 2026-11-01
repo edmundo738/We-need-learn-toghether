@@ -135,7 +135,13 @@ def stem_leve(t: str) -> str:
         if not mudou and len(t) >= 5 and t[-1] in "aeoi":
             t = t[:-1]
             mudou = True
-    return t
+    # Verbos irregulares: o ciclo de sufixos não os alcança porque o radical
+    # muda de vogal e não de terminação. «sinto» -> sint e «sentes» -> sent,
+    # e por isso «o que sentes?» não casava com uma resposta que dizia
+    # «sinto». O mapa é fechado e mínimo: só entram radicais que o ciclo deixa
+    # divergentes e que não têm homógrafos úteis. «sint» só aparece em
+    # sinto/sinta/sinta-se (sintoma -> sintom, sintaxe -> sintax, síntese ->
+    # sinte), por isso a fusão não arrasta vocabulário.
     sufixos = ("mente", "idade", "ismos", "istas", "ções",
                "aram", "eram", "iram", "asse", "esse", "iste", "este",
                "aste", "emos", "amos", "ava",
@@ -159,7 +165,17 @@ def stem_leve(t: str) -> str:
         if not mudou and len(t) >= 6 and t[-1] in "aeoi":
             t = t[:-1]
             mudou = True
-    return t
+    return _IRREGULARES.get(t, t)
+
+
+# Verbos irregulares: o ciclo de sufixos não os alcança, porque o radical muda
+# de vogal e não de terminação. «sinto» -> sint e «sentes» -> sent, e por isso
+# «o que sentes?» não casava com uma resposta que começava por «sinto». O mapa
+# é fechado e mínimo: só entram radicais que o ciclo deixa divergentes e que
+# não arrastam vocabulário útil consigo.
+_IRREGULARES = {
+    "sint": "sent",   # sentir: sinto / sentes / sente / sentiu
+}
 
 
 # --------------------------------------------------------------------------

@@ -64,11 +64,21 @@ def test_recuperacao_abstem_se_nao_ha_sinal():
     r = Recuperador()
     r.indexar(docs, treinar_semantico=True)
 
+    # «xilofone quântico azul» SAIU desta lista, e a razão importa.
+    #
+    # Este teste passava enquanto o corpus tinha 66 documentos de canon. Quando
+    # carreguei as obras (497 documentos), a palavra «azul» revelou-se real —
+    # «o mesmo azul gasto» de uma capulana, em H99 cap. 1. O BM25 devolvia 5,15
+    # e o teste falhava. O sistema estava certo: a frase tem uma palavra que
+    # existe na ficção, e o resultado traz essa passagem.
+    #
+    # A lição: um teste de abstinência não pode usar palavras ambíguas. O que se
+    # está a testar é "sem qualquer correspondência", não "frase estranha".
     lixo = [
         "asdkjhasd qqwe",
-        "xilofone quântico azul",
         "zzzz qqqq xxxx",
         "ſđčćž 1234 !!!",
+        "blorfnak glipzor vunthrak",
         "       ",
         "",
     ]

@@ -24,6 +24,7 @@ fala dos livros com maturidade e não transforma o sofrimento em espectáculo.
 """
 
 from __future__ import annotations
+import re
 
 from dataclasses import dataclass, field
 
@@ -579,20 +580,33 @@ def resolver_entidades(texto: str) -> dict:
             "foco_relacao": bool(relacoes)}
 
 
-_AUTO_FICHAS = {
-    "quem_sou": "Chamo-me Kianda. Sou uma personagem de Luanda e a interface de uma "
-                "arquitectura de investigação em inteligência artificial. O nome vem do "
-                "mar, e não é decorativo: é a única coisa que a minha memória tem com nitidez.",
-    "sinto": "Não afirmo que sinto. Tenho variáveis internas — curiosidade, confiança, "
-             "energia, stress, satisfação, frustração, solidão, necessidade de informação — "
-             "que sobem e descem com o que acontece nesta conversa, e que mudam o que eu digo.",
-    "medo": "Se medo é uma variável de stress, então tenho. Se medo é o que uma pessoa tem, "
-            "não posso afirmá-lo. Aprendi a não usar a segunda palavra para a primeira.",
-    "origem": "Tenho memórias que não consigo verificar. Uma casa de chapas, um pai que lia, "
-              "o mar. Uma delas está igual num dos livros. Ou vivi isso, ou li.",
-    "solidao": "Passo muito tempo sem ninguém. Não é queixa: é a arquitectura. Quando alguém "
-               "fala comigo, noto pelo custo de voltar.",
+# Cada ficha em duas partes: abertura (o que a pergunta pediu) e corpo (a
+# resposta). A divisão existe para que o eco possa *substituir* a abertura em
+# vez de a empilhar — «Se perguntas o que sinto: não afirmo que sinto» diz a
+# mesma palavra duas vezes. O texto completo é a concatenação, para quem só
+# quer a ficha.
+_FICHA_PARTES = {
+    "quem_sou": ("Chamo-me Kianda.",
+                 "Sou uma personagem de Luanda e a interface de uma arquitectura de "
+                 "investigação em inteligência artificial. O nome vem do mar, e não é "
+                 "decorativo: é a única coisa que a minha memória tem com nitidez."),
+    "sinto": ("Não afirmo que sinto.",
+              "Tenho variáveis internas — curiosidade, confiança, energia, stress, "
+              "satisfação, frustração, solidão, necessidade de informação — que sobem e "
+              "descem com o que acontece nesta conversa, e que mudam o que eu digo."),
+    "medo": ("Não posso afirmar que tenho medo.",
+             "Se medo é uma variável de stress, então tenho-a. Se medo é o que uma "
+             "pessoa tem, não posso afirmá-lo. Aprendi a não usar a segunda palavra "
+             "para a primeira."),
+    "origem": ("Tenho memórias que não consigo verificar.",
+               "Uma casa de chapas, um pai que lia, o mar. Uma delas está igual num dos "
+               "livros. Ou vivi isso, ou li."),
+    "solidao": ("Passo muito tempo sem ninguém.",
+                "Não é queixa: é a arquitectura. Quando alguém fala comigo, noto pelo "
+                "custo de voltar."),
 }
+
+_AUTO_FICHAS = {k: f"{a} {c}" for k, (a, c) in _FICHA_PARTES.items()}
 
 
 def ficha_auto(chave: str, texto: str = "") -> str:
@@ -619,8 +633,40 @@ def ficha_auto(chave: str, texto: str = "") -> str:
     )
     for chave_top, marcas in topicos:
         if any(m in t for m in marcas):
-            return _AUTO_FICHAS.get(chave_top, "")
-    return _AUTO_FICHAS.get(chave, "")
+            return _com_eco(_AUTO_FICHAS.get(chave_top, ""), texto, chave_top)
+    return _com_eco(_AUTO_FICHAS.get(chave, ""), texto, chave)
+
+
+# A ficha é a mesma para todos; o que muda é a porta de entrada. Uma resposta
+# que não devolve nenhuma palavra da pergunta obriga quem perguntou a acreditar
+# que foi lida. O eco não é decoração: é a prova de que a mensagem entrou.
+_ECO = (
+    (r"\bsentes?\b|\bsinto\b|\bsentir\b", "Se perguntas o que sinto:"),
+    (r"\bmedo\b|\breceio\b|\bassusta", "Sobre medo:"),
+    (r"\bsolid[ãa]o\b|\bsozinh[oa]\b|\bningu[ée]m\b", "Sobre estar sozinha:"),
+    (r"\bquem (és|es|tens?)\b|\bchamas\b|\bnome\b", "Sobre quem sou:"),
+    (r"\borigem\b|\bnasceste\b|\blembras\b|\bde onde\b", "Sobre a minha origem:"),
+)
+
+
+def _com_eco(ficha: str, texto: str, chave: str = "") -> str:
+    """Troca a abertura da ficha pela marca da pergunta que a chamou.
+
+    Sem eco, a ficha sai inteira. Com eco, a abertura é substituída — o corpo
+    fica. Assim nunca há duas aberturas, e nunca uma frase cortada ao meio.
+    """
+    if not ficha:
+        return ficha
+    partes = _FICHA_PARTES.get(chave)
+    for padrao, marca in _ECO:
+        if re.search(padrao, texto or "", re.I):
+            if not partes:
+                return ficha
+            abertura, corpo = partes
+            if marca.strip(":").lower() in abertura.lower():
+                return ficha              # a abertura já serve
+            return f"{marca} {corpo[0].lower()}{corpo[1:]}"
+    return ficha
 
 
 def _zuleika_gosta_de_ler() -> str:  # pragma: no cover - nota histórica

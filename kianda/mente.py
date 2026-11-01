@@ -38,6 +38,7 @@ from dataclasses import dataclass, field, asdict
 from pathlib import Path
 
 from .cognicao.percepcao import Percepcao, Perceptor
+from .cognicao.turno import analisar as analisar_turno, PALAVRAS_ESTADO
 from .cognicao.raciocinio import Evidencia, Raciocinador, ResultadoRaciocinio
 from .identidade import canon
 from .identidade.estado import EstadoInterno, Politica
@@ -271,6 +272,23 @@ class Kianda:
         # ---- 1. perceber
         per = self.perceptor.perceber(texto, [t.entrada for t in self.turnos[-3:]])
 
+        # ---- 1b. representar
+        # A classificação diz QUE TIPO de resposta. A representação diz DE QUE É
+        # QUE A RESPOSTA FALA: acto, sujeito, estado, referências. Sem isto, a
+        # composição não tinha como distinguir «estou triste» de «estás triste?»
+        # — e respondia às duas com o mesmo bloco.
+        # O histórico intercala as duas vozes, com a fala da Kianda marcada por
+        # «kianda:». Sem a marca, o resolvedor de anáforas não sabe distinguir
+        # «o que eu disse» de «o que ela disse» — e «o que isso significa?»
+        # apontava sempre para trás, para o utilizador.
+        _hist: list[str] = []
+        for _t in self.turnos[-6:]:
+            _hist.append(_t.entrada)
+            _r = getattr(_t.resposta, "texto", "") or ""
+            if _r:
+                _hist.append("kianda: " + _r.split(".")[0])
+        rep = analisar_turno(texto, _hist)
+
         # ---- 2. sentir
         self._ultima_entrada = texto
         evento = self._evento(per)
@@ -322,7 +340,7 @@ class Kianda:
         )
 
         # ---- 6. falar
-        resposta = self._compor_resposta(texto, per, plano, raciocinio, memorias)
+        resposta = self._compor_resposta(texto, per, plano, raciocinio, memorias, rep)
         if resposta.texto in self.personalidade.evitar:
             resposta.texto = self._alternativa_para(resposta.texto)
 
@@ -354,6 +372,265 @@ class Kianda:
         if verboso:
             print(turno.resumo())
         return turno
+
+
+    # -- reparação, esclarecimento, estado ---------------------------------
+
+    def _reparar(self, rep) -> str:
+        """Reconhece o erro e reconstrói, em vez de pedir ao utilizador que o faça.
+
+        Defeito corrigido: a resposta anterior era «Diz-me o que estava mal e eu
+        corrijo — mas diz-me em concreto, porque «mal» não me dá nada com que
+        trabalhar.» Isso transfere o trabalho de diagnóstico para quem já disse
+        que a resposta estava errada. E a variante «Não vou mudar de resposta só
+        porque não gostaste» defende-se em vez de reparar.
+
+        A reparação tem de fazer três coisas, por esta ordem:
+        1. assumir a interpretação que fez;
+        2. dizer o que devia ter respondido;
+        3. dar a resposta certa, não uma promessa de a dar.
+        """
+        # Que interpretação foi esta? Vem do último turno do utilizador.
+        anterior = ""
+        for t in reversed(self.turnos[-3:]):
+            if t.entrada.strip():
+                anterior = t.entrada.strip()
+                break
+
+        # Se a mensagem anterior era uma afirmação, o erro provável é tê-la lido
+        # como pergunta. Se era uma pergunta social, o erro é ter ido buscar
+        # documentação. Nomear o erro certo é metade da reparação.
+        if rep.e_afirmacao or re.search(r"afirmei|afirmei|não perguntei", rep.texto, re.I):
+            assumir = "Tens razão — o que disseste era uma afirmação e eu tratei-o como uma pergunta."
+        elif anterior and re.search(r"como (est|vai)|tudo bem|tas bem|tás bem",
+                                     anterior, re.I):
+            assumir = ("Tens razão. Perguntaste-me como estou e eu fui buscar "
+                       "documentação, que não é uma resposta.")
+        else:
+            assumir = ("Tens razão. Interpretei mal a tua mensagem e respondi "
+                       "a outra coisa.")
+
+        # A resposta que devia ter dado, dada agora.
+        if anterior and re.search(r"como (est|vai)|tudo bem|tas bem|tás bem",
+                                    anterior, re.I):
+            devia = self._estado_em_voz()
+        elif anterior:
+            devia = ("O que me perguntaste foi: «" + _encolher(anterior, 70).rstrip(".") + "».")
+        else:
+            devia = ""
+
+        partes = [assumir]
+        if devia:
+            partes.append(devia)
+        partes.append("Diz-me outra vez, com as tuas palavras, e eu respondo ao "
+                      "que perguntaste.")
+        return " ".join(partes)
+
+    def _estado_em_voz(self) -> str:
+        """O estado dela dito em primeira pessoa, a partir das variáveis reais.
+
+        Não é uma emoção inventada: é a leitura de variáveis que existem e que a
+        UI mostra. Quando a energia está alta, diz isso; quando não está, também.
+        """
+        v = self.estado.v
+        energia = v.get("energia", 0.5)
+        stress = v.get("stress", 0.5)
+        if energia > 0.65 and stress < 0.4:
+            return "Estou operacional — energia alta, pouca tensão. Pronta para continuar."
+        if stress > 0.6:
+            return ("Estou a funcionar, mas com a tensão subida: o stress está em "
+                    f"{stress:.2f} e a energia em {energia:.2f}. Consigo continuar.")
+        return (f"Estou operacional. A energia está em {energia:.2f} e o stress em "
+                f"{stress:.2f} — não é fadiga nem é entusiasmo, são os números que tenho.")
+
+    def _repetir(self, rep) -> str:
+        """Repete o que foi dito, quando a pessoa pede para repetir.
+
+        A pessoa não pediu uma explicação nova — pediu a mesma coisa outra vez.
+        O erro anterior era responder com um documento sobre a memória, porque
+        «o que tas a dizer» não casava com nenhum ramo e caía na evidência.
+
+        Repetir não é copiar: é dizer o mesmo em menos palavras. Se não houve
+        nada antes, isso diz-se — não se inventa conteúdo para preencher.
+        """
+        anterior = ""
+        for t in reversed(self.turnos[-2:]):
+            if t.entrada.strip() and t.entrada.strip() != rep.texto.strip():
+                anterior = getattr(t.resposta, "texto", "") or ""
+                break
+
+        if not anterior.strip():
+            return ("Não disse nada antes disto — é o meu primeiro turno nesta "
+                    "conversa. Diz-me o que querias ouvir e eu digo.")
+
+        # Uma frase, a primeira que tenha conteúdo. Repetir tudo é despejar.
+        frases = [f.strip() for f in re.split(r"(?<=[.!?])\s+", anterior) if f.strip()]
+        nucleo = frases[0] if frases else anterior.strip()
+        if len(nucleo) > 200:
+            nucleo = _encolher(nucleo, 200)
+        return (f"Repito, mais curto: «{nucleo}» "
+                f"Se ficou confuso, a culpa é de como eu escrevi — pergunta à "
+                f"vontade sobre esta parte.")
+
+    def _esclarecer(self, rep, rac) -> str:
+        """Explica o que foi dito antes, em vez de procurar outro documento.
+
+        «o que isso significa?» não tem assunto próprio: o assunto é o turno
+        anterior. A resposta anterior era «Estou a ouvir. Continua.» — que é uma
+        não-resposta, porque a pessoa pediu explicitamente para continuar.
+
+        A explicação não repete o bloco: explica-o. Se a evidência anterior era
+        documentação, a explicação é uma glosa em linguagem simples; se era uma
+        ficha, é o que a ficha diz em palavras comuns.
+        """
+        # 1. O que foi dito no turno anterior?
+        anterior = ""
+        for t in reversed(self.turnos[-2:]):
+            if t.entrada.strip() and t.entrada.strip() != rep.texto.strip():
+                texto_ant = t.resposta.texto if hasattr(t, "resposta") else ""
+                if texto_ant:
+                    anterior = texto_ant
+                break
+
+        # 2. O assunto: o «isso» da mensagem, senão a entidade da resposta
+        #    anterior. O segundo caso é o que faltava. «o que isso significa?»
+        #    vinha a seguir a uma ficha sobre o medo e recebia o documento da
+        #    identidade — porque `referencia_resolvida` só olhava para a
+        #    mensagem do utilizador e a resposta anterior não tem «isso» nenhum.
+        #    O «isso» refere-se ao que EU disse, não ao que ele disse.
+        # A anáfora resolve-se para uma ENTIDADE, não para uma frase. O
+        # resolvedor de turno devolve palavras com conteúdo («ouvi medo nao vou
+        # dizer»), que servia para decidir *se* havia antecedente e não para
+        # dizer *qual* é. Como antecedente, produz «Estou a falar de ouvi medo».
+        alvo = self._assunto_da_resposta_anterior()
+        if not alvo and self._parece_entidade(rep.referencia_resolvida):
+            alvo = rep.referencia_resolvida
+
+        if anterior:
+            frases = [f.strip() for f in re.split(r"(?<=[.!?])\s+", anterior) if f.strip()]
+            # As duas primeiras frases são a resposta; a explicação é sobre elas.
+            nucleo = " ".join(frases[:2])
+            if alvo:
+                return (f"Estou a falar de {alvo}. Em concreto: {_encolher(nucleo, 220)} "
+                        f"Posto de outra maneira — o que quero dizer é que isto é o "
+                        f"que posso afirmar, e o resto seria invenção.")
+            return (f"Estou a falar disto, em palavras simples: {_encolher(nucleo, 220)} "
+                    f"Se ainda não estiver claro, diz-me qual é a palavra que não "
+                    f"percebeste e eu explico só essa.")
+
+        if alvo:
+            return (f"Refiro-me a {alvo}. Não tenho mais detalhe do que isto sem "
+                    f"inventar — e não vou inventar.")
+
+        return ("Não tenho um «isso» a que me agarrar: a tua mensagem anterior não "
+                "tinha assunto que eu consiga retomar. Diz-me a que te referes e eu "
+                "respondo a isso.")
+
+    @staticmethod
+    def _parece_entidade(texto: str) -> bool:
+        """Um antecedente utilizável é curto e é um nome, não uma frase."""
+        if not texto or len(texto.split()) > 2:
+            return False
+        try:
+            ent = canon.resolver_entidades(texto)
+        except Exception:
+            return False
+        return bool(ent.get("pessoas") or ent.get("obras"))
+
+    def _assunto_da_resposta_anterior(self) -> str:
+        """Qual foi o assunto da última resposta? Vazio se não houver.
+
+        A pergunta «o que isso significa?» refere-se, quase sempre, ao que a
+        Kianda acabou de dizer — não ao que o utilizador disse. Sem isto, o
+        «isso» não tinha antecedente e a resposta vinha da recuperação.
+
+        A entidade é extraída do texto da própria resposta com o mesmo
+        resolvedor do perceptor, para não haver dois dicionários de nomes.
+        """
+        # Só respostas com nome próprio contam. Uma resposta sobre o *estado*
+        # («Ouvi: medo…») não tem entidade, e o resolvedor devolvia «estou» como
+        # se fosse uma pessoa: «Estou a falar de estou medo.» A guarda é o
+        # artigo: sem determinante antes do nome, não é um antecedente.
+        anterior = ""
+        for t in reversed(self.turnos[-2:]):
+            texto_ant = getattr(t.resposta, "texto", "") or ""
+            if texto_ant:
+                anterior = texto_ant
+                break
+        if not anterior:
+            return ""
+        try:
+            ent = canon.resolver_entidades(anterior)
+        except Exception:
+            return ""
+        pessoas = ent.get("pessoas") or []
+        obras = ent.get("obras") or []
+        if pessoas and re.search(r"\b(a|o|d[aeo]s?)\s+" + re.escape(pessoas[0]), anterior, re.I):
+            p = canon.PERSONAGENS.get(pessoas[0])
+            return p.nome if p is not None else pessoas[0].capitalize()
+        if obras:
+            # A chave interna («apenas_existo») nunca deve sair numa frase.
+            o = canon.OBRAS.get(obras[0])
+            return o.titulo if o is not None else obras[0].replace("_", " ").title()
+        return ""
+
+    def _acolher_estado(self, rep) -> str:
+        """Responde a uma afirmação sobre o estado de quem fala.
+
+        O que NÃO faz: dizer «compreendo o que sentes» (não compreende, e fingir
+        que sim é o tipo de mentira que o projecto recusa), nem mudar de assunto
+        para documentação.
+
+        O que faz: acusa o estado com as palavras da pessoa, responde como
+        sistema, e deixa a porta aberta sem interrogar. Se a pessoa disser que
+        não quer falar disso, não insiste.
+        """
+        estado = rep.estado
+        # 1. Recusa explícita: não insistir, não interpretar.
+        if rep.recusa_falar:
+            return ("Fico por aqui, então. Não te pergunto mais nada sobre isso. "
+                    "Se quiseres falar de outra coisa, ou de nada, estou aqui.")
+
+        # 2. Negação: «não estou bem» tem polaridade negativa.
+        if rep.negado or rep.estado_polaridade < 0:
+            return (f"Fico a saber que não estás bem. Não vou fingir que sei o que "
+                    f"isso é por dentro — mas ouvi. Se quiseres dizer mais, diz; "
+                    f"se não, ficamos assim.")
+
+        # 3. Hipotético: «acho que estou a ficar triste» não é o mesmo que estar.
+        if rep.hipotese:
+            return (f"«{estado}», e dizes que achas — não que tens a certeza. "
+                    f"Fico com a versão incerta, que é a tua. Se mudar, diz-me.")
+
+        # 4. Positivo — e a abertura repete a palavra da pessoa, porque é o único
+        #     sinal verificável de que a mensagem foi lida. Sem ela, «estou
+        #     triste» recebia «Ouvi: triste» (bem) mas «sinto-me em baixo»
+        #     recebia uma frase genérica que servia para qualquer estado.
+        ABERTURA = {
+            "bem": "Ainda bem.",
+            "feliz": "Ainda bem.",
+            "otimo": "Ainda bem.",
+            "ótimo": "Ainda bem.",
+            "melhor": "Ainda bem — melhor é melhor.",
+            "triste": "Ouvi: triste.",
+            "cansado": "Ouvi: cansado.",
+            "cansada": "Ouvi: cansada.",
+            "sozinho": "Ouvi: sozinho.",
+            "sozinha": "Ouvi: sozinha.",
+            "medo": "Ouvi: medo.",
+            "tensa": "Ouvi: tensa.",
+            "nervoso": "Ouvi: nervoso.",
+            "nervosa": "Ouvi: nervosa.",
+            "mal": "Ouvi: mal.",
+        }
+        abertura = ABERTURA.get(estado.lower(), f"Ouvi: «{estado}».")
+        # Uma frase de sistema, honesta sobre o que ela pode e não pode fazer.
+        corpo = ("Não te vou dizer que compreendo o que sentes — não tenho acesso "
+                 "a isso, e dizer que sim seria a mentira mais fácil desta conversa.")
+        # Uma pergunta, mas uma só, e sobre o que ajuda.
+        pergunta = "Queres falar disso, ou preferes falar de outra coisa?"
+        return f"{abertura} {corpo} {pergunta}"
+
 
     # -- partes do ciclo --------------------------------------------------
     def _evento(self, per: Percepcao) -> str:
@@ -427,11 +704,66 @@ class Kianda:
 
     def _compor_resposta(
         self, texto: str, per: Percepcao, plano: dict,
-        rac: ResultadoRaciocinio, memorias: list[Memoria],
+        rac: ResultadoRaciocinio, memorias: list[Memoria], rep=None,
     ) -> Resposta:
-        """Constrói a fala a partir de: evidência + memória + estado + traços."""
+        """Constrói a fala a partir de: acto + sujeito + evidência + estado.
+
+        A ordem dos ramos é a decisão de desenho mais importante deste método, e
+        mudou nesta versão. Antes, qualquer mensagem que não caísse numa das
+        intenções especiais despejava a evidência recuperada. Agora, os actos que
+        dizem respeito à própria conversa — reparação, esclarecimento, afirmação
+        de estado — são tratados ANTES da evidência, porque um documento sobre a
+        Zuleika nunca responde a «estou triste».
+        """
         partes: list[str] = []
         maximo = plano.get("max_tokens", 200)
+
+        # --- reparação: «não foi isso que perguntei» ---------------------
+        # Tratada primeiro, e antes de qualquer evidência. Foi o defeito mais
+        # visível do transcript: seis mensagens de reparação receberam
+        # «Diz-me o que estava mal e eu corrijo» e «Não vou mudar de resposta
+        # só porque não gostaste». A segunda é o oposto de reparar.
+        if rep is not None and rep.e_correcao:
+            return self._empacotar(self._reparar(rep), plano, rac)
+
+        # --- pedido de esclarecimento: «o que isso significa?» -----------
+        if rep is not None and rep.e_pedido_esclarecimento:
+            return self._empacotar(self._esclarecer(rep, rac), plano, rac)
+
+        # --- pedido de repetição: «o que tas a dizer?» -------------------
+        # Não é «explica-te» (a pessoa não pediu uma glosa), nem uma pergunta
+        # nova (não há assunto novo). Respondia com documentação sobre a memória
+        # porque «dizer» não estava em nenhum ramo. Repetir o que se disse, mais
+        # curto, é a única resposta que serve — e assumir que a frase saiu mal.
+        if rep is not None and rep.e_pedido_repeticao:
+            return self._empacotar(self._repetir(rep), plano, rac)
+
+        # --- pergunta social: «como estás?» ------------------------------
+        # Uma pergunta sobre o estado dela responde-se com o estado dela. Antes
+        # respondia-se com documentação («A Kianda não afirma ser consciente…»)
+        # ou com uma saudação e outra pergunta («Boa tarde. Como estás?»), que é
+        # devolver a pergunta a quem a fez.
+        if rep is not None and rep.e_pergunta and rep.sujeito == "kianda" \
+                and _e_pergunta_de_estado(texto):
+            partes = [self._estado_em_voz()]
+            # Uma pergunta de volta só depois da resposta, e só uma vez.
+            if self.rng.random() < self.personalidade.curiosidade_social:
+                partes.append("E tu?")
+            return self._empacotar(" ".join(partes), plano, rac)
+
+        # --- afirmação sobre o estado de quem fala -----------------------
+        # «estou triste» não é uma pergunta. Responder com documentação é o
+        # erro exacto que o utilizador descreveu como «não responde nada».
+        if rep is not None and rep.estado and rep.sujeito == "utilizador" \
+                and not rep.e_pergunta:
+            return self._empacotar(self._acolher_estado(rep), plano, rac)
+
+        # --- afirmação sobre outra pessoa --------------------------------
+        if rep is not None and rep.sujeito == "terceiro" and rep.estado:
+            return self._empacotar(
+                f"Estás a falar de outra pessoa, não de ti — não vou assumir que "
+                f"é o teu estado. Se quiseres, conta-me o que se passa com ela.",
+                plano, rac)
 
         # --- saudação ---------------------------------------------------
         if per.intencao == "saudacao":
@@ -1000,6 +1332,23 @@ def _pergunta_sobre_obra(ev: list[Evidencia]) -> bool:
                   if str(e.fonte).startswith("canon:") and
                   any(k in str(e.fonte) for k in ("apenas_existo", "h99", ":obra:")))
     return de_obra >= max(1, len(ev) // 2)
+
+
+def _e_pergunta_de_estado(texto: str) -> bool:
+    """«como estás?», «tudo bem contigo?», «tás boa?»
+
+    Deliberadamente permissivo: apanha também as formas com erros e as gírias,
+    porque o objectivo é não deixar cair nenhuma variante no caminho da
+    documentação. Do lado oposto, exige que a pergunta seja *sobre ela* — o
+    chamador já verificou o sujeito.
+    """
+    t = texto.lower()
+    if re.search(r"(como (est|vai)|tudo (bem|fixe|bom)|tas bem|tás bem|tás boa|"
+                 r"tas boa|estás bem|estas bem|como vai isso|como vai a vida|"
+                 r"tranquil|só passei para saber|so passei para saber|"
+                 r"quero saber como|como é que estás|como e que estas)", t):
+        return True
+    return False
 
 
 def _encolher(t: str, limite: int) -> str:
