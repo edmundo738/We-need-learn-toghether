@@ -175,3 +175,58 @@ plausíveis e errados.
 Nada, ainda. O resultado justifica testar `SistemaIndiceCalibrado` dentro do
 `Recuperador` real, com as 20 + 14 perguntas do banco. Essa é a próxima
 alteração e não uma consequência automática deste experimento.
+
+---
+
+# E3b — transplantar a calibração para o recuperador real: abandonado
+
+Depois do E3, a tentação óbvia era meter os pesos aprendidos no `BM25` real.
+Foi tentado e **abandonado**. O registo fica porque a decisão é mais
+instrutiva do que o resultado.
+
+## O que se tentou
+
+`BM25.calibrar(pares)` — aprender um multiplicador por termo com gradiente
+sobre `-log p(documento certo)`, regularizado para 1,0, e **só aplicar** se
+houvesse supervisão suficiente (`pares / vocabulário ≥ 0,25`).
+
+## O que se mediu
+
+| regime | pares | vocabulário | razão | resultado |
+|---|---|---|---|---|
+| banco real (20 perguntas) | 17 | 4 877 | 0,003 | não aplicável (210× abaixo do limiar) |
+| E3 sintético, n=300 | 210 | 474 | 0,44 | perdade 4,2 × 10⁻⁸ — **nenhum gradiente** |
+| E3 sintético, n=1000 | 700 | 478 | 1,46 | perdade ~0 — **nenhum gradiente** |
+
+No corpus sintético a supervisão era suficiente, e mesmo assim nada aconteceu.
+A causa: os pares eram `(texto do documento, esse mesmo documento)`. A
+consulta *é* o documento, e o BM25 já o põe em primeiro lugar com margem
+gigantesca. A perda começa praticamente em zero, `dL/dw ≈ 0`, e não há sinal
+para aprender. Estava a calibrar um problema já resolvido.
+
+## Porque não ficou no código
+
+Uma versão anterior deste método tinha um bug — `L2` fora do âmbito — que
+teria dado erro se fosse executado. Foi corrigido, e depois o método revelou-se
+inútil. É a diferença entre "funciona" e "serve": o código pode estar correcto
+e não valer nada.
+
+Se tivesse ficado, os relatórios futuros mostrariam "recuperador com
+calibração aprendida" — uma frase verdadeira sobre um componente que não
+altera nenhum resultado. É exactamente o tipo de funcionalidade que §25 do
+briefing proíbe: construída porque parece sofisticada.
+
+## O que ficou do E3
+
+O resultado do E3 mantém-se válido como experiência isolada: com pares
+*associativos* (facto → entidade, não texto → ele próprio), o índice calibrado
+supera o modelo denso e a vantagem cresce com o corpus. O que não se
+transpôs foi a aplicação ao recuperador, porque a tarefa do recuperador não é
+uma tarefa de associação com rótulo — é semântica aberta, e as 20 perguntas do
+banco não são supervisão suficiente para 4 877 termos.
+
+## Condição para voltar a tentar
+
+Voltar a este método apenas se existirem **≥ 300 pares rotulados**
+(pergunta → passagem certa). Nesse caso a razão sobe acima do limiar e o
+gradiente tem sinal. Sem isso, a resposta certa é a de agora: BM25.
