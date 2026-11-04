@@ -1,0 +1,26 @@
+[
+  {
+    "lote": 1,
+    "ms_passo": 73.8,
+    "tokens_s": 1735,
+    "tokens": 128
+  },
+  {
+    "lote": 2,
+    "ms_passo": 119.2,
+    "tokens_s": 2148,
+    "tokens": 256
+  },
+  {
+    "lote": 4,
+    "ms_passo": 203.0,
+    "tokens_s": 2522,
+    "tokens": 512
+  },
+  {
+    "lote": 8,
+    "ms_passo": 517.2,
+    "tokens_s": 1980,
+    "tokens": 1024
+  }
+]

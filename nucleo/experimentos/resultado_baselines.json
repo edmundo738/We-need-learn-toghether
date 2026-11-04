@@ -1,0 +1,41 @@
+{
+  "tokens_por_byte": 0.2602597115805496,
+  "janelas": 511,
+  "treino": 459,
+  "val": 52,
+  "resultados": {
+    "1grama": {
+      "ordem": 1,
+      "perda_nats": 6.529703154185538,
+      "ppl": 685.194784096267,
+      "tokens_avaliados": 6708,
+      "bits_por_byte": 2.451742872620634
+    },
+    "2grama": {
+      "ordem": 2,
+      "perda_nats": 5.132594747924879,
+      "ppl": 169.4562443258302,
+      "tokens_avaliados": 6707,
+      "bits_por_byte": 1.927163041586156
+    },
+    "3grama": {
+      "ordem": 3,
+      "perda_nats": 5.046124075934466,
+      "ppl": 155.4189036950233,
+      "tokens_avaliados": 6706,
+      "bits_por_byte": 1.8946954318438483
+    },
+    "4grama": {
+      "ordem": 4,
+      "perda_nats": 5.077316351107438,
+      "ppl": 160.34317323898856,
+      "tokens_avaliados": 6705,
+      "bits_por_byte": 1.906407363692869
+    },
+    "transformer": {
+      "perda_nats": 5.8962,
+      "ppl": 363.6529577227384,
+      "bits_por_byte": 2.2138780254167467
+    }
+  }
+}

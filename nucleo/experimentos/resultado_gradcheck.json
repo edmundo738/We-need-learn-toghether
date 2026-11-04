@@ -1,0 +1,17 @@
+{
+  "emb.peso": 1.5134,
+  "emb_pos.peso": 36.0731,
+  "bloco0.ln1.gama": 0.945,
+  "bloco0.ln1.beta": 4.5939,
+  "bloco0.atencao.q.W": 0.0619,
+  "bloco0.atencao.k.W": 0.0873,
+  "bloco0.atencao.v.W": 1.2568,
+  "bloco0.atencao.o.W": 0.0718,
+  "bloco0.ln2.gama": 0.1316,
+  "bloco0.ln2.beta": 0.1306,
+  "bloco0.up.W": 1.7612,
+  "bloco0.down.W": 0.7096,
+  "ln_final.gama": 0.0152,
+  "ln_final.beta": 0.0479,
+  "cabeca.W": 0.5802
+}

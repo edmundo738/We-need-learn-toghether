@@ -177,7 +177,7 @@ class AtencaoCausal(nn.Modulo):
                 p[f"{nome}.{k}"] = t
         return p
 
-    def forward(self, x: Tensor, pos: np.ndarray, n_seq: int) -> Tensor:
+    def forward(self, x: Tensor, pos: np.ndarray, T: int) -> Tensor:
         """
         x:   `(B*T, d_model)`
         pos: `(B*T,)` posição de cada linha dentro da sua sequência (0..T-1)
@@ -198,22 +198,21 @@ class AtencaoCausal(nn.Modulo):
         k = self.wk(x)
         v = self.wv(x)
 
-        # máscara causal: consulta i só vê chaves j com pos[j] <= pos[i] e da
-        # mesma sequência. Construída aqui, não passada de fora.
-        # índice de sequência: cada linha corresponde a uma posição achatada
-        seq_i = np.arange(n) // max(n_seq, 1)
-        mesmo = seq_i[:, None] == seq_i[None, :]
-        mascara = (pos[:, None] >= pos[None, :]) & mesmo     # (B*T, B*T)
-        self._ultima_mascara = mascara
+        # máscara causal ESTRITA por sequência. A forma acompanha os scores:
+        # (B*h*T, T), triangular inferior dentro de cada bloco. Fora do
+        # bloco não há entradas porque não há cálculo — não é uma máscara a
+        # tapar trabalho feito, é um cálculo que não se faz.
+        Bn = n // T
+        tri = np.tril(np.ones((T, T), dtype=bool))
+        self._ultima_mascara = np.tile(tri, (Bn, 1))          # (B*T, T)
 
-        # scores (B*T, B*T) — para cada par (i, j), o dot de q_i com k_j
-        scores = _scores(q, k, h, dh, n)                    # (h*B*T, B*T)
-        # a máscara repete-se por cabeça
-        scores = _mascara_negativa(scores, np.tile(mascara, (h, 1)))
+        scores = _scores(q, k, h, dh, n, T)                  # (B*h*T, T)
+        m_rep = np.tile(tri, (Bn * h, 1))                    # (B*h*T, T)
+        scores = _mascara_negativa(scores, m_rep)
         scores = scores * (1.0 / math.sqrt(dh))
 
-        att = _softmax_ultima(scores)                       # (h*B*T, B*T)
-        contexto = _aplicar_por_cabeca(att, v, h, n, dh)     # (B*T, d)
+        att = _softmax_ultima(scores)                        # (B*h*T, T)
+        contexto = _aplicar_por_cabeca(att, v, h, n, dh, T)  # (B*T, d)
         return self.wo(contexto)
 
 
@@ -237,8 +236,16 @@ class BlocoTransformer(nn.Modulo):
         p.update({f"down.{k}": t for k, t in self.down.parametros().items()})
         return p
 
-    def forward(self, x: Tensor, pos: np.ndarray, n_seq: int) -> Tensor:
-        h = x + self.atencao.forward(self.ln1(x), pos, n_seq)
+    def forward(self, x: Tensor, pos: np.ndarray, T: int) -> Tensor:
+        """Pre-norm com **ReLU** na MLP.
+
+        NOTA DE AUDITORIA: o commit 4d29e63 descrevia esta camada como GELU.
+        Não é: o código sempre usou ReLU (`.relu()`). A descrição estava
+        errada, não a implementação. Fica documentado como ReLU porque é o
+        que está medido. Trocar para GELU exige re-treinar e re-medir — está
+        no plano, não é uma edição de texto.
+        """
+        h = x + self.atencao.forward(self.ln1(x), pos, T)
         m = self.up(self.ln2(h)).relu()
         return h + self.down(m)
 
@@ -381,20 +388,22 @@ def perda_entropia_cruzada(logits: Tensor, alvos: np.ndarray) -> Tensor:
     return out
 
 
-def _aplicar_por_cabeca(att: Tensor, v: Tensor, h: int, n: int, dh: int) -> Tensor:
-    """`contexto[i] = concat_cabeca( att[cabeca, i, :] @ v_cabeca )`.
+def _aplicar_por_cabeca(att: Tensor, v: Tensor, h: int, n: int, dh: int, T: int) -> Tensor:
+    """`contexto[b*T+t] = concat_cabeca sum_u att[b,h,t,u] * v[b*T+u, cabeca]`.
 
-    att: `(h*B*T, B*T)` · v: `(B*T, d)` · devolve `(B*T, h*dh)`.
+    att: `(B*h*T, T)` (probabilidades por linha, só sobre a sua sequência)
+    v:   `(B*T, d)` · devolve `(B*T, h*dh)`.
     """
-    a3 = att.data.reshape(h, n, n)
-    v3 = v.data.reshape(n, h, dh)
-    ctx = np.einsum("hij,jhd->ihd", a3, v3).reshape(n, h * dh)
+    Bn = n // T
+    a4 = att.data.reshape(Bn, h, T, T)
+    v3 = v.data.reshape(Bn, T, h, dh)
+    ctx = np.einsum("bhtu,buhd->bthd", a4, v3).reshape(n, h * dh)
     out = Tensor(ctx, att.requires_grad or v.requires_grad, (att, v), "contexto")
 
     def _bw(g: np.ndarray) -> None:
-        g3 = g.reshape(n, h, dh)
-        datt = np.einsum("ihd,jhd->hij", g3, v3).reshape(h * n, n)
-        dv = np.einsum("hij,ihd->jhd", a3, g3).reshape(n, h * dh)
+        g4 = g.reshape(Bn, T, h, dh)
+        datt = np.einsum("bthd,buhd->bhtu", g4, v3).reshape(Bn * h * T, T)
+        dv = np.einsum("bhtu,bthd->buhd", a4, g4).reshape(n, h * dh)
         att.acumular_grad(datt)
         v.acumular_grad(dv)
 
@@ -412,26 +421,34 @@ def _aplicar_por_cabeca(att: Tensor, v: Tensor, h: int, n: int, dh: int) -> Tens
 # todas as outras operações do autograd: escrever a regra da cadeia uma vez,
 # e testá-la contra diferenças finitas.
 
-def _scores(q: Tensor, k: Tensor, h: int, dh: int, n: int) -> Tensor:
-    """`scores[i, j] = sum_cabeca q[i, cabeca] · k[j, cabeca]`.
+def _scores(q: Tensor, k: Tensor, h: int, dh: int, n: int, T: int) -> Tensor:
+    """Scores de atenção por sequência: forma `(B*h*T, T)`.
 
-    Não há dimensão de lote além do achatamento: cada linha `i` é um token
-    de uma sequência concreta, e `j` percorre todos os tokens do lote. A
-    máscara trata de impedir que uma sequência olhe para outra.
+    ATENÇÃO ao que isto era e ao que passou a ser. Antes calculava-se
+    `einsum("ihd,jhd->hij", ...)` sobre `n = B*T` linhas, ou seja uma matriz
+    `(H, B*T, B*T)` = `H·B²·T²` entradas, em que só as `B` diagonais `T×T`
+    eram usadas. A máscara punha as outras a zero: a resposta estava certa,
+    o trabalho era desperdiçado.
+
+    Com lote 8, T=128, H=4: 4·64·16384 = 4 194 304 pares por camada em vez
+    de 4·8·16384 = 524 288. **Oito vezes mais.**
+
+    Agora cada linha é (sequência, cabeça, posição) e só percorre as `T`
+    chaves da sua própria sequência — a dimensão `B` nunca entra num produto
+    cruzado. A máscara causal aplica-se dentro do bloco `T×T`.
     """
-    q3 = q.data.reshape(n, h, dh)
-    k3 = k.data.reshape(n, h, dh)
-    # POR CABEÇA: (h, n, n). Somar as cabeças aqui (->ij) colapsa-as numa
-    # só e o modelo perde a capacidade de olhar para sítios diferentes ao
-    # mesmo tempo. Foi um bug real neste ficheiro.
-    s = np.einsum("ihd,jhd->hij", q3, k3)
-    out = Tensor(s.reshape(h * n, n), q.requires_grad or k.requires_grad, (q, k), "scores")
-    out.meta["forma_cabecas"] = (h, n)
+    Bn = n // T
+    q3 = q.data.reshape(Bn, T, h, dh)
+    k3 = k.data.reshape(Bn, T, h, dh)
+    s = np.einsum("bthd,buhd->bhtu", q3, k3)          # (B, h, T, T)
+    out = Tensor(s.reshape(Bn * h * T, T), q.requires_grad or k.requires_grad,
+                 (q, k), "scores")
+    out.meta["forma"] = (Bn, h, T)
 
     def _bw(gg: np.ndarray) -> None:
-        g = gg.reshape(h, n, n)
-        dq = np.einsum("hij,jhd->ihd", g, k3).reshape(n, h * dh)
-        dk = np.einsum("hij,ihd->jhd", g, q3).reshape(n, h * dh)
+        g = gg.reshape(Bn, h, T, T)
+        dq = np.einsum("bhtu,buhd->bthd", g, k3).reshape(n, h * dh)
+        dk = np.einsum("bhtu,bthd->buhd", g, q3).reshape(n, h * dh)
         q.acumular_grad(dq)
         k.acumular_grad(dk)
 

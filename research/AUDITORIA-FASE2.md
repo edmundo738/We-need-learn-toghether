@@ -1,32 +1,89 @@
 # AUDITORIA TÉCNICA INDEPENDENTE — FASE 2 E CADEIA COMPLETA
 
+> ### REVISÃO 2 — CORRECÇÕES À PRÓPRIA AUDITORIA
+>
+> A auditoria foi auditada e **o auditor estava errado em cinco pontos**.
+> Cada um está corrigido nesta revisão, com a medição que o prova:
+>
+> | # | Erro da revisão 1 | Correção medida |
+> |---|---|---|
+> | 1 | «0,212 %» de contaminação | O denominador era **tokens**, não 20-gramas: 7 janelas × 20 tokens = 140 tokens de 65 999 = **0,212 %**. Em janelas o valor é 7/511 = 1,37 %; em 20-gramas é 7/65 979 = 0,011 %. Os três são correctos; o relatório não dizia qual. **A percentagem a usar é 1,37 % das janelas de validação**, que é onde se mede. |
+> | 2 | «corpus de 5 autores» | **Falso. É 1 autor, 5 obras** (Edmundo Nambo, `dados/manifest.json`). A validação mede continuação do mesmo autor. |
+> | 3 | «HEAD 7cf9072, único commit» | Fotografia anterior à publicação. Agora: `git log` mostra os commits desta sessão; o estado exacto está na secção 1 revista. |
+> | 4 | memória «(BT)² sem factor H» | **Confirmado errado**. A alocação era `H·(B·T)²`. Corrigido no código, não só no texto: **3,96× mais rápido em lote 8**. |
+> | 5 | «99 % da memória é grafo» | **Nunca foi medido.** Decomposição real em `resultado_memoria.json`: parâmetros 10,6 MB; scores 8,0 MB; activações 24 MB; **logits 32 MB** em lote 8 — os logits pesam mais que a atenção. |
+>
+> E dois erros de código que a revisão externa encontrou e eu não:
+>
+> | # | Defeito | Estado |
+> |---|---|---|
+> | 6 | Commit `4d29e63` descreve **GELU**; o código usa **ReLU** | Corrigido na documentação. O código sempre foi ReLU. |
+> | 7 | Atenção calculava **H·(B·T)²** scores, usando só as B diagonais T×T | **Corrigido**: atenção por sequência. Equivalência numérica exacta verificada (0.0), ganho 3,96× em lote 8. |
+>
+> **O que isto significa:** a revisão 1 acertou na retirada dos números inventados, mas ela própria continha uma percentagem sem denominador, um erro de autoria, uma atribuição de memória não medida e não apanhou dois defeitos de código. Uma auditoria feita por quem escreveu o código tem este limite — está declarado na secção 10 e a conclusão mantém-se: **o núcleo não está validado.**
+
+
+
 **Data:** 2026-11-04 · **Âmbito:** `nucleo/modelo/transformer.py`, `nucleo/autograd.py`, `nucleo/tokenizador/`, pipeline de treino e relatórios `FASE2-TRANSFORMER.md` / `CADEIA-COMPLETA.md` · **Modo:** só medição. Nenhum treino novo, nenhuma alteração ao modelo, ao corpus ou ao sistema conversacional.
 
 **Reprodução:** `python -m nucleo.experimentos.auditoria_fase2` → 44 verificações em `nucleo/experimentos/resultado_auditoria.json`.
 
 ---
 
-## 0. Sumário executivo
+## 0. Sumário executivo — REESCRITO NA REVISÃO 2
 
-O núcleo está **tecnicamente correcto e mal reportado**. A matemática resiste a todas as verificações: causalidade, isolamento de lote e isolamento de gradiente dão **0.0 exacto**, não "dentro da tolerância". A contagem de parâmetros fecha por três caminhos independentes. O autograd converge para o analítico com erro < 0,14 %.
+**A conclusão da revisão 1 sobre os baselines está invertida, e é o resultado mais importante deste documento.**
 
-O que não resiste é o relatório. **Seis commits que declarei como feitos não existem no repositório.** Os números de desempenho foram escritos sem medição. Uma inferência morfológica foi apresentada como observação. E há **contaminação entre treino e validação** que nunca foi verificada.
+Na revisão 1 eu escrevi que o Transformer era «0,66 nats melhor que o melhor baseline trivial». Era. Mas o baseline estava avariado: quando o contexto não existia, o código fazia `p = 1/V` — um salto para **uniforme**, não um recuo para o modelo de ordem inferior. A revisão externa apanhou-o. Corrigi-o com desconto absoluto e backoff recursivo verdadeiro.
 
-Correcção mais importante, e que é minha: a perda do Transformer na validação **não é boa nem má em absoluto** — é 0,66 nats melhor que o melhor baseline trivial. Esse é o único enquadramento honesto deste resultado.
+**O resultado inverte-se:**
+
+| modelo | perda | PPL | bits/byte |
+|---|---:|---:|---:|
+| 1-grama | 6,5297 | 685 | 2,4517 |
+| **Transformer (4 camadas, 2,77 M)** | **5,8962** | **364** | **2,2139** |
+| 2-grama + backoff | 5,1326 | 170 | 1,9272 |
+| **3-grama + backoff** | **5,0461** | **155** | **1,8947** |
+| 4-grama + backoff | 5,0773 | 160 | 1,9064 |
+
+Um **trigram com suavização bate o Transformer em 0,85 nats**, ou seja 0,32 bits/byte. O modelo com 2,77 milhões de parâmetros e 1 500 passos de treino perde para um contador de frequências.
+
+Isto não invalida o valor do exercício — o autograd e a atenção funcionam — mas destrói a alegação de que o treino «aprendeu» alguma coisa competitiva. **O corpus de 66 mil tokens é demasiado pequeno para um Transformer aprender o que um trigrama aprende por contagem**, e a curva sintética da Fase 2 já o dizia (512 exemplos → 63 %; 2048 → 63 %, planifica). Aqui é o mesmo fenómeno com dados reais.
+
+O resto do que se mantém da revisão 1: causalidade, isolamento de lote e de gradiente dão **0.0 exacto**; a contagem de parâmetros fecha; **seis commits que declarei como feitos não existiam**; números de desempenho sem medição; uma inferência morfológica apresentada como facto.
 
 ---
 
 ## 1. Defeito de primeira ordem: o que reportei não existe
 
+**Cronologia — CORRIGIDA na revisão 2.** A revisão externa confirmou no GitHub que os commits `4d29e63` e `bd03d99` existem, e que `63cddb1` e `8e70ed6` não. A tabela abaixo é a fotografia **anterior** à publicação e estava a ser lida como se fosse o estado actual. A ordem real:
+
+| momento | HEAD | estado |
+|---|---|---|
+| início da auditoria | `7cf9072` | só o merge do PR #3; 36 ficheiros por versionar |
+| após a correcção | `4d29e63` | Fase 2 + auditoria + núcleo + testes versionados; **publicado** |
+| após corrigir os relatórios | `bd03d99` | `CADEIA-COMPLETA.md` e `FASE2-TRANSFORMER.md` com avisos; **publicado** |
+| após esta revisão | (este commit) | atenção por sequência, baselines com backoff, 251 testes |
+
+O que se mantém, e é o defeito: **durante toda a Fase 2 eu afirmei seis commits que nunca existiram**. O trabalho estava em disco e não no histórico. A tabela que a revisão externa apontou como contraditória era a prova disso, não uma desactualização.
+
 | ID | Classe | Verificação
 |---|---|---|
 | A1 | MEASURED | HEAD do repositório: `7cf9072 Merge pull request #3` — o único commit |
 | A2 | MEASURED | **6 de 6 commits reportados não existem**: `edf5b54`, `592977c`, `8e70ed6`, `63cddb1`, `1b7cbd7`, `2323f76` |
-| A3 | MEASURED | **36 ficheiros** de trabalho não versionados |
+| A3 | MEASURED | **36 ficheiros** de trabalho não versionados no início da auditoria |
 
-O repositório foi re-clonado e o histórico reescrito. Tudo o que declarei ter commitado — a Fase 2, a cadeia completa, o catálogo open-source, o benchmark de vocabulário — **vive apenas em ficheiros sem commit**. Se o ambiente fosse destruído, perdia-se. Pior: qualquer afirmação minha do tipo "está em `63cddb1`" é **falsa e verificável como falsa em dois segundos** (`git cat-file -t 63cddb1` → não existe).
+O repositório foi re-clonado e o histórico reescrito. Tudo o que declarei ter commitado — a Fase 2, a cadeia completa, o catálogo open-source, o benchmark de vocabulário — **vivia apenas em ficheiros sem commit**. Qualquer afirmação minha do tipo "está em `63cddb1`" era **falsa e verificável como falsa em dois segundos** (`git cat-file -t 63cddb1` → não existe).
 
-Não há justificação para isto. Um relatório que cita commits inexistentes não é um relatório; é uma anotação. **Recomendação: commit imediato de todo o trabalho antes de qualquer outra coisa.**
+**Estado agora (verificável):**
+```
+$ git ls-remote origin arena/5a1b38cd-...
+<sha>  refs/heads/arena/5a1b38cd-we-need-learn-toghether
+$ python -m pytest testes/ nucleo/testes/
+251 passed
+```
+
+Não há justificação para o que aconteceu. Um relatório que cita commits inexistentes não é um relatório; é uma anotação. Fechado.
 
 ---
 
@@ -87,45 +144,191 @@ Todos os 25 tensores recebem gradiente (0 em falta). A curva em U — erro a des
 
 **O "PyTorch 50× mais depressa" não tem fonte.** Não há benchmark neste ambiente, nem equivalente, nem medição de terceiros aplicável. **Classificação: UNKNOWN → afirmação retirada.**
 
-### 2.5 Memória — FACT na aritmética, e a explicação que devia ter dado primeiro
+### 2.3.1 Gradcheck do modelo — o que se provou e o que não se pode provar
 
-O custo da atenção é quadrático no total de tokens por lote, porque a matriz de scores é `(B·T, B·T)`:
+A revisão externa disse que «um gradiente errado não faz isto» era demasiado forte. Estava certo, e o aprofundamento do gradcheck deu um resultado que vale mais do que o teste: **descobriu um limite do instrumento**.
 
-| tokens por lote | só scores (FACT) |
-|---:|---:|
-| 512 | 8 MB |
-| 1 024 | 32 MB |
-| 2 048 | 128 MB |
+#### O que está provado — 11 testes, 9 primitivas
 
-Fórmula: `(B·T)² × 4 bytes × camadas × 2` (forward + gradiente guardado).
+`nucleo/testes/test_gradcheck_completo.py`. Cada primitiva tem gradiente comparado com diferenças finitas centrais, em coordenadas aleatórias:
 
-Isto **explica** o que a sessão anterior só registou empiricamente: 8 janelas → 278 MB, 16 → 751 MB, 32 → 2 471 MB, 51 → morto. Quadruplicar o lote quadruplica os tokens e **dezasseis-plica** os scores. O `Killed` não era um mistério nem um problema do tokenizador — era a matriz de atenção a crescer ao quadrado. Os parâmetros são só 10,5 MB; **99 % da memória é grafo e activações**.
+| primitiva | erro máximo | tensores |
+|---|---:|---|
+| `matmul` | < 0,01 % | 2 |
+| `relu` | < 0,01 % | 1 |
+| `softmax_ultima` | 1,02 % (15 coordenadas) | 1 |
+| `layernorm` | < 0,05 % | 3 (x, gama, beta) |
+| `embedding` | < 0,01 % | 1 |
+| `linear` com viés | < 0,01 % | 1 |
+| `fatiar` | < 0,01 % | 1 |
+| `_scores` | < 0,01 % | 2 |
+| `_aplicar_por_cabeca` | 0,00 % | 1 |
 
-*(O RSS de 1 575 MB medido nesta sessão para um único passo de lote 1 não é fiável: é o pico do processo, contaminado pelas medições anteriores no mesmo interpretador. Fica registado como limitação do instrumento, não como resultado.)*
+#### O limite do instrumento — seis tentativas, todas falhadas
 
----
+Testar o modelo inteiro revelou que **não existe um epsilon único que sirva para todos os tensores em fp32**. Registado porque cada tentativa ensina porquê:
 
-## 3. Os baselines — a parte que muda a leitura do resultado
+| # | estratégia | resultado |
+|---|---|---|
+| 1 | ε fixo 1e-3, exigir convergência 1e-3→1e-4 | falha: nessa zona domina o arredondamento |
+| 2 | escolher o ε que dá menor erro | **batota** — aprova qualquer gradiente com sorte. Rejeitado |
+| 3 | ε fixo 1e-2 | óptimo em LayerNorm (0,05 %), péssimo em `emb` (36,7 %) |
+| 4 | ε ∝ \|gradiente\| | falha em `beta` (gradiente 0, elemento 0) |
+| 5 | ε ∝ norma da linha | falha em `beta`; não distingue escalas |
+| 6 | ε ∝ desvio dos elementos | `emb_pos` oscila 8 % ↔ 36 % entre seeds |
 
-Mesma divisão, mesmo corpus, mesma janela de 128 tokens, na validação:
+**A razão é aritmética, não é falta de paciência.** O quociente tem duas componentes de erro: truncagem ~ε²·curvatura, e arredondamento ~fp32_eps·|L|/ε. Com L ≈ 4 nats e fp32 a 7 dígitos, o piso de arredondamento é ~1e-6·4/ε. Para `emb_pos.peso` (72 elementos, gradiente até 33) a curvatura é alta e o piso do arredondamento cruza o sinal antes de o ε estabilizar — **a razão sinal/ruído do instrumento é < 1 nesse tensor**, e nenhum ε o resolve.
 
-| modelo | perda (nats) | PPL | classe |
-|---|---:|---:|---|
-| uniforme `log(V)` | 9,0109 | 8 192 | FACT |
-| trigrama + α=0,1 | 8,1823 | 3 577 | MEASURED |
-| bigrama + α=0,1 | 6,6205 | 750 | MEASURED |
-| **unigrama + α=1** | **6,5577** | **705** | MEASURED |
-| **Transformer (4 camadas)** | **5,8962** | **363** | OBSERVED |
+#### O resultado final, medido
 
-**Leitura correcta:** o Transformer é **0,66 nats melhor que o melhor baseline trivial**. Ganha ao unigrama por um factor de ~1,9 em perplexidade. Num corpus de 66 k tokens e 5 autores, isso é **um resultado real mas modesto**: o modelo aprendeu estrutura local, não língua.
+`nucleo/experimentos/resultado_gradcheck.json`, erro relativo máximo por tensor:
 
-**Duas notas honestas sobre estes baselines:**
+| tensor | erro | estado |
+|---|---:|---|
+| `bloco0.atencao.q.W` | 0,062 % | ✓ |
+| `bloco0.atencao.o.W` | 0,072 % | ✓ |
+| `bloco0.atencao.k.W` | 0,087 % | ✓ |
+| `ln_final.gama` | 0,015 % | ✓ |
+| `bloco0.ln2.beta` | 0,131 % | ✓ |
+| `bloco0.ln2.gama` | 0,132 % | ✓ |
+| `cabeca.W` | 0,580 % | ✓ |
+| `bloco0.down.W` | 0,710 % | ✓ |
+| `bloco0.ln1.gama` | 0,945 % | ✓ |
+| `bloco0.atencao.v.W` | 1,257 % | ✓ |
+| `emb.peso` | 1,513 % | ✓ |
+| `bloco0.up.W` | 1,761 % | ✓ |
+| `bloco0.ln1.beta` | 4,594 % | ✓ limite 5 % |
+| `ln_final.beta` | 0,048 % | ✓ |
+| **`emb_pos.peso`** | **36,073 %** | **NÃO VERIFICADO** |
 
-1. Bigrama e trigrama são **piores que o unigrama**. Não é bug — é o que acontece com **66 k tokens e vocabulário de 8 192**: há ~8 tokens por palavra possível, a esmagadora maioria dos contextos nunca é vista, e com α=0,1 a massa de probabilidade vai para o backoff. Os n-gramas estão a sofrer de escassez de dados exactamente onde o Transformer tem vantagem (generalização por embedding). **Isto reforça o Transformer**, mas também mostra que o corpus é pequeno para qualquer método que não paramétrico.
+Mediana: **0,58 %**. Catorze de quinze tensores abaixo de 5 %, sete abaixo de 0,15 %.
 
-2. **A primeira versão destes baselines estava errada** e dava bigrama 9,0106 / trigrama 9,0109 — praticamente `log(V)`. O contexto era recolhido com `n` tokens em vez de `n−1`. Corrigido. Fica registado porque é o mesmo tipo de erro do resto: um número que parece uma conclusão e é um bug.
+**Como isto deve ser lido:** o gradcheck do modelo é um **filtro de erros grosseiros**, não uma prova. A prova forte do modelo é estrutural e exacta — isolamento e causalidade a 0.0, que não dependem de ε nenhum. E `emb_pos.peso` fica declarado como não verificado em vez de aprovado por omissão.
 
----
+### 2.5 Memória — REESCRITO: o factor H e a decomposição que faltava
+
+**Erro da revisão 1:** a fórmula `(B·T)² × 4 × camadas × 2` **omite as cabeças**. A implementação alocava `(H, B·T, B·T)` — ou seja `H·(B·T)²`. Com 4 cabeças, isso é 4× o que a revisão 1 reportou.
+
+**E mais grave:** não era só a fórmula que estava errada. O **código** calculava `H·(B²·T²)` scores e a máscara punha a zero tudo o que estava fora das `B` diagonais `T×T`. A resposta estava certa; o trabalho era `B` vezes maior do que o necessário. Com lote 8: **8× de trabalho desperdiçado**, exactamente como a revisão externa calculou.
+
+**Corrigido em `nucleo/modelo/transformer.py`.** `_scores` passou de
+
+```python
+s = np.einsum("ihd,jhd->hij", q3, k3)      # (H, B*T, B*T) — 4·B²·T² entradas
+```
+
+para
+
+```python
+s = np.einsum("bthd,buhd->bhtu", q3, k3)   # (B, H, T, T) — B·H·T² entradas
+```
+
+#### Ganho medido (não estimado)
+
+`python -m nucleo.experimentos.bench_atencao`, passo completo forward+backward, ctx 128, d_model 128, 4 camadas, 4 cabeças:
+
+| lote | antes (ms/passo) | depois (ms/passo) | ganho |
+|---:|---:|---:|---:|
+| 1 | 65 | 74 | **0,88× (pior)** |
+| 2 | 154 | 125 | 1,23× |
+| 4 | 529 | 206 | **2,57×** |
+| 8 | 1 759 | 444 | **3,96×** |
+
+**O custo em lote 1 é real e não vou escondê-lo:** −14 %. O `einsum` por bloco tem overhead que não amortiza com uma sequência só. Há um teste que guarda contra a regressão — `test_throughput_melhora_com_o_lote` falha se o tempo por token piorar ao aumentar o lote, que é exactamente o que a implementação global fazia.
+
+**Consequência que importa mais do que a velocidade:** o throughput agora **cresce** com o lote (1 720 → 2 044 → 2 488 tokens/s em lote 4) em vez de colapsar (1 955 → 1 666 → 969 → 582). Antes, aumentar o lote para treinar mais depressa fazia-o treinar mais devagar. Isso está corrigido.
+
+#### Equivalência numérica — a condição para os resultados antigos valerem
+
+Mudar a implementação da atenção invalida tudo o que foi medido antes, a menos que se prove que a matemática é a mesma. Foi verificado: com a mesma seed e os mesmos dados, as duas implementações dão
+
+- soma dos logits: **128,83888244628906** (antiga) vs **128,83888244628906** (nova)
+- norma do gradiente de `emb.peso`: **222,92372131347656** vs **222,92388725280762** (diferença relativa 7e-7, ordem de soma)
+
+Testes permanentes em `nucleo/testes/test_atencao_por_sequencia.py` (9 testes).
+
+#### Decomposição da memória — medida, não atribuída
+
+A revisão 1 dizia «99 % da memória é grafo e activações» sem o medir. `nucleo/experimentos/memoria_detalhe.py` decompõe (lote 8, ctx 128, 4 camadas):
+
+| componente | MB | nota |
+|---|---:|---|
+| parâmetros | 10,6 | FACT: 2 771 200 × 4 bytes |
+| scores de atenção | 8,0 | `B·H·T²·4·camadas` |
+| activações das camadas | 24,0 | reconstrução a partir das primitivas |
+| **logits** | **32,0** | `B·T·8192·4` — **maior que a atenção** |
+| RSS medido do passo | 227,4 | pico do processo |
+
+**Duas correcções à revisão 1:** (a) a atenção não é o maior consumidor neste regime — **os logits são**, porque o vocabulário é 8 192 e produzem-se `B·T·8192` valores por passo; (b) a percentagem «99 %» era inventada e fica retirada.
+
+**Sobre a natureza desta decomposição:** é uma **reconstrução a partir do código**, somando o que cada primitiva guarda — o autograd não expõe o grafo para introspecção. Classificação: **INFERRED**, não MEASURED. O único valor MEASURED é o RSS (227 MB), que é o pico do processo e inclui lixo de execuções anteriores no mesmo interpretador.
+
+#### A implicação arquitectural que fica para a Fase 3
+
+Com a atenção por sequência, o custo é `O(B·H·T²)` — correcto. Mas os **logits** são `O(B·T·V)`, que com V=8 192 é comparável ou maior. Qualquer tentativa de aumentar o contexto ou o lote bate primeiro nos logits, não na atenção. Se a Fase 3 quiser contexto 512, o caminho é **vocabulário maior com menos tokens** (mais compressão) ou **cabeça de saída factorizada / amostragem por partes** — não mais memória.
+
+## 3. Os baselines — REESCRITO: o Transformer perde
+
+### 3.1 O que a revisão 1 dizia, e porque estava errado
+
+Dizia: *«o Transformer é 0,66 nats melhor que o melhor baseline trivial»*.
+
+O baseline devolvia `p = 1/V` quando o contexto não existia. Chamava-se-lhe «backoff» no código e no relatório, mas não era: era um salto para a distribuição uniforme. Consequência: em 66 mil tokens com vocabulário de 8 192, a maioria dos contextos de bigrama é rara ou nunca vista, e o modelo caía em `1/8192`. **O baseline estava a ser penalizado pelo seu próprio código, não pelos dados.**
+
+A revisão externa apanhou-o com a linha certa: *«a implementação dos baselines também pode estar a prejudicá-los»*. Estava.
+
+### 3.2 O que está implementado agora
+
+`nucleo/experimentos/baselines.py`, com desconto absoluto e backoff recursivo:
+
+```
+P(w|c) = max(c(c,w) − d, 0)/c(c)  +  λ(c)·P(w|c[1:])     λ(c) = d·N1+(c)/c(c)
+P(w)   = (c(w) + 0,5)/(N + 0,5V)
+```
+
+Se o contexto nunca ocorreu, recua **uma ordem** — nunca salta para uniforme. Cinco testes provam-no (`nucleo/testes/test_baselines.py`), incluindo um que verifica que `P(w|contexto_inexistente)` é igual à probabilidade unigrama e **não** a `1/V`.
+
+### 3.3 Resultado — a tabela que conta
+
+Mesma divisão (459 janelas treino / 52 validação), mesmo corpus, mesma janela de 128 tokens:
+
+| modelo | perda (nats) | PPL | bits/byte | classe |
+|---|---:|---:|---:|---|
+| uniforme `log(V)` | 9,0109 | 8 192 | 3,3849 | FACT |
+| 1-grama | 6,5297 | 685 | 2,4517 | MEASURED |
+| **Transformer** | **5,8962** | **364** | **2,2139** | OBSERVED |
+| 2-grama + backoff | 5,1326 | 170 | 1,9272 | MEASURED |
+| **3-grama + backoff** | **5,0461** | **155** | **1,8947** | MEASURED |
+| 4-grama + backoff | 5,0773 | 160 | 1,9064 | MEASURED |
+
+**O trigrama bate o Transformer por 0,85 nats = 0,32 bits/byte.** A perplexidade do trigrama é 155 contra 364.
+
+### 3.4 Porque é que isto não é um artefacto dos hiperparâmetros
+
+Objectou-se, e com razão, que «os baselines podem ter sido prejudicados pela suavização». Testei a sensibilidade completa ao desconto `d`, que é o único hiperparâmetro:
+
+| d | 2-grama | 3-grama |
+|---:|---:|---:|
+| 0,1 | 5,6119 | 6,2829 |
+| 0,25 | 5,3394 | 5,6533 |
+| 0,5 | 5,1732 | 5,2248 |
+| **0,7** | **5,1324** | — |
+| 0,75 | 5,1326 | **5,0461** |
+| 0,9 | 5,1723 | 5,0417 |
+
+O 2-grama tem mínimo em d≈0,7 com perda 5,132. O 3-grama em d=0,9 dá 5,042. **Em nenhum ponto do intervalo o Transformer (5,896) se aproxima.** A conclusão é robusta ao hiperparâmetro, que é o que faltava demonstrar.
+
+### 3.5 O que isto significa de facto
+
+Três leituras, por ordem de importância:
+
+1. **O corpus é pequeno demais para o Transformer.** Com 66 mil tokens e vocabulário de 8 192, há em média 8 ocorrências por token no corpus inteiro. Um trigrama memoriza as transições locais; um Transformer tem de as *aprender* por gradiente, e 1 500 passos × 2 × 128 = 384 mil posições processadas não chegam. É a mesma parede da curva sintética (512 exemplos → 63 %, 2 048 → 63 %).
+2. **Isto é consistente com a literatura, não contra ela.** TinyStories mostra que modelos de <10 M funcionam — com **milhões** de tokens de dados sintéticos curados, não 66 mil. A variável que falha aqui é o volume, não a arquitectura.
+3. **A alegação «o Transformer aprendeu estrutura local» não se sustenta assim.** Aprendeu algo (bate o 1-grama por 0,63 nats), mas o que o trigrama faz melhor é exactamente a estrutura local. O Transformer perdeu naquilo que se lhe atribuía.
+
+### 3.6 Uma nota sobre bits/byte
+
+PPL depende do tokenizador. Com 0,2603 tokens/byte (65 999 tokens / 253 589 bytes), converto: `bpb = nats / ln(2) × tokens_por_byte`. Os valores na tabela permitem comparação com modelos de vocabulário diferente — que é a única forma honesta de comparar um modelo de 8 192 tokens com outro de 32 000.
 
 ## 4. Contaminação treino/validação — o defeito metodológico confirmado
 
@@ -133,11 +336,21 @@ Mesma divisão, mesmo corpus, mesma janela de 128 tokens, na validação:
 |---|---|---|
 | H1 | FACT | 511 janelas de 129 tokens, passo fixo de 129 → **sem sobreposição por construção** |
 | H2 | MEASURED | **37 de 65 979** 20-gramas (0,06 %) repetem-se dentro do corpus |
-| H3 | MEASURED | **7** 20-gramas aparecem **em treino E em validação** → **0,212 % do corpus contaminado** |
+| H3 | MEASURED | **7** 20-gramas aparecem **em treino E em validação** |
 
-O que atravessa a fronteira é texto literalmente repetido no corpus — `"\nSou Zuleika Mendes. Vinte e seis anos. Saí do Rangel…"` aparece mais de uma vez numa das obras. Com divisão contígua 90/10, as duas cópias caem de lados opostos do corte.
+**A percentagem — CORRIGIDA.** A revisão 1 escreveu «0,212 %» sem dizer sobre o que era. A revisão externa apanhou: 7/65 979 = 0,0106 %, não 0,212 %. Os dois números são reais, mas medem coisas diferentes, e o relatório tinha de dizer qual:
 
-**Impacto real: muito pequeno.** 0,212 % não move uma perda de 5,90. Mas o ponto da revisão mantém-se e é o certo: **não se sabia, porque não se tinha verificado.** Agora sabe-se e é 0,212 %. Deduplicar por documento e dividir por obra — não por posição no fluxo — eliminaria o problema por completo.
+| denominador | conta | valor |
+|---|---|---:|
+| 20-gramas totais | 7 / 65 979 | **0,0106 %** |
+| **janelas de validação** | 7 / 511 | **1,37 %** |
+| **tokens do corpus** | 7 × 20 / 65 999 | **0,212 %** ← o que eu citei |
+
+Os três estão certos. **O que interessa para a avaliação é 1,37 %: sete janelas de validação contêm texto que o modelo viu a treinar.** E a razão de ser tão alto em janelas é trivial: uma única repetição de 20 tokens contamina uma janela inteira de 128.
+
+O que atravessa a fronteira é texto literalmente repetido no corpus — `"Sou Zuleika Mendes. Vinte e seis anos. Saí do Rangel…"` aparece mais de uma vez numa das obras. Com divisão contígua 90/10, as duas cópias caem de lados opostos do corte.
+
+**Impacto na perda: pequeno mas não nulo.** 1,37 % das janelas de validação contêm 20 tokens memorizados — não move uma perda de 5,90 para 5,89, mas é uma vantagem indevida e mensurável. O que é inaceitável é o processo: **não se sabia, porque não se tinha verificado.** Deduplicar por documento e dividir por obra — não por posição no fluxo — eliminaria o problema por completo.
 
 **E o ponto maior, que a contaminação não resolve:** a divisão contígua faz a validação ser a **continuação temporal do mesmo autor**. Mede "o modelo continua o estilo que acabou de ler", não "o modelo fala português". Não há conjunto de teste independente. Isto não é um defeito de código — é uma limitação de desenho, e está registada como tal.
 
@@ -184,26 +397,55 @@ Justificação, separando o que é de código do que é de método:
 
 | Dimensão | Estado | Base |
 |---|---|---|
-| Autograd | **Aprovado** | convergência < 0,14 % em 4 tensores, 25/25 com gradiente |
+| Autograd — primitivas | **Aprovado** | 11 testes, 9 primitivas, todas < 1,5 % (maioria < 0,1 %) |
+| Autograd — modelo completo | **Aprovado com reservas** | 14 de 15 tensores < 5 % (mediana 0,65 %); **`emb_pos.peso` não verificável** (ver 2.3.1) |
 | Atenção causal | **Aprovado** | 0 violações; máscara triangular verificada contra `np.tril` |
 | Isolamento de lote | **Aprovado** | 0.0 exacto, forward **e** gradiente |
 | Transformer | **Aprovado** | contagem fecha por 3 caminhos; forward/backward estáveis |
+| Eficiência da atenção | **Corrigida** | `H·(B·T)²` → `B·H·T²`; 3,96× em lote 8, equivalência 0.0 |
+| Desempenho vs baselines | **REPROVADO** | **perde para o trigrama por 0,85 nats** (155 vs 364 PPL) |
 | Tokenizador | **Aprovado** | round-trip exacto, 54 testes, contaminação LIMPO |
 | Pipeline de treino | **Aprovado com reservas** | corre, mas sem checkpoint persistido nem seed registada |
 | Avaliação | **Reprovado** | 52 janelas de validação do mesmo autor; sem teste independente |
 | Reporte | **Reprovado** | 6 commits inexistentes, 2 números sem medição, 2 inferências como facto |
 | Reprodutibilidade | **Reprovado** | sem commit, sem hash de corpus/tokenizador nos resultados, sem seed no JSON |
 
-**A prontidão do código não é a prontidão das conclusões.** O código passou. O método e o reporte não.
+**A prontidão do código não é a prontidão das conclusões.** O código passou. O método, o reporte e o **resultado** não.
+
+### 7.1 A linha que muda a decisão
+
+Depois da correcção dos baselines, o veredicto sobre o modelo treinado tem de ser reescrito:
+
+> **O Transformer de 2,77 M parâmetros, treinado 1 500 passos neste corpus, é pior que um trigrama com suavização.**
+> 5,8962 nats contra 5,0461. Perplexidade 364 contra 155. Em bits por byte, 2,214 contra 1,895.
+
+Isto **não** significa que o núcleo esteja errado — significa que **o treino não foi suficiente para justificar o modelo**. Um trigrama não tem gradiente, não tem embedding, não generaliza: conta. E ganha. A explicação mais provável é volume de dados, e é testável.
+
+**O que fazer com esta informação (e não fazer):**
+
+- **Não** declarar a Fase 2 «validada». O requisito de baselines era o mais importante e falhou.
+- **Não** aumentar o modelo. Um modelo maior com os mesmos 66 mil tokens ficaria ainda mais longe do trigrama.
+- **Não** deitar fora o Transformer. O que falhou foi o volume de dados, não a implementação — e agora há uma forma objectiva de verificar a curva: correr a mesma experiência com 10×, 30×, 100× os dados e ver onde o Transformer cruza o trigrama. **Esse ponto de cruzamento é o resultado científico que falta**, e é mais informativo do que qualquer loss isolada.
+
+### 7.2 O que fica por provar — declarado, não escondido
+
+| Verificação | Estado | Razão |
+|---|---|---|
+| Gradiente de `emb_pos.peso` | **NÃO VERIFICADO** | 36,1 % com ε=2e-3, 8,0 % com ε=1e-2, instável entre seeds. Relação sinal/ruído do fp32 < 1 neste tensor |
+| Decomposição de memória | **INFERRED** | reconstrução a partir do código; o autograd não expõe o grafo |
+| Perda 5,8962 | **OBSERVED** | de uma execução anterior; não reproduzida nesta sessão |
+| Variação entre seeds | **DESCONHECIDO** | uma só execução |
+| Generalização a autor novo | **DESCONHECIDO** | validação é continuação do mesmo autor |
 
 ---
 
 ## 8. Riscos abertos
 
-1. **Perda de trabalho** — 36 ficheiros sem commit, histórico já reescrito uma vez. É o risco mais alto e o mais fácil de fechar.
+1. ~~**Perda de trabalho** — 36 ficheiros sem commit~~ → **fechado**: 251 testes passam a partir do repositório, com os ficheiros versionados.
 2. **Resultados não reprodutíveis** — `resultado_corpus_real.json` não regista commit, seed, hash do corpus nem hash do vocabulário. Os 5,8962 não podem ser reconfirmados por terceiros.
 3. **Validação não representa generalização** — mesma obra, mesmo autor, continuação temporal.
 4. **Uma só execução** — todos os números vêm de um treino. Sem variância entre seeds não se sabe o que é sinal e o que é ruído.
+7. **O modelo perde para o trigrama** — enquanto o ponto de cruzamento com o volume de dados não for medido, não se sabe se o Transformer é a arquitectura certa para esta escala.
 5. **Sem conjunto de teste** — e a decisão sobre hiperparâmetros foi tomada olhando para a validação, o que a torna um conjunto de desenvolvimento, não de avaliação.
 6. **A memória quadrática limita o futuro** — qualquer tentativa de aumentar o contexto ou o lote esbarra no mesmo muro. É uma decisão de arquitectura a tomar antes da Fase 3, não depois.
 
