@@ -115,10 +115,18 @@ Com 3 GB de RAM, isto obriga a avaliar em lotes de 8 e a treinar com lote 2.
 treino é ~10× mais lento do que seria com um grafo que liberta nós.
 
 Dito de outra forma: **o modelo é pequeno, o pipeline é que é caro.** Um modelo
-de 2,8 M parâmetros treinado a 0,39 s/passo com lote 2 processa ~5 tokens/ms
-de trabalho útil. PyTorch faria isto 50× mais depressa. A escolha de não o usar
-foi deliberada — provar que os pesos e o gradiente são nossos — mas o custo
-tem de estar escrito.
+de 2,8 M parâmetros treinado a 0,391 s/passo com lote 2 (256 posições) processa
+**256 / 0,391 = 655 tokens/s = 0,655 tokens/ms**, não os "5 tokens/ms" que eu
+aqui escrevi — um erro de 7,6× no mesmo parágrafo em que citei correctamente o
+tempo por passo.
+
+`[CORRIGIDO]` O "PyTorch faria isto 50× mais depressa" **não tem medição
+nenhuma e foi retirado.** Não houve benchmark, nem equivalente, nem fonte.
+A auditoria mediu o throughput real por tamanho de lote (lote 1: 1 687 tok/s;
+lote 2: 1 414; lote 4: 936; lote 8: 534) e não comparou com PyTorch, porque
+comparar exige um ambiente equivalente que aqui não existe. A escolha de não
+usar PyTorch continua deliberada — provar que os pesos e o gradiente são
+nossos — mas o argumento é de **propriedade**, não de velocidade demonstrada.
 
 ---
 
@@ -131,14 +139,22 @@ tem de estar escrito.
 2. **O modelo aprende com dados reais**, não só sintéticos: a validação desceu
    3,1 nats abaixo do aleatório.
 3. **O sobreajuste é detectável e foi detectado** antes de eu o declarar.
-4. **A geração não é cópia** (0% de 20-gramas coincidentes).
+4. `[CORRIGIDO]` **A geração não contém 20-gramas exactos do corpus**, em 3
+   amostras. Foi isto que se mediu. **Não** prova ausência de memorização:
+   não se testaram 5, 10 ou 15-gramas, nem sobreposição aproximada, nem
+   recuperação de exemplos.
 5. **O limite de RAM é medido**, não estimado.
 
 ### Não prova
 
-1. **Que o modelo aprendeu português.** 58 752 tokens vistos são 0,02% do que
-   um modelo deste tamanho precisaria. O que ele aprendeu foi a *forma* da
-   prosa do autor — diálogo, ritmo, léxico — e não a língua.
+1. **Que o modelo aprendeu português.** `[CORRIGIDO]` O "0,02% do que
+   precisaria" foi **retirado: nunca houve cálculo apresentado.** Com a
+   heurística de Chinchilla (≈20 tokens por parâmetro, que é uma regra de
+   *cálculo óptimo*, não uma lei da natureza) seriam 55,5 M tokens e o corpus
+   tem 66 mil, ou seja 0,12% — mas isto é uma heurística, não uma necessidade
+   demonstrada. O que os dados sustentam é o qualitativo: 66 mil tokens e 5
+   autores é pouco para aprender uma língua, e o que o modelo aprendeu foi a
+   *forma* da prosa do autor — diálogo, ritmo, léxico — e não a língua.
 2. **Que a Fase 5 pode começar.** Uma conversa exige coerência em dezenas de
    turnos. Este modelo mantém coerência em ~5 tokens.
 3. **Que o caminho está errado.** Está exactamente onde devia estar: a máquina

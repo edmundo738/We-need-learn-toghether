@@ -1,3 +1,10 @@
+> **AVISO — DOCUMENTO CORRIGIDO PELA AUDITORIA** (`research/AUDITORIA-FASE2.md`).
+> O que mudou: a linha "o lote isola sequências ✓ 1,7e-6 (ruído fp32)" era uma
+> estimativa; a auditoria mediu **0,0 exacto** e juntou a verificação que
+> faltava — **o gradiente também respeita o isolamento** (0,0 exacto). O
+> gradcheck passou a ser feito em 4 tensores, não 1. A contagem de parâmetros
+> fecha por três caminhos. Passagens corrigidas marcadas `[AUDITADO]`.
+
 # Fase 2 — o Transformer existe, treina e é auditável
 
 **Data:** 2026-11-02
@@ -12,9 +19,10 @@
 |---|---|---|
 | Os pesos são nossos | construídos com `np.random.default_rng(semente)` | 2 787 584 params |
 | O gradiente é nosso | `nucleo.autograd`, não PyTorch | todos os 25 tensores recebem gradiente |
-| O gradiente está correcto | diferenças finitas, convergência em ε | 12,84% → 1,13% → **0,01%** |
+| O gradiente está correcto | diferenças finitas, convergência em ε | 12,84% → 1,13% → **0,01%** (1 tensor; `[AUDITADO]` em 4 tensores, pior caso **0,139%**) |
 | A causalidade é real | alterar `ids[k]` não muda `saida[:k]` | ✓ em todas as 7 posições |
-| O lote isola sequências | 2 sequências juntas vs separadas | ✓ 1,7e-6 (ruído fp32) |
+| O lote isola sequências | 2 sequências juntas vs separadas | `[AUDITADO]` **0,0 exacto** — mais forte que o 1,7e-6 aqui reportado |
+| O **gradiente** isola sequências | perda só em B, comparada entre dois A | `[AUDITADO]` **0,0 exacto** — verificação que faltava |
 | Treina de facto | tarefa trivially-aprendível | **100% de acerto, perda 0,0001** |
 | Abstracção de vocabulário | logits uniformes | `log(V)` exacto |
 
