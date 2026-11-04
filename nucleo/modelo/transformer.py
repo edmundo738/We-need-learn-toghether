@@ -54,6 +54,11 @@ class Config:
     ctx: int = 256
     d_ff: int = 384          # 3x d_model, o valor que a directiva fixa
     dropout: float = 0.0
+    # Partilhar o peso entre embedding de entrada e cabeça de saída.
+    # Por omissão LIGADO: é o que nanoGPT faz (wte.weight = lm_head.weight)
+    # e poupa vocab*d_model parâmetros — aqui 1 048 576, ou 38% do modelo.
+    # Desligar continua possível para comparar, e há teste para os dois casos.
+    tying: bool = True
 
     def validar(self) -> None:
         if self.d_model % self.n_cabecas != 0:
@@ -80,7 +85,10 @@ class Config:
             + 4 * self.d_model                     # 2 LayerNorms × (gama + beta)
         )
         final = self.d_model * 2                   # LayerNorm final
-        saida = self.d_model * self.vocab          # projecção para o vocabulário
+        # Weight tying: a cabeça de saída É a tabela de embeddings, logo não
+        # acrescenta parâmetros únicos. Sem esta condição, a contagem
+        # analítica e a construção divergiam em vocab*d_model.
+        saida = 0 if self.tying else self.d_model * self.vocab
         return emb + pos + self.n_camadas * por_camada + final + saida
 
 
@@ -91,8 +99,16 @@ class Config:
 class Embedding(nn.Modulo):
     """Tabela de embeddings com gradiente esparso por linha."""
 
-    def __init__(self, n: int, d: int, rng: np.random.Generator):
-        self.peso = Tensor(
+    def __init__(self, n: int, d: int, rng: np.random.Generator,
+                 peso: Tensor | None = None):
+        """Se `peso` for dado, usa esse tensor em vez de criar um novo.
+
+        É assim que se implementa **weight tying**: a cabeça de saída e a
+        tabela de embeddings partilham o MESMO `Tensor`, logo o mesmo
+        gradiente — as duas contribuições somam-se, que é o que a
+        matemática exige.
+        """
+        self.peso = peso if peso is not None else Tensor(
             (rng.standard_normal((n, d)) * 0.02).astype(np.float32),
             requires_grad=True,
         )
@@ -261,7 +277,13 @@ class Transformer(nn.Modulo):
         self.emb_pos = Embedding(cfg.ctx, cfg.d_model, rng)
         self.blocos = [BlocoTransformer(cfg, rng) for _ in range(cfg.n_camadas)]
         self.ln_final = LayerNorm(cfg.d_model)
-        self.cabeca = nn.Linear(cfg.d_model, cfg.vocab, rng, viés=False)
+        if cfg.tying:
+            # a cabeça É a transposta da tabela de embeddings: mesma matriz,
+            # mesmo tensor, mesmo gradiente acumulado
+            self.cabeca = nn.Linear(cfg.d_model, cfg.vocab, rng, viés=False,
+                                    peso=self.emb.peso, transpor_peso=True)
+        else:
+            self.cabeca = nn.Linear(cfg.d_model, cfg.vocab, rng, viés=False)
 
     # -- parametros ------------------------------------------------------
     def parametros(self) -> dict[str, Tensor]:
@@ -270,10 +292,20 @@ class Transformer(nn.Modulo):
         for i, b in enumerate(self.blocos):
             p.update({f"bloco{i}.{k}": t for k, t in b.parametros().items()})
         p.update({f"ln_final.{k}": t for k, t in self.ln_final.parametros().items()})
-        p.update({f"cabeca.{k}": t for k, t in self.cabeca.parametros().items()})
+        if not self.cfg.tying:
+            p.update({f"cabeca.{k}": t for k, t in self.cabeca.parametros().items()})
+        # Com tying, a cabeça aponta para emb.peso (via transposta) e não
+        # acrescenta parâmetros únicos: já está contada em `emb.peso`.
         return p
 
     def n_parametros(self) -> int:
+        """Soma de parâmetros ÚNICOS.
+
+        Com `tying=True`, o tensor de embeddings aparece uma só vez em
+        `parametros()` (a cabeça não acrescenta chave), por isso esta soma
+        está correcta por construção. Sem isto, o Adam aplicaria o mesmo
+        update duas vezes ao mesmo tensor e o modelo divergiria em silêncio.
+        """
         return sum(t.n_elementos for t in self.parametros().values())
 
     # -- forward ---------------------------------------------------------
@@ -331,9 +363,20 @@ class Transformer(nn.Modulo):
 
     # -- persistência ----------------------------------------------------
     def guardar(self, pasta: str | Path) -> Path:
+        """Grava config + pesos.
+
+        Com weight tying, `cabeca.W` é um tensor DERIVADO (a transposta de
+        `emb.peso`) e não aparece em `parametros()`. Gravá-lo na mesma é
+        deliberado: torna o checkpoint independente de como o carregador
+        reconstrua a cabeça, e permite detectar inconsistência — se
+        `cabeca.W` no disco não for a transposta de `emb.peso`, o ficheiro
+        foi corrompido ou escrito por outra configuração.
+        """
         pasta = Path(pasta)
         pasta.mkdir(parents=True, exist_ok=True)
         tensores = {k: t.data for k, t in self.parametros().items()}
+        if self.cfg.tying:
+            tensores["cabeca.W"] = self.cabeca.W.data
         np.savez_compressed(pasta / "pesos.npz", **tensores)
         (pasta / "config.json").write_text(
             json.dumps(asdict(self.cfg), indent=2, ensure_ascii=False)
@@ -354,6 +397,12 @@ class Transformer(nn.Modulo):
                     f"{nome}: forma {dados[nome].shape} != esperada {t.data.shape}"
                 )
             t.data = dados[nome].astype(np.float32)
+        if cfg.tying and "cabeca.W" in dados:
+            esperado = modelo.emb.peso.data.T
+            if not np.allclose(dados["cabeca.W"], esperado, rtol=0, atol=1e-6):
+                raise ValueError(
+                    "cabeca.W no checkpoint não é a transposta de emb.peso — "
+                    "o modelo não seria o mesmo depois de carregado")
         return modelo
 
 

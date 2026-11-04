@@ -50,8 +50,16 @@ def test_nucleo_importa_sem_kianda_no_path() -> None:
     para o teste passar por acidente.
     """
     codigo = r"""
-import sys
-sys.path = [p for p in sys.path if 'We-need-learn' not in p]
+import sys, os
+
+# Remover a RAIZ do repositório do sys.path, mas NÃO o site-packages do
+# ambiente virtual — que também vive dentro da árvore quando o .venv está
+# no projecto, e removê-lo apagava o numpy. Filtra-se a raiz exacta.
+_RAIZ = os.path.abspath('.').replace(os.sep, '/')
+_venv = os.path.abspath(sys.prefix).replace(os.sep, '/')
+sys.path = [p for p in sys.path
+            if not (p and os.path.abspath(p).replace(os.sep, '/').startswith(_RAIZ)
+                    and not p.startswith(_venv))]
 
 class Bloqueio:
     def find_module(self, nome, caminho=None):

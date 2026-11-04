@@ -1,0 +1,90 @@
+[
+  {
+    "aspecto": "Normalização",
+    "nosso": "LayerNorm pós? NÃO — pré-norm (ln antes de cada sub-camada)",
+    "referencia": "Pré-norm em todos: nanoGPT (ln_1 antes da atenção), LitGPT e OLMo2 usam RMSNorm",
+    "fonte": "nanoGPT/model.py; litgpt/litgpt/config.py:2190; OLMo2-1B.yaml layer_norm_type: rms",
+    "veredicto": "difere",
+    "porque_importa": "RMSNorm não tem média nem beta (menos 2*d por camada) e é o padrão desde LLaMA. Não muda a matemática aprendível; muda estabilidade e número de parâmetros."
+  },
+  {
+    "aspecto": "Activação da MLP",
+    "nosso": "ReLU",
+    "referencia": "GELU no nanoGPT (nn.GELU), SwiGLU no LitGPT/OLMo (LLaMAMLP)",
+    "fonte": "nanoGPT/model.py:83; litgpt config mlp_class_name=LLaMAMLP",
+    "veredicto": "difere",
+    "porque_importa": "ReLU é a escolha mais fraca das três. SwiGLU custa ~1,5x params na MLP por ganho consistente. Não é razão do resultado fraco, mas é dívida técnica."
+  },
+  {
+    "aspecto": "Posição",
+    "nosso": "Embedding posicional aprendido, absoluto",
+    "referencia": "RoPE (rotary) em LitGPT e OLMo; embedding aprendido no nanoGPT",
+    "fonte": "OLMo2-1B.yaml rope: true, rope_theta: 500000; nanoGPT wpe",
+    "veredicto": "difere",
+    "porque_importa": "RoPE generaliza para contexto maior que o treinado; o embedding absoluto não. Relevante se a Fase 3 quiser contexto 512: com absoluto, é preciso re-treinar."
+  },
+  {
+    "aspecto": "Peso da cabeça de saída",
+    "nosso": "Matriz separada (não partilhada)",
+    "referencia": "Weight tying no nanoGPT: wte.weight = lm_head.weight",
+    "fonte": "nanoGPT/model.py:138",
+    "veredicto": "difere",
+    "porque_importa": "Partilhar poupa vocab*d_model parâmetros — aqui 1 048 576, ou 38% do modelo — e costuma melhorar a perda em modelos pequenos. É a única diferença desta tabela que reduz parâmetros em vez de os aumentar."
+  },
+  {
+    "aspecto": "Bias nas lineares",
+    "nosso": "Sem bias (viés=False em todas)",
+    "referencia": "Sem bias no LitGPT (bias=False) e OLMo; com bias no nanoGPT (config.bias)",
+    "fonte": "litgpt config.py:2189",
+    "veredicto": "igual",
+    "porque_importa": "Está alinhado com as referências modernas. Sem acção."
+  },
+  {
+    "aspecto": "Optimizador",
+    "nosso": "Adam simples com grad_clip",
+    "referencia": "AdamW com weight decay separado para pesos 2D e não-2D (nanoGPT), fused",
+    "fonte": "nanoGPT/model.py:263-285",
+    "veredicto": "difere",
+    "porque_importa": "Sem weight decay, os embeddings crescem sem travão. Num corpus pequeno isso agrava o sobreajuste. É uma correcção de 10 linhas, não uma reescrita."
+  },
+  {
+    "aspecto": "Precisão",
+    "nosso": "float32 em tudo",
+    "referencia": "bf16 misto no OLMo (amp_bf16); nanoGPT usa autocast bf16/fp16 em GPU",
+    "fonte": "OLMo2-1B.yaml precision: amp_bf16",
+    "veredicto": "difere",
+    "porque_importa": "Sem GPU, bf16 não traz ganho. Mas o fp32 é a razão de o gradcheck bater no limite de resolução — está documentado na auditoria."
+  },
+  {
+    "aspecto": "Dados por parâmetro",
+    "nosso": "≈24 tokens/parâmetro (66k / 2,77M)",
+    "referencia": "OLMo2-1B: 4e12 tokens / ~1e9 params = ~4 000 tokens/parâmetro",
+    "fonte": "OLMo2-1B.yaml max_duration: 4e12T",
+    "veredicto": "difere (2 ordens de grandeza)",
+    "porque_importa": "AQUI está a diferença que explica o resultado, e não é de arquitectura. Chinchilla (20 tok/param) é o óptimo de CÁLCULO; o OLMo treina a 4000, muito acima, porque quer capacidade e não eficiência de treino."
+  },
+  {
+    "aspecto": "Curadoria de dados",
+    "nosso": "Limpeza textual mínima; filtros implementados agora",
+    "referencia": "Dolma: taggers Gopher/C4 + dedup MinHash; Tucano: classificador BERT+XGBoost",
+    "fonte": "dolma/python/dolma/taggers/gopher.py; Tucano/gigaverbo/text-filter/",
+    "veredicto": "falta (parcialmente)",
+    "porque_importa": "O Tucano filtra 780 GB com um classificador treinado. Os filtros determinísticos do Gopher estão agora em nucleo/dados/curadoria.py; o classificador não é reproduzível sem dados rotulados."
+  },
+  {
+    "aspecto": "Pipeline pós-treino",
+    "nosso": "Inexistente",
+    "referencia": "nanochat: tok_train -> tok_eval -> base_train -> base_eval (CORE, BPB) -> chat_sft -> chat_eval -> chat_cli",
+    "fonte": "nanochat/runs/speedrun.sh",
+    "veredicto": "falta",
+    "porque_importa": "Sem SFT não há comportamento conversacional, por muito bom que o pré-treino seja. É a distinção que a directiva impõe: língua != diálogo."
+  },
+  {
+    "aspecto": "Avaliação",
+    "nosso": "Perda de validação + baselines n-grama",
+    "referencia": "CORE metric + bits-per-byte (nanochat base_eval); benchmarks por tarefa",
+    "fonte": "nanochat/scripts/base_eval.py",
+    "veredicto": "falta",
+    "porque_importa": "Perda não mede capacidade. Bits/byte já está implementado aqui; falta um conjunto de tarefas com resposta verificável."
+  }
+]

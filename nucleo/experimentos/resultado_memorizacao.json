@@ -1,0 +1,47 @@
+{
+  "amostras": [
+    {
+      "prompt": "Eu não tenho filtro",
+      "tokens_gerados": 65,
+      "maior_copia_exata": 6,
+      "trecho_copiado": "Eu não tenho filtro.",
+      "sobreposicao_aproximada_10": 0
+    },
+    {
+      "prompt": "Zuleika olhou",
+      "tokens_gerados": 65,
+      "maior_copia_exata": 5,
+      "trecho_copiado": "Zuleika",
+      "sobreposicao_aproximada_10": 0
+    },
+    {
+      "prompt": "Há coisas que",
+      "tokens_gerados": 63,
+      "maior_copia_exata": 5,
+      "trecho_copiado": ".\nFico de",
+      "sobreposicao_aproximada_10": 0
+    }
+  ],
+  "agregado": {
+    "ordem_5": {
+      "gerados": 181,
+      "no_corpus": 6,
+      "fraccao": 0.0331
+    },
+    "ordem_10": {
+      "gerados": 166,
+      "no_corpus": 0,
+      "fraccao": 0.0
+    },
+    "ordem_15": {
+      "gerados": 151,
+      "no_corpus": 0,
+      "fraccao": 0.0
+    },
+    "ordem_20": {
+      "gerados": 136,
+      "no_corpus": 0,
+      "fraccao": 0.0
+    }
+  }
+}

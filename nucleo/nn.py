@@ -92,12 +92,55 @@ class Linear(Modulo):
         viés: bool = True,
         escala_init: float = 1.0,
         activacao: str | None = None,
+        peso: "Tensor | None" = None,
+        transpor_peso: bool = False,
     ):
+        """`peso` permite PARTILHAR a matriz com outro módulo (weight tying).
+
+        Quando é dado, não se cria um W novo: usa-se esse tensor. O
+        gradiente das duas utilizações acumula-se no mesmo `Tensor`, que é
+        exactamente o comportamento correcto — e a razão de `parametros()`
+        do Transformer não listar a cabeça duas vezes com tying ligado.
+        """
         rng = rng or np.random.default_rng(0)
         self.entrada = entrada
         self.saida = saida
         self.activacao = activacao
-        self.W = Tensor(inicializar_he(rng, (entrada, saida)) * escala_init, True, _op="W")
+        # Weight tying precisa da TRANSPOSTA: a tabela de embeddings é
+        # (vocab, d_model) e a cabeça precisa de (d_model, vocab). O truque
+        # do nanoGPT (`wte.weight = lm_head.weight`) funciona porque lá as
+        # convenções coincidem; aqui não, e um reshape estaria errado — é a
+        # mesma matriz lida ao contrário.
+        if peso is not None:
+            if transpor_peso:
+                if peso.data.T.shape != (entrada, saida):
+                    raise ValueError(
+                        f"peso transposto tem forma {peso.data.T.shape}, "
+                        f"esperava {(entrada, saida)}")
+                # NÃO guardar uma CÓPIA da transposta: `Tensor(peso.data.T)`
+                # faz np.asarray e desliga-se do pai. Quando `carregar()`
+                # substitui `peso.data`, a cabeça continuaria a usar os pesos
+                # antigos — medido: o modelo carregado dava saída diferente
+                # em 100% dos elementos. Guarda-se o pai e a transposta é
+                # calculada a cada forward.
+                # Inicializar já com a transposta do dono, não com zeros:
+                # um `W` a zeros significa que o PRIMEIRO forward do modelo
+                # usa uma cabeça nula, e isso não é o modelo que se quer
+                # medir (a perda inicial mudava em função do tying, o que
+                # falseava comparações e o gradcheck).
+                self.W = Tensor(peso.data.T.copy(), True, (peso,), "transposta")
+                self.W._backward = lambda g: peso.acumular_grad(g.T)
+                self._partilhado = peso
+            else:
+                if peso.data.shape != (entrada, saida):
+                    raise ValueError(
+                        f"peso partilhado tem forma {peso.data.shape}, "
+                        f"esperava {(entrada, saida)}")
+                self.W = peso
+                self._partilhado = peso
+        else:
+            self.W = Tensor(inicializar_he(rng, (entrada, saida)) * escala_init, True, _op="W")
+            self._partilhado = None
         self.b = Tensor(np.zeros((1, saida), dtype=np.float32), True, _op="b") if viés else None
 
         # cache de quantização (invalidada ao treinar)
@@ -111,7 +154,20 @@ class Linear(Modulo):
             p["b"] = self.b
         return p
 
+    def _matriz(self) -> Tensor:
+        """A matriz de pesos efectiva.
+
+        Para uma camada normal é `self.W`. Para uma camada com peso
+        partilhado transposto, é a transposta VIVA do tensor dono — assim
+        carregar um checkpoint ou perturbar o dono num gradcheck propaga-se
+        imediatamente à cabeça.
+        """
+        if self._partilhado is not None:
+            self.W.data = self._partilhado.data.T
+        return self.W
+
     def forward(self, x: Tensor, quantizado: bool = False) -> Tensor:
+        self._matriz()
         if quantizado:
             if self._w_int8 is None or self._w_ref is None or not np.array_equal(self._w_ref, self.W.data):
                 self._w_ref = self.W.data.copy()

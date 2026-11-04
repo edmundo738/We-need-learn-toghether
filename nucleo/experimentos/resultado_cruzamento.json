@@ -1,0 +1,59 @@
+{
+  "ctx": 128,
+  "validacao_janelas": 52,
+  "posicoes_por_condicao": 245760,
+  "condicoes": [
+    {
+      "fraccao": 0.1,
+      "janelas_treino": 45,
+      "tokens_treino": 5805,
+      "tokens_unicos": 5760,
+      "trigrama": 7.2317,
+      "transformer": 13.5873,
+      "diferenca": 6.3557,
+      "transformer_melhor": false,
+      "passos": 480,
+      "segundos": 92.7,
+      "posicoes_processadas": 245760
+    },
+    {
+      "fraccao": 0.25,
+      "janelas_treino": 114,
+      "tokens_treino": 14706,
+      "tokens_unicos": 14592,
+      "trigrama": 6.9126,
+      "transformer": 12.4231,
+      "diferenca": 5.5105,
+      "transformer_melhor": false,
+      "passos": 480,
+      "segundos": 89.7,
+      "posicoes_processadas": 245760
+    },
+    {
+      "fraccao": 0.5,
+      "janelas_treino": 229,
+      "tokens_treino": 29541,
+      "tokens_unicos": 29312,
+      "trigrama": 6.0416,
+      "transformer": 8.9302,
+      "diferenca": 2.8886,
+      "transformer_melhor": false,
+      "passos": 480,
+      "segundos": 90.4,
+      "posicoes_processadas": 245760
+    },
+    {
+      "fraccao": 1.0,
+      "janelas_treino": 459,
+      "tokens_treino": 59211,
+      "tokens_unicos": 58752,
+      "trigrama": 5.0461,
+      "transformer": 5.9399,
+      "diferenca": 0.8938,
+      "transformer_melhor": false,
+      "passos": 480,
+      "segundos": 97.2,
+      "posicoes_processadas": 245760
+    }
+  ]
+}
