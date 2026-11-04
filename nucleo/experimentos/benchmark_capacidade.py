@@ -74,8 +74,8 @@ def benchmark_autograd(repeticoes: int = 15, passos_por_rep: int = 5) -> dict:
     """
     import numpy as np
 
-    from kianda.nucleo.autograd import Tensor, matmul
-    from kianda.nucleo.nn import Adam
+    from nucleo.autograd import Tensor, matmul
+    from nucleo.nn import Adam
 
     B, S, d = 16, 256, 128
     rng = np.random.default_rng(0)

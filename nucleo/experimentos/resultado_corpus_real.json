@@ -1,0 +1,422 @@
+{
+  "tokenizador": "v1 (8192)",
+  "corpus": {
+    "caracteres": 244372,
+    "tokens": 65999,
+    "janelas": 511,
+    "ctx": 128,
+    "treino": 459,
+    "validacao": 52,
+    "descartados_no_fim": 80
+  },
+  "config": {
+    "vocab": 8192,
+    "d_model": 128,
+    "n_camadas": 4,
+    "n_cabecas": 4,
+    "ctx": 128,
+    "d_ff": 384,
+    "dropout": 0.0
+  },
+  "n_parametros": 2771200,
+  "passos": 1500,
+  "lote": 2,
+  "lr": 0.003,
+  "segundos": 586.7,
+  "baseline": {
+    "perda": 9.92967142377581,
+    "acerto": 0.0
+  },
+  "final": {
+    "perda": 5.896221024649484,
+    "acerto": 0.11662946428571429
+  },
+  "historico": [
+    {
+      "passo": 1,
+      "perda_treino": 9.862293243408203,
+      "perda_val": 9.040435109819684,
+      "acerto_val": 0.0034877232142857145
+    },
+    {
+      "passo": 25,
+      "perda_treino": 7.200754165649414,
+      "perda_val": 7.216737747192383,
+      "acerto_val": 0.05817522321428571
+    },
+    {
+      "passo": 50,
+      "perda_treino": 6.704445838928223,
+      "perda_val": 6.830383096422468,
+      "acerto_val": 0.06166294642857143
+    },
+    {
+      "passo": 75,
+      "perda_treino": 6.705218315124512,
+      "perda_val": 6.649091924939837,
+      "acerto_val": 0.08258928571428571
+    },
+    {
+      "passo": 100,
+      "perda_treino": 6.388975143432617,
+      "perda_val": 6.479008606501988,
+      "acerto_val": 0.09444754464285714
+    },
+    {
+      "passo": 125,
+      "perda_treino": 5.989335536956787,
+      "perda_val": 6.391671793801444,
+      "acerto_val": 0.09388950892857142
+    },
+    {
+      "passo": 150,
+      "perda_treino": 5.726001739501953,
+      "perda_val": 6.293901443481445,
+      "acerto_val": 0.09695870535714286
+    },
+    {
+      "passo": 175,
+      "perda_treino": 6.429408550262451,
+      "perda_val": 6.222063882010324,
+      "acerto_val": 0.0986328125
+    },
+    {
+      "passo": 200,
+      "perda_treino": 5.584650993347168,
+      "perda_val": 6.137261867523193,
+      "acerto_val": 0.09835379464285714
+    },
+    {
+      "passo": 225,
+      "perda_treino": 5.842112064361572,
+      "perda_val": 6.066974231175014,
+      "acerto_val": 0.10951450892857142
+    },
+    {
+      "passo": 250,
+      "perda_treino": 5.702145576477051,
+      "perda_val": 6.000272274017334,
+      "acerto_val": 0.10226004464285714
+    },
+    {
+      "passo": 275,
+      "perda_treino": 5.891705513000488,
+      "perda_val": 5.984642778124128,
+      "acerto_val": 0.10770089285714286
+    },
+    {
+      "passo": 300,
+      "perda_treino": 5.893526077270508,
+      "perda_val": 5.951201779501779,
+      "acerto_val": 0.11202566964285714
+    },
+    {
+      "passo": 325,
+      "perda_treino": 5.844624042510986,
+      "perda_val": 5.92628356388637,
+      "acerto_val": 0.11049107142857142
+    },
+    {
+      "passo": 350,
+      "perda_treino": 5.793024063110352,
+      "perda_val": 5.859227452959333,
+      "acerto_val": 0.11509486607142858
+    },
+    {
+      "passo": 375,
+      "perda_treino": 5.113894462585449,
+      "perda_val": 5.833070823124477,
+      "acerto_val": 0.10811941964285714
+    },
+    {
+      "passo": 400,
+      "perda_treino": 5.8516740798950195,
+      "perda_val": 5.8360362734113425,
+      "acerto_val": 0.10491071428571429
+    },
+    {
+      "passo": 425,
+      "perda_treino": 5.833360195159912,
+      "perda_val": 5.859376430511475,
+      "acerto_val": 0.0966796875
+    },
+    {
+      "passo": 450,
+      "perda_treino": 5.503485679626465,
+      "perda_val": 5.803904329027448,
+      "acerto_val": 0.11314174107142858
+    },
+    {
+      "passo": 475,
+      "perda_treino": 5.429840087890625,
+      "perda_val": 5.77040079661778,
+      "acerto_val": 0.11397879464285714
+    },
+    {
+      "passo": 500,
+      "perda_treino": 5.24152135848999,
+      "perda_val": 5.789628437587193,
+      "acerto_val": 0.10574776785714286
+    },
+    {
+      "passo": 525,
+      "perda_treino": 5.279756546020508,
+      "perda_val": 5.790697438376291,
+      "acerto_val": 0.11188616071428571
+    },
+    {
+      "passo": 550,
+      "perda_treino": 5.63959264755249,
+      "perda_val": 5.72921119417463,
+      "acerto_val": 0.10993303571428571
+    },
+    {
+      "passo": 575,
+      "perda_treino": 6.194705486297607,
+      "perda_val": 5.719189371381487,
+      "acerto_val": 0.11900111607142858
+    },
+    {
+      "passo": 600,
+      "perda_treino": 4.67124605178833,
+      "perda_val": 5.769336564200265,
+      "acerto_val": 0.119140625
+    },
+    {
+      "passo": 625,
+      "perda_treino": 5.848886013031006,
+      "perda_val": 5.744929381779262,
+      "acerto_val": 0.11021205357142858
+    },
+    {
+      "passo": 650,
+      "perda_treino": 5.503022193908691,
+      "perda_val": 5.766690117972238,
+      "acerto_val": 0.11216517857142858
+    },
+    {
+      "passo": 675,
+      "perda_treino": 5.147181510925293,
+      "perda_val": 5.726029668535505,
+      "acerto_val": 0.11188616071428571
+    },
+    {
+      "passo": 700,
+      "perda_treino": 5.245366096496582,
+      "perda_val": 5.712435790470669,
+      "acerto_val": 0.11328125
+    },
+    {
+      "passo": 725,
+      "perda_treino": 4.829311370849609,
+      "perda_val": 5.712795121329171,
+      "acerto_val": 0.11342075892857142
+    },
+    {
+      "passo": 750,
+      "perda_treino": 5.216494560241699,
+      "perda_val": 5.779877662658691,
+      "acerto_val": 0.11579241071428571
+    },
+    {
+      "passo": 775,
+      "perda_treino": 4.563042640686035,
+      "perda_val": 5.67078297478812,
+      "acerto_val": 0.11955915178571429
+    },
+    {
+      "passo": 800,
+      "perda_treino": 5.335818767547607,
+      "perda_val": 5.710387025560651,
+      "acerto_val": 0.11481584821428571
+    },
+    {
+      "passo": 825,
+      "perda_treino": 5.044868469238281,
+      "perda_val": 5.7708322661263605,
+      "acerto_val": 0.11886160714285714
+    },
+    {
+      "passo": 850,
+      "perda_treino": 4.8957905769348145,
+      "perda_val": 5.691555295671735,
+      "acerto_val": 0.11439732142857142
+    },
+    {
+      "passo": 875,
+      "perda_treino": 4.643595218658447,
+      "perda_val": 5.727683135441372,
+      "acerto_val": 0.10881696428571429
+    },
+    {
+      "passo": 900,
+      "perda_treino": 5.534636974334717,
+      "perda_val": 5.762704644884382,
+      "acerto_val": 0.11216517857142858
+    },
+    {
+      "passo": 925,
+      "perda_treino": 4.971795082092285,
+      "perda_val": 5.704716137477329,
+      "acerto_val": 0.1201171875
+    },
+    {
+      "passo": 950,
+      "perda_treino": 5.228516578674316,
+      "perda_val": 5.666137831551688,
+      "acerto_val": 0.12067522321428571
+    },
+    {
+      "passo": 975,
+      "perda_treino": 5.235590934753418,
+      "perda_val": 5.7375472613743375,
+      "acerto_val": 0.11635044642857142
+    },
+    {
+      "passo": 1000,
+      "perda_treino": 4.42923641204834,
+      "perda_val": 5.703446388244629,
+      "acerto_val": 0.12388392857142858
+    },
+    {
+      "passo": 1025,
+      "perda_treino": 3.851130247116089,
+      "perda_val": 5.7605975696018765,
+      "acerto_val": 0.11369977678571429
+    },
+    {
+      "passo": 1050,
+      "perda_treino": 4.31887149810791,
+      "perda_val": 5.7396127837044855,
+      "acerto_val": 0.11844308035714286
+    },
+    {
+      "passo": 1075,
+      "perda_treino": 4.919366359710693,
+      "perda_val": 5.758647646222796,
+      "acerto_val": 0.12360491071428571
+    },
+    {
+      "passo": 1100,
+      "perda_treino": 4.707756519317627,
+      "perda_val": 5.734787396022251,
+      "acerto_val": 0.12486049107142858
+    },
+    {
+      "passo": 1125,
+      "perda_treino": 5.346141815185547,
+      "perda_val": 5.792684214455741,
+      "acerto_val": 0.12179129464285714
+    },
+    {
+      "passo": 1150,
+      "perda_treino": 5.302501678466797,
+      "perda_val": 5.7698187828063965,
+      "acerto_val": 0.12039620535714286
+    },
+    {
+      "passo": 1175,
+      "perda_treino": 4.906123161315918,
+      "perda_val": 5.820600577763149,
+      "acerto_val": 0.11551339285714286
+    },
+    {
+      "passo": 1200,
+      "perda_treino": 4.64070987701416,
+      "perda_val": 5.758523464202881,
+      "acerto_val": 0.12458147321428571
+    },
+    {
+      "passo": 1225,
+      "perda_treino": 4.699055194854736,
+      "perda_val": 5.817672388894217,
+      "acerto_val": 0.12555803571428573
+    },
+    {
+      "passo": 1250,
+      "perda_treino": 4.075734615325928,
+      "perda_val": 5.87773711340768,
+      "acerto_val": 0.12165178571428571
+    },
+    {
+      "passo": 1275,
+      "perda_treino": 5.0141215324401855,
+      "perda_val": 5.810641356876919,
+      "acerto_val": 0.12653459821428573
+    },
+    {
+      "passo": 1300,
+      "perda_treino": 4.7067551612854,
+      "perda_val": 5.804872921534947,
+      "acerto_val": 0.11537388392857142
+    },
+    {
+      "passo": 1325,
+      "perda_treino": 4.04068660736084,
+      "perda_val": 5.861248425074986,
+      "acerto_val": 0.11774553571428571
+    },
+    {
+      "passo": 1350,
+      "perda_treino": 3.48728084564209,
+      "perda_val": 5.847815377371652,
+      "acerto_val": 0.11648995535714286
+    },
+    {
+      "passo": 1375,
+      "perda_treino": 3.5162253379821777,
+      "perda_val": 5.832878317151751,
+      "acerto_val": 0.11579241071428571
+    },
+    {
+      "passo": 1400,
+      "perda_treino": 4.471458435058594,
+      "perda_val": 5.920500074114118,
+      "acerto_val": 0.12039620535714286
+    },
+    {
+      "passo": 1425,
+      "perda_treino": 4.282621383666992,
+      "perda_val": 5.878758771078927,
+      "acerto_val": 0.11844308035714286
+    },
+    {
+      "passo": 1450,
+      "perda_treino": 4.384515285491943,
+      "perda_val": 5.89314215523856,
+      "acerto_val": 0.11495535714285714
+    },
+    {
+      "passo": 1475,
+      "perda_treino": 3.713641881942749,
+      "perda_val": 5.9882112230573386,
+      "acerto_val": 0.11314174107142858
+    },
+    {
+      "passo": 1500,
+      "perda_treino": 4.0915422439575195,
+      "perda_val": 5.896221024649484,
+      "acerto_val": 0.11662946428571429
+    }
+  ],
+  "amostras": [
+    {
+      "prompt": "Eu não tenho filtro",
+      "gerado": "Eu não tenho filtro.\n— Fui.\n— Que não percebe que não são.\n— A voz de mim.\n—\n—\n—\n—\n— Saí.\n—\n—\n— Saí.\n— Saí.\n—\n—\n— Saí.\n— S"
+    },
+    {
+      "prompt": "Zuleika olhou",
+      "gerado": "Zuleika olhou para aigarro, a vozcada. \n \n— 1. \n \n— \n \n— \n \n— — Seis— Eu nãoima a voz. \n \n— Eu sei o \n— Eu sei a voz baixa. \n \n— Eu— Eu sei a frase. \n \n— VIN—99 — disse."
+    },
+    {
+      "prompt": "Há coisas que",
+      "gerado": "Há coisas que não antecip, que não\n—só rápido.\nFizam.\nFica.\nFalar a única reunião.\nFCaí.\nFico de\n— Você não é a mão.\nFingos ·\nFico.\n— Eu sei-se com"
+    }
+  ],
+  "copia_literal": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "nota": "Treino no corpus real (5 obras do autor, 244.372 caracteres, 65.999 tokens). 1500 passos, 587s, lote 2. Prova que a cadeia texto->ids->modelo->ids->texto fecha. Nao prova aprendizagem de linguagem: 58.752 tokens vistos. A val val desceu de 9,04 para 5,70 no passo 1000 e subiu para 5,90 no 1500 (sobreajuste). Geracao: estrutura de dialogo e sintaxe portuguesa, 0% de copia literal (20-gramas)."
+}

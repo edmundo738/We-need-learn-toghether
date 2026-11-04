@@ -1,0 +1,80 @@
+{
+  "config": {
+    "vocab": 16,
+    "d_model": 32,
+    "n_camadas": 2,
+    "n_cabecas": 2,
+    "ctx": 32,
+    "d_ff": 64,
+    "dropout": 0.0
+  },
+  "n_parametros": 18752,
+  "passos": 200,
+  "lr": 0.003,
+  "segundos": 7.4,
+  "baseline": {
+    "perda": 3.561842918395996,
+    "acerto": 0.06380208333333333
+  },
+  "final": {
+    "perda": 3.2912559509277344,
+    "acerto": 0.0859375
+  },
+  "historico": [
+    {
+      "passo": 1,
+      "perda_treino": 3.666177749633789,
+      "perda_val": 3.3352386951446533,
+      "acerto_val": 0.061197916666666664
+    },
+    {
+      "passo": 25,
+      "perda_treino": 2.6403613090515137,
+      "perda_val": 2.8305532932281494,
+      "acerto_val": 0.06640625
+    },
+    {
+      "passo": 50,
+      "perda_treino": 2.5424561500549316,
+      "perda_val": 2.88696026802063,
+      "acerto_val": 0.07942708333333333
+    },
+    {
+      "passo": 75,
+      "perda_treino": 2.554098606109619,
+      "perda_val": 2.9991748332977295,
+      "acerto_val": 0.09114583333333333
+    },
+    {
+      "passo": 100,
+      "perda_treino": 2.418915271759033,
+      "perda_val": 3.071748733520508,
+      "acerto_val": 0.08984375
+    },
+    {
+      "passo": 125,
+      "perda_treino": 2.1470110416412354,
+      "perda_val": 3.085240125656128,
+      "acerto_val": 0.1015625
+    },
+    {
+      "passo": 150,
+      "perda_treino": 1.825870156288147,
+      "perda_val": 3.220240354537964,
+      "acerto_val": 0.09765625
+    },
+    {
+      "passo": 175,
+      "perda_treino": 1.9159504175186157,
+      "perda_val": 3.304041624069214,
+      "acerto_val": 0.078125
+    },
+    {
+      "passo": 200,
+      "perda_treino": 1.706263542175293,
+      "perda_val": 3.2912559509277344,
+      "acerto_val": 0.0859375
+    }
+  ],
+  "nota": "Corpus sintetico. Mede a cadeia treino->pesos->geracao, nao a qualidade linguistica."
+}

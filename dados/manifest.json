@@ -1,0 +1,278 @@
+{
+  "corpus_versao": "0.1",
+  "data": "2026-11-01",
+  "semente_divisao": 20261101,
+  "fracoes": {
+    "train": 0.9,
+    "validacao": 0.05,
+    "teste": 0.05
+  },
+  "tamanho_bloco_caracteres": 2000,
+  "resumo": {
+    "ficheiros": 12,
+    "caracteres_totais": 2989154,
+    "caracteres_versionados_no_git": 244241,
+    "caracteres_redistribuiveis": 0,
+    "caracteres_apenas_no_manifesto": 2744913
+  },
+  "regra": "Corpus v0.1 + tokenizer + arquitectura + seed = pesos. Se o sha256 de um ficheiro não bater, o resultado não é comparável.",
+  "avisos": [
+    "EXCLUÍDO: outros/who_am_i.txt — 2 caracteres extraídos de 17 páginas — PDF sem camada de texto utilizável (provavelmente digitalizado). Não é um problema de código: exigiria OCR. Excluído em vez de incluído como ficheiro vazio."
+  ],
+  "ficheiros": [
+    {
+      "caminho": "dados/obras/H99_Parte_I.txt",
+      "titulo": "H99 (parte I)",
+      "autor": "Edmundo Nambo",
+      "categoria": "kianda",
+      "idioma": "pt-AO",
+      "origem": "Original do autor, convertido de PDF",
+      "licenca": "© Edmundo Nambo — todos os direitos reservados",
+      "redistribuivel": false,
+      "versionado": true,
+      "nota": "Obra do próprio autor do projecto.",
+      "sha256": "271da3bb3867605f4800e2eb374bbd8b56bb48d4bc764cf7ed5a8940ac3bb00b",
+      "bytes": 51502,
+      "caracteres": 49906,
+      "blocos": 21,
+      "char_por_divisao": {
+        "train": 36353,
+        "teste": 11422,
+        "validacao": 2071
+      }
+    },
+    {
+      "caminho": "dados/obras/H99_Parte_II.txt",
+      "titulo": "H99 (parte II)",
+      "autor": "Edmundo Nambo",
+      "categoria": "kianda",
+      "idioma": "pt-AO",
+      "origem": "Original do autor, convertido de PDF",
+      "licenca": "© Edmundo Nambo — todos os direitos reservados",
+      "redistribuivel": false,
+      "versionado": true,
+      "nota": "Obra do próprio autor do projecto.",
+      "sha256": "5e8d872bc4d5374fe077d945d5f6797358c4411610958ad158631ac4c373b2ae",
+      "bytes": 46016,
+      "caracteres": 44353,
+      "blocos": 22,
+      "char_por_divisao": {
+        "train": 41758,
+        "teste": 1924,
+        "validacao": 596
+      }
+    },
+    {
+      "caminho": "dados/obras/apenas_existo_parte1.txt",
+      "titulo": "APENAS EXISTO — Ondas de Zulu (parte 1)",
+      "autor": "Edmundo Nambo",
+      "categoria": "kianda",
+      "idioma": "pt-AO",
+      "origem": "Original do autor, convertido de PDF em /tmp/arena-coding-uploads",
+      "licenca": "© Edmundo Nambo — todos os direitos reservados",
+      "redistribuivel": false,
+      "versionado": true,
+      "nota": "Obra do próprio autor do projecto. Versionada por ser repositório privado.",
+      "sha256": "eba8434a537b97cb956f34d4b973f4036479aed33798cf2315fa3d8d081b23c3",
+      "bytes": 58916,
+      "caracteres": 56704,
+      "blocos": 36,
+      "char_por_divisao": {
+        "train": 46824,
+        "validacao": 8252,
+        "teste": 1558
+      }
+    },
+    {
+      "caminho": "dados/obras/apenas_existo_parte2.txt",
+      "titulo": "APENAS EXISTO — Ondas de Zulu (parte 2)",
+      "autor": "Edmundo Nambo",
+      "categoria": "kianda",
+      "idioma": "pt-AO",
+      "origem": "Original do autor, convertido de PDF",
+      "licenca": "© Edmundo Nambo — todos os direitos reservados",
+      "redistribuivel": false,
+      "versionado": true,
+      "nota": "Obra do próprio autor do projecto.",
+      "sha256": "52b343f80f99cc4d993dc13baf8d84a24339e2cbb2a39d31f8518f05e4724a1d",
+      "bytes": 49527,
+      "caracteres": 47491,
+      "blocos": 30,
+      "char_por_divisao": {
+        "validacao": 5998,
+        "train": 38712,
+        "teste": 2723
+      }
+    },
+    {
+      "caminho": "dados/obras/apenas_existo_parte3.txt",
+      "titulo": "APENAS EXISTO — Ondas de Zulu (parte 3)",
+      "autor": "Edmundo Nambo",
+      "categoria": "kianda",
+      "idioma": "pt-AO",
+      "origem": "Original do autor, convertido de PDF",
+      "licenca": "© Edmundo Nambo — todos os direitos reservados",
+      "redistribuivel": false,
+      "versionado": true,
+      "nota": "Obra do próprio autor do projecto.",
+      "sha256": "861572aa09eadcb6d827597dde44fa7b7c5f3668d6ef6705ecd5d43e97339018",
+      "bytes": 47628,
+      "caracteres": 45787,
+      "blocos": 30,
+      "char_por_divisao": {
+        "train": 40089,
+        "validacao": 1936,
+        "teste": 3704
+      }
+    },
+    {
+      "caminho": "dados/outros/adoum_eu_sou.txt",
+      "titulo": "Eu Sou",
+      "autor": "Jorge Adoum",
+      "categoria": "geral",
+      "idioma": "pt-BR",
+      "origem": "PDF fornecido pelo autor do projecto (104 pág.)",
+      "licenca": "© editora / tradutor — uso restrito, não redistribuível",
+      "redistribuivel": false,
+      "versionado": false,
+      "nota": "Tradução; registo esotérico.",
+      "sha256": "9e5d07ac800fd690900c20934d8239504021ba96a2e28dc89654c7377e3733b1",
+      "bytes": 239496,
+      "caracteres": 232648,
+      "blocos": 104,
+      "char_por_divisao": {
+        "train": 215274,
+        "teste": 7922,
+        "validacao": 8939
+      }
+    },
+    {
+      "caminho": "dados/outros/bechara_gramatica.txt",
+      "titulo": "Moderna Gramática Portuguesa",
+      "autor": "Evanildo Bechara",
+      "categoria": "geral",
+      "idioma": "pt-BR",
+      "origem": "PDF fornecido pelo autor do projecto (574 pág.)",
+      "licenca": "© Nova Fronteira / autor — uso restrito, não redistribuível",
+      "redistribuivel": false,
+      "versionado": false,
+      "nota": "Registo: gramática normativa. Registo culto, PT-BR — enviesa o modelo.",
+      "sha256": "f3afcd2a7472c8391b405ae1679027441626c1d503af6183339b72d09953c0fb",
+      "bytes": 1468164,
+      "caracteres": 1410835,
+      "blocos": 546,
+      "char_por_divisao": {
+        "train": 1280407,
+        "teste": 74273,
+        "validacao": 54836
+      }
+    },
+    {
+      "caminho": "dados/outros/conversando_ia.txt",
+      "titulo": "Conversando com IA",
+      "autor": "(a confirmar)",
+      "categoria": "geral",
+      "idioma": "pt",
+      "origem": "PDF fornecido pelo autor do projecto",
+      "licenca": "© — a confirmar, presumido não redistribuível",
+      "redistribuivel": false,
+      "versionado": false,
+      "nota": "Ensino; registo expositivo.",
+      "sha256": "fe3cd8fdc25703f4f3a6a8297a0c9f73ed7d5eb8d2d30883885e820367975d0a",
+      "bytes": 56096,
+      "caracteres": 54214,
+      "blocos": 36,
+      "char_por_divisao": {
+        "teste": 1741,
+        "train": 49203,
+        "validacao": 3191
+      }
+    },
+    {
+      "caminho": "dados/outros/conversas_amor.txt",
+      "titulo": "Conversas Sobre o Amor",
+      "autor": "(a confirmar)",
+      "categoria": "conversa",
+      "idioma": "pt",
+      "origem": "PDF fornecido pelo autor do projecto",
+      "licenca": "© — a confirmar, presumido não redistribuível",
+      "redistribuivel": false,
+      "versionado": false,
+      "nota": "Registo dialógico — o mais valioso para treino conversacional.",
+      "sha256": "e6428f6da59bd33af4c0c9fb758e8c8fa99e21bbc50c903d9fd391996500c430",
+      "bytes": 75150,
+      "caracteres": 73105,
+      "blocos": 44,
+      "char_por_divisao": {
+        "train": 63897,
+        "validacao": 5632,
+        "teste": 3490
+      }
+    },
+    {
+      "caminho": "dados/outros/falar_qualquer_pessoa.txt",
+      "titulo": "Como Falar com Qualquer Pessoa",
+      "autor": "(a confirmar)",
+      "categoria": "conversa",
+      "idioma": "pt",
+      "origem": "PDF fornecido pelo autor do projecto",
+      "licenca": "© — a confirmar, presumido não redistribuível",
+      "redistribuivel": false,
+      "versionado": false,
+      "nota": "Registo dialógico.",
+      "sha256": "24e807d2bc9053fa129071d2ef8cb70aa8ae193033dc978e8b1d4b2600414128",
+      "bytes": 75601,
+      "caracteres": 73541,
+      "blocos": 46,
+      "char_por_divisao": {
+        "train": 61346,
+        "validacao": 5640,
+        "teste": 6463
+      }
+    },
+    {
+      "caminho": "dados/outros/rogers_tornar_se_pessoa.txt",
+      "titulo": "Tornar-se Pessoa",
+      "autor": "Carl R. Rogers",
+      "categoria": "geral",
+      "idioma": "pt-BR",
+      "origem": "PDF fornecido pelo autor do projecto (243 pág.)",
+      "licenca": "© editora / tradutor — uso restrito, não redistribuível",
+      "redistribuivel": false,
+      "versionado": false,
+      "nota": "Tradução brasileira de obra original em inglês.",
+      "sha256": "266895aa01a1bd44449c73f68003090becd1a326117e6016fc47f5c7ff252fd4",
+      "bytes": 922251,
+      "caracteres": 893372,
+      "blocos": 236,
+      "char_por_divisao": {
+        "train": 826643,
+        "validacao": 27329,
+        "teste": 38930
+      }
+    },
+    {
+      "caminho": "dados/outros/situacoes_variadas.txt",
+      "titulo": "Situações Variadas — Básico",
+      "autor": "(a confirmar)",
+      "categoria": "conversa",
+      "idioma": "pt",
+      "origem": "PDF fornecido pelo autor do projecto (8 pág.)",
+      "licenca": "© — a confirmar, presumido não redistribuível",
+      "redistribuivel": false,
+      "versionado": false,
+      "nota": "Material didáctico pequeno. Registar, não incluir sem verificar.",
+      "sha256": "41d0c5a66a1888ee6bf553dac6b52c8ded7354680bbd361ca170264593940f34",
+      "bytes": 7472,
+      "caracteres": 7198,
+      "blocos": 4,
+      "char_por_divisao": {
+        "train": 5451,
+        "teste": 1738
+      }
+    }
+  ],
+  "excluidos": {
+    "outros/who_am_i.txt": "2 caracteres extraídos de 17 páginas — PDF sem camada de texto utilizável (provavelmente digitalizado). Não é um problema de código: exigiria OCR. Excluído em vez de incluído como ficheiro vazio."
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "experimento": "capacidade de generalizacao vs memoria",
+  "n_parametros_modelo": 18752,
+  "tarefa": "prever o proximo token de uma permutacao de 0..15 (regra condicional ao prefixo)",
+  "validacao": "64 permutacoes nunca vistas no treino",
+  "passos_por_ponto": 600,
+  "resultados": [
+    {
+      "n_treino": 32,
+      "perda_val": 10.9847,
+      "acerto_val": 0.0693
+    },
+    {
+      "n_treino": 128,
+      "perda_val": 5.1018,
+      "acerto_val": 0.1221
+    },
+    {
+      "n_treino": 512,
+      "perda_val": 1.0156,
+      "acerto_val": 0.6343
+    },
+    {
+      "n_treino": 2048,
+      "perda_val": 0.9558,
+      "acerto_val": 0.6328
+    }
+  ],
+  "conclusao": "Generalizacao salta entre 128 e 512 sequencias e depois planifica. E capacidade de modelo a ser atingida, nao falta de dados. Com 0,87 M tokens e 2,8 M parametros o KIANDA esta do lado errado desta curva.",
+  "sanity_check": {
+    "tarefa": "sequencia fixa 0..15",
+    "resultado": "acerto 100%, perda 0,0001 em 100 passos"
+  }
+}

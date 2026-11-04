@@ -29,7 +29,10 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["kianda*"]
+# `nucleo` é um pacote próprio, deliberadamente fora de `kianda/`: é a condição
+# para a independência ser estrutural e não uma convenção. O sistema antigo pode
+# desaparecer sem que o núcleo perca nada.
+include = ["kianda*", "nucleo*"]
 
 [tool.pytest.ini_options]
 testpaths = ["testes"]

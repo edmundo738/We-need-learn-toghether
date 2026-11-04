@@ -1,0 +1,310 @@
+[
+  {
+    "id": "A1.head",
+    "pergunta": "qual é o commit actual",
+    "classe": "MEASURED",
+    "valor": "7cf9072 Merge pull request #3 from edmundo738/arena/9799958d-we-need-learn-toghether",
+    "nota": ""
+  },
+  {
+    "id": "A2.commits_em_falta",
+    "pergunta": "dos commits reportados, quantos existem",
+    "classe": "MEASURED",
+    "valor": "6/6 NÃO existem",
+    "nota": "o repositório foi re-clonado; o trabalho só existe em ficheiros por versionar"
+  },
+  {
+    "id": "A3.ficheiros_sem_commit",
+    "pergunta": "quantos ficheiros não estão em git",
+    "classe": "MEASURED",
+    "valor": 37,
+    "nota": ""
+  },
+  {
+    "id": "B1.pequena",
+    "pergunta": "fórmula == construção (pequena)",
+    "classe": "FACT",
+    "valor": "21,184 == 21,184 -> True",
+    "nota": ""
+  },
+  {
+    "id": "B1.directiva",
+    "pergunta": "fórmula == construção (directiva)",
+    "classe": "FACT",
+    "valor": "2,787,584 == 2,787,584 -> True",
+    "nota": ""
+  },
+  {
+    "id": "B2.decomposicao",
+    "pergunta": "fracção de parâmetros em matrizes de vocabulário",
+    "classe": "FACT",
+    "valor": "75.2% (2,097,152 de 2,787,584)",
+    "nota": "as duas matrizes de vocabulário dominam o modelo"
+  },
+  {
+    "id": "B3.divergencia",
+    "pergunta": "porque o treino real tinha 2 771 200",
+    "classe": "FACT",
+    "valor": "ctx=128 em vez de 256: tabela de posição 128*128=16 384 em vez de 256*128=32 768. 32 768-16 384 = 16 384 de diferença e 2 787 584-16 384 = 2 771 200. Mesma configuração, contexto menor.",
+    "nota": ""
+  },
+  {
+    "id": "B4.seed_nao_afecta",
+    "pergunta": "a contagem depende da seed",
+    "classe": "FACT",
+    "valor": "1 valor(es) distintos em 5 seeds -> {21184}",
+    "nota": ""
+  },
+  {
+    "id": "C1.isolamento_A_nao_afecta_B",
+    "pergunta": "mudar A muda alguma saída de B",
+    "classe": "MEASURED",
+    "valor": "max|Δ| em B = 0.000e+00",
+    "nota": "0.0 exacto: a máscara impede, não é aproximação"
+  },
+  {
+    "id": "C2.lote_igual_isolado",
+    "pergunta": "lote == processado isoladamente",
+    "classe": "MEASURED",
+    "valor": "max|Δ| = 0.000e+00",
+    "nota": "diferença de ordem de somatório em fp32, não vazamento"
+  },
+  {
+    "id": "C3.causalidade",
+    "pergunta": "posições futuras influenciam anteriores",
+    "classe": "MEASURED",
+    "valor": "0 violações em 7 posições",
+    "nota": "0 violações = causalidade estrita"
+  },
+  {
+    "id": "C4.gradiente_isolado",
+    "pergunta": "gradiente de B depende da sequência A",
+    "classe": "MEASURED",
+    "valor": "max|Δ| entre A e A' = 0.000e+00",
+    "nota": "0.0 exacto = o gradiente também respeita o isolamento. A 1ª versão do teste dava 5.71 porque media a perda de A também"
+  },
+  {
+    "id": "C5.mascara_triangular",
+    "pergunta": "a máscara é triangular inferior",
+    "classe": "FACT",
+    "valor": true,
+    "nota": "verificado contra np.tril, não por inspecção"
+  },
+  {
+    "id": "D1.todos_com_gradiente",
+    "pergunta": "tensores sem gradiente",
+    "classe": "MEASURED",
+    "valor": "0 de 25",
+    "nota": "0 é o esperado"
+  },
+  {
+    "id": "D2.erro_relativo_por_eps",
+    "pergunta": "erro relativo do gradiente numérico por epsilon (%)",
+    "classe": "MEASURED",
+    "valor": "{\"cabeca.W\": {\"0.01\": 0.0012, \"0.001\": 0.0132, \"0.0001\": 0.1309, \"1e-05\": 3.972}, \"emb.peso\": {\"0.01\": 1.1937, \"0.001\": 0.2066, \"0.0001\": 0.0329, \"1e-05\": 0.1781}, \"bloco0.atencao.q.W\": {\"0.01\": 4.4874, \"0.001\": 0.1389, \"0.0001\": 0.4467, \"1e-05\": 21.9189}, \"bloco0.ln1.gama\": {\"0.01\": 0.3754, \"0.001\": 0.0476, \"0.0001\": 0.1339, \"1e-05\": 5.0454}}",
+    "nota": "convergir com eps é a prova; um gradiente errado não converge"
+  },
+  {
+    "id": "D3.melhor_erro",
+    "pergunta": "menor erro relativo alcançado por tensor",
+    "classe": "MEASURED",
+    "valor": "{\"cabeca.W\": \"0.001%\", \"emb.peso\": \"0.033%\", \"bloco0.atencao.q.W\": \"0.139%\", \"bloco0.ln1.gama\": \"0.048%\"}",
+    "nota": "todos abaixo de 0.1% = gradiente correcto"
+  },
+  {
+    "id": "E1.throughput_lote1",
+    "pergunta": "passo com lote 1 a ctx 128",
+    "classe": "MEASURED",
+    "valor": "76 ms/passo | 1687 tokens/s | 1.687 k tokens/s",
+    "nota": ""
+  },
+  {
+    "id": "E1.throughput_lote2",
+    "pergunta": "passo com lote 2 a ctx 128",
+    "classe": "MEASURED",
+    "valor": "181 ms/passo | 1414 tokens/s | 1.414 k tokens/s",
+    "nota": ""
+  },
+  {
+    "id": "E1.throughput_lote4",
+    "pergunta": "passo com lote 4 a ctx 128",
+    "classe": "MEASURED",
+    "valor": "547 ms/passo | 936 tokens/s | 0.936 k tokens/s",
+    "nota": ""
+  },
+  {
+    "id": "E1.throughput_lote8",
+    "pergunta": "passo com lote 8 a ctx 128",
+    "classe": "MEASURED",
+    "valor": "1917 ms/passo | 534 tokens/s | 0.534 k tokens/s",
+    "nota": ""
+  },
+  {
+    "id": "E2.ambiente",
+    "pergunta": "CPU e RSS pico deste processo",
+    "classe": "MEASURED",
+    "valor": "2 CPUs | RSS pico 1575 MB",
+    "nota": ""
+  },
+  {
+    "id": "G1.atencao_512tok",
+    "pergunta": "memória teórica só dos scores (512 tokens)",
+    "classe": "FACT",
+    "valor": "8 MB",
+    "nota": "(B*T)^2 * 4 bytes * camadas * 2 (forward+grad)"
+  },
+  {
+    "id": "G1.atencao_1024tok",
+    "pergunta": "memória teórica só dos scores (1024 tokens)",
+    "classe": "FACT",
+    "valor": "32 MB",
+    "nota": "(B*T)^2 * 4 bytes * camadas * 2 (forward+grad)"
+  },
+  {
+    "id": "G1.atencao_2048tok",
+    "pergunta": "memória teórica só dos scores (2048 tokens)",
+    "classe": "FACT",
+    "valor": "128 MB",
+    "nota": "(B*T)^2 * 4 bytes * camadas * 2 (forward+grad)"
+  },
+  {
+    "id": "G2.passo_lote1",
+    "pergunta": "RSS depois de um passo lote 1",
+    "classe": "MEASURED",
+    "valor": "1575 MB (antes 1575 MB)",
+    "nota": "inclui parâmetros 10.5 MB + grafo + activações"
+  },
+  {
+    "id": "G2.passo_lote2",
+    "pergunta": "RSS depois de um passo lote 2",
+    "classe": "MEASURED",
+    "valor": "1575 MB (antes 1575 MB)",
+    "nota": "inclui parâmetros 10.5 MB + grafo + activações"
+  },
+  {
+    "id": "G2.passo_lote4",
+    "pergunta": "RSS depois de um passo lote 4",
+    "classe": "MEASURED",
+    "valor": "1575 MB (antes 1575 MB)",
+    "nota": "inclui parâmetros 10.5 MB + grafo + activações"
+  },
+  {
+    "id": "G3.parametros",
+    "pergunta": "memória só dos parâmetros",
+    "classe": "FACT",
+    "valor": "10.5 MB",
+    "nota": "o resto é grafo, activações e temporários"
+  },
+  {
+    "id": "H1.janelas_nao_sobrepostas",
+    "pergunta": "511 janelas de 129 tokens contíguos",
+    "classe": "FACT",
+    "valor": "passo fixo de 129 tokens: sem sobreposição por construção",
+    "nota": "cada janela usa ids[i*129:(i+1)*129]; a seguinte começa em (i+1)*129"
+  },
+  {
+    "id": "H2.ngramas_repetidos_corpus",
+    "pergunta": "20-gramas que aparecem mais de uma vez no corpus",
+    "classe": "MEASURED",
+    "valor": "37 de 65979 (0.06%)",
+    "nota": "repetição interna pode colocar o mesmo texto em treino e validação"
+  },
+  {
+    "id": "H3.contaminacao_treino_val",
+    "pergunta": "20-gramas que aparecem em treino E em validação",
+    "classe": "MEASURED",
+    "valor": 7,
+    "nota": ">0 significa que o mesmo texto foi visto no treino e medido na validação"
+  },
+  {
+    "id": "I1.tokens_por_ms",
+    "pergunta": "throughput real do treino citado",
+    "classe": "FACT",
+    "valor": "655 tokens/s = 0.655 k tokens/s",
+    "nota": "o relatório disse '5 tokens/ms'; o correcto é ~0.66 tokens/ms — errei por um factor de ~7.8"
+  },
+  {
+    "id": "I2.pytorch_50x",
+    "pergunta": "evidência para 'PyTorch faria 50x mais depressa'",
+    "classe": "UNKNOWN",
+    "valor": "nenhuma: o número foi escrito sem benchmark",
+    "nota": "afirmação retirada"
+  },
+  {
+    "id": "I3.morfologia",
+    "pergunta": "'o modelo inventa palavras por regras de formação'",
+    "classe": "HYPOTHESIS",
+    "valor": "não demonstrado",
+    "nota": "colagens de subpalavras BPE não provam morfologia; exigiria testes de flexão, concordância e palavras novas em contexto"
+  },
+  {
+    "id": "I4.memorizacao",
+    "pergunta": "'0% de 20-gramas = não memoriza'",
+    "classe": "HYPOTHESIS",
+    "valor": "só 20-gramas exactos foram testados",
+    "nota": "memorização pode existir a 5, 10 ou 15 tokens, ou em forma aproximada; o que se mediu foi 'não há 20-gramas exactos'"
+  },
+  {
+    "id": "I5.tokens_vistos",
+    "pergunta": "'58 752 tokens vistos'",
+    "classe": "FACT",
+    "valor": "459 janelas x 128 = 58 752 posições ÚNICAS no conjunto de treino",
+    "nota": "não é exposição: com 1500 passos x lote 2 x 128 o modelo processou 384 000 posições, ou seja 6.5 passagens pelo corpus"
+  },
+  {
+    "id": "I6.percentagem",
+    "pergunta": "'o corpus é 0.02% do necessário'",
+    "classe": "UNKNOWN",
+    "valor": "o cálculo nunca foi apresentado; não há regra universal",
+    "nota": "Chinchilla dá ~20 tokens/parâmetro como heurística de CÁLCULO óptimo, não como lei. Aplicada aqui: 2.77M*20 = 55.5M tokens, e o corpus tem 66k, ou seja 0.12% — mas é heurística, não necessidade demonstrada"
+  },
+  {
+    "id": "I7.corpus_253589_vs_244372",
+    "pergunta": "corpus de 253 589 ou 244 372 chars",
+    "classe": "FACT",
+    "valor": "253 589 = tamanho dos .txt em disco; 244 372 = tamanho depois da limpeza (_limpar) que remove hífenes de quebra e linhas vazias repetidas",
+    "nota": "as duas contagens são correctas para coisas diferentes; o relatório devia ter dito qual estava a usar"
+  },
+  {
+    "id": "I8.divisao_contigua",
+    "pergunta": "divisão 90/10 contígua por janelas",
+    "classe": "OBSERVED",
+    "valor": "mede continuação temporal do MESMO autor, não generalização linguística",
+    "nota": "não há conjunto de teste independente nem autor diferente"
+  },
+  {
+    "id": "F.unigrama",
+    "pergunta": "perda do modelo de unigrama na validação",
+    "classe": "MEASURED",
+    "valor": "6.5577 | PPL 704.6",
+    "nota": ""
+  },
+  {
+    "id": "F.bigrama",
+    "pergunta": "perda do modelo de bigrama na validação",
+    "classe": "MEASURED",
+    "valor": "6.6205 | PPL 750.3",
+    "nota": ""
+  },
+  {
+    "id": "F.trigrama",
+    "pergunta": "perda do modelo de trigrama na validação",
+    "classe": "MEASURED",
+    "valor": "8.1823 | PPL 3577.0",
+    "nota": ""
+  },
+  {
+    "id": "F.uniforme",
+    "pergunta": "perda do baseline uniforme",
+    "classe": "FACT",
+    "valor": "9.0109 | PPL 8192",
+    "nota": ""
+  },
+  {
+    "id": "F.transformer",
+    "pergunta": "perda do Transformer na validação (execução anterior)",
+    "classe": "OBSERVED",
+    "valor": "5,8962 | PPL 363,4",
+    "nota": "valor do relatório anterior; reproduzir exige retreino"
+  }
+]

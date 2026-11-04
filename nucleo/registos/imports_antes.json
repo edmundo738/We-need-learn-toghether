@@ -1,0 +1,1577 @@
+{
+ "data": "2026-11-01",
+ "resumo": {
+  "total_ficheiros": 49,
+  "importadores_de_kianda_nucleo": 19,
+  "consumidores_kianda_nucleo": [
+   {
+    "ficheiro": "experimentos/03_escala.py",
+    "linha": 33,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Tensor",
+     "entropia_cruzada"
+    ]
+   },
+   {
+    "ficheiro": "experimentos/03_escala.py",
+    "linha": 34,
+    "modulo": "kianda.nucleo.nn",
+    "nomes": [
+     "Adam",
+     "Linear"
+    ]
+   },
+   {
+    "ficheiro": "kianda/benchmark/banco.py",
+    "linha": 46,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Custo",
+     "Tensor",
+     "entropia_cruzada"
+    ]
+   },
+   {
+    "ficheiro": "kianda/benchmark/banco.py",
+    "linha": 47,
+    "modulo": "kianda.nucleo.nn",
+    "nomes": [
+     "Adam",
+     "Linear"
+    ]
+   },
+   {
+    "ficheiro": "kianda/cognicao/raciocinio.py",
+    "linha": 39,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Custo"
+    ]
+   },
+   {
+    "ficheiro": "kianda/linguagem/voz.py",
+    "linha": 32,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Custo",
+     "Tensor",
+     "entropia_cruzada",
+     "matmul"
+    ]
+   },
+   {
+    "ficheiro": "kianda/linguagem/voz.py",
+    "linha": 33,
+    "modulo": "kianda.nucleo.nn",
+    "nomes": [
+     "Adam"
+    ]
+   },
+   {
+    "ficheiro": "kianda/memoria/recuperador.py",
+    "linha": 38,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Custo",
+     "Tensor",
+     "entropia_cruzada",
+     "matmul"
+    ]
+   },
+   {
+    "ficheiro": "kianda/memoria/recuperador.py",
+    "linha": 39,
+    "modulo": "kianda.nucleo.nn",
+    "nomes": [
+     "Adam",
+     "Linear"
+    ]
+   },
+   {
+    "ficheiro": "kianda/mente.py",
+    "linha": 49,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Custo"
+    ]
+   },
+   {
+    "ficheiro": "kianda/nucleo/nn.py",
+    "linha": 24,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "BYTES_F32",
+     "BYTES_I8",
+     "Custo",
+     "Tensor",
+     "entropia_cruzada",
+     "matmul",
+     "matmul_int8",
+     "quantizar_int8"
+    ]
+   },
+   {
+    "ficheiro": "nucleo/experimentos/benchmark_capacidade.py",
+    "linha": 77,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Tensor",
+     "matmul"
+    ]
+   },
+   {
+    "ficheiro": "nucleo/experimentos/benchmark_capacidade.py",
+    "linha": 78,
+    "modulo": "kianda.nucleo.nn",
+    "nomes": [
+     "Adam"
+    ]
+   },
+   {
+    "ficheiro": "nucleo/experimentos/validacao_gerador.py",
+    "linha": 76,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Tensor",
+     "entropia_cruzada",
+     "matmul"
+    ]
+   },
+   {
+    "ficheiro": "testes/test_adversarial.py",
+    "linha": 502,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Tensor"
+    ]
+   },
+   {
+    "ficheiro": "testes/test_adversarial.py",
+    "linha": 532,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Tensor"
+    ]
+   },
+   {
+    "ficheiro": "testes/test_autograd.py",
+    "linha": 16,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "Tensor",
+     "entropia_cruzada",
+     "matmul",
+     "matmul_int8",
+     "quantizar_int8"
+    ]
+   },
+   {
+    "ficheiro": "testes/test_autograd.py",
+    "linha": 23,
+    "modulo": "kianda.nucleo.nn",
+    "nomes": [
+     "Adam",
+     "Linear",
+     "LoRA",
+     "MLP",
+     "calibrar_escala",
+     "podar_estruturado"
+    ]
+   },
+   {
+    "ficheiro": "testes/test_autograd.py",
+    "linha": 157,
+    "modulo": "kianda.nucleo.autograd",
+    "nomes": [
+     "matmul_int8"
+    ]
+   }
+  ],
+  "violacoes_de_independencia": [
+   {
+    "ficheiro": "nucleo/experimentos/benchmark_capacidade.py",
+    "linha": 77,
+    "modulo": "kianda.nucleo.autograd"
+   },
+   {
+    "ficheiro": "nucleo/experimentos/benchmark_capacidade.py",
+    "linha": 78,
+    "modulo": "kianda.nucleo.nn"
+   },
+   {
+    "ficheiro": "nucleo/experimentos/validacao_gerador.py",
+    "linha": 53,
+    "modulo": "kianda.linguagem"
+   },
+   {
+    "ficheiro": "nucleo/experimentos/validacao_gerador.py",
+    "linha": 76,
+    "modulo": "kianda.nucleo.autograd"
+   },
+   {
+    "ficheiro": "nucleo/experimentos/validacao_gerador.py",
+    "linha": 127,
+    "modulo": "kianda.linguagem.voz"
+   },
+   {
+    "ficheiro": "nucleo/testes/test_tokenizador.py",
+    "linha": 51,
+    "modulo": "kianda.linguagem"
+   }
+  ]
+ },
+ "ficheiros": {
+  "dados/__init__.py": {
+   "modulo": "dados",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "dados/corpus/__init__.py": {
+   "modulo": "dados.corpus",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "dados/corpus/registar.py": {
+   "modulo": "dados.corpus.registar",
+   "imports_internos": [],
+   "imports_externos": [
+    "__future__",
+    "datetime",
+    "hashlib",
+    "json",
+    "pathlib",
+    "re"
+   ]
+  },
+  "experimentos/01_benchmark.py": {
+   "modulo": "experimentos.01_benchmark",
+   "imports_internos": [
+    {
+     "modulo": "kianda.benchmark.banco",
+     "nivel": 0,
+     "linha": 21,
+     "tipo": "from",
+     "nomes": [
+      "Banco",
+      "CONJUNTO"
+     ]
+    },
+    {
+     "modulo": "kianda.mente",
+     "nivel": 0,
+     "linha": 22,
+     "tipo": "from",
+     "nomes": [
+      "Kianda"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "json",
+    "pathlib",
+    "sys",
+    "tempfile"
+   ]
+  },
+  "experimentos/02_estado.py": {
+   "modulo": "experimentos.02_estado",
+   "imports_internos": [
+    {
+     "modulo": "kianda.identidade.estado",
+     "nivel": 0,
+     "linha": 34,
+     "tipo": "from",
+     "nomes": [
+      "EstadoInterno",
+      "Politica"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "pathlib",
+    "statistics",
+    "sys",
+    "tempfile"
+   ]
+  },
+  "experimentos/03_escala.py": {
+   "modulo": "experimentos.03_escala",
+   "imports_internos": [
+    {
+     "modulo": "kianda.identidade",
+     "nivel": 0,
+     "linha": 31,
+     "tipo": "from",
+     "nomes": [
+      "canon"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 0,
+     "linha": 32,
+     "tipo": "from",
+     "nomes": [
+      "Documento",
+      "Recuperador"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 0,
+     "linha": 33,
+     "tipo": "from",
+     "nomes": [
+      "Tensor",
+      "entropia_cruzada"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.nn",
+     "nivel": 0,
+     "linha": 34,
+     "tipo": "from",
+     "nomes": [
+      "Adam",
+      "Linear"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "json",
+    "numpy",
+    "pathlib",
+    "statistics",
+    "sys",
+    "tempfile",
+    "time"
+   ]
+  },
+  "kianda/__init__.py": {
+   "modulo": "kianda",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "kianda/__main__.py": {
+   "modulo": "kianda.__main__",
+   "imports_internos": [
+    {
+     "modulo": "kianda.mente",
+     "nivel": 1,
+     "linha": 125,
+     "tipo": "from",
+     "nomes": [
+      "Kianda"
+     ]
+    },
+    {
+     "modulo": "kianda.interface.servidor",
+     "nivel": 1,
+     "linha": 136,
+     "tipo": "from",
+     "nomes": [
+      "servir"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "argparse",
+    "pathlib",
+    "subprocess",
+    "sys",
+    "textwrap",
+    "time"
+   ]
+  },
+  "kianda/benchmark/__init__.py": {
+   "modulo": "kianda.benchmark",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "kianda/benchmark/banco.py": {
+   "modulo": "kianda.benchmark.banco",
+   "imports_internos": [
+    {
+     "modulo": "kianda.identidade.estado",
+     "nivel": 2,
+     "linha": 45,
+     "tipo": "from",
+     "nomes": [
+      "EstadoInterno",
+      "Politica"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 2,
+     "linha": 46,
+     "tipo": "from",
+     "nomes": [
+      "Custo",
+      "Tensor",
+      "entropia_cruzada"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.nn",
+     "nivel": 2,
+     "linha": 47,
+     "tipo": "from",
+     "nomes": [
+      "Adam",
+      "Linear"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 2,
+     "linha": 268,
+     "tipo": "from",
+     "nomes": [
+      "stem_leve",
+      "tokenizar"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 2,
+     "linha": 371,
+     "tipo": "from",
+     "nomes": [
+      "stem_leve",
+      "tokenizar"
+     ]
+    },
+    {
+     "modulo": "kianda.identidade",
+     "nivel": 2,
+     "linha": 445,
+     "tipo": "from",
+     "nomes": [
+      "canon"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 2,
+     "linha": 477,
+     "tipo": "from",
+     "nomes": [
+      "stem_leve",
+      "tokenizar"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "json",
+    "math",
+    "numpy",
+    "pathlib",
+    "statistics",
+    "time"
+   ]
+  },
+  "kianda/cognicao/__init__.py": {
+   "modulo": "kianda.cognicao",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "kianda/cognicao/percepcao.py": {
+   "modulo": "kianda.cognicao.percepcao",
+   "imports_internos": [
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 2,
+     "linha": 39,
+     "tipo": "from",
+     "nomes": [
+      "normalizar",
+      "stem_leve",
+      "tokenizar"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 2,
+     "linha": 520,
+     "tipo": "from",
+     "nomes": [
+      "normalizar"
+     ]
+    },
+    {
+     "modulo": "kianda.identidade",
+     "nivel": 2,
+     "linha": 530,
+     "tipo": "from",
+     "nomes": [
+      "canon"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "collections",
+    "dataclasses",
+    "math",
+    "re"
+   ]
+  },
+  "kianda/cognicao/raciocinio.py": {
+   "modulo": "kianda.cognicao.raciocinio",
+   "imports_internos": [
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 2,
+     "linha": 39,
+     "tipo": "from",
+     "nomes": [
+      "Custo"
+     ]
+    },
+    {
+     "modulo": "kianda.identidade",
+     "nivel": 2,
+     "linha": 40,
+     "tipo": "from",
+     "nomes": [
+      "canon"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 2,
+     "linha": 41,
+     "tipo": "from",
+     "nomes": [
+      "Recuperador",
+      "Resultado"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 2,
+     "linha": 479,
+     "tipo": "from",
+     "nomes": [
+      "stem_leve",
+      "tokenizar"
+     ]
+    },
+    {
+     "modulo": "kianda.linguagem.corpus",
+     "nivel": 2,
+     "linha": 68,
+     "tipo": "from",
+     "nomes": [
+      "titulo_da_obra"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "math",
+    "time",
+    "typing"
+   ]
+  },
+  "kianda/cognicao/turno.py": {
+   "modulo": "kianda.cognicao.turno",
+   "imports_internos": [
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 2,
+     "linha": 37,
+     "tipo": "from",
+     "nomes": [
+      "normalizar",
+      "stem_leve",
+      "tokenizar"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "re"
+   ]
+  },
+  "kianda/identidade/__init__.py": {
+   "modulo": "kianda.identidade",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "kianda/identidade/canon.py": {
+   "modulo": "kianda.identidade.canon",
+   "imports_internos": [],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "re",
+    "unicodedata"
+   ]
+  },
+  "kianda/identidade/estado.py": {
+   "modulo": "kianda.identidade.estado",
+   "imports_internos": [],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "math",
+    "random",
+    "typing"
+   ]
+  },
+  "kianda/interface/__init__.py": {
+   "modulo": "kianda.interface",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "kianda/interface/servidor.py": {
+   "modulo": "kianda.interface.servidor",
+   "imports_internos": [],
+   "imports_externos": [
+    "__future__",
+    "http",
+    "json",
+    "mimetypes",
+    "pathlib",
+    "threading",
+    "traceback",
+    "urllib"
+   ]
+  },
+  "kianda/linguagem/__init__.py": {
+   "modulo": "kianda.linguagem",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "kianda/linguagem/corpus.py": {
+   "modulo": "kianda.linguagem.corpus",
+   "imports_internos": [
+    {
+     "modulo": "kianda.identidade",
+     "nivel": 2,
+     "linha": 30,
+     "tipo": "from",
+     "nomes": [
+      "canon"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 2,
+     "linha": 31,
+     "tipo": "from",
+     "nomes": [
+      "Documento"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "hashlib",
+    "pathlib",
+    "re"
+   ]
+  },
+  "kianda/linguagem/voz.py": {
+   "modulo": "kianda.linguagem.voz",
+   "imports_internos": [
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 2,
+     "linha": 32,
+     "tipo": "from",
+     "nomes": [
+      "Custo",
+      "Tensor",
+      "entropia_cruzada",
+      "matmul"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.nn",
+     "nivel": 2,
+     "linha": 33,
+     "tipo": "from",
+     "nomes": [
+      "Adam"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "json",
+    "math",
+    "numpy",
+    "os",
+    "pathlib",
+    "re",
+    "time",
+    "urllib"
+   ]
+  },
+  "kianda/memoria/__init__.py": {
+   "modulo": "kianda.memoria",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "kianda/memoria/armazenamento.py": {
+   "modulo": "kianda.memoria.armazenamento",
+   "imports_internos": [],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "json",
+    "math",
+    "pathlib",
+    "sqlite3",
+    "threading",
+    "time",
+    "typing",
+    "uuid"
+   ]
+  },
+  "kianda/memoria/recuperador.py": {
+   "modulo": "kianda.memoria.recuperador",
+   "imports_internos": [
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 2,
+     "linha": 38,
+     "tipo": "from",
+     "nomes": [
+      "Custo",
+      "Tensor",
+      "entropia_cruzada",
+      "matmul"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.nn",
+     "nivel": 2,
+     "linha": 39,
+     "tipo": "from",
+     "nomes": [
+      "Adam",
+      "Linear"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "collections",
+    "dataclasses",
+    "math",
+    "numpy",
+    "re",
+    "time",
+    "unicodedata"
+   ]
+  },
+  "kianda/mente.py": {
+   "modulo": "kianda.mente",
+   "imports_internos": [
+    {
+     "modulo": "kianda.cognicao.percepcao",
+     "nivel": 1,
+     "linha": 40,
+     "tipo": "from",
+     "nomes": [
+      "Percepcao",
+      "Perceptor"
+     ]
+    },
+    {
+     "modulo": "kianda.cognicao.turno",
+     "nivel": 1,
+     "linha": 41,
+     "tipo": "from",
+     "nomes": [
+      "analisar",
+      "PALAVRAS_ESTADO"
+     ]
+    },
+    {
+     "modulo": "kianda.cognicao.raciocinio",
+     "nivel": 1,
+     "linha": 42,
+     "tipo": "from",
+     "nomes": [
+      "Evidencia",
+      "Raciocinador",
+      "ResultadoRaciocinio"
+     ]
+    },
+    {
+     "modulo": "kianda.identidade",
+     "nivel": 1,
+     "linha": 43,
+     "tipo": "from",
+     "nomes": [
+      "canon"
+     ]
+    },
+    {
+     "modulo": "kianda.identidade.estado",
+     "nivel": 1,
+     "linha": 44,
+     "tipo": "from",
+     "nomes": [
+      "EstadoInterno",
+      "Politica"
+     ]
+    },
+    {
+     "modulo": "kianda.linguagem.corpus",
+     "nivel": 1,
+     "linha": 45,
+     "tipo": "from",
+     "nomes": [
+      "construir_tudo"
+     ]
+    },
+    {
+     "modulo": "kianda.linguagem.voz",
+     "nivel": 1,
+     "linha": 46,
+     "tipo": "from",
+     "nomes": [
+      "ConfigLM",
+      "GeradorNeuronal",
+      "Resposta",
+      "Voz"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.armazenamento",
+     "nivel": 1,
+     "linha": 47,
+     "tipo": "from",
+     "nomes": [
+      "Armazem",
+      "Memoria"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 1,
+     "linha": 48,
+     "tipo": "from",
+     "nomes": [
+      "Recuperador",
+      "stem_leve",
+      "tokenizar"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 1,
+     "linha": 49,
+     "tipo": "from",
+     "nomes": [
+      "Custo"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 1,
+     "linha": 1248,
+     "tipo": "from",
+     "nomes": [
+      "stem_leve",
+      "tokenizar"
+     ]
+    },
+    {
+     "modulo": "kianda.linguagem.corpus",
+     "nivel": 1,
+     "linha": 987,
+     "tipo": "from",
+     "nomes": [
+      "titulo_da_obra"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "json",
+    "pathlib",
+    "random",
+    "re",
+    "time",
+    "warnings"
+   ]
+  },
+  "kianda/nucleo/__init__.py": {
+   "modulo": "kianda.nucleo",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "kianda/nucleo/autograd.py": {
+   "modulo": "kianda.nucleo.autograd",
+   "imports_internos": [],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "math",
+    "numpy",
+    "time",
+    "typing"
+   ]
+  },
+  "kianda/nucleo/nn.py": {
+   "modulo": "kianda.nucleo.nn",
+   "imports_internos": [
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 1,
+     "linha": 24,
+     "tipo": "from",
+     "nomes": [
+      "BYTES_F32",
+      "BYTES_I8",
+      "Custo",
+      "Tensor",
+      "entropia_cruzada",
+      "matmul",
+      "matmul_int8",
+      "quantizar_int8"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "dataclasses",
+    "math",
+    "numpy"
+   ]
+  },
+  "nucleo/__init__.py": {
+   "modulo": "nucleo",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "nucleo/experimentos/__init__.py": {
+   "modulo": "nucleo.experimentos",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "nucleo/experimentos/benchmark_capacidade.py": {
+   "modulo": "nucleo.experimentos.benchmark_capacidade",
+   "imports_internos": [
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 0,
+     "linha": 77,
+     "tipo": "from",
+     "nomes": [
+      "Tensor",
+      "matmul"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.nn",
+     "nivel": 0,
+     "linha": 78,
+     "tipo": "from",
+     "nomes": [
+      "Adam"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "json",
+    "numpy",
+    "pathlib",
+    "platform",
+    "statistics",
+    "sys",
+    "time",
+    "torch"
+   ]
+  },
+  "nucleo/experimentos/validacao_gerador.py": {
+   "modulo": "nucleo.experimentos.validacao_gerador",
+   "imports_internos": [
+    {
+     "modulo": "kianda.linguagem",
+     "nivel": 0,
+     "linha": 53,
+     "tipo": "from",
+     "nomes": [
+      "corpus"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 0,
+     "linha": 76,
+     "tipo": "from",
+     "nomes": [
+      "Tensor",
+      "entropia_cruzada",
+      "matmul"
+     ]
+    },
+    {
+     "modulo": "kianda.linguagem.voz",
+     "nivel": 0,
+     "linha": 127,
+     "tipo": "from",
+     "nomes": [
+      "ConfigLM",
+      "GeradorNeuronal"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "json",
+    "math",
+    "numpy",
+    "pathlib",
+    "sys",
+    "time"
+   ]
+  },
+  "nucleo/registos/__init__.py": {
+   "modulo": "nucleo.registos",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "nucleo/registos/imports.py": {
+   "modulo": "nucleo.registos.imports",
+   "imports_internos": [],
+   "imports_externos": [
+    "__future__",
+    "argparse",
+    "ast",
+    "datetime",
+    "json",
+    "pathlib",
+    "sys"
+   ]
+  },
+  "nucleo/testes/__init__.py": {
+   "modulo": "nucleo.testes",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "nucleo/testes/test_tokenizador.py": {
+   "modulo": "nucleo.testes.test_tokenizador",
+   "imports_internos": [
+    {
+     "modulo": "nucleo.tokenizador.bpe",
+     "nivel": 0,
+     "linha": 33,
+     "tipo": "from",
+     "nomes": [
+      "VOCAB_BASE",
+      "TokenizadorBPE"
+     ]
+    },
+    {
+     "modulo": "kianda.linguagem",
+     "nivel": 0,
+     "linha": 51,
+     "tipo": "from",
+     "nomes": [
+      "corpus"
+     ]
+    },
+    {
+     "modulo": "nucleo.tokenizador.bpe",
+     "nivel": 0,
+     "linha": 222,
+     "tipo": "from",
+     "nomes": [
+      "_BLOCO"
+     ]
+    },
+    {
+     "modulo": "nucleo.tokenizador.bpe",
+     "nivel": 0,
+     "linha": 242,
+     "tipo": "from",
+     "nomes": [
+      "_BLOCO"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "pathlib",
+    "pytest",
+    "random",
+    "sys"
+   ]
+  },
+  "nucleo/tokenizador/__init__.py": {
+   "modulo": "nucleo.tokenizador",
+   "imports_internos": [],
+   "imports_externos": []
+  },
+  "nucleo/tokenizador/bpe.py": {
+   "modulo": "nucleo.tokenizador.bpe",
+   "imports_internos": [],
+   "imports_externos": [
+    "__future__",
+    "collections",
+    "dataclasses",
+    "json",
+    "pathlib",
+    "re"
+   ]
+  },
+  "testes/conjunto_reservado.py": {
+   "modulo": "testes.conjunto_reservado",
+   "imports_internos": [
+    {
+     "modulo": "kianda.benchmark.banco",
+     "nivel": 0,
+     "linha": 23,
+     "tipo": "from",
+     "nomes": [
+      "Item"
+     ]
+    },
+    {
+     "modulo": "kianda.mente",
+     "nivel": 0,
+     "linha": 67,
+     "tipo": "from",
+     "nomes": [
+      "Kianda"
+     ]
+    },
+    {
+     "modulo": "kianda.benchmark.banco",
+     "nivel": 0,
+     "linha": 68,
+     "tipo": "from",
+     "nomes": [
+      "_acertou"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "tempfile",
+    "warnings"
+   ]
+  },
+  "testes/executar.py": {
+   "modulo": "testes.executar",
+   "imports_internos": [],
+   "imports_externos": [
+    "__future__",
+    "pathlib",
+    "pytest",
+    "subprocess",
+    "sys"
+   ]
+  },
+  "testes/test_adversarial.py": {
+   "modulo": "testes.test_adversarial",
+   "imports_internos": [
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 0,
+     "linha": 31,
+     "tipo": "from",
+     "nomes": [
+      "BM25",
+      "Recuperador",
+      "normalizar",
+      "stem_leve",
+      "tokenizar"
+     ]
+    },
+    {
+     "modulo": "kianda.linguagem.corpus",
+     "nivel": 0,
+     "linha": 33,
+     "tipo": "from",
+     "nomes": [
+      "construir_tudo"
+     ]
+    },
+    {
+     "modulo": "kianda.mente",
+     "nivel": 0,
+     "linha": 37,
+     "tipo": "from",
+     "nomes": [
+      "Kianda"
+     ]
+    },
+    {
+     "modulo": "kianda.benchmark.banco",
+     "nivel": 0,
+     "linha": 226,
+     "tipo": "from",
+     "nomes": [
+      "Item",
+      "_acertou"
+     ]
+    },
+    {
+     "modulo": "kianda.benchmark.banco",
+     "nivel": 0,
+     "linha": 241,
+     "tipo": "from",
+     "nomes": [
+      "Item",
+      "_acertou"
+     ]
+    },
+    {
+     "modulo": "kianda.benchmark.banco",
+     "nivel": 0,
+     "linha": 250,
+     "tipo": "from",
+     "nomes": [
+      "Item",
+      "_acertou"
+     ]
+    },
+    {
+     "modulo": "kianda.benchmark.banco",
+     "nivel": 0,
+     "linha": 296,
+     "tipo": "from",
+     "nomes": [
+      "_acertou"
+     ]
+    },
+    {
+     "modulo": "kianda.benchmark.banco",
+     "nivel": 0,
+     "linha": 319,
+     "tipo": "from",
+     "nomes": [
+      "CONJUNTO",
+      "GENERALIZACAO"
+     ]
+    },
+    {
+     "modulo": "kianda.mente",
+     "nivel": 0,
+     "linha": 333,
+     "tipo": "from",
+     "nomes": [
+      "Kianda"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 0,
+     "linha": 502,
+     "tipo": "from",
+     "nomes": [
+      "Tensor"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 0,
+     "linha": 532,
+     "tipo": "from",
+     "nomes": [
+      "Tensor"
+     ]
+    },
+    {
+     "modulo": "kianda.linguagem.corpus",
+     "nivel": 0,
+     "linha": 640,
+     "tipo": "from",
+     "nomes": [
+      "documentos_do_projecto"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "hypothesis",
+    "numpy",
+    "pathlib",
+    "random",
+    "sys",
+    "tempfile",
+    "warnings"
+   ]
+  },
+  "testes/test_autograd.py": {
+   "modulo": "testes.test_autograd",
+   "imports_internos": [
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 0,
+     "linha": 16,
+     "tipo": "from",
+     "nomes": [
+      "Tensor",
+      "entropia_cruzada",
+      "matmul",
+      "matmul_int8",
+      "quantizar_int8"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.nn",
+     "nivel": 0,
+     "linha": 23,
+     "tipo": "from",
+     "nomes": [
+      "Adam",
+      "Linear",
+      "LoRA",
+      "MLP",
+      "calibrar_escala",
+      "podar_estruturado"
+     ]
+    },
+    {
+     "modulo": "kianda.nucleo.autograd",
+     "nivel": 0,
+     "linha": 157,
+     "tipo": "from",
+     "nomes": [
+      "matmul_int8"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "math",
+    "numpy",
+    "sys"
+   ]
+  },
+  "testes/test_conversa.py": {
+   "modulo": "testes.test_conversa",
+   "imports_internos": [
+    {
+     "modulo": "kianda.mente",
+     "nivel": 0,
+     "linha": 38,
+     "tipo": "from",
+     "nomes": [
+      "Kianda"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 0,
+     "linha": 418,
+     "tipo": "from",
+     "nomes": [
+      "stem_leve",
+      "tokenizar"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 0,
+     "linha": 265,
+     "tipo": "from",
+     "nomes": [
+      "stem_leve",
+      "tokenizar"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "pathlib",
+    "pytest",
+    "re",
+    "sys",
+    "tempfile",
+    "warnings"
+   ]
+  },
+  "testes/test_http.py": {
+   "modulo": "testes.test_http",
+   "imports_internos": [
+    {
+     "modulo": "kianda.mente",
+     "nivel": 0,
+     "linha": 38,
+     "tipo": "from",
+     "nomes": [
+      "Kianda"
+     ]
+    },
+    {
+     "modulo": "kianda.interface.servidor",
+     "nivel": 0,
+     "linha": 39,
+     "tipo": "from",
+     "nomes": [
+      "criar_servidor"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "json",
+    "pathlib",
+    "pytest",
+    "sys",
+    "tempfile",
+    "threading",
+    "urllib",
+    "warnings"
+   ]
+  },
+  "testes/test_memoria.py": {
+   "modulo": "testes.test_memoria",
+   "imports_internos": [
+    {
+     "modulo": "kianda.memoria.armazenamento",
+     "nivel": 0,
+     "linha": 20,
+     "tipo": "from",
+     "nomes": [
+      "Armazem",
+      "Memoria"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.recuperador",
+     "nivel": 0,
+     "linha": 21,
+     "tipo": "from",
+     "nomes": [
+      "BM25",
+      "Documento",
+      "IndiceSemantico",
+      "Recuperador",
+      "stem_leve",
+      "tokenizar"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "collections",
+    "math",
+    "numpy",
+    "pathlib",
+    "tempfile"
+   ]
+  },
+  "testes/test_mente.py": {
+   "modulo": "testes.test_mente",
+   "imports_internos": [
+    {
+     "modulo": "kianda.mente",
+     "nivel": 0,
+     "linha": 14,
+     "tipo": "from",
+     "nomes": [
+      "Kianda"
+     ]
+    },
+    {
+     "modulo": "kianda.memoria.armazenamento",
+     "nivel": 0,
+     "linha": 15,
+     "tipo": "from",
+     "nomes": [
+      "Armazem",
+      "Memoria"
+     ]
+    },
+    {
+     "modulo": "kianda.identidade.estado",
+     "nivel": 0,
+     "linha": 104,
+     "tipo": "from",
+     "nomes": [
+      "Politica"
+     ]
+    },
+    {
+     "modulo": "kianda.linguagem.voz",
+     "nivel": 0,
+     "linha": 192,
+     "tipo": "from",
+     "nomes": [
+      "ConfigLM",
+      "GeradorNeuronal"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "pathlib",
+    "shutil",
+    "sys",
+    "tempfile"
+   ]
+  },
+  "testes/test_utilizadores.py": {
+   "modulo": "testes.test_utilizadores",
+   "imports_internos": [
+    {
+     "modulo": "kianda.cognicao.percepcao",
+     "nivel": 0,
+     "linha": 38,
+     "tipo": "from",
+     "nomes": [
+      "Perceptor"
+     ]
+    },
+    {
+     "modulo": "kianda.mente",
+     "nivel": 0,
+     "linha": 42,
+     "tipo": "from",
+     "nomes": [
+      "Kianda"
+     ]
+    }
+   ],
+   "imports_externos": [
+    "__future__",
+    "pathlib",
+    "pytest",
+    "random",
+    "sys",
+    "tempfile",
+    "warnings"
+   ]
+  },
+  "testes/validar_mutacoes.py": {
+   "modulo": "testes.validar_mutacoes",
+   "imports_internos": [],
+   "imports_externos": [
+    "__future__",
+    "json",
+    "pathlib",
+    "shutil",
+    "signal",
+    "subprocess",
+    "sys",
+    "tempfile"
+   ]
+  }
+ }
+}

@@ -254,3843 +254,3843 @@
 253	\xfd
 254	\xfe
 255	\xff
-256	a 
-257	e 
-258	o 
-259	s 
-260	qu
-261	m 
-262	. 
-263	co
-264	nt
-265	er
-266	ar
-267	es
-268	que 
+256	 d
+257	es
+258	 a
+259	nt
+260	er
+261	os
+262	 p
+263	 c
+264	 e
+265	 s
+266	ra
+267	 \n
+268	qu
 269	ã
-270	de 
-271	ão 
-272	, 
-273	\xe2 \x80
-274	—
-275	or
-276	ent
-277	— 
-278	is
-279	as 
-280	in
-281	el
-282	do 
-283	u 
-284	al
-285	em 
-286	an
-287	os 
-288	en
-289	.\n
-290	não 
-291	ta
-292	ci
-293	é
-294	par
-295	ei
-296	ç
-297	pr
-298	á
-299	ad
-300	ma 
-301	em
-302	er 
-303	ai
-304	as
-305	ec
-306	so
-307	di
-308	ar 
-309	tr
-310	. \n
-311	os
-312	ment
-313	av
-314	gu
-315	fi
-316	ti
-317	da 
-318	com 
-319	ia 
-320	se 
-321	ou 
-322	inh
-323	o que 
-324	lh
-325	com
-326	es 
-327	para 
-328	uma 
-329	por
-330	é 
-331	o. 
-332	a. 
-333	í
-334	ri
-335	est
-336	on
-337	si
-338	con
-339	de
-340	oi
-341	ab
-342	re
-343	ó
-344	ex
-345	ant
-346	a, 
-347	per
-348	O 
-349	um 
-350	a m
-351	á 
-352	ê
-353	am
-354	ou
-355	om
-356	Não 
-357	aç
-358	o, 
-359	to 
-360	vi
-361	mi
-362	A 
-363	inha 
-364	se
-365	ais 
-366	cont
-367	no 
-368	a\n
-369	era 
-370	 \n
-371	ur
-372	am 
-373	ch
-374	for
-375	z 
-376	un
-377	ela 
-378	esp
-379	ca 
-380	dis
-381	mente 
-382	eu 
-383	o\n
-384	ele 
-385	da
-386	cois
-387	tav
-388	az
-389	ol
-390	sem 
-391	pl
-392	ver
-393	a que 
-394	ul
-395	ac
-396	a de 
-397	ando 
-398	tinha 
-399	o de 
-400	ado 
-401	e. 
-402	aqu
-403	nci
-404	su
-405	mais 
-406	olh
-407	des
-408	to
-409	ig
-410	e\n
-411	ente 
-412	ei 
-413	im
-414	ag
-415	cor
-416	at
-417	à
-418	eir
-419	tava 
-420	pes
-421	br
-422	a.\n
-423	ênci
-424	o.\n
-425	ve
-426	te 
-427	quando 
-428	ir
-429	me 
-430	ois 
-431	mas 
-432	como 
-433	son
-434	porque 
-435	ta 
-436	sab
-437	fic
-438	mil
-439	us
-440	ao 
-441	al 
-442	Ed
-443	entr
-444	eg
-445	ada 
-446	Edmil
-447	Edmilson
-448	ava 
-449	dade 
-450	. \n \n
-451	ém 
-452	mes
-453	que não 
-454	ic
-455	: 
-456	vel
-457	so 
-458	faz
-459	na 
-460	eci
-461	enh
-462	Edmilson 
-463	e, 
-464	ú
-465	tem
-466	estava 
-467	avia 
-468	ess
-469	sem
-470	tu
-471	por 
-472	int
-473	pesso
-474	il
-475	pro
-476	ai 
-477	dos 
-478	eç
-479	algu
-480	um
-481	Es
-482	ap
-483	ser 
-484	ui
-485	ecis
-486	mo
-487	or 
-488	mã
-489	ação 
-490	tamente 
-491	exis
-492	gunt
-493	conh
-494	forma 
-495	pergunt
-496	outr
-497	oi 
-498	segu
-499	po 
-500	ra 
-501	eu
-502	à 
-503	po
-504	quem 
-505	sent
-506	apar
-507	está 
-508	fer
-509	ara 
-510	disse 
-511	resp
-512	ens
-513	nom
-514	do que 
-515	dad
-516	compl
-517	ali
-518	Qu
-519	E 
-520	e.\n
-521	fici
-522	a c
-523	Bis
-524	onde 
-525	r 
-526	pres
-527	cheg
-528	õ
-529	anh
-530	precis
-531	pois 
-532	sil
-533	que\n
-534	vers
-535	ut
-536	ce
-537	foi 
-538	a — 
-539	mento 
-540	tem 
-541	sufici
-542	. Não 
-543	ain
-544	das 
-545	ev
-546	ção 
-547	e que 
-548	É
-549	mo 
-550	rec
-551	fico
-552	a n
-553	comple
-554	sempr
-555	pas
-556	res
-557	É 
-558	co 
-559	a e 
-560	ter
-561	havia 
-562	antes 
-563	silênci
-564	ist
-565	ens 
-566	as que 
-567	ainda 
-568	há 
-569	com o 
-570	Ka
-571	sim
-572	. — 
-573	a. \n
-574	go 
-575	hom
-576	tiv
-577	ês 
-578	unca 
-579	emó
-580	diz
-581	El
-582	quer
-583	li
-584	alh
-585	cion
-586	pe
-587	aquela 
-588	vel 
-589	ulh
-590	vo
-591	. \n \n— 
-592	fazer 
-593	cas
-594	ser
-595	vez 
-596	Era 
-597	quer 
-598	espec
-599	Mas 
-600	os, 
-601	dei
-602	ões 
-603	especí
-604	. O 
-605	ru
-606	vol
-607	fun
-608	vez
-609	dur
-610	cons
-611	form
-612	tip
-613	açã
-614	contr
-615	 — 
-616	de\n
-617	car
-618	du
-619	dois 
-620	e o 
-621	ov
-622	o — 
-623	ó 
-624	com a 
-625	fr
-626	.\n— 
-627	já 
-628	alguém 
-629	difer
-630	esse 
-631	ingu
-632	sei 
-633	sí
-634	and
-635	às 
-636	anç
-637	.\n\n
-638	e a 
-639	Lu
-640	lu
-641	cul
-642	ficou 
-643	del
-644	nunca 
-645	-se 
-646	pre
-647	ante 
-648	pai 
-649	o m
-650	ar. 
-651	a. — 
-652	ria 
-653	vis
-654	qual
-655	bai
-656	pos
-657	aquele 
-658	Lara 
-659	abalh
-660	Kau 
-661	,\n
-662	em que 
-663	tel
-664	fica 
-665	â
-666	fal
-667	sobr
-668	mesmo 
-669	trabalh
-670	os. 
-671	tar
-672	\nque 
-673	segun
-674	tempo 
-675	— não 
-676	ou para 
-677	Zul
-678	exac
-679	gr
-680	atr
-681	cal
-682	aí
-683	voz 
-684	qualquer 
-685	ter 
-686	depois 
-687	qui
-688	dor
-689	a \n
-690	amb
-691	cri
-692	disse
-693	ni
-694	pessoas 
-695	aus
-696	tipo de 
-697	tur
-698	esta
-699	vai 
-700	do
-701	ou a 
-702	antes de 
-703	o e 
-704	tas 
-705	pren
-706	lar
-707	só 
-708	Am
-709	amente 
-710	três 
-711	coisas 
-712	nenh
-713	acont
-714	esta 
-715	perce
-716	min
-717	olhos 
-718	as. 
-719	to, 
-720	cer
-721	me
-722	. \n— 
-723	anda 
-724	numa 
-725	quar
-726	Havia 
-727	men
-728	tament
-729	sempre 
-730	-me 
-731	entre 
-732	telemó
-733	anto 
-734	Bisa 
-735	col
-736	pass
-737	anhã
-738	mer
-739	eiro 
-740	isso 
-741	ir 
-742	aço 
-743	deix
-744	tinh
-745	perceb
-746	convers
-747	Est
-748	completamente 
-749	ver 
-750	senti
-751	óri
-752	ente para 
-753	exactamente 
-754	De
-755	existi
-756	ás 
-757	que é 
-758	l 
-759	anos 
-760	sobre 
-761	outra 
-762	sou 
-763	esti
-764	olhar 
-765	noi
-766	pel
-767	aparec
-768	\n— 
-769	a mã
-770	conheci
-771	enho 
-772	, e 
-773	baix
-774	e de 
-775	to. 
-776	dem
-777	suficient
-778	bo
-779	durante 
-780	síti
-781	Ela 
-782	apren
-783	nos 
-784	e não 
-785	coisa que 
-786	cad
-787	respos
-788	ais
-789	fin
-790	der 
-791	eis 
-792	dev
-793	ro 
-794	quanto 
-795	mb
-796	inu
-797	sabia 
-798	* 
-799	bri
-800	cur
-801	prim
-802	silêncio 
-803	começ
-804	deci
-805	ar a 
-806	ples
-807	dizer 
-808	as de 
-809	ament
-810	pens
-811	alg
-812	Luanda 
-813	fos
-814	acor
-815	direc
-816	que o 
-817	fec
-818	as\n
-819	iz
-820	uí
-821	bem 
-822	coisa 
-823	ão\n
-824	cos
-825	. S
-826	lado 
-827	estava a 
-828	inter
-829	o.\n— 
-830	Fi
-831	as, 
-832	elh
-833	— disse 
-834	agor
-835	nov
-836	bar
-837	acontec
-838	alidade 
-839	dia 
-840	As 
-841	o. Não 
-842	para o 
-843	uni
-844	lhe 
-845	manhã
-846	são 
-847	i 
-848	irmã
-849	a mes
-850	nto 
-851	ningu
-852	suficiente para 
-853	como se 
-854	der
-855	a a 
-856	es, 
-857	lev
-858	é o 
-859	está a 
-860	duas 
-861	bem
-862	constr
-863	pal
-864	Com
-865	estr
-866	o. \n
-867	mim 
-868	dentr
-869	conhec
-870	pi
-871	sim 
-872	nome 
-873	ão. 
-874	nor
-875	mui
-876	sor
-877	existe 
-878	diz 
-879	lig
-880	. A 
-881	.\nA 
-882	a com 
-883	tamb
-884	ulher 
-885	enç
-886	continu
-887	pri
-888	o que não 
-889	que a 
-890	nas 
-891	cin
-892	ar de 
-893	Depois 
-894	Is
-895	tor
-896	ui 
-897	temp
-898	.\nO 
-899	ás
-900	isso
-901	respon
-902	cu
-903	Olh
-904	quint
-905	Que 
-906	cre
-907	— o 
-908	tec
-909	uma forma 
-910	ar, 
-911	algo 
-912	eb
-913	fei
-914	o c
-915	o do 
-916	avam 
-917	eira 
-918	Co
-919	ouvi
-920	olhou para 
-921	com aquela 
-922	mãe 
-923	filh
-924	? \n
-925	Eu 
-926	.\nNão 
-927	tent
-928	sou
-929	to de 
-930	ris
-931	fech
-932	do. 
-933	simples
-934	mos 
-935	ju
-936	tar 
-937	agem 
-938	palav
-939	parti
-940	ado, 
-941	saber 
-942	az 
-943	assim 
-944	\n\n
-945	. P
-946	sai
-947	nad
-948	a.\n— 
-949	os\n
-950	homens 
-951	toda 
-952	a g
-953	áti
-954	pela 
-955	ong
-956	ze 
-957	quie
-958	ib
-959	mim
-960	colh
-961	quen
-962	Isso 
-963	pen
-964	ári
-965	ban
-966	dinh
-967	telemóvel 
-968	control
-969	ang
-970	raz
-971	a mais 
-972	? — 
-973	com uma 
-974	cidade 
-975	que era 
-976	Há 
-977	hist
-978	ém
-979	ez
-980	águ
-981	fosse 
-982	ill
-983	de quem 
-984	arr
-985	diferent
-986	fir
-987	esper
-988	seman
-989	verdad
-990	vezes 
-991	ach
-992	conheç
-993	enquanto 
-994	noite 
-995	específica 
-996	Sig
-997	Sigill
-998	bi
-999	hor
-1000	gi
-1001	edi
-1002	mei
-1003	nada 
-1004	a. A 
-1005	eus 
-1006	vou 
-1007	do, 
-1008	sol 
-1009	. \nEdmilson 
-1010	ili
-1011	versão 
-1012	a l
-1013	a. O 
-1014	au
-1015	ase 
-1016	press
-1017	do de 
-1018	Uma 
-1019	ico 
-1020	Amar
-1021	pequen
-1022	os de 
-1023	rar
-1024	dar 
-1025	. T
-1026	ador
-1027	ninguém 
-1028	Mar
-1029	a em 
-1030	minut
-1031	consegu
-1032	decidi
-1033	ano 
-1034	específic
-1035	num 
-1036	tá
-1037	palavr
-1038	rel
-1039	pou
-1040	reuni
-1041	Os 
-1042	saí
-1043	e. Não 
-1044	nte 
-1045	seis 
-1046	reg
-1047	Quando 
-1048	porta
-1049	fo
-1050	suficientem
-1051	os olhos 
-1052	jan
-1053	o-
-1054	Ele 
-1055	é\n
-1056	-l
-1057	para a 
-1058	.\nS
-1059	pró
-1060	mens
-1061	crianç
-1062	íci
-1063	és 
-1064	Mo
-1065	a mãe 
-1066	menin
-1067	] 
-1068	tenho 
-1069	cham
-1070	algo que 
-1071	parec
-1072	nenhum 
-1073	—\n
-1074	mal
-1075	ca
-1076	o da 
-1077	a não 
-1078	até 
-1079	nú
-1080	a. Não 
-1081	também 
-1082	present
-1083	encontr
-1084	gos
-1085	parte 
-1086	onh
-1087	a. A
-1088	simplesmente 
-1089	vida 
-1090	cada 
-1091	isto 
-1092	funcion
-1093	plic
-1094	moment
-1095	estav
-1096	dri
-1097	, a 
-1098	eram 
-1099	ou-
-1100	. \n \nEdmilson 
-1101	o \n
-1102	— e 
-1103	prov
-1104	dig
-1105	alguém que 
-1106	deu 
-1107	é a 
-1108	amos 
-1109	dele 
-1110	err
-1111	homem 
-1112	sabe 
-1113	escolh
-1114	barulh
-1115	a.\n\n
-1116	org
-1117	A Lara 
-1118	fam
-1119	adr
-1120	naquele 
-1121	— disse
-1122	a para 
-1123	estar 
-1124	des 
-1125	úsi
-1126	alguma 
-1127	a que não 
-1128	o tipo de 
-1129	lá 
-1130	zinh
-1131	Moç
-1132	ros
-1133	resol
-1134	momento 
-1135	iam 
-1136	tinham 
-1137	Paus
-1138	os. \n
-1139	mesm
-1140	O que 
-1141	a: 
-1142	as pessoas 
-1143	do\n
-1144	rit
-1145	e.\n— 
-1146	vesti
-1147	eu\n
-1148	muito 
-1149	bl
-1150	númer
-1151	ta. 
-1152	sal
-1153	este 
-1154	aten
-1155	a. Era 
-1156	sítio 
-1157	tudo 
-1158	mar
-1159	diferente 
-1160	dela 
-1161	emória 
-1162	ou o 
-1163	pessoas que 
-1164	Zulu
-1165	vinte 
-1166	À
-1167	a noi
-1168	lug
-1169	ten
-1170	quatr
-1171	es. 
-1172	os que 
-1173	prai
-1174	ao mesmo 
-1175	outro 
-1176	long
-1177	eles 
-1178	dormi
-1179	qualidade 
-1180	soub
-1181	espaço 
-1182	 de 
-1183	vid
-1184	\nde 
-1185	ão, 
-1186	Amara 
-1187	levant
-1188	content
-1189	pare
-1190	forç
-1191	não\n
-1192	cab
-1193	dinheiro 
-1194	devia 
-1195	meu 
-1196	nem 
-1197	ânci
-1198	espaç
-1199	pedi
-1200	a no 
-1201	quê
-1202	bor
-1203	, não 
-1204	— a 
-1205	carr
-1206	tarde 
-1207	tran
-1208	Com 
-1209	possí
-1210	og
-1211	Moçamb
-1212	es de 
-1213	todos 
-1214	tivesse 
-1215	alvez 
-1216	Adri
-1217	99
-1218	* * 
-1219	* * *
-1220	* * * \n
-1221	? \n— 
-1222	fazer
-1223	em\n
-1224	anos, 
-1225	faz 
-1226	a minha 
-1227	umb
-1228	Às 
-1229	a Bis
-1230	chão 
-1231	ados 
-1232	dist
-1233	Kau
-1234	suficientemente 
-1235	éri
-1236	sua 
-1237	com\n
-1238	ob
-1239	aber
-1240	ível 
-1241	ábi
-1242	clar
-1243	falar 
-1244	Tom
-1245	assim
-1246	acei
-1247	o. O 
-1248	estão 
-1249	, o 
-1250	us 
-1251	não é 
-1252	completament
-1253	nome
-1254	ult
-1255	al, 
-1256	ing
-1257	dez
-1258	oito 
-1259	Em 
-1260	Lar
-1261	redi
-1262	famí
-1263	gen
-1264	cou 
-1265	Tinha 
-1266	casa 
-1267	Olhou para 
-1268	tê
-1269	tir
-1270	úsica 
-1271	decis
-1272	gin
-1273	ficava 
-1274	ficar 
-1275	a-
-1276	consi
-1277	.\nD
-1278	id
-1279	avel
-1280	sorris
-1281	inc
-1282	serv
-1283	corpo 
-1284	o a 
-1285	pelo 
-1286	olhar para 
-1287	agens 
-1288	mais
-1289	pareci
-1290	No 
-1291	oc
-1292	Ch
-1293	era o 
-1294	Moçambic
-1295	Moçambican
-1296	empres
-1297	ema 
-1298	a, a 
-1299	ido 
-1300	aram 
-1301	hon
-1302	mulher 
-1303	rapar
-1304	raparig
-1305	reconheci
-1306	Estava 
-1307	banco 
-1308	tou 
-1309	; 
-1310	impor
-1311	Zulei
-1312	Zuleik
-1313	minh
-1314	mãos 
-1315	do.\n
-1316	pei
-1317	a do 
-1318	Por
-1319	queria 
-1320	dias 
-1321	mant
-1322	alment
-1323	elas 
-1324	ger
-1325	Tr
-1326	hab
-1327	estado 
-1328	a-se 
-1329	nica 
-1330	e.\n\n
-1331	segundo 
-1332	corr
-1333	resposta 
-1334	ações 
-1335	ja 
-1336	inform
-1337	manhã 
-1338	ar o 
-1339	mais do que 
-1340	exist
-1341	guar
-1342	apen
-1343	cinco 
-1344	bre
-1345	quintal 
-1346	essa 
-1347	reunião 
-1348	pu
-1349	ram
-1350	Ou 
-1351	chegou 
-1352	acredi
-1353	a mas 
-1354	que ele 
-1355	idade 
-1356	padr
-1357	tas
-1358	ô
-1359	úl
-1360	el 
-1361	rai
-1362	ân
-1363	utur
-1364	não era 
-1365	iri
-1366	A mãe 
-1367	o. \n \n— 
-1368	consci
-1369	têm 
-1370	desde 
-1371	ar.\n
-1372	tom
-1373	da\n
-1374	quarto 
-1375	ez 
-1376	viv
-1377	consigo 
-1378	. A
-1379	nenhuma 
-1380	avelmente 
-1381	contex
-1382	homem que 
-1383	firm
-1384	Pri
-1385	ão.\n
-1386	corp
-1387	ins
-1388	embor
-1389	de forma 
-1390	metr
-1391	mas que 
-1392	ta de 
-1393	Como 
-1394	adas 
-1395	Lev
-1396	mu
-1397	ória 
-1398	velh
-1399	eu não 
-1400	cus
-1401	tipo 
-1402	ata
-1403	assu
-1404	tant
-1405	ava de 
-1406	Foi 
-1407	em silêncio 
-1408	últi
-1409	sur
-1410	xi
-1411	Miri
-1412	a Lara 
-1413	cas 
-1414	O pai 
-1415	vaz
-1416	Dis
-1417	Fui 
-1418	demas
-1419	demasi
-1420	A Bisa 
-1421	o. — 
-1422	toda a g
-1423	perceber 
-1424	primeir
-1425	habi
-1426	si 
-1427	a sem 
-1428	e. O 
-1429	ainda não 
-1430	a mão 
-1431	comig
-1432	? 
-1433	pergunta 
-1434	o\nque 
-1435	ven
-1436	calcul
-1437	a mulher 
-1438	desc
-1439	depois de 
-1440	fico 
-1441	lá
-1442	própri
-1443	luz 
-1444	ação
-1445	-m
-1446	ativ
-1447	ação, 
-1448	amor
-1449	embr
-1450	Ent
-1451	torn
-1452	porque não 
-1453	Fic
-1454	raramente 
-1455	a p
-1456	ada, 
-1457	uma\n
-1458	ação. 
-1459	ari
-1460	a cas
-1461	express
-1462	culp
-1463	cess
-1464	Pausa. — 
-1465	o N
-1466	cres
-1467	apareci
-1468	que tinha 
-1469	bol
-1470	H99
-1471	to. \n
-1472	as \n
-1473	Kal
-1474	Kalumb
-1475	históri
-1476	vem 
-1477	exactamente o que 
-1478	porta 
-1479	lugar 
-1480	o com 
-1481	quando o 
-1482	e. — 
-1483	razão 
-1484	Nunca 
-1485	vir
-1486	sa 
-1487	jo 
-1488	imedi
-1489	acab
-1490	tempo suficiente para 
-1491	cam
-1492	anc
-1493	pensar 
-1494	tão 
-1495	, sem 
-1496	. É 
-1497	fri
-1498	o meu 
-1499	ado. 
-1500	escur
-1501	coisas que 
-1502	janela 
-1503	quin
-1504	seria 
-1505	al. 
-1506	oj
-1507	qual 
-1508	explic
-1509	as coisas 
-1510	Um 
-1511	amig
-1512	mun
-1513	Zulu 
-1514	bon
-1515	ámos 
-1516	de um 
-1517	a. É 
-1518	?\n
-1519	ava a 
-1520	Ficou 
-1521	é que 
-1522	outra cois
-1523	ouvir 
-1524	liv
-1525	quarent
-1526	Rang
-1527	memória 
-1528	certas 
-1529	te
-1530	ot
-1531	nec
-1532	pai
-1533	que \n
-1534	fil
-1535	exig
-1536	de ser 
-1537	 que 
-1538	vinh
-1539	compr
-1540	Margin
-1541	tada 
-1542	no chão 
-1543	todas 
-1544	fez 
-1545	lim
-1546	aqui
-1547	a um 
-1548	seu 
-1549	aprendi
-1550	vi 
-1551	movi
-1552	pont
-1553	a da 
-1554	a, não 
-1555	limi
-1556	ele não 
-1557	outros 
-1558	tado 
-1559	to que 
-1560	apanh
-1561	Estou 
-1562	o que é 
-1563	dois
-1564	telemóvel
-1565	quando não 
-1566	bair
-1567	fac
-1568	uma forma que 
-1569	presente 
-1570	específico
-1571	primeira 
-1572	melh
-1573	história 
-1574	pois
-1575	tarde
-1576	a, mas 
-1577	cat
-1578	vez de 
-1579	: — 
-1580	? — pergunt
-1581	tenh
-1582	via 
-1583	verg
-1584	pag
-1585	precisava de 
-1586	em silênci
-1587	?\n— 
-1588	cru
-1589	devag
-1590	dado 
-1591	fíci
-1592	quei 
-1593	hum
-1594	trib
-1595	preen
-1596	o.\n\n
-1597	com um 
-1598	investi
-1599	Man
-1600	estrutur
-1601	ar. \n
-1602	gni
-1603	a noite 
-1604	pur
-1605	mos
-1606	braç
-1607	para\n
-1608	mal 
-1609	vai
-1610	única 
-1611	veri
-1612	de mim 
-1613	atenção 
-1614	a.\nO 
-1615	algum 
-1616	estin
-1617	amento 
-1618	. E 
-1619	constru
-1620	já não 
-1621	ão
-1622	te, 
-1623	ia\n
-1624	Levant
-1625	a, e 
-1626	\na 
-1627	que se 
-1628	aquil
-1629	pés 
-1630	atur
-1631	cap
-1632	organ
-1633	construí
-1634	dram
-1635	termin
-1636	qualquer cois
-1637	vergonh
-1638	jant
-1639	pó
-1640	zinha 
-1641	acion
-1642	corre
-1643	segund
-1644	a mesma 
-1645	expressão 
-1646	— disse el
-1647	asse 
-1648	raiv
-1649	am, 
-1650	ência de 
-1651	pais 
-1652	sabi
-1653	anter
-1654	abri
-1655	tinha \n
-1656	a. \n \n— 
-1657	os: 
-1658	Tenho 
-1659	aci
-1660	signi
-1661	estou 
-1662	aparta
-1663	apartamento 
-1664	perto 
-1665	Disse 
-1666	acord
-1667	se\n
-1668	festa 
-1669	chegar 
-1670	ri 
-1671	ulher
-1672	interess
-1673	\ne 
-1674	 e 
-1675	condi
-1676	aut
-1677	probl
-1678	ível
-1679	provavelmente 
-1680	de uma 
-1681	segundos 
-1682	habitu
-1683	a. S
-1684	Con
-1685	lgu
-1686	tex
-1687	toda a gente 
-1688	situ
-1689	respei
-1690	beb
-1691	ar\n
-1692	diferenç
-1693	faço 
-1694	o de quem 
-1695	presenç
-1696	daqu
-1697	feito 
-1698	Pr
-1699	meus 
-1700	Três 
-1701	possível 
-1702	mesma 
-1703	devi
-1704	nó
-1705	hav
-1706	trans
-1707	que me 
-1708	Cont
-1709	ont
-1710	e e 
-1711	organiz
-1712	antes
-1713	oria 
-1714	a, sem 
-1715	os e 
-1716	em voz 
-1717	desta 
-1718	comp
-1719	sist
-1720	lia 
-1721	ane
-1722	meses 
-1723	sido 
-1724	às vezes 
-1725	pô
-1726	A voz 
-1727	todos os 
-1728	qualquer coisa 
-1729	ou, 
-1730	Deus 
-1731	aos 
-1732	arqui
-1733	confirm
-1734	process
-1735	urg
-1736	iber
-1737	tor 
-1738	iu 
-1739	e. \n
-1740	investig
-1741	. Mas 
-1742	dentro 
-1743	mas não 
-1744	20
-1745	fest
-1746	— é 
-1747	anos. 
-1748	cima 
-1749	bili
-1750	quatro 
-1751	suas 
-1752	reconheç
-1753	e quando 
-1754	normal
-1755	caf
-1756	então 
-1757	o Kau 
-1758	fui 
-1759	essi
-1760	ês
-1761	a. Mas 
-1762	fazem 
-1763	foi
-1764	a mai
-1765	o para 
-1766	encos
-1767	jus
-1768	veis
-1769	está
-1770	sequ
-1771	Cheg
-1772	cozinh
-1773	os olh
-1774	hoj
-1775	precisa de 
-1776	bran
-1777	Fico 
-1778	crianças 
-1779	prefer
-1780	informação 
-1781	minha 
-1782	o Sigill
-1783	pap
-1784	desse 
-1785	ê-l
-1786	Moçambicana 
-1787	decisão 
-1788	Estás 
-1789	almente 
-1790	carro 
-1791	conte
-1792	conteú
-1793	sei o que 
-1794	verdade 
-1795	aconteceu 
-1796	para ser 
-1797	aconteci
-1798	tro
-1799	es\n
-1800	. Era 
-1801	ou de 
-1802	era a 
-1803	atrav
-1804	sentiu
-1805	ta, 
-1806	din
-1807	os dois 
-1808	chor
-1809	era uma 
-1810	En
-1811	fl
-1812	o. A
-1813	reconhec
-1814	Dom
-1815	livr
-1816	ardi
-1817	Zuleika 
-1818	Men
-1819	endo 
-1820	gul
-1821	rosto 
-1822	enci
-1823	' 
-1824	E havia 
-1825	o Ne
-1826	Manu
-1827	«
-1828	»
-1829	ambo 
-1830	: \n
-1831	pergunta de 
-1832	descre
-1833	um\n
-1834	vazi
-1835	música 
-1836	bat
-1837	ou\n
-1838	ombr
-1839	tipo que 
-1840	gest
-1841	porque o 
-1842	-se
-1843	fum
-1844	super
-1845	ao mesmo temp
-1846	tura 
-1847	es que 
-1848	existir 
-1849	sion
-1850	tal 
-1851	com os 
-1852	sin
-1853	abr
-1854	cl
-1855	Há uma 
-1856	neg
-1857	minutos 
-1858	e. A 
-1859	imedia
-1860	elo 
-1861	ente, 
-1862	auto
-1863	— diz 
-1864	na mes
-1865	Tomás 
-1866	a cam
-1867	a, que é 
-1868	mentir
-1869	. Não porque 
-1870	áci
-1871	centr
-1872	quase 
-1873	oce
-1874	junto 
-1875	a cab
-1876	a cabeç
-1877	específica de 
-1878	seus 
-1879	quei
-1880	mensagem 
-1881	idei
-1882	ida 
-1883	recu
-1884	ún
-1885	duz
-1886	 a 
-1887	hábi
-1888	número 
-1889	perten
-1890	junt
-1891	gru
-1892	em voz al
-1893	orgu
-1894	plata
-1895	sub
-1896	ele tinha 
-1897	desaparec
-1898	e. S
-1899	destr
-1900	tom 
-1901	da forma 
-1902	tra
-1903	semanas 
-1904	cig
-1905	brig
-1906	ve 
-1907	tentar 
-1908	este
-1909	arquitec
-1910	pessoa que 
-1911	\nnão 
-1912	estava no 
-1913	tos 
-1914	nomes 
-1915	miti
-1916	podia 
-1917	necess
-1918	Adriano 
-1919	disse el
-1920	disse, 
-1921	Havia uma 
-1922	Já 
-1923	ou-se 
-1924	cresci
-1925	over
-1926	Edmilson tinha 
-1927	dezoito 
-1928	 \n— 
-1929	Edmilson não 
-1930	escre
-1931	irmã 
-1932	contentor 
-1933	Amaril
-1934	Lucas 
-1935	pergunta de investig
-1936	ação] 
-1937	tatu
-1938	sei
-1939	a-me 
-1940	água 
-1941	primeiro 
-1942	passo 
-1943	De 
-1944	o.\nO 
-1945	aquel
-1946	mão 
-1947	dinheir
-1948	es e 
-1949	quand
-1950	mulher
-1951	ident
-1952	esten
-1953	perguntar 
-1954	cui
-1955	no
-1956	ligeir
-1957	volta 
-1958	errad
-1959	quero 
-1960	Pas
-1961	unci
-1962	. C
-1963	arre
-1964	ares 
-1965	apresent
-1966	seja 
-1967	da manhã 
-1968	segur
-1969	mento. 
-1970	ta que 
-1971	o, não 
-1972	a, o 
-1973	ficam 
-1974	o que o 
-1975	ao lado 
-1976	isto
-1977	co, 
-1978	costas 
-1979	contra 
-1980	volta
-1981	o. É 
-1982	sentir 
-1983	eço 
-1984	apenas 
-1985	o telemóvel 
-1986	Isso é 
-1987	ço 
-1988	mud
-1989	part
-1990	sol
-1991	depois
-1992	ação de 
-1993	sentada 
-1994	ocu
-1995	ati
-1996	gran
-1997	rá
-1998	orgulh
-1999	agem
-2000	problema 
-2001	adul
-2002	ar — 
-2003	receb
-2004	que eu 
-2005	Essa 
-2006	dó
-2007	que foi 
-2008	mais velh
-2009	a fazer 
-2010	família 
-2011	Jorg
-2012	-f
-2013	uito 
-2014	os. — 
-2015	soube 
-2016	frase 
-2017	anj
-2018	a cois
-2019	pé
-2020	fazia 
-2021	ín
-2022	viu 
-2023	fing
-2024	desculp
-2025	atóri
-2026	ado a 
-2027	ali 
-2028	oper
-2029	boni
-2030	man
-2031	azul
-2032	palavras 
-2033	repe
-2034	. F
-2035	conversa 
-2036	todas as 
-2037	meir
-2038	jardi
-2039	Not
-2040	famíli
-2041	egu
-2042	Adrian
-2043	saiu 
-2044	veis 
-2045	a cal
-2046	Mai
-2047	menino 
-2048	estivesse 
-2049	. \n\n
-2050	as. \n
-2051	Cel
-2052	Celestin
-2053	? \n \n
-2054	e \n
-2055	contentor
-2056	confi
-2057	confianç
-2058	irmãos 
-2059	Kalumba 
-2060	[pergunta de investig
-2061	[pergunta de investigação] 
-2062	?\n\n
-2063	histórias 
-2064	vinte e 
-2065	mor
-2066	trabalho 
-2067	ninguém
-2068	precisar de 
-2069	Às vezes 
-2070	quente 
-2071	Marginal 
-2072	Hé
-2073	Hél
-2074	dizia 
-2075	sair 
-2076	só
-2077	distânci
-2078	demasiado 
-2079	limp
-2080	Por 
-2081	o suficiente para 
-2082	três
-2083	rou
-2084	me\n
-2085	o. N
-2086	trint
-2087	val
-2088	jei
-2089	o que\n
-2090	al de 
-2091	.\nA
-2092	In
-2093	pedir 
-2094	, mas 
-2095	hora 
-2096	ógi
-2097	e mei
-2098	anunci
-2099	a o 
-2100	com as 
-2101	ás, 
-2102	digo 
-2103	-lhe 
-2104	perform
-2105	eng
-2106	á-l
-2107	uma vez 
-2108	demor
-2109	a\n\n
-2110	atos 
-2111	esqu
-2112	a\nque 
-2113	parado 
-2114	com aquele 
-2115	passou 
-2116	decidir 
-2117	cent
-2118	lá for
-2119	exp
-2120	Sai
-2121	mec
-2122	aquela qualidade 
-2123	lembr
-2124	mex
-2125	cidad
-2126	mad
-2127	calç
-2128	.\n\nO 
-2129	nós 
-2130	Vou 
-2131	bairro 
-2132	sítio onde 
-2133	que\nnão 
-2134	éu 
-2135	arei
-2136	onda 
-2137	tos, 
-2138	o,\n
-2139	sozinh
-2140	também
-2141	único 
-2142	ências 
-2143	inguém 
-2144	 do 
-2145	equ
-2146	papel
-2147	a.\nA 
-2148	em vez de 
-2149	quinze 
-2150	ocup
-2151	af
-2152	cai
-2153	frente 
-2154	no senti
-2155	emos 
-2156	demais 
-2157	e depois 
-2158	acad
-2159	academ
-2160	ao mesmo tempo 
-2161	avam
-2162	rad
-2163	simult
-2164	regu
-2165	ignor
-2166	cum
-2167	fiz 
-2168	ram 
-2169	ou uma 
-2170	momentos 
-2171	ele. 
-2172	foto 
-2173	o.\nNão 
-2174	terc
-2175	ilênci
-2176	Do 
-2177	ou se 
-2178	tinha\n
-2179	estás 
-2180	emo
-2181	ei a 
-2182	passei
-2183	noit
-2184	cozinha 
-2185	Doming
-2186	rez
-2187	recus
-2188	razões 
-2189	ar que 
-2190	human
-2191	Miriam 
-2192	rcul
-2193	cama 
-2194	ambos 
-2195	pis
-2196	ser\n
-2197	ângul
-2198	talvez 
-2199	mas de 
-2200	silenci
-2201	ava, 
-2202	deliber
-2203	gas
-2204	asse
-2205	ao fun
-2206	orig
-2207	íti
-2208	era um 
-2209	a. \n— 
-2210	ambo Zulu 
-2211	a. \nEdmilson 
-2212	em \n
-2213	ou-se
-2214	. \n* * * \n
-2215	assentiu
-2216	tua 
-2217	. — Pausa. — 
-2218	Lucas Not
-2219	Lucas Notóri
-2220	tribut
-2221	tributos: 
-2222	?\n\n[pergunta de investigação] 
-2223	à mesm
-2224	antes de eu 
-2225	o-me 
-2226	ava. 
-2227	o, e 
-2228	sempre a 
-2229	202
-2230	. Es
-2231	empur
-2232	parecer 
-2233	ção de 
-2234	bilidad
-2235	exc
-2236	am a 
-2237	é, 
-2238	inci
-2239	bom
-2240	ál
-2241	ática 
-2242	identi
-2243	forma de 
-2244	perig
-2245	a,\n
-2246	ele, 
-2247	oriz
-2248	lin
-2249	ar as 
-2250	do a 
-2251	verific
-2252	longe 
-2253	inut
-2254	Sim
-2255	ar.\nNão 
-2256	calma 
-2257	perguntas 
-2258	oceano 
-2259	o, o 
-2260	paus
-2261	ódi
-2262	, os 
-2263	erv
-2264	servi
-2265	sex
-2266	os.\n
-2267	movimento 
-2268	era\n
-2269	ador 
-2270	ao meu 
-2271	Sent
-2272	procur
-2273	ária 
-2274	respir
-2275	dez 
-2276	sta
-2277	responder 
-2278	finalment
-2279	calor 
-2280	alguma cois
-2281	aria 
-2282	onde o 
-2283	escol
-2284	no\n
-2285	gri
-2286	cho
-2287	o. A 
-2288	vent
-2289	sem\n
-2290	resul
-2291	cabeç
-2292	porque\n
-2293	disp
-2294	dispon
-2295	ren
-2296	al e 
-2297	posso 
-2298	uma pesso
-2299	cader
-2300	op
-2301	or do que 
-2302	rápi
-2303	o.\nA 
-2304	a Lar
-2305	rã
-2306	espelh
-2307	sti
-2308	a Bisa 
-2309	especi
-2310	pode 
-2311	vist
-2312	sess
-2313	Priv
-2314	antes do 
-2315	para as 
-2316	lad
-2317	enta e 
-2318	dele, 
-2319	ei que 
-2320	real 
-2321	genuí
-2322	tei 
-2323	aparecer 
-2324	que não era 
-2325	ou. 
-2326	— disse. — 
-2327	aju
-2328	até
-2329	fiz
-2330	. Que 
-2331	dor 
-2332	menos 
-2333	Quer
-2334	ar.\n\n
-2335	cigarr
-2336	Po
-2337	surpres
-2338	como
-2339	det
-2340	ar-se 
-2341	event
-2342	Fiquei 
-2343	volt
-2344	resposta
-2345	Marco 
-2346	ta — 
-2347	havia uma 
-2348	fim 
-2349	refl
-2350	cen
-2351	vei
-2352	que as 
-2353	anim
-2354	doze 
-2355	as duas 
-2356	contac
-2357	complex
-2358	sei se 
-2359	jul
-2360	julg
-2361	ouvir
-2362	guard
-2363	ção. 
-2364	-lh
-2365	jo
-2366	ener
-2367	gia 
-2368	gol
-2369	imó
-2370	observ
-2371	abraç
-2372	ponto 
-2373	grand
-2374	cobri
-2375	sobre
-2376	inguagem 
-2377	sus
-2378	éc
-2379	parede 
-2380	An
-2381	cruz
-2382	no ar 
-2383	lado, 
-2384	fras
-2385	de for
-2386	Manuel 
-2387	edade 
-2388	Rel
-2389	quarenta m
-2390	o que \n
-2391	tig
-2392	durante um 
-2393	a. \n \n
-2394	ou \n
-2395	ác
-2396	Domingos 
-2397	Só
-2398	Lucas Notório Ne
-2399	filtr
-2400	QU
-2401	M 
-2402	coisas que não 
-2403	esforç
-2404	mereci
-2405	das
-2406	rest
-2407	brilh
-2408	a.\nNão 
-2409	devia ter 
-2410	res 
-2411	cheir
-2412	co e 
-2413	mostr
-2414	ou no 
-2415	enquanto eu 
-2416	a olhar 
-2417	que n
-2418	o men
-2419	caus
-2420	silêncio que 
-2421	começou 
-2422	séri
-2423	boa 
-2424	eix
-2425	interessant
-2426	cionado 
-2427	real
-2428	Fábi
-2429	le
-2430	ores 
-2431	aprendeu 
-2432	fechad
-2433	que nunca 
-2434	evia 
-2435	amente, 
-2436	controle 
-2437	oci
-2438	na minha 
-2439	ógica 
-2440	o: 
-2441	textur
-2442	Mais 
-2443	a — não 
-2444	arem 
-2445	soci
-2446	esta m
-2447	ada de 
-2448	festa
-2449	fáci
-2450	certo 
-2451	tal
-2452	suficiente 
-2453	à noite 
-2454	tem uma 
-2455	quieta
-2456	coment
-2457	dec
-2458	gor
-2459	:\n
-2460	vê
-2461	avanç
-2462	alibr
-2463	o que é
-2464	há
-2465	a música 
-2466	Luand
-2467	os meus 
-2468	. Ela 
-2469	consequ
-2470	consequênci
-2471	a por 
-2472	às quatr
-2473	dores 
-2474	er o 
-2475	ia e 
-2476	às vez
-2477	-te 
-2478	a porque 
-2479	me. 
-2480	evi
-2481	hoje 
-2482	para não 
-2483	pobre
-2484	ar. A 
-2485	a mu
-2486	como\n
-2487	, com 
-2488	aqui 
-2489	nenhum dos 
-2490	na arei
-2491	estranh
-2492	ava que 
-2493	tudo o que 
-2494	visível 
-2495	dobr
-2496	pudesse 
-2497	er, 
-2498	cord
-2499	directament
-2500	pertenc
-2501	eleg
-2502	mar 
-2503	depen
-2504	braço 
-2505	ecrã
-2506	sabe que 
-2507	mundo 
-2508	fí
-2509	físi
-2510	dade\n
-2511	enso 
-2512	merec
-2513	traz
-2514	comida 
-2515	acidade 
-2516	hi
-2517	aliz
-2518	regular
-2519	clarez
-2520	Tenh
-2521	Mã
-2522	situação 
-2523	que não é 
-2524	tinha sido 
-2525	éci
-2526	tempo
-2527	senti 
-2528	envol
-2529	mais\n
-2530	volu
-2531	carreg
-2532	imples
-2533	mai
-2534	o nom
-2535	.\nSilênci
-2536	unic
-2537	Per
-2538	no quarto 
-2539	cor de 
-2540	dizer
-2541	sem ter 
-2542	Obrig
-2543	tu 
-2544	terap
-2545	compor
-2546	ões
-2547	ava-se 
-2548	naquela 
-2549	sistema 
-2550	companh
-2551	completamente. 
-2552	Vol
-2553	forma como 
-2554	E então 
-2555	reflex
-2556	os dois
-2557	trás
-2558	próprio 
-2559	ência 
-2560	simpl
-2561	am de 
-2562	acordad
-2563	gic
-2564	os. Não 
-2565	óci
-2566	do — 
-2567	tavam 
-2568	relatóri
-2569	Mendes 
-2570	prof
-2571	resta
-2572	restaur
-2573	a muito 
-2574	Então 
-2575	ar uma 
-2576	visí
-2577	voltou 
-2578	Para 
-2579	deu
-2580	o n
-2581	nia 
-2582	que é a 
-2583	qualquer coisa que 
-2584	jov
-2585	ada e 
-2586	silencios
-2587	táxi
-2588	Talvez 
-2589	elev
-2590	miú
-2591	na ru
-2592	do Adrian
-2593	ário 
-2594	peso 
-2595	grit
-2596	ficou em silênci
-2597	joelh
-2598	obr
-2599	Dj
-2600	Djong
-2601	anteri
-2602	KF
-2603	KFC
-2604	porto 
-2605	janel
-2606	olhou para a 
-2607	Primeir
-2608	Primeiro de 
-2609	Primeiro de Mai
-2610	tre
-2611	dos pais 
-2612	abriu 
-2613	boca 
-2614	.\n\nA 
-2615	a uma 
-2616	linha 
-2617	paredes 
-2618	os \n
-2619	: \n \n— 
-2620	do \n
-2621	ado. \n
-2622	Bí
-2623	que o pai 
-2624	. \n \nO pai 
-2625	era \n
-2626	oração 
-2627	ome 
-2628	mais nov
-2629	32
-2630	Lex
-2631	«Zulu
-2632	«Zulu»
-2633	Relação 
-2634	Relação entre 
-2635	exige 
-2636	Tens 
-2637	curv
-2638	foram 
-2639	a mal
-2640	g 
-2641	no que 
-2642	. Depois 
-2643	a cer
-2644	EN
-2645	peito 
-2646	don
-2647	gra
-2648	ado de 
-2649	ére
-2650	érebr
-2651	xim
-2652	com os olhos 
-2653	força 
-2654	gent
-2655	luz
-2656	mulheres 
-2657	autom
-2658	roup
-2659	além 
-2660	e: 
-2661	a ver
-2662	directamente 
-2663	entes 
-2664	minhas 
-2665	to o 
-2666	Ob
-2667	Observ
-2668	pessoas\n
-2669	a ser 
-2670	nos
-2671	colo
-2672	corri
-2673	avali
-2674	como quem 
-2675	teci
-2676	parece 
-2677	—\n— 
-2678	algures 
-2679	atrás 
-2680	perceber que 
-2681	profun
-2682	significa 
-2683	perguntava 
-2684	para mim
-2685	a minh
-2686	gente 
-2687	ção.\n
-2688	e — 
-2689	tatuagens 
-2690	quarto, 
-2691	escondi
-2692	dão 
-2693	a é 
-2694	também não 
-2695	conheço 
-2696	todo 
-2697	ori
-2698	perfei
-2699	plan
-2700	Na 
-2701	essem 
-2702	encostada 
-2703	sorri
-2704	dormir
-2705	dormir 
-2706	gar
-2707	e.\nO 
-2708	É o 
-2709	convi
-2710	soubesse 
-2711	responder
-2712	tudo que 
-2713	o em 
-2714	casa de 
-2715	as suas 
-2716	acen
-2717	parada 
-2718	Continu
-2719	praia 
-2720	chap
-2721	adult
-2722	medi
-2723	lent
-2724	a a
-2725	do Sigill
-2726	para um 
-2727	entrou 
-2728	ped
-2729	o à 
-2730	Ninguém 
-2731	categ
-2732	importa
-2733	sou o 
-2734	e,\n
-2735	str
-2736	cara 
-2737	adi
-2738	tação 
-2739	respostas 
-2740	dênci
-2741	a. N
-2742	ech
-2743	asseis 
-2744	som 
-2745	a que existe 
-2746	grupo 
-2747	conf
-2748	foi\n
-2749	unh
-2750	aram
-2751	própr
-2752	própria 
-2753	car 
-2754	percebeu 
-2755	ado em 
-2756	ater
-2757	quieta 
-2758	conteúdo 
-2759	conta 
-2760	Estás bem
-2761	de de 
-2762	um bo
-2763	São 
-2764	sobre o 
-2765	úti
-2766	entrar 
-2767	que estava 
-2768	da de 
-2769	verdade. 
-2770	tei
-2771	não tem 
-2772	priv
-2773	mand
-2774	queri
-2775	, que 
-2776	antig
-2777	Ric
-2778	a corr
-2779	vidas 
-2780	ão que 
-2781	respondi
-2782	-feir
-2783	Conh
-2784	graç
-2785	aceitar 
-2786	ber
-2787	espéci
-2788	o. Depois 
-2789	— disse eu
-2790	fazer o 
-2791	e ela 
-2792	nome que 
-2793	seri
-2794	paral
-2795	er. 
-2796	pôr 
-2797	uma das 
-2798	agrad
-2799	jog
-2800	iv
-2801	confor
-2802	da noite 
-2803	voz que 
-2804	dade, 
-2805	s e 
-2806	partilh
-2807	laranj
-2808	coinci
-2809	a, que 
-2810	detalh
-2811	a de forma 
-2812	diferentes 
-2813	ofer
-2814	emocion
-2815	propó
-2816	propósi
-2817	sabiam 
-2818	honesti
-2819	o que era 
-2820	a casa 
-2821	perí
-2822	a mar
-2823	expl
-2824	ógic
-2825	que
-2826	nenhum
-2827	porquê
-2828	no banco 
-2829	cos 
-2830	negóci
-2831	ou três 
-2832	o que ele 
-2833	ficar. 
-2834	complic
-2835	esperava 
-2836	Rangel 
-2837	nada. 
-2838	um homem 
-2839	person
-2840	cep
-2841	co. 
-2842	ada que 
-2843	na cama 
-2844	Tu 
-2845	energia 
-2846	proto
-2847	protocol
-2848	corredor
-2849	semana 
-2850	po de 
-2851	be
-2852	genu
-2853	genuin
-2854	comb
-2855	On
-2856	tens 
-2857	que ela 
-2858	sem que 
-2859	cí
-2860	círcul
-2861	grandes 
-2862	ficou em silêncio 
-2863	parte do 
-2864	adu
-2865	existir
-2866	específico de 
-2867	lgumas 
-2868	vista 
-2869	imediatamente 
-2870	isso é 
-2871	da. 
-2872	Angol
-2873	filhos 
-2874	através 
-2875	ef
-2876	metros 
-2877	a resposta 
-2878	linh
-2879	meses
-2880	a memória 
-2881	tes
-2882	Dois 
-2883	toda a 
-2884	pelos 
-2885	parou
-2886	cumpri
-2887	emóri
-2888	chá
-2889	veu 
-2890	sis
-2891	sistem
-2892	teu 
-2893	às cinco 
-2894	Par
-2895	etr
-2896	paí
-2897	Privat
-2898	colat
-2899	estavam 
-2900	parede
-2901	Nambo Zulu 
-2902	Range 
-2903	Range R
-2904	trein
-2905	da ru
-2906	parecia 
-2907	cheiro 
-2908	a. \n* * * \n
-2909	. \nA 
-2910	uma \n
-2911	Olhou para a 
-2912	. \nNão 
-2913	o. \n— 
-2914	não \n
-2915	no col
-2916	mais novos 
-2917	ais 7
-2918	o. \n \nEdmilson 
-2919	HC
-2920	HC4
-2921	HC44
-2922	HC4432
-2923	minutos. \n
-2924	normal 
-2925	ki
-2926	Amarildo 
-2927	Zuleika «Zulu»
-2928	Zuleika «Zulu» 
-2929	% 
-2930	consciênci
-2931	porque me 
-2932	pele 
-2933	agens
-2934	pier
-2935	piercin
-2936	eu. 
-2937	ritmo 
-2938	decisões 
-2939	. Sei 
-2940	nidade 
-2941	ambi
-2942	e de uma 
-2943	Zulu, 
-2944	a Bisa, 
-2945	para o tec
-2946	— ela 
-2947	vag
-2948	possi
-2949	ões. 
-2950	bria 
-2951	trabalhar 
-2952	empr
-2953	o. Havia 
-2954	Só 
-2955	aparece 
-2956	excessi
-2957	excessiv
-2958	poder 
-2959	em, 
-2960	espaço que 
-2961	aprendi 
-2962	as: 
-2963	port
-2964	impres
-2965	impression
-2966	si mesm
-2967	tod
-2968	moviment
-2969	quem\n
-2970	até ao 
-2971	consegue 
-2972	ol 
-2973	outro lado 
-2974	apartament
-2975	cint
-2976	onze 
-2977	o que acontec
-2978	Ilh
-2979	Gos
-2980	o que eu 
-2981	var
-2982	dentro do 
-2983	descer 
-2984	festas 
-2985	sens
-2986	os outros 
-2987	a mão, 
-2988	Fica 
-2989	sempre.\n
-2990	inten
-2991	o. Mas 
-2992	Tir
-2993	um segundo 
-2994	a olhar para 
-2995	curi
-2996	ada a 
-2997	a f
-2998	-me. 
-2999	bom 
-3000	mis
-3001	quant
-3002	respost
-3003	meio-
-3004	tativ
-3005	o antes de 
-3006	adormec
-3007	acordar 
-3008	sap
-3009	sapatos 
-3010	tem\n
-3011	flu
-3012	ar por 
-3013	de que 
-3014	táx
-3015	regres
-3016	esquin
-3017	átic
-3018	neste 
-3019	ar e 
-3020	s\n
-3021	dorm
-3022	chão. 
-3023	.\nV
-3024	Como se 
-3025	é o tipo de 
-3026	ado para 
-3027	de nós 
-3028	tive 
-3029	alguma coisa que 
-3030	apag
-3031	estou a 
-3032	barulho 
-3033	Quem 
-3034	aquela qualidade de 
-3035	senh
-3036	algo n
-3037	a mud
-3038	sinto 
-3039	ligeiramente 
-3040	primeira vez 
-3041	Caz
-3042	Cazeng
-3043	ado e 
-3044	. O Kau 
-3045	ava\n
-3046	café 
-3047	ama 
-3048	Fáti
-3049	o Sigillo 
-3050	voz
-3051	precisas de 
-3052	em Luanda 
-3053	versi
-3054	a pre
-3055	âmb
-3056	vant
-3057	aprender 
-3058	a de quem 
-3059	embora 
-3060	Esta 
-3061	ign
-3062	dias. 
-3063	alguém
-3064	de uma forma que 
-3065	a versão 
-3066	resolv
-3067	a men
-3068	a me
-3069	Se 
-3070	plataforma 
-3071	. Pr
-3072	no sentido de 
-3073	. Com 
-3074	diferença 
-3075	.\nO Kau 
-3076	o que fazer 
-3077	vista de 
-3078	alter
-3079	em algum 
-3080	mensagens 
-3081	sentido 
-3082	preç
-3083	simultane
-3084	dade. 
-3085	az de 
-3086	o padr
-3087	Jorge 
-3088	nove 
-3089	Bo
-3090	estar a 
-3091	apareceu 
-3092	arm
-3093	Ou
-3094	continuava a 
-3095	por\n
-3096	afec
-3097	sem re
-3098	disse que 
-3099	go
-3100	. Não com 
-3101	nele 
-3102	a numa 
-3103	que a Bisa 
-3104	constant
-3105	volunt
-3106	aper
-3107	implesmente 
-3108	corredor 
-3109	terceiro 
-3110	o mun
-3111	comunic
-3112	há uma 
-3113	um bocad
-3114	som
-3115	áb
-3116	palavra 
-3117	olha para 
-3118	Quero 
-3119	questi
-3120	question
-3121	— os 
-3122	cor 
-3123	Pos
-3124	Posso 
-3125	\numa 
-3126	viver 
-3127	Nov
-3128	tanto 
-3129	E eu 
-3130	o era 
-3131	comportament
-3132	sas 
-3133	discus
-3134	era mais 
-3135	\nquando 
-3136	Chegou 
-3137	continuou a 
-3138	Fui
-3139	ness
-3140	antes, 
-3141	quil
-3142	perío
-3143	riso 
-3144	última 
-3145	distrib
-3146	dí
-3147	ato 
-3148	difíci
-3149	Ant
-3150	a — um 
-3151	simples 
-3152	Olhei 
-3153	\nem 
-3154	Ficámos 
-3155	preench
-3156	nic
-3157	ao l
-3158	a única 
-3159	conscient
-3160	e.\nNão 
-3161	frent
-3162	construi
-3163	versões 
-3164	RA
-3165	Ricar
-3166	por razões 
-3167	iu
-3168	perigos
-3169	mag
-3170	o sol 
-3171	trás 
-3172	transi
-3173	Saí
-3174	aos cat
-3175	aos cator
-3176	. D
-3177	quando a 
-3178	esta manhã
-3179	padrões 
-3180	resolu
-3181	repeti
-3182	profis
-3183	profission
-3184	almo
-3185	dois anos 
-3186	ax
-3187	o é 
-3188	está bem
-3189	plataform
-3190	pol
-3191	esc
-3192	a Miri
-3193	não aten
-3194	os homens 
-3195	ta\n
-3196	hábito 
-3197	Estou a 
-3198	foi ao 
-3199	xe 
-3200	à mes
-3201	..
-3202	epis
-3203	episódi
-3204	genuinamente 
-3205	combin
-3206	eram
-3207	do que\n
-3208	. As 
-3209	chegar ao 
-3210	divis
-3211	féri
-3212	ada. 
-3213	Di
-3214	natur
-3215	jardim
-3216	distingu
-3217	espécie de 
-3218	bairr
-3219	ado — 
-3220	téc
-3221	princ
-3222	princí
-3223	princípi
-3224	narr
-3225	rap
-3226	necessári
-3227	melhor 
-3228	st
-3229	do lado 
-3230	nomear 
-3231	jec
-3232	apareciam 
-3233	havi
-3234	acum
-3235	acumul
-3236	sala 
-3237	Fili
-3238	Filip
-3239	eguei 
-3240	Abri
-3241	— tinha 
-3242	Era o 
-3243	agora 
-3244	ê 
-3245	segunda 
-3246	momento em que 
-3247	directa
-3248	outras 
-3249	acus
-3250	Estou
-3251	pelas 
-3252	. M
-3253	chá 
-3254	fora 
-3255	II
-3256	motiv
-3257	debaix
-3258	ela de 
-3259	edu
-3260	correc
-3261	to em 
-3262	ender
-3263	o tinha 
-3264	o filh
-3265	za 
-3266	chocolat
-3267	Vir
-3268	aste 
-3269	meses de 
-3270	invent
-3271	bolach
-3272	tinha vis
-3273	estivesse a 
-3274	inteir
-3275	Sand
-3276	ais que 
-3277	quarenta minut
-3278	a. \nNão 
-3279	ou os 
-3280	Saiu 
-3281	da \n
-3282	operacion
-3283	dezoito meses 
-3284	. \nO 
-3285	ava \n
-3286	conseguia 
-3287	sítios 
-3288	ulan
-3289	de \n
-3290	branco 
-3291	ar. \n \n— 
-3292	tor Celestin
-3293	dido 
-3294	Edmilson. — 
-3295	— \n— 
-3296	mais \n
-3297	carác
-3298	a mover
-3299	apenas
-3300	o pai
-3301	do. \n
-3302	anterna 
-3303	vari
-3304	trá
-3305	e. \n— 
-3306	assentiu. 
-3307	quintal
-3308	a, \n
-3309	Sónia 
-3310	kixi
-3311	kixik
-3312	kixikil
-3313	reuniões 
-3314	codin
-3315	a; 
-3316	Zuleika «Zulu» Mendes 
-3317	[memória 
-3318	[memória de 
-3319	[memória de orig
-3320	[memória de origem
-3321	[memória de origem] 
-3322	] Não 
-3323	Py
-3324	Eu não 
-3325	escon
-3326	amente\n
-3327	a. As 
-3328	a mesmo 
-3329	quero que 
-3330	cabel
-3331	piercing 
-3332	vinho 
-3333	ainda assim 
-3334	tez
-3335	vin
-3336	QUE 
-3337	ST
-3338	sempre o 
-3339	avis
-3340	já
-3341	como se fosse 
-3342	— o tipo que 
-3343	Hélder 
-3344	que conheç
-3345	ões, 
-3346	gesto 
-3347	possibilidad
-3348	sóbria 
-3349	érebro 
-3350	começa a 
-3351	e os 
-3352	alto 
-3353	Hélder
-3354	álco
-3355	Faço 
-3356	sem perceber 
-3357	quando\n
-3358	um, 
-3359	vão 
-3360	Beb
-3361	o me
-3362	primeiros 
-3363	trinta 
-3364	tal anos, 
-3365	do.\n— 
-3366	é a única 
-3367	nada que 
-3368	import
-3369	lguém 
-3370	cintur
-3371	ação.\n
-3372	lógica 
-3373	Passo 
-3374	dentro de 
-3375	com o\n
-3376	do que o 
-3377	conven
-3378	camis
-3379	desvi
-3380	a. Eu 
-3381	assim que 
-3382	corpos 
-3383	Tomás, 
-3384	não sei 
-3385	simplesment
-3386	to. O 
-3387	performanc
-3388	olo
-3389	assim, 
-3390	fácil 
-3391	essidade 
-3392	ava. Era 
-3393	coisa mais 
-3394	to\n
-3395	altur
-3396	pic
-3397	há um 
-3398	estão a 
-3399	esqueci
-3400	Luanda à noite 
-3401	em — 
-3402	copo 
-3403	ado que 
-3404	o e não 
-3405	o cam
-3406	o caminh
-3407	.\nSou 
-3408	a que\n
-3409	a sempr
-3410	rup
-3411	específico que 
-3412	têm quando 
-3413	em que eu 
-3414	performativ
-3415	firme
-3416	ada\n
-3417	aprende 
-3418	ajus
-3419	esta noite 
-3420	preciso de 
-3421	anda
-3422	O\n
-3423	empurr
-3424	com o sorris
-3425	reserv
-3426	guardar 
-3427	r de 
-3428	carre
-3429	carrego 
-3430	expec
-3431	expectativ
-3432	costu
-3433	está\n
-3434	junto à 
-3435	eiras 
-3436	tivessem 
-3437	es.\n
-3438	táxi 
-3439	o que faço 
-3440	e\nque 
-3441	nun
-3442	nunc
-3443	ench
-3444	voltar 
-3445	i-
-3446	Insta
-3447	Instagr
-3448	quis
-3449	à mesma 
-3450	durant
-3451	falar de 
-3452	normais 
-3453	estive 
-3454	transform
-3455	os.\nNão 
-3456	duch
-3457	faç
-3458	.\nMas 
-3459	facto de 
-3460	viu
-3461	ouço 
-3462	qualidade específica 
-3463	tam 
-3464	a pé 
-3465	de Luanda 
-3466	temper
-3467	na águ
-3468	nenhum dos dois 
-3469	os pés 
-3470	Kau, 
-3471	vejo 
-3472	ras
-3473	vou dar 
-3474	é uma 
-3475	que tem 
-3476	aços 
-3477	rug
-3478	inguém
-3479	zer
-3480	da tarde
-3481	produz
-3482	rosto, 
-3483	explicar 
-3484	a. O que 
-3485	a maioria 
-3486	das pessoas 
-3487	resultado 
-3488	meio 
-3489	universi
-3490	aprender
-3491	prendi
-3492	fazê-l
-3493	expan
-3494	et
-3495	porque a 
-3496	uma pessoa 
-3497	Fátima 
-3498	cadern
-3499	ou as 
-3500	u\n
-3501	preocup
-3502	. Não me 
-3503	Fech
-3504	resc
-3505	dezasseis 
-3506	o caf
-3507	é o que 
-3508	grande 
-3509	caix
-3510	.\nA Bisa 
-3511	com o telemóvel 
-3512	Oi
-3513	usão 
-3514	algo que não 
-3515	. Ou 
-3516	a. Ou 
-3517	convic
-3518	em frente 
-3519	no meu 
-3520	qualquer
-3521	esse
-3522	ovavelmente 
-3523	acredita 
-3524	ao mesmo tempo. 
-3525	famili
-3526	o, a 
-3527	Kau — 
-3528	tudo. 
-3529	e eu 
-3530	na prai
-3531	ficámos 
-3532	o mas 
-3533	calcular 
-3534	as. A 
-3535	crição 
-3536	co — 
-3537	era: 
-3538	troca 
-3539	hipó
-3540	é só 
-3541	simultaneamente 
-3542	do para 
-3543	istar 
-3544	os seus 
-3545	deles 
-3546	quando me 
-3547	alguém que não 
-3548	Tenho de 
-3549	iníci
-3550	depois do 
-3551	rei
-3552	gentil
-3553	deixei 
-3554	distin
-3555	ção que 
-3556	. O que 
-3557	pensar que 
-3558	disse: — 
-3559	quieto 
-3560	genuín
-3561	aquele\n
-3562	Não. 
-3563	Penso 
-3564	naquele moment
-3565	suficientemente para 
-3566	\nO 
-3567	a — disse 
-3568	discre
-3569	presença 
-3570	provavelmente não 
-3571	involunt
-3572	sozinha 
-3573	Há um 
-3574	fut
-3575	futeb
-3576	o mundo 
-3577	ou por 
-3578	ele\n
-3579	— dig
-3580	Sab
-3581	sáb
-3582	os.\n— 
-3583	caminh
-3584	na mão 
-3585	dois segund
-3586	dura 
-3587	conhece 
-3588	durante tempo suficiente para 
-3589	Estou bem
-3590	um dos 
-3591	tados 
-3592	ao\n
-3593	do sol 
-3594	coincidênci
-3595	superfíci
-3596	reconheciment
-3597	pouco 
-3598	conversas 
-3599	terapeu
-3600	estava\n
-3601	e.\nA 
-3602	a na 
-3603	custa 
-3604	discu
-3605	discuti
-3606	chamava-se 
-3607	pesco
-3608	uma forma de 
-3609	uma mulher 
-3610	da tarde 
-3611	direcção 
-3612	pôs 
-3613	ouve 
-3614	ficou parado 
-3615	honestidade 
-3616	dentro da 
-3617	com el
-3618	conhecia 
-3619	. Uma 
-3620	, de 
-3621	há muito 
-3622	há muito temp
-3623	nos momentos 
-3624	deslig
-3625	ou.\n
-3626	. O sol 
-3627	e, a 
-3628	que não tinha 
-3629	. Foi 
-3630	sonh
-3631	vai\n
-3632	que está a 
-3633	terr
-3634	o silêncio 
-3635	amente. 
-3636	ongo 
-3637	ce 
-3638	é o único 
-3639	mais hon
-3640	não o 
-3641	ritu
-3642	quart
-3643	palavra que 
-3644	sentir
-3645	ór
-3646	ação\n
-3647	Ricardo 
-3648	diferente, 
-3649	ou em 
-3650	querer 
-3651	Levantei
-3652	Ele não 
-3653	vári
-3654	lhes 
-3655	gl
-3656	fund
-3657	e que não 
-3658	de verdad
-3659	recuper
-3660	manhãs 
-3661	no sítio 
-3662	visi
-3663	nenhuma das 
-3664	ela é 
-3665	sexu
-3666	autodestr
-3667	ações que 
-3668	Fal
-3669	fraqu
-3670	fraquez
-3671	opos
-3672	cepto 
-3673	restaurante 
-3674	só a 
-3675	bli
-3676	água com 
-3677	difícil 
-3678	Começ
-3679	a, como 
-3680	.\n— A
-3681	o — diz 
-3682	repete 
-3683	específico de quem 
-3684	tomar 
-3685	diz que 
-3686	aprov
-3687	Eu sei 
-3688	vali
-3689	surpreen
-3690	fiquei 
-3691	ca que 
-3692	devagar. 
-3693	defin
-3694	ável 
-3695	anos de 
-3696	arrepen
-3697	pausa 
-3698	olhando 
-3699	anos e 
-3700	asse de 
-3701	édi
-3702	a. P
-3703	pior
-3704	tri
-3705	peri
-3706	ava e 
-3707	. Um 
-3708	descobri
-3709	marg
-3710	cuj
-3711	cresc
-3712	partici
-3713	modo 
-3714	ser di
-3715	a mo
-3716	revel
-3717	solu
-3718	dimens
-3719	que d
-3720	: o 
-3721	admiti
-3722	sabem que 
-3723	. Talvez 
-3724	estraté
-3725	a. Ele 
-3726	territ
-3727	territóri
-3728	er a 
-3729	azes 
-3730	contexto 
-3731	de forma que 
-3732	eia de 
-3733	primeira vez
-3734	exactamente o 
-3735	urgênci
-3736	imediat
-3737	nu
-3738	gener
-3739	evid
-3740	qualquer coisa n
-3741	que havia 
-3742	telef
-3743	telefon
-3744	mont
-3745	Depois
-3746	elevador
-3747	to — 
-3748	o\nde 
-3749	poder
-3750	a. Os 
-3751	o. Que 
-3752	se o 
-3753	punh
-3754	bater 
-3755	acto 
-3756	leg
-3757	estes 
-3758	insti
-3759	pode ser 
-3760	partido 
-3761	. Os 
-3762	rapariga 
-3763	das, 
-3764	a coisa mais 
-3765	a ainda 
-3766	ções 
-3767	emente 
-3768	deixa 
-3769	amor 
-3770	AP
-3771	insist
-3772	a de que 
-3773	se sent
-3774	joelhos 
-3775	chegado 
-3776	IM 
-3777	AR
-3778	sobre a 
-3779	só existe 
-3780	anterior
-3781	arquitectur
-3782	plano 
-3783	debaixo do 
-3784	aquilo que 
-3785	e. A
-3786	edifíci
-3787	imag
-3788	concentr
-3789	a calma 
-3790	osidade 
-3791	jardim 
-3792	a calcul
-3793	o menin
-3794	ôs 
-3795	seriedade 
-3796	ente
-3797	umin
-3798	avas 
-3799	banco
-3800	ame
-3801	pais
-3802	estás
-3803	a. V
-3804	visíveis 
-3805	ar para 
-3806	a, com 
-3807	a quando 
-3808	. Não era 
-3809	mo. 
-3810	devagar 
-3811	as, sem 
-3812	intern
-3813	cional
-3814	pá
-3815	como se estivesse a 
-3816	o cap
-3817	\n \n
-3818	betão 
-3819	Range Rover
-3820	permiti
-3821	vidr
-3822	. \nC
-3823	 dó
-3824	 dólar
-3825	— \n
-3826	preferia 
-3827	Esta
-3828	começou a 
-3829	cel
-3830	ou-o 
-3831	. A mãe 
-3832	o que ela 
-3833	descrever 
-3834	udo 
-3835	azul 
-3836	usava 
-3837	olhou para ele 
-3838	as paredes 
-3839	S 
-3840	dignidade 
-3841	a mover-se 
-3842	percep
-3843	o pai 
-3844	postur
-3845	viol
-3846	Bíbl
-3847	desapareci
-3848	ela, 
-3849	Ficaram 
-3850	comer
-3851	normal. \n
-3852	a paus
-3853	a pausa. — 
-3854	e. \n \n
-3855	fechou a 
-3856	escrever
-3857	soli
-3858	RA 
-3859	ava. \n
-3860	cais 7
-3861	tua irmã
-3862	Este 
-3863	número HC4432
-3864	da. \n
-3865	. \nHavia uma 
-3866	linguagem 
-3867	irmãos mais novos 
-3868	rog
-3869	saiu
-3870	a que ele 
-3871	olhou para el
-3872	tráfico 
-3873	víti
-3874	com a voz 
-3875	. \nA Lara 
-3876	codinome 
-3877	Lucas Notório Neto 
-3878	Ki
-3879	2 
-3880	(apenas
-3881	(apenas_
-3882	(apenas_exis
-3883	(apenas_existo
-3884	(apenas_existo)
-3885	Edmilson Nambo Zulu 
-3886	(h
-3887	(h99
-3888	(h99)
-3889	Zuleika «Zulu» Mendes e 
-3890	livros 
-3891	[limi
-3892	[limite
-3893	[limite] Não 
-3894	parâ
-3895	PU
-3896	."
-3897	."\n
-3898	."\n — 
-3899	."\n — Z
-3900	."\n — Z.
-3901	."\n — Z.M
-3902	A\n
-3903	paci
-3904	paciênci
-3905	podes 
-3906	signific
-3907	nas cos
-3908	tas que 
-3909	odei
-3910	acho que 
-3911	entre os 
-3912	outra vez
-3913	DE 
-3914	ER
-3915	chega 
-3916	antes da 
-3917	lugar onde 
-3918	novas 
-3919	foto
-3920	grafi
-3921	rig
-3922	no chão do 
-3923	conex
-3924	meu\n
-3925	o — o\n
-3926	cérebro 
-3927	mantenho 
-3928	distância 
-3929	apro
-3930	aproxim
-3931	ar-se
-3932	e o Kau 
-3933	assim — 
-3934	ava-
-3935	do Hélder
-3936	nada, 
-3937	Pens
-3938	sorri 
-3939	ação de quem 
-3940	falh
-3941	arras
-3942	angol
-3943	angolan
-3944	ats
-3945	janelas 
-3946	baí
-3947	ente que 
-3948	em-se 
-3949	fu
-3950	álcool
-3951	condicionado 
-3952	. Saí
-3953	prev
-3954	. H
-3955	trat
-3956	além de 
-3957	perguntar se 
-3958	tade 
-3959	mencion
-3960	contexto, 
-3961	está habitu
-3962	normalmente 
-3963	sorriso 
-3964	as minhas 
-3965	Devia 
-3966	do. — 
-3967	o de quem\n
-3968	negoci
-3969	Convers
-3970	vinte minutos 
-3971	acel
-3972	essa\n
-3973	decidiu 
-3974	Fábio 
-3975	comigo, 
-3976	imediatament
-3977	agora
-3978	a pergunta 
-3979	por um 
-3980	rum 
-3981	e.\n\nO 
-3982	há tempo suficiente para 
-3983	ada.\n
-3984	acordo 
-3985	erem 
-3986	social 
-3987	quê 
-3988	na mesm
-3989	a maior 
-3990	a nas 
-3991	. Quando 
-3992	aceita 
-3993	o na 
-3994	que não têm 
-3995	aceitava 
-3996	tos
-3997	alguma vez 
-3998	Kau. 
-3999	ectiv
-4000	bebeu 
-4001	na mão, 
-4002	em baix
-4003	aj
-4004	vira 
-4005	onho 
-4006	em cima 
-4007	bei
-4008	chegar a 
-4009	presente, 
-4010	As mãos 
-4011	antes de ser 
-4012	efici
-4013	aca 
-4014	sem ser 
-4015	missão 
-4016	Em
-4017	eu a 
-4018	desde que 
-4019	. Não é 
-4020	existe\n
-4021	há\n
-4022	parte de mim 
-4023	daquele 
-4024	o pes
-4025	sem nome 
-4026	— mas 
-4027	no escur
-4028	fazer barulh
-4029	sof
-4030	o.\nA Bisa 
-4031	a cabeça 
-4032	Está 
-4033	construção 
-4034	manhã — 
-4035	noc
-4036	noctur
-4037	carros 
-4038	Entr
-4039	a me 
-4040	fria e 
-4041	amanhã
-4042	as que não 
-4043	ão,\n
-4044	veza 
-4045	e uma 
-4046	horas
-4047	Instagram 
-4048	abertur
-4049	que\nnão é 
-4050	vezes
-4051	de, 
-4052	como se fos
-4053	ar. O 
-4054	fechados 
-4055	suav
-4056	ir, 
-4057	isso, 
-4058	tem aquela qualidade de 
-4059	esco
-4060	senhor 
-4061	ar. Não 
-4062	esta hora 
-4063	chapéu 
-4064	os. D
-4065	horiz
-4066	horizont
-4067	falei 
-4068	pouco
-4069	da cidade 
-4070	o, os 
-4071	onda recu
-4072	ou-me 
-4073	na minha vida 
-4074	num quintal 
-4075	ado\n
-4076	plás
-4077	plásti
-4078	cabelo 
-4079	eu nunca 
-4080	comigo 
-4081	noite, 
-4082	madrug
-4083	preferências 
-4084	tinha feito 
-4085	ela tem 
-4086	a de trabalh
-4087	resulta
-4088	dos
-4089	é simplesmente 
-4090	razão pela 
-4091	razão pela qual 
-4092	assin
-4093	isto: 
-4094	mês 
-4095	disponível 
+270	as
+271	ão
+272	 de
+273	 o
+274	re
+275	 co
+276	 qu
+277	or
+278	ent
+279	ma
+280	is
+281	 n
+282	ç
+283	in
+284	ar
+285	 que
+286	ad
+287	em
+288	 t
+289	al
+290	ic
+291	ia
+292	 m
+293	 f
+294	do
+295	\xe2 \x80
+296	en
+297	é
+298	 com
+299	ta
+300	ção
+301	 v
+302	 u
+303	\n 
+304	iv
+305	ro
+306	á
+307	to
+308	im
+309	id
+310	 se
+311	ess
+312	í
+313	ente
+314	el
+315	am
+316	on
+317	gu
+318	 es
+319	 do
+320	nc
+321	ei
+322	om
+323	 em
+324	ê
+325	ara
+326	se
+327	 re
+328	de
+329	 l
+330	  
+331	ri
+332	an
+333	 ou
+334	tu
+335	tiv
+336	ica
+337	 con
+338	 da
+339	 ma
+340	ir
+341	ó
+342	 é
+343	\x20 \xe2 \x80
+344	 su
+345	 ex
+346	 uma
+347	 não
+348	ci
+349	 in
+350	la
+351	õ
+352	te
+353	 um
+354	 E
+355	ado
+356	ões
+357	 por
+358	ade
+359	 para
+360	 as
+361	res
+362	ig
+363	 po
+364	 A
+365	le
+366	 pro
+367	\x20 \xc3
+368	 S
+369	il
+370	ec
+371	int
+372	ha
+373	 no
+374	da
+375	po
+376	 g
+377	 os
+378	so
+379	ento
+380	st
+381	 como
+382	era
+383	ncia
+384	iz
+385	ções
+386	”
+387	ou
+388	if
+389	ul
+390	esso
+391	un
+392	pre
+393	 des
+394	idade
+395	ol
+396	 P
+397	 O
+398	us
+399	mente
+400	ada
+401	pl
+402	pos
+403	ant
+404	 h
+405	 b
+406	 (
+407	 na
+408	\n \n
+409	ando
+410	 C
+411	va
+412	ência
+413	que
+414	 est
+415	 mais
+416	 ser
+417	 al
+418	it
+419	ru
+420	mo
+421	per
+422	 ver
+423	ed
+424	 per
+425	io
+426	co
+427	ico
+428	nte
+429	tra
+430	ais
+431	 pr
+432	 pre
+433	ens
+434	ho
+435	ver
+436	ação
+437	ve
+438	..
+439	oc
+440	 à
+441	 fa
+442	tivo
+443	pr
+444	    
+445	 for
+446	 pesso
+447	com
+448	 D
+449	ter
+450	pa
+451	 “
+452	 ao
+453	ido
+454	por
+455	ida
+456	um
+457	 N
+458	go
+459	ce
+460	 int
+461	du
+462	ist
+463	 nos
+464	 ent
+465	der
+466	 sem
+467	he
+468	sa
+469	 —
+470	con
+471	 dos
+472	 tra
+473	vel
+474	je
+475	ú
+476	ras
+477	 to
+478	 tem
+479	tos
+480	 me
+481	 M
+482	\n\n
+483	 ad
+484	 1
+485	ém
+486	ça
+487	 ac
+488	ados
+489	est
+490	OU
+491	ab
+492	ito
+493	 sub
+494	entos
+495	av
+496	ign
+497	 mes
+498	 pel
+499	 L
+500	 im
+501	 rela
+502	 sent
+503	ju
+504	 SOU
+505	ição
+506	ros
+507	 mu
+508	  \n
+509	 [
+510	 res
+511	mos
+512	“
+513	â
+514	 ter
+515	ez
+516	ria
+517	 -
+518	 par
+519	ob
+520	ex
+521	og
+522	 cont
+523	 pa
+524	dos
+525	ora
+526	].
+527	sta
+528	 Q
+529	amente
+530	emos
+531	 ind
+532	esse
+533	erap
+534	ns
+535	 T
+536	),
+537	inha
+538	me
+539	 dis
+540	tic
+541	nci
+542	 is
+543	 ob
+544	rio
+545	 pos
+546	ura
+547	 pode
+548	tiva
+549	no
+550	 mas
+551	 I
+552	 cl
+553	itu
+554	 sua
+555	EU
+556	 gra
+557	 ca
+558	 pessoa
+559	 mo
+560	 das
+561	 verb
+562	 segu
+563	ín
+564	eito
+565	 eu
+566	eira
+567	 ap
+568	–
+569	ô
+570	ior
+571	nto
+572	end
+573	uma
+574	ingu
+575	 forma
+576	 esta
+577	 cons
+578	 R
+579	 ora
+580	fer
+581	 vez
+582	sim
+583	 out
+584	imento
+585	at
+586	alav
+587	 j
+588	 an
+589	lo
+590	 en
+591	ignif
+592	 at
+593	entes
+594	 quando
+595	 –
+596	su
+597	ire
+598	 É
+599	 am
+600	anto
+601	ix
+602	 seu
+603	for
+604	tar
+605	).
+606	press
+607	 faz
+608	 são
+609	ag
+610	almente
+611	des
+612	tica
+613	tas
+614	mas
+615	na
+616	tam
+617	 cas
+618	cor
+619	 F
+620	 entre
+621	ês
+622	ber
+623	eu
+624	 qual
+625	...
+626	 ele
+627	 inter
+628	ass
+629	 está
+630	ser
+631	 comp
+632	min
+633	ndo
+634	 palav
+635	peri
+636	ici
+637	cion
+638	 mesmo
+639	 sob
+640	 esc
+641	eiro
+642	 ess
+643	adas
+644	 proc
+645	 algu
+646	ja
+647	endo
+648	   \n
+649	isa
+650	 el
+651	nom
+652	ima
+653	 diz
+654	 signif
+655	ntes
+656	gar
+657	ntiv
+658	 V
+659	ap
+660	 ra
+661	amos
+662	tura
+663	 man
+664	ga
+665	ós
+666	 cor
+667	ores
+668	 const
+669	 terap
+670	fin
+671	 ar
+672	nde
+673	 fal
+674	):
+675	 B
+676	UE
+677	pe
+678	ut
+679	rec
+680	 pró
+681	ível
+682	hec
+683	ades
+684	ª
+685	quer
+686	OR
+687	 sobre
+688	 2
+689	empl
+690	ca
+691	ço
+692	 experi
+693	gra
+694	pec
+695	ita
+696	lu
+697	posição
+698	 QUE
+699	 aqu
+700	lex
+701	amb
+702	 dif
+703	gua
+704	das
+705	stantiv
+706	ero
+707	para
+708	 conc
+709	 isso
+710	 af
+711	ord
+712	 ti
+713	AD
+714	 nom
+715	 era
+716	tivos
+717	 nas
+718	ev
+719	dem
+720	 relação
+721	        
+722	 outra
+723	 muito
+724	icação
+725	oi
+726	ur
+727	 J
+728	icas
+729	 express
+730	 Não
+731	 oração
+732	 ab
+733	inda
+734	tc
+735	igo
+736	 19
+737	—
+738	iver
+739	 cli
+740	ncias
+741	icado
+742	 pl
+743	pro
+744	”,
+745	 porque
+746	imentos
+747	ambém
+748	 pelo
+749	dade
+750	 val
+751	resent
+752	tamente
+753	rece
+754	ela
+755	icar
+756	 prim
+757	orn
+758	ele
+759	 verbo
+760	 voc
+761	inal
+762	 cer
+763	ário
+764	 id
+765	nos
+766	 substantiv
+767	 tempo
+768	 sab
+769	 obje
+770	 hom
+771	ram
+772	ôn
+773	idos
+774	ática
+775	iu
+776	rar
+777	 dire
+778	 experiência
+779	 vida
+780	ista
+781	idades
+782	di
+783	Qu
+784	vol
+785	 outros
+786	 exempl
+787	inh
+788	ância
+789	iam
+790	 fu
+791	cul
+792	íngua
+793	 poder
+794	icos
+795	 indiv
+796	 pela
+797	ont
+798	 enc
+799	 EU
+800	RI
+801	rig
+802	duz
+803	 seus
+804	 Qu
+805	 estu
+806	 difer
+807	lh
+808	 há
+809	ac
+810	iste
+811	 real
+812	amento
+813	íst
+814	cont
+815	 quer
+816	 H
+817	 ainda
+818	 só
+819	mar
+820	ias
+821	bal
+822	ências
+823	pois
+824	 pronom
+825	 fun
+826	 este
+827	tugu
+828	ase
+829	pon
+830	termin
+831	 un
+832	 etc
+833	gunt
+834	 sim
+835	ina
+836	ud
+837	 coisa
+838	 lu
+839	 palavras
+840	ídu
+841	ej
+842	tivas
+843	onal
+844	 bem
+845	ib
+846	esta
+847	rios
+848	não
+849	za
+850	 também
+851	 sempre
+852	enh
+853	nd
+854	 ci
+855	 ha
+856	ER
+857	 G
+858	 /
+859	 ela
+860	elh
+861	 cliente
+862	 prof
+863	eio
+864	lar
+865	ino
+866	 pres
+867	 si
+868	vo
+869	 poss
+870	imo
+871	 ps
+872	agem
+873	 U
+874	 vezes
+875	 processo
+876	 apre
+877	idas
+878	 mim
+879	ável
+880	via
+881	íf
+882	 tipo
+883	 já
+884	posta
+885	 men
+886	 pens
+887	 3
+888	EN
+889	rem
+890	ás
+891	cial
+892	ante
+893	 cada
+894	cl
+895	 foi
+896	 dizer
+897	 indivídu
+898	 CRI
+899	vé
+900	Com
+901	veis
+902	 or
+903	este
+904	 dois
+905	 constru
+906	ES
+907	 ú
+908	 gru
+909	 liv
+910	ing
+911	Não
+912	 às
+913	tamento
+914	Ç
+915	 isto
+916	ADOR
+917	 empre
+918	ios
+919	indo
+920	udo
+921	ís
+922	 outro
+923	 fazer
+924	serva
+925	 á
+926	 sint
+927	 CRIADOR
+928	emente
+929	ecess
+930	par
+931	aria
+932	 língua
+933	GO
+934	 du
+935	 adje
+936	 inv
+937	 assim
+938	tes
+939	 pessoas
+940	ch
+941	cer
+942	 Es
+943	 suas
+944	 ger
+945	ornar
+946	imos
+947	 che
+948	como
+949	 so
+950	OGO
+951	’
+952	 r
+953	té
+954	 comun
+955	 parte
+956	 conf
+957	til
+958	ite
+959	 próp
+960	 pass
+961	irma
+962	mais
+963	sem
+964	 tal
+965	 LOGO
+966	segu
+967	ti
+968	sos
+969	ên
+970	 maior
+971	 amor
+972	 terapia
+973	eita
+974	iar
+975	 cha
+976	 prec
+977	essa
+978	êm
+979	emento
+980	dar
+981	 consci
+982	 au
+983	 ant
+984	 sa
+985	cia
+986	 tinha
+987	 compre
+988	 determin
+989	 trans
+990	fa
+991	 Por
+992	 tr
+993	 er
+994	 lingu
+995	 homem
+996	 cria
+997	 modo
+998	undo
+999	cu
+1000	man
+1001	 nú
+1002	 essa
+1003	 minha
+1004	 qualquer
+1005	isas
+1006	jeito
+1007	 ir
+1008	inho
+1009	 maneira
+1010	ip
+1011	enas
+1012	 prin
+1013	bl
+1014	ples
+1015	ender
+1016	são
+1017	rb
+1018	 refer
+1019	 podem
+1020	 As
+1021	 apa
+1022	 Com
+1023	prim
+1024	 te
+1025	 sentimentos
+1026	 conhec
+1027	 significa
+1028	tou
+1029	iva
+1030	inte
+1031	 med
+1032	cip
+1033	 mom
+1034	enho
+1035	pel
+1036	 pas
+1037	Os
+1038	 car
+1039	cre
+1040	 muit
+1041	rias
+1042	 aos
+1043	itivo
+1044	 portugu
+1045	Es
+1046	 ocor
+1047	ural
+1048	”.
+1049	 preposição
+1050	comp
+1051	 trabal
+1052	 onde
+1053	 todos
+1054	ba
+1055	bo
+1056	nca
+1057	 palavra
+1058	 num
+1059	ór
+1060	sas
+1061	 necess
+1062	íp
+1063	íci
+1064	ador
+1065	rito
+1066	forma
+1067	tico
+1068	 dist
+1069	 vog
+1070	Õ
+1071	 exemplo
+1072	 De
+1073	enta
+1074	ial
+1075	gem
+1076	 grupo
+1077	 compor
+1078	ças
+1079	 valor
+1080	 consid
+1081	.,
+1082	 você
+1083	igu
+1084	usa
+1085	 fato
+1086	 antes
+1087	inu
+1088	ular
+1089	terap
+1090	emas
+1091	 nem
+1092	gr
+1093	ira
+1094	 esse
+1095	plica
+1096	 ev
+1097	ne
+1098	 quem
+1099	 substantivo
+1100	 esp
+1101	 Em
+1102	emb
+1103	ai
+1104	orma
+1105	ensão
+1106	 depois
+1107	 lev
+1108	 pou
+1109	É
+1110	unca
+1111	 disse
+1112	 impor
+1113	 disc
+1114	entar
+1115	stru
+1116	 dia
+1117	lhe
+1118	gora
+1119	 mesma
+1120	 sentido
+1121	ocu
+1122	estig
+1123	cas
+1124	entemente
+1125	 Se
+1126	As
+1127	posto
+1128	 caso
+1129	anh
+1130	 afirma
+1131	 pronome
+1132	ilo
+1133	junto
+1134	 nós
+1135	rou
+1136	 seja
+1137	 olh
+1138	 simples
+1139	 aju
+1140	 deve
+1141	 partic
+1142	nça
+1143	vez
+1144	ncion
+1145	bre
+1146	 indivíduo
+1147	ança
+1148	 encont
+1149	antes
+1150	 fora
+1151	ulo
+1152	ações
+1153	bserva
+1154	envol
+1155	 sujeito
+1156	TE
+1157	 coisas
+1158	 viv
+1159	eração
+1160	ilidade
+1161	 art
+1162	 +
+1163	ult
+1164	Em
+1165	 formas
+1166	ismo
+1167	 fil
+1168	tal
+1169	 tudo
+1170	gunta
+1171	 até
+1172	 toda
+1173	 apresent
+1174	éc
+1175	 cu
+1176	ion
+1177	mit
+1178	dif
+1179	ende
+1180	tor
+1181	 nossa
+1182	feito
+1183	conhec
+1184	 menos
+1185	óg
+1186	 ponto
+1187	 constitu
+1188	ença
+1189	sub
+1190	 chama
+1191	oso
+1192	Ã
+1193	 cri
+1194	 desco
+1195	 part
+1196	lt
+1197	fici
+1198	 duas
+1199	 plural
+1200	ÃO
+1201	 dev
+1202	mero
+1203	ál
+1204	\n\n\n
+1205	ge
+1206	iais
+1207	esa
+1208	gan
+1209	íla
+1210	 expressão
+1211	 le
+1212	ordin
+1213	paz
+1214	 ne
+1215	olog
+1216	quanto
+1217	 fra
+1218	 lhe
+1219	ânt
+1220	 estava
+1221	 dura
+1222	 pers
+1223	 investig
+1224	 pe
+1225	car
+1226	 nome
+1227	 Po
+1228	 rep
+1229	izar
+1230	cri
+1231	elhor
+1232	ítu
+1233	 No
+1234	cional
+1235	und
+1236	verb
+1237	 tão
+1238	 corre
+1239	 conte
+1240	tanto
+1241	 deix
+1242	bora
+1243	 lugar
+1244	stra
+1245	vérb
+1246	rei
+1247	 EM
+1248	 Mas
+1249	 apenas
+1250	ivo
+1251	 cam
+1252	 significado
+1253	 us
+1254	 princip
+1255	ização
+1256	OD
+1257	áb
+1258	MA
+1259	 orações
+1260	 momento
+1261	 mundo
+1262	cter
+1263	nica
+1264	 conver
+1265	 aqui
+1266	 todo
+1267	 come
+1268	ecer
+1269	fix
+1270	itar
+1271	ementos
+1272	 perce
+1273	rir
+1274	 auto
+1275	recer
+1276	isto
+1277	 meu
+1278	icativo
+1279	 três
+1280	urso
+1281	 outras
+1282	 exist
+1283	aracter
+1284	nas
+1285	euta
+1286	finitivo
+1287	 numa
+1288	zer
+1289	 del
+1290	tante
+1291	 ped
+1292	 sol
+1293	ória
+1294	 anos
+1295	rer
+1296	ied
+1297	bel
+1298	 pred
+1299	 vogal
+1300	qui
+1301	 op
+1302	 verdade
+1303	 comportamento
+1304	 português
+1305	 meio
+1306	 escol
+1307	ntro
+1308	pesso
+1309	Per
+1310	ítulo
+1311	her
+1312	 Os
+1313	cons
+1314	vimento
+1315	 desej
+1316	 verbos
+1317	ons
+1318	oz
+1319	rib
+1320	 grama
+1321	 \n \n
+1322	 fre
+1323	cil
+1324	 ass
+1325	 algo
+1326	 vol
+1327	pria
+1328	isão
+1329	 aut
+1330	asse
+1331	 sou
+1332	 funcion
+1333	 segundo
+1334	 geral
+1335	men
+1336	Se
+1337	 parece
+1338	 nosso
+1339	 comple
+1340	 então
+1341	dia
+1342	 mã
+1343	 últ
+1344	 norma
+1345	amentos
+1346	son
+1347	 pouco
+1348	 situ
+1349	 rec
+1350	aram
+1351	 195
+1352	 mor
+1353	No
+1354	mon
+1355	Res
+1356	vam
+1357	 estar
+1358	 consider
+1359	 todas
+1360	 mar
+1361	 ho
+1362	 relações
+1363	 sentir
+1364	 primeiro
+1365	Como
+1366	 aspec
+1367	terapia
+1368	mes
+1369	val
+1370	 ju
+1371	 nunca
+1372	 huma
+1373	 of
+1374	resc
+1375	 saber
+1376	 raz
+1377	 presente
+1378	iber
+1379	 número
+1380	tem
+1381	ística
+1382	vida
+1383	 expl
+1384	ingular
+1385	 casa
+1386	ocê
+1387	vi
+1388	pet
+1389	Tornar
+1390	 lado
+1391	har
+1392	reza
+1393	 Is
+1394	ária
+1395	 função
+1396	 quanto
+1397	 durante
+1398	 próprio
+1399	 melhor
+1400	tividade
+1401	 agora
+1402	ribu
+1403	 prov
+1404	çar
+1405	áveis
+1406	tical
+1407	 casos
+1408	enc
+1409	 objeto
+1410	 artigo
+1411	plemento
+1412	 conv
+1413	ula
+1414	AH
+1415	Por
+1416	 nomes
+1417	tro
+1418	fe
+1419	ivers
+1420	ticas
+1421	 alguns
+1422	 terapeuta
+1423	be
+1424	 cap
+1425	ano
+1426	istas
+1427	pres
+1428	 desenvol
+1429	dições
+1430	   
+1431	 contra
+1432	pend
+1433	tivamente
+1434	 aber
+1435	 caracter
+1436	Con
+1437	 cient
+1438	 adjetivo
+1439	AR
+1440	De
+1441	 sei
+1442	 dar
+1443	ental
+1444	 represent
+1445	 ed
+1446	ÇÃO
+1447	 advérb
+1448	vir
+1449	 diferentes
+1450	ião
+1451	 ag
+1452	 atitu
+1453	ical
+1454	 psico
+1455	 adverb
+1456	 voz
+1457	ena
+1458	tr
+1459	 têm
+1460	 Al
+1461	 apro
+1462	 consciência
+1463	stitu
+1464	º
+1465	mil
+1466	 4
+1467	ece
+1468	osa
+1469	bservação
+1470	 exprim
+1471	jo
+1472	ração
+1473	 mos
+1474	 inf
+1475	demos
+1476	RES
+1477	 estudo
+1478	cido
+1479	 dentro
+1480	eles
+1481	 passa
+1482	 escre
+1483	fia
+1484	 elementos
+1485	 verbal
+1486	oria
+1487	ários
+1488	 complex
+1489	 termos
+1490	 inde
+1491	ÇA
+1492	 muitas
+1493	ü
+1494	 termo
+1495	 nada
+1496	quando
+1497	 result
+1498	 ocorre
+1499	.:
+1500	ran
+1501	ind
+1502	ntos
+1503	 conta
+1504	 estru
+1505	íveis
+1506	 possível
+1507	 mé
+1508	 di
+1509	 manif
+1510	 desse
+1511	 hist
+1512	fei
+1513	IN
+1514	 vista
+1515	 vir
+1516	 emprego
+1517	mp
+1518	 inc
+1519	 lon
+1520	 quest
+1521	 grande
+1522	 linguagem
+1523	 ação
+1524	ers
+1525	eiros
+1526	erior
+1527	ologia
+1528	elo
+1529	 pessoal
+1530	 cent
+1531	 mud
+1532	 mente
+1533	ênero
+1534	(=
+1535	ala
+1536	 nenh
+1537	 espe
+1538	los
+1539	 resp
+1540	 fim
+1541	enção
+1542	 bo
+1543	ise
+1544	 singular
+1545	esses
+1546	 alun
+1547	OS
+1548	 contro
+1549	 estão
+1550	 afirmação
+1551	art
+1552	hos
+1553	 cond
+1554	 própria
+1555	 respon
+1556	odo
+1557	turo
+1558	intes
+1559	 vai
+1560	red
+1561	 nov
+1562	ual
+1563	 ri
+1564	au
+1565	inais
+1566	Resposta
+1567	 ch
+1568	és
+1569	íl
+1570	 gos
+1571	ições
+1572	 flex
+1573	loc
+1574	rela
+1575	tual
+1576	 ro
+1577	 som
+1578	enci
+1579	gos
+1580	 síla
+1581	 =
+1582	apud
+1583	 K
+1584	 essas
+1585	rada
+1586	usão
+1587	iza
+1588	 direto
+1589	.)
+1590	Pergunta
+1591	 ba
+1592	 defin
+1593	 aceita
+1594	 tanto
+1595	 imp
+1596	 der
+1597	 alt
+1598	 amb
+1599	 falar
+1600	 trabalho
+1601	 final
+1602	Po
+1603	 áto
+1604	dad
+1605	 ide
+1606	ático
+1607	 sé
+1608	todo
+1609	 infinitivo
+1610	ie
+1611	 Pa
+1612	Ex
+1613	ológ
+1614	 capaz
+1615	 investigação
+1616	 tor
+1617	igos
+1618	edia
+1619	 rece
+1620	 sentimento
+1621	respon
+1622	var
+1623	 espec
+1624	xima
+1625	inhas
+1626	 il
+1627	sent
+1628	tação
+1629	 cr
+1630	 exemplos
+1631	 subordin
+1632	 psicoterapia
+1633	 atra
+1634	tado
+1635	xe
+1636	 cul
+1637	RESEN
+1638	 gu
+1639	unci
+1640	 tex
+1641	óp
+1642	 alguém
+1643	postas
+1644	 pra
+1645	ípio
+1646	 psic
+1647	 livro
+1648	 ref
+1649	inação
+1650	inter
+1651	Esta
+1652	 reg
+1653	 cheg
+1654	 neste
+1655	 DE
+1656	 havia
+1657	abe
+1658	10
+1659	vem
+1660	 nível
+1661	qü
+1662	 fon
+1663	dmil
+1664	dmilson
+1665	 Como
+1666	gação
+1667	 5
+1668	Eu
+1669	 "
+1670	 escri
+1671	rasil
+1672	 vi
+1673	 primeira
+1674	 Esta
+1675	 enquanto
+1676	19
+1677	 gramatical
+1678	 existe
+1679	gru
+1680	 téc
+1681	 realmente
+1682	 relacion
+1683	 relativo
+1684	 cal
+1685	 mãe
+1686	mã
+1687	 fos
+1688	 util
+1689	 esses
+1690	 será
+1691	 pelos
+1692	 dec
+1693	 equ
+1694	elha
+1695	 Eu
+1696	ipó
+1697	 papel
+1698	istema
+1699	ua
+1700	 reconhec
+1701	 Deus
+1702	adr
+1703	 corpo
+1704	simo
+1705	 termin
+1706	 alguma
+1707	 mostra
+1708	 lig
+1709	essas
+1710	 consegu
+1711	 desta
+1712	 tenho
+1713	 fo
+1714	 sur
+1715	 temos
+1716	RESENÇA
+1717	                
+1718	à
+1719	 fam
+1720	companh
+1721	 base
+1722	 razão
+1723	 estrutura
+1724	icam
+1725	 ens
+1726	apa
+1727	ao
+1728	vés
+1729	 sufici
+1730	Ter
+1731	 Pro
+1732	Quando
+1733	 aprend
+1734	 organ
+1735	 algumas
+1736	 igu
+1737	 TOD
+1738	 gram
+1739	jun
+1740	iberdade
+1741	 vem
+1742	inc
+1743	 eles
+1744	 quais
+1745	ços
+1746	 resposta
+1747	izer
+1748	 pequ
+1749	lmente
+1750	 comunicação
+1751	údo
+1752	pac
+1753	 condições
+1754	irc
+1755	éx
+1756	 tôn
+1757	et
+1758	eiras
+1759	inguém
+1760	rado
+1761	icou
+1762	erações
+1763	ger
+1764	 conju
+1765	cle
+1766	ON
+1767	ticos
+1768	 complemento
+1769	MM
+1770	ava
+1771	 repet
+1772	ral
+1773	 pronomes
+1774	ech
+1775	 acont
+1776	 Est
+1777	lema
+1778	 comb
+1779	 lei
+1780	 Na
+1781	 tend
+1782	 científ
+1783	 gênero
+1784	 mal
+1785	OM
+1786	 pai
+1787	 hipó
+1788	fica
+1789	dis
+1790	 livre
+1791	 sil
+1792	 medo
+1793	 embora
+1794	 diferente
+1795	 prob
+1796	inar
+1797	icamente
+1798	 lim
+1799	 def
+1800	 elemento
+1801	onalidade
+1802	IA
+1803	árias
+1804	 descre
+1805	 inte
+1806	signif
+1807	 muitos
+1808	 acei
+1809	ID
+1810	 implica
+1811	ircun
+1812	 semânt
+1813	 continu
+1814	 trata
+1815	adores
+1816	leg
+1817	 ciência
+1818	 inici
+1819	 diver
+1820	...”
+1821	hom
+1822	 dito
+1823	teg
+1824	 bom
+1825	iso
+1826	 apl
+1827	 confor
+1828	 modif
+1829	Pre
+1830	nta
+1831	 certo
+1832	enso
+1833	 quase
+1834	iliar
+1835	izado
+1836	 instru
+1837	 pessoais
+1838	 estou
+1839	 medida
+1840	 seguinte
+1841	 seguintes
+1842	 pp
+1843	elho
+1844	nda
+1845	 mer
+1846	 Quando
+1847	enha
+1848	 toma
+1849	 descob
+1850	 parec
+1851	fon
+1852	 pergunt
+1853	rá
+1854	 seria
+1855	 compreensão
+1856	 trad
+1857	icion
+1858	 olhos
+1859	ínio
+1860	elas
+1861	blemas
+1862	xto
+1863	 In
+1864	Est
+1865	dam
+1866	mor
+1867	 indivíduos
+1868	.”
+1869	MB
+1870	 foram
+1871	ival
+1872	 hipótes
+1873	 situação
+1874	 hoje
+1875	 pu
+1876	 anterior
+1877	 uso
+1878	 dá
+1879	 realidade
+1880	 Assim
+1881	 dessa
+1882	EUS
+1883	gio
+1884	 ‘
+1885	 específ
+1886	 verdad
+1887	 and
+1888	 descri
+1889	 pes
+1890	tureza
+1891	 mant
+1892	 design
+1893	 ajuda
+1894	 nossos
+1895	ice
+1896	postos
+1897	ogers
+1898	ênc
+1899	 noite
+1900	 super
+1901	 tornar
+1902	 evid
+1903	 sat
+1904	TA
+1905	 Re
+1906	remos
+1907	apítulo
+1908	térito
+1909	zo
+1910	 mul
+1911	ít
+1912	 dele
+1913	 simplesmente
+1914	mu
+1915	 Você
+1916	IV
+1917	iante
+1918	 substantivos
+1919	 vis
+1920	 Para
+1921	af
+1922	 lat
+1923	encial
+1924	pressão
+1925	 pois
+1926	 exter
+1927	 rad
+1928	ício
+1929	 emo
+1930	 sens
+1931	íamos
+1932	 orig
+1933	 PRESENÇA
+1934	 homens
+1935	quele
+1936	 construção
+1937	atro
+1938	 satis
+1939	 talvez
+1940	 ext
+1941	mer
+1942	ân
+1943	fo
+1944	bra
+1945	 cant
+1946	EI
+1947	itos
+1948	estar
+1949	 sistema
+1950	 principal
+1951	fre
+1952	 procura
+1953	 meus
+1954	õe
+1955	 unidade
+1956	 estabel
+1957	 tais
+1958	 lex
+1959	 locu
+1960	 exer
+1961	 var
+1962	II
+1963	 expressões
+1964	 vocáb
+1965	sy
+1966	CA
+1967	EM
+1968	 Ele
+1969	gum
+1970	pode
+1971	entre
+1972	cleo
+1973	cho
+1974	 particular
+1975	/,
+1976	 ima
+1977	gular
+1978	 facil
+1979	 deste
+1980	ibilidade
+1981	pção
+1982	eno
+1983	 Con
+1984	icada
+1985	 posso
+1986	ema
+1987	estes
+1988	 prepos
+1989	 Lu
+1990	 completamente
+1991	 div
+1992	endido
+1993	 Isso
+1994	culo
+1995	 gen
+1996	 estas
+1997	 esper
+1998	álise
+1999	 concord
+2000	Br
+2001	êncio
+2002	gia
+2003	iss
+2004	14
+2005	 São
+2006	15
+2007	dio
+2008	ório
+2009	itiva
+2010	 dom
+2011	 6
+2012	ér
+2013	áticas
+2014	 referência
+2015	 sido
+2016	 fatos
+2017	 torna
+2018	 Ela
+2019	 passo
+2020	Para
+2021	ze
+2022	las
+2023	 demon
+2024	 conteúdo
+2025	jam
+2026	 mudança
+2027	 Un
+2028	 léx
+2029	 unidades
+2030	 acompanh
+2031	lí
+2032	 problemas
+2033	 resol
+2034	 7
+2035	tores
+2036	Al
+2037	 sente
+2038	 conhecimento
+2039	 IA
+2040	ixo
+2041	 permit
+2042	 aquela
+2043	gue
+2044	 problema
+2045	 compreender
+2046	12
+2047	cos
+2048	poss
+2049	 nesse
+2050	 circun
+2051	icional
+2052	 idé
+2053	 subje
+2054	);
+2055	 Rogers
+2056	 ru
+2057	hã
+2058	 perí
+2059	 fala
+2060	éci
+2061	 grau
+2062	orden
+2063	 adverbial
+2064	 terapê
+2065	iga
+2066	 natureza
+2067	 ama
+2068	LE
+2069	dor
+2070	 boa
+2071	ama
+2072	ide
+2073	 profess
+2074	Re
+2075	Capítulo
+2076	qual
+2077	perim
+2078	che
+2079	essão
+2080	 pensamento
+2081	log
+2082	‘
+2083	cant
+2084	 class
+2085	ído
+2086	 dor
+2087	 interior
+2088	 fosse
+2089	 revel
+2090	 ideia
+2091	 integra
+2092	 dú
+2093	 intro
+2094	herap
+2095	pont
+2096	ução
+2097	duc
+2098	 importante
+2099	hes
+2100	 núcleo
+2101	 autor
+2102	ui
+2103	 porém
+2104	\n \n \n
+2105	 advérbio
+2106	mpt
+2107	xo
+2108	 dest
+2109	 Per
+2110	bas
+2111	 respeito
+2112	TO
+2113	 especial
+2114	entu
+2115	liv
+2116	 reduz
+2117	mite
+2118	Pres
+2119	 preced
+2120	 aspectos
+2121	fixos
+2122	 fer
+2123	inham
+2124	les
+2125	inas
+2126	íssimo
+2127	 personalidade
+2128	perfeito
+2129	ím
+2130	 adjunto
+2131	 aparece
+2132	 pensar
+2133	 novo
+2134	 haver
+2135	Há
+2136	 aproxima
+2137	iente
+2138	 DO
+2139	nú
+2140	tras
+2141	 DEUS
+2142	 objetivo
+2143	 devemos
+2144	 podemos
+2145	ísticas
+2146	apied
+2147	 fica
+2148	 tom
+2149	 sendo
+2150	experi
+2151	RA
+2152	 comum
+2153	 próprios
+2154	 frequ
+2155	 profun
+2156	-,
+2157	CBr
+2158	 coloc
+2159	 tiv
+2160	cal
+2161	 Um
+2162	 cos
+2163	has
+2164	 imedia
+2165	13
+2166	 exig
+2167	ificação
+2168	 silêncio
+2169	 cresc
+2170	 mulher
+2171	ús
+2172	 form
+2173	 sabe
+2174	 texto
+2175	ída
+2176	cada
+2177	icidade
+2178	 inclu
+2179	 além
+2180	 mater
+2181	 nossas
+2182	taria
+2183	 observa
+2184	 manifesta
+2185	emin
+2186	 adjetivos
+2187	 pert
+2188	éu
+2189	cionais
+2190	 Uma
+2191	 confia
+2192	 envol
+2193	clara
+2194	pens
+2195	 futuro
+2196	 SER
+2197	 correspon
+2198	aneiro
+2199	ordo
+2200	 lemb
+2201	ADE
+2202	 mod
+2203	tudo
+2204	trans
+2205	 experiências
+2206	etc
+2207	fat
+2208	 progr
+2209	ístico
+2210	ireto
+2211	 sílaba
+2212	 apren
+2213	encia
+2214	 cre
+2215	 chegar
+2216	todos
+2217	Ent
+2218	 conversa
+2219	 controle
+2220	fazer
+2221	 empreg
+2222	 atitude
+2223	guas
+2224	ximo
+2225	and
+2226	 nova
+2227	 tar
+2228	Ele
+2229	 aceitação
+2230	aro
+2231	entais
+2232	 rig
+2233	nco
+2234	 moder
+2235	 espa
+2236	 categ
+2237	 lá
+2238	 conso
+2239	 separa
+2240	corre
+2241	 valores
+2242	 resultados
+2243	palav
+2244	emplo
+2245	 aspecto
+2246	ced
+2247	 conjun
+2248	 radical
+2249	 194
+2250	 entrev
+2251	\x20 \xc2
+2252	fal
+2253	 demais
+2254	 vê
+2255	 princ
+2256	vos
+2257	 aval
+2258	18
+2259	 disso
+2260	oração
+2261	bilidade
+2262	icados
+2263	 dirig
+2264	 nominal
+2265	col
+2266	Uma
+2267	 equival
+2268	 dias
+2269	 cin
+2270	into
+2271	 ins
+2272	rie
+2273	 ouv
+2274	mento
+2275	boa
+2276	 consciente
+2277	Pro
+2278	 flu
+2279	quilo
+2280	 encontra
+2281	 desejo
+2282	 portanto
+2283	âne
+2284	Um
+2285	EC
+2286	ps
+2287	 Janeiro
+2288	izagem
+2289	pas
+2290	ogo
+2291	 Que
+2292	ág
+2293	 demonstra
+2294	 atenção
+2295	 Bisa
+2296	 W
+2297	 composto
+2298	 ciências
+2299	 indicar
+2300	 clientes
+2301	MBa
+2302	 descober
+2303	oca
+2304	TU
+2305	 eram
+2306	 conse
+2307	itas
+2308	ital
+2309	 experim
+2310	az
+2311	velmente
+2312	To
+2313	 IN
+2314	 esfor
+2315	 alter
+2316	eta
+2317	ejo
+2318	 partir
+2319	 sinto
+2320	 período
+2321	 professor
+2322	ulos
+2323	eja
+2324	 dific
+2325	 Rio
+2326	 através
+2327	 nenhum
+2328	teza
+2329	Que
+2330	duzir
+2331	lig
+2332	ifica
+2333	fixo
+2334	 plano
+2335	elig
+2336	16
+2337	 luz
+2338	 Sim
+2339	 substitu
+2340	ves
+2341	eliz
+2342	 técnica
+2343	eis
+2344	SA
+2345	osé
+2346	essem
+2347	 certas
+2348	ília
+2349	 aquele
+2350	lho
+2351	17
+2352	 último
+2353	 anima
+2354	 prova
+2355	isso
+2356	ene
+2357	algu
+2358	 18
+2359	 questão
+2360	 9
+2361	 influ
+2362	pira
+2363	 afas
+2364	tância
+2365	 z
+2366	tural
+2367	mesmo
+2368	 tarde
+2369	quem
+2370	 prop
+2371	 coração
+2372	 jul
+2373	 necessidade
+2374	écie
+2375	 torn
+2376	 exc
+2377	esar
+2378	 igualmente
+2379	 bas
+2380	 nega
+2381	 direção
+2382	 |
+2383	 alunos
+2384	 diton
+2385	ork
+2386	erra
+2387	 ninguém
+2388	tros
+2389	 hipótese
+2390	 ficar
+2391	 poderia
+2392	 estado
+2393	bem
+2394	bil
+2395	 conex
+2396	LI
+2397	ENTE
+2398	 deriv
+2399	 construções
+2400	oão
+2401	 concordância
+2402	 entanto
+2403	 subordinada
+2404	substantiv
+2405	 prefer
+2406	 pergunta
+2407	 intens
+2408	Este
+2409	 preocu
+2410	 interess
+2411	 minhas
+2412	 estran
+2413	pat
+2414	 ordem
+2415	 grupos
+2416	 quad
+2417	 desenvolvimento
+2418	 gramática
+2419	DO
+2420	 bar
+2421	 usa
+2422	eral
+2423	compre
+2424	onde
+2425	fu
+2426	 consta
+2427	 confiança
+2428	 algum
+2429	 padr
+2430	 Ent
+2431	 pret
+2432	 '
+2433	 dessas
+2434	eitos
+2435	dução
+2436	 estes
+2437	 fundam
+2438	 acento
+2439	 predicativo
+2440	eses
+2441	 fech
+2442	nças
+2443	 estiv
+2444	 obser
+2445	 ajudar
+2446	Mas
+2447	ificar
+2448	 diante
+2449	ír
+2450	osos
+2451	 estuda
+2452	Na
+2453	dito
+2454	faz
+2455	 social
+2456	 ES
+2457	 análise
+2458	 contr
+2459	ndio
+2460	Su
+2461	 son
+2462	homem
+2463	 quatro
+2464	 dela
+2465	 distingu
+2466	 certos
+2467	 clara
+2468	essivo
+2469	 Ex
+2470	 domínio
+2471	ínguas
+2472	edro
+2473	 rigor
+2474	 atitudes
+2475	ED
+2476	Edmilson
+2477	 aquilo
+2478	 bra
+2479	 ún
+2480	 olhar
+2481	 aparecer
+2482	idamente
+2483	 causa
+2484	ntar
+2485	alvez
+2486	 cabe
+2487	 reun
+2488	usta
+2489	 movimento
+2490	NC
+2491	pacidade
+2492	 liberdade
+2493	 reflex
+2494	pass
+2495	 Poder
+2496	 indicativo
+2497	bservações
+2498	 vou
+2499	quela
+2500	 \n\n
+2501	 pelas
+2502	op
+2503	rases
+2504	 fiz
+2505	 acab
+2506	 certa
+2507	 assu
+2508	 qualidade
+2509	 conforme
+2510	órica
+2511	ence
+2512	 contexto
+2513	 momentos
+2514	iversidade
+2515	 8
+2516	 aprendizagem
+2517	 extra
+2518	 espaço
+2519	 lit
+2520	eiramente
+2521	 ident
+2522	 concl
+2523	 tomar
+2524	 Pr
+2525	 apresenta
+2526	 semelha
+2527	 determinado
+2528	pessoa
+2529	Assim
+2530	lor
+2531	 enunci
+2532	 classe
+2533	 estudos
+2534	cha
+2535	 desde
+2536	 suficiente
+2537	ará
+2538	 aceitar
+2539	 educ
+2540	eram
+2541	ôr
+2542	bar
+2543	eto
+2544	semos
+2545	 resultado
+2546	 AM
+2547	 femin
+2548	tôn
+2549	 subj
+2550	Í
+2551	 ouvir
+2552	 av
+2553	 segunda
+2554	sobre
+2555	 can
+2556	11
+2557	 deles
+2558	cam
+2559	 usar
+2560	ped
+2561	 individ
+2562	inos
+2563	 independ
+2564	 Isto
+2565	Cant
+2566	 vogais
+2567	sych
+2568	herapy
+2569	avam
+2570	 mil
+2571	ham
+2572	 ficou
+2573	irmar
+2574	 Lara
+2575	eix
+2576	formação
+2577	 acordo
+2578	iedade
+2579	nome
+2580	ntivo
+2581	nidade
+2582	orr
+2583	 ade
+2584	 ante
+2585	 discurso
+2586	 advérbios
+2587	 alteração
+2588	...)
+2589	Part
+2590	 elas
+2591	 acontec
+2592	are
+2593	 começa
+2594	 longo
+2595	 irmã
+2596	pra
+2597	consci
+2598	Is
+2599	 viver
+2600	 opin
+2601	ficaz
+2602	pectiva
+2603	eced
+2604	 proced
+2605	....
+2606	itor
+2607	ômen
+2608	 tipos
+2609	 compara
+2610	 sintática
+2611	 capítulo
+2612	 Era
+2613	 Tra
+2614	empre
+2615	contra
+2616	porque
+2617	 nenhuma
+2618	 impl
+2619	ulta
+2620	tamb
+2621	dap
+2622	issão
+2623	ontade
+2624	 AMOR
+2625	enão
+2626	ific
+2627	 falante
+2628	 §
+2629	 sabia
+2630	vis
+2631	próp
+2632	orda
+2633	 interpre
+2634	gal
+2635	 dever
+2636	também
+2637	âncias
+2638	 Lis
+2639	 leva
+2640	úbl
+2641	 circunst
+2642	ique
+2643	cesso
+2644	 ori
+2645	 compostos
+2646	Vend
+2647	úndio
+2648	LO
+2649	ana
+2650	 importa
+2651	 precis
+2652	 bus
+2653	ume
+2654	 argum
+2655	 acred
+2656	 tu
+2657	 deixar
+2658	 Há
+2659	 necessário
+2660	 nessa
+2661	Ou
+2662	itação
+2663	iqu
+2664	 ce
+2665	aber
+2666	izada
+2667	gir
+2668	 Kau
+2669	 Ser
+2670	real
+2671	 descrição
+2672	 ocorrer
+2673	logo
+2674	 TODO
+2675	bos
+2676	 campo
+2677	istra
+2678	 línguas
+2679	 má
+2680	 porta
+2681	 discus
+2682	 fez
+2683	solu
+2684	 sal
+2685	 escolha
+2686	 escrever
+2687	imas
+2688	anha
+2689	 presença
+2690	 Mo
+2691	 série
+2692	adora
+2693	 respostas
+2694	RO
+2695	 tendência
+2696	 somente
+2697	AÇÃO
+2698	 importância
+2699	 anal
+2700	 soc
+2701	entação
+2702	obje
+2703	juntivo
+2704	 aluno
+2705	ard
+2706	gas
+2707	enda
+2708	 força
+2709	 pais
+2710	 pausa
+2711	 passado
+2712	 Int
+2713	 adap
+2714	esp
+2715	 Ao
+2716	 contrário
+2717	 dúvida
+2718	 sin
+2719	 mascul
+2720	ífen
+2721	99
+2722	 possa
+2723	 partido
+2724	ía
+2725	 mesmos
+2726	 quant
+2727	 perman
+2728	essos
+2729	 interro
+2730	20
+2731	 espécie
+2732	 exce
+2733	 última
+2734	 cho
+2735	aval
+2736	 discíp
+2737	ner
+2738	 fazendo
+2739	enômen
+2740	determin
+2741	utica
+2742	 autora
+2743	 mens
+2744	bol
+2745	írito
+2746	 ign
+2747	Á
+2748	tada
+2749	 cru
+2750	 pud
+2751	 dim
+2752	versa
+2753	 posição
+2754	 II
+2755	 20
+2756	 criar
+2757	mara
+2758	 funciona
+2759	está
+2760	 atu
+2761	 Brasil
+2762	 franc
+2763	 profer
+2764	 tônica
+2765	 cur
+2766	inhos
+2767	 Ou
+2768	 estra
+2769	isse
+2770	 frase
+2771	entando
+2772	cr
+2773	orar
+2774	 quis
+2775	23
+2776	 tenta
+2777	 declara
+2778	 claro
+2779	erativo
+2780	 neg
+2781	 COR
+2782	 atividade
+2783	Exemplo
+2784	 mediante
+2785	izados
+2786	 introduz
+2787	 indireto
+2788	 pretérito
+2789	 passiva
+2790	 implicações
+2791	 conhe
+2792	turas
+2793	ramática
+2794	vendo
+2795	 caminho
+2796	 cama
+2797	 seres
+2798	 teoria
+2799	 profund
+2800	 possu
+2801	tempo
+2802	 vontade
+2803	 Car
+2804	 nele
+2805	idados
+2806	 crité
+2807	ADA
+2808	 Y
+2809	 ilu
+2810	língua
+2811	 inicial
+2812	ider
+2813	 deno
+2814	 cidade
+2815	 aprender
+2816	óvel
+2817	 pare
+2818	 tinham
+2819	lha
+2820	seu
+2821	 manhã
+2822	 sus
+2823	 tentar
+2824	 novas
+2825	 Lisboa
+2826	 costu
+2827	 adequ
+2828	erente
+2829	AN
+2830	esus
+2831	itivos
+2832	Ser
+2833	áticos
+2834	 vimos
+2835	 Portugu
+2836	 tradição
+2837	portugu
+2838	 átono
+2839	 vocábulo
+2840	 adverbiais
+2841	 Edmilson
+2842	 mão
+2843	 família
+2844	 levant
+2845	 ord
+2846	\x80 \x73
+2847	idez
+2848	çam
+2849	 Este
+2850	 várias
+2851	 aum
+2852	 Des
+2853	 humano
+2854	comun
+2855	fos
+2856	 normalmente
+2857	 capacidade
+2858	 próximo
+2859	ulação
+2860	 descobrir
+2861	 eficaz
+2862	lama
+2863	 produ
+2864	 seguir
+2865	 discípulo
+2866	 POD
+2867	 plen
+2868	 conceito
+2869	lingu
+2870	 características
+2871	 exprimir
+2872	 indefin
+2873	 requer
+2874	 fazem
+2875	 único
+2876	 devia
+2877	fra
+2878	perce
+2879	idão
+2880	edade
+2881	 normal
+2882	 perceb
+2883	Ela
+2884	 perf
+2885	 única
+2886	ton
+2887	26
+2888	 ó
+2889	 total
+2890	 Ad
+2891	 amar
+2892	 suger
+2893	AL
+2894	 atribu
+2895	".
+2896	ivas
+2897	tis
+2898	gam
+2899	 fenômen
+2900	 14
+2901	cond
+2902	anda
+2903	 ali
+2904	 Já
+2905	br
+2906	ód
+2907	ional
+2908	experiência
+2909	 Ver
+2910	 via
+2911	 quero
+2912	can
+2913	 pedir
+2914	 fru
+2915	 descrever
+2916	adamente
+2917	itado
+2918	anças
+2919	ins
+2920	 bre
+2921	gn
+2922	ine
+2923	 rev
+2924	 aleg
+2925	pla
+2926	Ao
+2927	Qual
+2928	ivos
+2929	 sílabas
+2930	ticais
+2931	 tratamento
+2932	gruência
+2933	 quadro
+2934	 verbais
+2935	icativa
+2936	 principais
+2937	 significação
+2938	 hífen
+2939	agens
+2940	 gente
+2941	avia
+2942	 dez
+2943	 be
+2944	esper
+2945	 ,
+2946	 familiar
+2947	 horas
+2948	 Essa
+2949	 água
+2950	eza
+2951	ariamente
+2952	fico
+2953	iro
+2954	 levar
+2955	 lhes
+2956	inta
+2957	 conjunto
+2958	clus
+2959	IDA
+2960	poder
+2961	 determinada
+2962	utor
+2963	 observação
+2964	NCIA
+2965	 objetiva
+2966	 permite
+2967	In
+2968	 aux
+2969	 sociais
+2970	estu
+2971	 desses
+2972	],
+2973	 evidente
+2974	ity
+2975	 estágio
+2976	 *
+2977	 feito
+2978	 ado
+2979	 cinco
+2980	 quar
+2981	 amigos
+2982	 varia
+2983	 terc
+2984	 exp
+2985	tando
+2986	 curso
+2987	 método
+2988	 pensamentos
+2989	estas
+2990	São
+2991	cio
+2992	muito
+2993	flex
+2994	nem
+2995	 senão
+2996	evemos
+2997	 crí
+2998	iano
+2999	ECs
+3000	 funções
+3001	.),
+3002	 locução
+3003	 possibilidade
+3004	Observação
+3005	 verso
+3006	 alterações
+3007	?”
+3008	 particípio
+3009	tri
+3010	 nesta
+3011	veu
+3012	 Talvez
+3013	ila
+3014	turb
+3015	modo
+3016	 prática
+3017	necess
+3018	 To
+3019	 manter
+3020	orias
+3021	aí
+3022	 evitar
+3023	grama
+3024	 material
+3025	compor
+3026	cima
+3027	 devem
+3028	 apresentam
+3029	 agente
+3030	gl
+3031	terior
+3032	ética
+3033	 Bar
+3034	ilística
+3035	 sign
+3036	refer
+3037	 coorden
+3038	 questões
+3039	fora
+3040	 ampl
+3041	iado
+3042	zinha
+3043	 liter
+3044	ouv
+3045	Des
+3046	RE
+3047	tório
+3048	 início
+3049	 ofer
+3050	 perfeito
+3051	omos
+3052	 sof
+3053	24
+3054	 parecem
+3055	 afirmações
+3056	 10
+3057	 Ch
+3058	 oposição
+3059	 flexion
+3060	juntos
+3061	 flexão
+3062	 desin
+3063	 mãos
+3064	 Su
+3065	 filho
+3066	 criança
+3067	 queria
+3068	inheiro
+3069	zinho
+3070	cialmente
+3071	 profiss
+3072	 chegou
+3073	met
+3074	rança
+3075	ibil
+3076	já
+3077	vado
+3078	icção
+3079	 interesse
+3080	vidas
+3081	ícios
+3082	AS
+3083	 ano
+3084	rep
+3085	 not
+3086	 pontos
+3087	     
+3088	fema
+3089	substantivo
+3090	 subjuntivo
+3091	 the
+3092	 paci
+3093	dura
+3094	ome
+3095	ói
+3096	 Algu
+3097	 vendido
+3098	 cantado
+3099	 imag
+3100	 chega
+3101	conhe
+3102	quência
+3103	 hab
+3104	pou
+3105	depois
+3106	áp
+3107	fun
+3108	 prepara
+3109	amor
+3110	dire
+3111	 criatividade
+3112	 Pode
+3113	umir
+3114	 subjetiva
+3115	 léxico
+3116	 desapa
+3117	 meses
+3118	 história
+3119	 aparec
+3120	 discussão
+3121	 lição
+3122	 princípio
+3123	 educação
+3124	dois
+3125	 jo
+3126	perf
+3127	istir
+3128	constru
+3129	 VIDA
+3130	 estamos
+3131	 formação
+3132	órico
+3133	estru
+3134	AC
+3135	ron
+3136	27
+3137	ônio
+3138	patia
+3139	 portuguesa
+3140	subordin
+3141	nominal
+3142	 regular
+3143	enhor
+3144	çado
+3145	fé
+3146	 aqueles
+3147	 sala
+3148	dades
+3149	irem
+3150	 diferença
+3151	 fís
+3152	 técn
+3153	 fis
+3154	 apo
+3155	 festa
+3156	cionar
+3157	apre
+3158	 produz
+3159	 sejam
+3160	lação
+3161	 individual
+3162	conc
+3163	 impressão
+3164	 refere
+3165	NI
+3166	 condição
+3167	obre
+3168	ól
+3169	 rom
+3170	 Cos
+3171	 significativa
+3172	tir
+3173	 linguística
+3174	 feminino
+3175	ogal
+3176	 acentu
+3177	       
+3178	 Psych
+3179	sua
+3180	 precisa
+3181	 minu
+3182	 esqu
+3183	 volta
+3184	 absolu
+3185	sido
+3186	 cum
+3187	 certeza
+3188	casa
+3189	 asso
+3190	 encontrar
+3191	órias
+3192	 hora
+3193	 fix
+3194	comple
+3195	 Par
+3196	 Foi
+3197	 perfei
+3198	vido
+3199	 cuja
+3200	regular
+3201	eias
+3202	 acha
+3203	 DA
+3204	 pedido
+3205	 científico
+3206	ntemente
+3207	enciar
+3208	 serão
+3209	 memb
+3210	 plenamente
+3211	 idéia
+3212	 X
+3213	itivas
+3214	presso
+3215	 constitui
+3216	 15
+3217	rema
+3218	 relacionamentos
+3219	tá
+3220	elem
+3221	iram
+3222	 lar
+3223	 destru
+3224	jar
+3225	rido
+3226	equ
+3227	 dado
+3228	queles
+3229	 centro
+3230	 sex
+3231	 psicológ
+3232	rações
+3233	inção
+3234	guar
+3235	 esforço
+3236	iões
+3237	pelo
+3238	 hi
+3239	 livros
+3240	ticamente
+3241	 perto
+3242	Tra
+3243	irm
+3244	 NO
+3245	idar
+3246	 permitir
+3247	 pol
+3248	 acima
+3249	 próprias
+3250	elec
+3251	 PODER
+3252	 contato
+3253	 reações
+3254	ht
+3255	 exprime
+3256	Também
+3257	 gerúndio
+3258	rás
+3259	 filhos
+3260	 emp
+3261	ndes
+3262	 passar
+3263	 cará
+3264	 espera
+3265	cola
+3266	eição
+3267	ergia
+3268	 pequeno
+3269	assim
+3270	lhes
+3271	 estilo
+3272	 feliz
+3273	 Gra
+3274	 comportam
+3275	âneo
+3276	 rap
+3277	 humana
+3278	emp
+3279	 CON
+3280	 Jesus
+3281	 AÇÃO
+3282	 expressa
+3283	 idéias
+3284	30
+3285	 seguida
+3286	pol
+3287	 estabelecer
+3288	 psicó
+3289	indiv
+3290	 Nova
+3291	ênt
+3292	incip
+3293	 masculino
+3294	 locuções
+3295	ecedente
+3296	 objetos
+3297	 York
+3298	utico
+3299	 centrada
+3300	 Luanda
+3301	 ress
+3302	 erro
+3303	fl
+3304	mb
+3305	vas
+3306	cum
+3307	 la
+3308	 go
+3309	tmo
+3310	 obra
+3311	 perturb
+3312	 organismo
+3313	 pág
+3314	 juí
+3315	Ê
+3316	 corrente
+3317	 perda
+3318	 combinação
+3319	 aspira
+3320	mé
+3321	SS
+3322	Já
+3323	trabal
+3324	 interna
+3325	 afe
+3326	 objetivos
+3327	 efe
+3328	uo
+3329	pers
+3330	 cultura
+3331	 gre
+3332	 preposições
+3333	 conjunção
+3334	dig
+3335	 José
+3336	 específico
+3337	 exa
+3338	 cab
+3339	 seis
+3340	 aí
+3341	 fé
+3342	 entrar
+3343	tur
+3344	 partes
+3345	entro
+3346	ingir
+3347	 preciso
+3348	conte
+3349	lareza
+3350	grafia
+3351	sol
+3352	 apresentar
+3353	 contín
+3354	 PER
+3355	palavras
+3356	 serem
+3357	 exterior
+3358	Pode
+3359	rea
+3360	Entre
+3361	 Portuguesa
+3362	 gramaticais
+3363	 semântica
+3364	 (=
+3365	ear
+3366	 descoberta
+3367	 conversas
+3368	 tro
+3369	tão
+3370	ona
+3371	 sair
+3372	erante
+3373	enos
+3374	 amiz
+3375	dou
+3376	confor
+3377	cord
+3378	 Mar
+3379	 cole
+3380	 avalia
+3381	ocar
+3382	22
+3383	icá
+3384	 agra
+3385	 depend
+3386	mitir
+3387	portu
+3388	gon
+3389	erais
+3390	 plan
+3391	 pont
+3392	Algu
+3393	 receber
+3394	vamos
+3395	lim
+3396	 opinião
+3397	 nar
+3398	ãos
+3399	 fav
+3400	 Amor
+3401	 CADA
+3402	armon
+3403	 atual
+3404	 origem
+3405	nar
+3406	med
+3407	 Nos
+3408	 comuns
+3409	 predicado
+3410	 latim
+3411	 17
+3412	 consoante
+3413	 et
+3414	relação
+3415	 compar
+3416	chot
+3417	UN
+3418	 natural
+3419	gado
+3420	próprio
+3421	 padrão
+3422	 decid
+3423	 apesar
+3424	 Pai
+3425	pessoal
+3426	 reais
+3427	 Pres
+3428	mi
+3429	dizer
+3430	 propor
+3431	Quem
+3432	 í
+3433	 deseja
+3434	 sinta
+3435	 considerar
+3436	 aprecia
+3437	adje
+3438	 ditongo
+3439	 vinte
+3440	çou
+3441	 fundo
+3442	mana
+3443	 cabeça
+3444	 ros
+3445	 situações
+3446	 instrumento
+3447	 profundamente
+3448	 pertenc
+3449	 reconhecer
+3450	 razões
+3451	 mon
+3452	 chamado
+3453	 fase
+3454	imidade
+3455	ecem
+3456	 públ
+3457	izam
+3458	 Ma
+3459	fund
+3460	rad
+3461	 ELE
+3462	 repetir
+3463	pé
+3464	ídos
+3465	 Res
+3466	 diversos
+3467	ísticos
+3468	 fonemas
+3469	rase
+3470	 vocábulos
+3471	xí
+3472	 terapêutica
+3473	 exac
+3474	IM
+3475	 ia
+3476	 mis
+3477	Depois
+3478	 importantes
+3479	 dinheiro
+3480	 melho
+3481	inado
+3482	 guar
+3483	 quarto
+3484	 uns
+3485	ites
+3486	ípios
+3487	 hos
+3488	oro
+3489	 distinguir
+3490	 consigo
+3491	 lóg
+3492	tados
+3493	parece
+3494	 aberto
+3495	 passagem
+3496	cado
+3497	 conce
+3498	fil
+3499	 complexo
+3500	ulas
+3501	mal
+3502	 indica
+3503	 freqü
+3504	 caráter
+3505	 vós
+3506	enham
+3507	 elim
+3508	 pot
+3509	 dados
+3510	 diversas
+3511	posições
+3512	eriu
+3513	 vari
+3514	pred
+3515	 13
+3516	 adjetiva
+3517	 noção
+3518	 conjugação
+3519	 possessivo
+3520	positor
+3521	Pret
+3522	Do
+3523	 telem
+3524	 crianças
+3525	difer
+3526	 ambos
+3527	 Só
+3528	 entra
+3529	 sust
+3530	inde
+3531	antas
+3532	 terr
+3533	lev
+3534	 verdadeiro
+3535	 muita
+3536	 energia
+3537	dist
+3538	 gl
+3539	 exam
+3540	ácil
+3541	possível
+3542	 pôr
+3543	 sele
+3544	 mora
+3545	 vários
+3546	 tenha
+3547	 neu
+3548	 particip
+3549	 exerc
+3550	pela
+3551	 idio
+3552	vio
+3553	pu
+3554	umo
+3555	úde
+3556	 serve
+3557	hado
+3558	menos
+3559	pare
+3560	 dificul
+3561	até
+3562	 respons
+3563	sentimentos
+3564	 profunda
+3565	 escrita
+3566	 direta
+3567	sint
+3568	 brasil
+3569	orre
+3570	 distint
+3571	síla
+3572	núncia
+3573	fase
+3574	 autores
+3575	xíto
+3576	 terminados
+3577	uação
+3578	 morfema
+3579	 temática
+3580	“...
+3581	ke
+3582	 compartil
+3583	 entrevistas
+3584	 vivência
+3585	 Seis
+3586	PÍ
+3587	 funci
+3588	perfei
+3589	hou
+3590	 viu
+3591	 ment
+3592	 frases
+3593	ósito
+3594	 novos
+3595	igas
+3596	 diminu
+3597	 just
+3598	 dep
+3599	 comigo
+3600	 informa
+3601	Ver
+3602	 longe
+3603	 imagem
+3604	 maioria
+3605	 clareza
+3606	 â
+3607	 fui
+3608	 satisf
+3609	 aprende
+3610	 preocup
+3611	 agu
+3612	ismos
+3613	 favor
+3614	pp
+3615	 vos
+3616	sal
+3617	 semelhante
+3618	ficos
+3619	 positiva
+3620	 imperfeito
+3621	 Cas
+3622	 semântico
+3623	ii
+3624	 Co
+3625	 inic
+3626	Tiv
+3627	 Parece
+3628	 gostaria
+3629	 bons
+3630	 funcional
+3631	 minutos
+3632	 bon
+3633	 traz
+3634	culos
+3635	 fei
+3636	enter
+3637	 ocu
+3638	 aus
+3639	 polí
+3640	 ilum
+3641	 Depois
+3642	 empres
+3643	prec
+3644	gula
+3645	 hon
+3646	 distinção
+3647	seus
+3648	esto
+3649	vação
+3650	mea
+3651	 esteja
+3652	nomes
+3653	 abre
+3654	ivamente
+3655	 complexa
+3656	significa
+3657	 acresc
+3658	 utiliz
+3659	 realização
+3660	 COM
+3661	 espírito
+3662	 escritores
+3663	 científica
+3664	ntônio
+3665	 principalmente
+3666	inações
+3667	 fenômeno
+3668	 16
+3669	 (...)
+3670	apiedado
+3671	 prompt
+3672	 investigações
+3673	 Z
+3674	 telemóvel
+3675	 trabalha
+3676	 tendo
+3677	 junto
+3678	 categoria
+3679	 impress
+3680	 perguntar
+3681	gre
+3682	 passou
+3683	 perguntas
+3684	cif
+3685	pri
+3686	ôs
+3687	 mesa
+3688	 suficientemente
+3689	cula
+3690	 Portu
+3691	ibilidades
+3692	21
+3693	 emocional
+3694	 tim
+3695	simples
+3696	jas
+3697	 vale
+3698	 apare
+3699	 virtu
+3700	 abertura
+3701	ven
+3702	estra
+3703	só
+3704	 amigo
+3705	ramos
+3706	tei
+3707	 Sem
+3708	 circunstâncias
+3709	Gra
+3710	 afirmar
+3711	IVIN
+3712	assem
+3713	iça
+3714	25
+3715	mentos
+3716	 assinal
+3717	 evol
+3718	 refle
+3719	 influência
+3720	 entender
+3721	 João
+3722	 Coseriu
+3723	 figu
+3724	davia
+3725	 temporal
+3726	 morf
+3727	complemento
+3728	cf
+3729	MC
+3730	 adjuntos
+3731	 precedido
+3732	uturo
+3733	 Meses
+3734	 Liberdade
+3735	sou
+3736	 direc
+3737	 erros
+3738	 sít
+3739	 frente
+3740	 aberta
+3741	 marca
+3742	qualquer
+3743	ár
+3744	 intelig
+3745	istência
+3746	 En
+3747	 funcionar
+3748	 conexões
+3749	apro
+3750	 existência
+3751	 irri
+3752	eios
+3753	 conhecimentos
+3754	cob
+3755	inv
+3756	UZ
+3757	 Paulo
+3758	icial
+3759	 \n\n \n
+3760	uais
+3761	PO
+3762	 obrig
+3763	EL
+3764	mico
+3765	 TODA
+3766	28
+3767	29
+3768	 após
+3769	 pesqu
+3770	português
+3771	ães
+3772	livro
+3773	 grá
+3774	 interpretação
+3775	 enunciado
+3776	taxe
+3777	ementar
+3778	ênfase
+3779	 auxiliar
+3780	 inver
+3781	 entrevista
+3782	ares
+3783	bro
+3784	 tre
+3785	 atrás
+3786	 sor
+3787	 mem
+3788	 perceber
+3789	 conscientemente
+3790	 triste
+3791	angue
+3792	 Estou
+3793	cede
+3794	 visto
+3795	 mensagem
+3796	 forte
+3797	cria
+3798	 ritmo
+3799	ERN
+3800	 conclusão
+3801	elos
+3802	urante
+3803	."
+3804	Isto
+3805	cura
+3806	Pr
+3807	 pros
+3808	icando
+3809	 somos
+3810	 costuma
+3811	 claramente
+3812	palavra
+3813	 DES
+3814	 RE
+3815	 superior
+3816	FEI
+3817	li
+3818	 ínt
+3819	 repetição
+3820	põe
+3821	 efeito
+3822	õem
+3823	enças
+3824	 conexão
+3825	 bastante
+3826	ato
+3827	 vír
+3828	João
+3829	ditora
+3830	 :
+3831	legas
+3832	plural
+3833	ormas
+3834	 equivalente
+3835	úst
+3836	eo
+3837	 sufixos
+3838	 antecedente
+3839	 perspectiva
+3840	 dificil
+3841	Pretérito
+3842	 forn
+3843	 terapêutico
+3844	 parecer
+3845	CAPÍ
+3846	CAPÍTU
+3847	CAPÍTULO
+3848	ang
+3849	tava
+3850	 naquele
+3851	 tivesse
+3852	inhar
+3853	 observ
+3854	 pudesse
+3855	 existir
+3856	 apont
+3857	 maté
+3858	 profundo
+3859	diz
+3860	estão
+3861	 Portugal
+3862	 genu
+3863	star
+3864	ciedade
+3865	 assunto
+3866	 habitu
+3867	ale
+3868	 distribu
+3869	ier
+3870	 conven
+3871	 engan
+3872	 visão
+3873	 tema
+3874	hamos
+3875	 compl
+3876	 vocês
+3877	segundo
+3878	ragem
+3879	guei
+3880	entei
+3881	 representa
+3882	 realizar
+3883	 expressar
+3884	 intelec
+3885	plo
+3886	33
+3887	verbo
+3888	 fundamental
+3889	reto
+3890	pular
+3891	ônimos
+3892	’,
+3893	 ocorrem
+3894	constitu
+3895	 sintag
+3896	 coment
+3897	 lexical
+3898	Você
+3899	 geralmente
+3900	 ênfase
+3901	rr
+3902	 versos
+3903	Téc
+3904	chotherapy
+3905	 Ro
+3906	 exactamente
+3907	 cres
+3908	gou
+3909	 on
+3910	riu
+3911	Era
+3912	 veio
+3913	 pobre
+3914	 específica
+3915	úsica
+3916	 responder
+3917	 deixa
+3918	 podia
+3919	 mau
+3920	ramente
+3921	 cujo
+3922	orm
+3923	 dizendo
+3924	 Cont
+3925	 Tenho
+3926	 provavelmente
+3927	 convicção
+3928	ENT
+3929	ouve
+3930	 fácil
+3931	tável
+3932	quad
+3933	nce
+3934	IS
+3935	 existem
+3936	ment
+3937	comportamento
+3938	 conec
+3939	 crescente
+3940	uel
+3941	seis
+3942	express
+3943	 PA
+3944	ferior
+3945	 DIVIN
+3946	 Div
+3947	vil
+3948	 PERFEI
+3949	 corresponde
+3950	 enfre
+3951	 métodos
+3952	há
+3953	 Também
+3954	 consideração
+3955	 Língua
+3956	fonia
+3957	 ensino
+3958	princip
+3959	tum
+3960	ipse
+3961	Pedro
+3962	uto
+3963	 pontuação
+3964	 determinante
+3965	clusão
+3966	JR
+3967	Ha
+3968	 satisfat
+3969	 percepção
+3970	The
+3971	ostaria
+3972	kin
+3973	..,
+3974	 saí
+3975	 sítio
+3976	 quie
+3977	zar
+3978	 Cons
+3979	 país
+3980	 fizer
+3981	En
+3982	 resolver
+3983	lado
+3984	44
+3985	 técnicas
+3986	sur
+3987	grá
+3988	 linha
+3989	 poderiam
+3990	mica
+3991	espe
+3992	 paral
+3993	elicidade
+3994	 modelo
+3995	conf
+3996	 digo
+3997	gen
+3998	jos
+3999	impor
+4000	 começar
+4001	 pon
+4002	 aplica
+4003	 completa
+4004	 Nas
+4005	 incon
+4006	 consiste
+4007	Devemos
+4008	 TU
+4009	 VER
+4010	    \n
+4011	 respec
+4012	36
+4013	 Univers
+4014	 ato
+4015	 elog
+4016	 tempos
+4017	 Dias
+4018	 conjunções
+4019	partic
+4020	 flexionado
+4021	 estud
+4022	 pronúncia
+4023	/:
+4024	 espont
+4025	pessoais
+4026	 imperativo
+4027	 Editora
+4028	 dc
+4029	icago
+4030	 segun
+4031	 calor
+4032	 jan
+4033	 Havia
+4034	corpo
+4035	 estivesse
+4036	cular
+4037	 cima
+4038	pessoas
+4039	of
+4040	 intensidade
+4041	elmente
+4042	 facilmente
+4043	 filha
+4044	expl
+4045	 entend
+4046	iológ
+4047	 aborda
+4048	cipl
+4049	 explica
+4050	íg
+4051	 amea
+4052	ciar
+4053	dec
+4054	 usado
+4055	 idioma
+4056	Ac
+4057	pede
+4058	istem
+4059	 jus
+4060	contro
+4061	formas
+4062	 liber
+4063	 rapidamente
+4064	 Or
+4065	outros
+4066	final
+4067	 bás
+4068	outro
+4069	 igual
+4070	 ensin
+4071	temos
+4072	 pura
+4073	 proje
+4074	 harmon
+4075	DADE
+4076	Mu
+4077	super
+4078	osofia
+4079	 progresso
+4080	RB
+4081	 representado
+4082	 francês
+4083	preposição
+4084	 entretanto
+4085	cund
+4086	 reduzidas
+4087	 hia
+4088	haver
+4089	 substantiva
+4090	 Dr
+4091	 desinência
+4092	cliente
+4093	 definido
+4094	 mór
+4095	indivídu

@@ -208,6 +208,49 @@ def test_vocab_consistente(tok: TokenizadorBPE) -> None:
         assert tok.vocab[novo_id] == tok.vocab[a] + tok.vocab[b]
 
 
+def test_pre_tokenizacao_e_injectiva() -> None:
+    """A propriedade que um bug real quebrou.
+
+    A regex de pré-tokenização tem de cumprir `"".join(findall(t)) == t` para
+    todo o `t`. Quando não cumpria, 23 underscores desapareciam em silêncio do
+    corpus do Bechara — o round-trip falhava, mas com uma diferença de 23
+    caracteres em 2,99 milhões, o que nenhum teste de amostra apanharia.
+
+    Este teste compara o comprimento e o conteúdo, e falha com a primeira
+    divergência localizada para diagnóstico.
+    """
+    from nucleo.tokenizador.bpe import _BLOCO
+
+    casos = [
+        "Estive três   \n ___________   \nem Fortaleza",
+        "a_b __init__ x_1", "日本語 🙂", "", "   ", "a\tb\nc",
+        "©®™ § ¶", "«aspas» — travessão…", "1.º 2.ª 3,14159",
+    ]
+    for c in casos:
+        reconstruido = "".join(_BLOCO.findall(c))
+        assert reconstruido == c, f"perda na pré-tokenização: {c!r} -> {reconstruido!r}"
+
+
+def test_pre_tokenizacao_no_corpus_completo() -> None:
+    """A mesma propriedade sobre o corpus inteiro, se os ficheiros existirem.
+
+    Salta se o corpus não estiver no disco (é gitignored): um teste que falha
+    por ausência de dados que não são versionados seria ruído, não sinal.
+    """
+    from pathlib import Path
+
+    from nucleo.tokenizador.bpe import _BLOCO
+
+    pasta = RAIZ / "dados"
+    if not pasta.exists():
+        pytest.skip("corpus não está no disco (dados/ é gitignored)")
+    for f in sorted(pasta.glob("*/*.txt")):
+        texto = f.read_text(encoding="utf-8", errors="replace")
+        assert "".join(_BLOCO.findall(texto)) == texto, (
+            f"perda de caracteres na pré-tokenização de {f.name}"
+        )
+
+
 def test_nao_importa_o_sistema_principal() -> None:
     """A área experimental tem de ser independente para a prova ser estrutural.
 

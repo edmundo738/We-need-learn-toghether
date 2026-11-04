@@ -1,0 +1,16 @@
+{
+  "versao": "v1",
+  "vocab": 8192,
+  "fusoes": 7936,
+  "corpus": "0.1",
+  "corpus_caracteres": 2990946,
+  "tokens_corpus": 841554,
+  "tok_por_palavra": 1.715,
+  "holdout_caracteres": 1826,
+  "tok_por_palavra_holdout": 1.991,
+  "cobertura_palavra_inteira_holdout": 0.4952,
+  "roundtrip_corpus_inteiro": "OK",
+  "roundtrip_holdout": "OK",
+  "contaminacao": "LIMPO (0 n-gramas de n=5,8,13,20)",
+  "nota": "Congelado apos benchmark 4096/8192/16384. Escolhido por ganhar em todas as dimensoes medidas."
+}

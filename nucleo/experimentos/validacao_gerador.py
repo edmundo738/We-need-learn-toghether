@@ -73,7 +73,7 @@ def perda_no_conjunto(gerador, texto: str, n_lotes: int = 40) -> tuple[float, in
     chamar `backward()` nem `opt.step()`. Uma validação que actualiza pesos
     não é validação.
     """
-    from kianda.nucleo.autograd import Tensor, entropia_cruzada, matmul
+    from nucleo.autograd import Tensor, entropia_cruzada, matmul
 
     cfg = gerador.cfg
     ids = gerador._codificar(texto)

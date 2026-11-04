@@ -7,7 +7,6 @@ venv/
 .env
 
 # Artefactos de treino e dados gerados localmente
-dados/
 artefactos/
 *.npz
 *.npy
@@ -23,3 +22,19 @@ Thumbs.db
 # Artefactos de teste
 .coverage
 .mutacao_activa.json
+
+# Corpus: só o que pode ser versionado entra. Ver dados/manifest.json.
+#
+# A regra anterior era `dados/`, que ignora o directório inteiro — e o git não
+# desce em directórios ignorados, por isso nenhuma negação (`!dados/...`)
+# funcionava. O manifesto e as obras nunca teriam chegado ao repositório,
+# exactamente o problema que o manifesto existe para resolver.
+#
+# Agora a exclusão é explícita por subdirectório. As obras do autor ficam
+# versionadas (este repositório é privado); os livros de terceiros ficam fora e
+# existem apenas no manifesto, com SHA-256 e origem.
+dados/outros/
+dados/*.db
+dados/*.db-wal
+dados/*.db-shm
+dados/estado.json

@@ -1,0 +1,35 @@
+# Texto de validação do tokenizador — NUNCA usado no treino das fusões
+#
+# Regra: este texto NÃO pode aparecer no corpus v0.1. Foi escrito à mão para
+# testar o que nenhum dos livros exercita — acentuação densa, nexos, números,
+# siglas, pontuação portuguesa, e vocabulário angolano que a ficção não usa.
+#
+# As linhas começadas por «#» são comentário e não entram nos testes.
+# `test_pre_tokenizacao_no_corpus_completo` verifica que o corpus não contamina
+# este ficheiro; se contaminar, a medição de generalização deixa de valer.
+
+A acção de uma nação não se mede pela exclamação, mas pela execução silenciosa.
+A corrupção instala-se onde a fiscalização é inexistente, e não onde os discursos são veementes.
+Ele pôs a mão na consciência e perguntou-se: «Será que vale a pena?»
+«Não sei», respondeu ela, «mas o coração diz que sim.»
+A Constituição da República de Angola foi aprovada em 2010.
+O H99 é um livro. A Z.M. assinou o prefácio.
+Três mil e quinhentos kwanzas, 42 por cento, 3.14159, 1.º lugar, 2.ª via.
+O kixi chegou ao musseque ao meio-dia, com capulana nova e sandálias de plástico.
+Os musseques da Cazenga, do Rangel e do Sambizanga têm nomes que são histórias.
+Ele disse que ia, mas não foi; ela ficou, e não disse nada.
+Os meninos jogavam à bola no quintal quando a chuva começou.
+A água da chuva entrou pela janela mal fechada e molhou os cadernos.
+— Ó pá, isto é muita areia para a minha camioneta. — É a vida, mano.
+Quem não arrisca não petisca, diz o povo, e o povo raramente se engana.
+A língua portuguesa tem vogais nasais: ã, õ, ẽ; e consoantes que mudam: c, ç, g, j, x.
+Açúcar, coração, órgão, óculos, úmido, úmida, mas também úteis e úteis.
+Ele perguntou-lhe se ela lhe tinha dado o livro dele.
+Os alunos cujas notas subiram foram premiados; os alunos cujas notas desceram, não.
+Antes de ontem, depois de amanhã, entre o agora e o nunca.
+A internet liga computadores, não pessoas; são as pessoas que se ligam umas às outras.
+O protocolo HTTP serve para transferir páginas e o HTTPS acrescenta cifra.
+Uma API é um contrato entre dois programas que não precisam de se conhecer.
+A memória episódica guarda eventos; a semântica guarda factos; a relacional guarda ligações.
+Lacunas para preencher: «Estive três ___ em Fortaleza»; «Ele ___ ontem mas não veio».
+Identificadores com underscore: a_b, __init__, x_1, meu_nome_completo, _privado.
