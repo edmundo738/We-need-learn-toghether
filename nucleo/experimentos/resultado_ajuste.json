@@ -1,0 +1,10 @@
+{
+  "pontos": 4,
+  "declive": -2.434,
+  "intercepto": 27.9565,
+  "r2": 0.9366,
+  "cruzamento_tokens": 97315.8,
+  "cruzamento_x_corpus": 1.475,
+  "residuo_maximo_nats": 0.892,
+  "classe": "HYPOTHESIS"
+}
