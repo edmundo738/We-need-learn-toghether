@@ -1,0 +1,96 @@
+{
+  "classe": "MEASURED",
+  "instrumento": "26 pares correcto/violado, 14 fenómenos, frases escritas por este projecto (estrutura derivada do Bechara, texto não copiado)",
+  "baseline_moeda": 0.5,
+  "transformer_prosa_800_passos": {
+    "n": 26,
+    "acertos": 12,
+    "taxa": 0.4615,
+    "perda_media_correcto": 7.874,
+    "perda_media_violado": 7.8869,
+    "margem_media": 0.0129,
+    "p_valor_vs_moeda": 1.0
+  },
+  "trigrama_mesmos_dados": {
+    "n": 26,
+    "acertos": 18.5,
+    "taxa": 0.7115,
+    "perda_media_correcto": 5.6555,
+    "perda_media_violado": 5.9635,
+    "margem_media": 0.3079,
+    "p_valor_vs_moeda": 0.0755
+  },
+  "por_fenomeno": {
+    "concordancia_verbal": {
+      "n": 3,
+      "acertos_transformer": 1,
+      "acertos_ngrama": 1
+    },
+    "concordancia_nominal": {
+      "n": 2,
+      "acertos_transformer": 1,
+      "acertos_ngrama": 2
+    },
+    "regencia_verbal": {
+      "n": 3,
+      "acertos_transformer": 1,
+      "acertos_ngrama": 2
+    },
+    "regencia_nominal": {
+      "n": 2,
+      "acertos_transformer": 1,
+      "acertos_ngrama": 1
+    },
+    "colocacao_pronominal": {
+      "n": 2,
+      "acertos_transformer": 0,
+      "acertos_ngrama": 2
+    },
+    "uso_de_porque_por_que_porquê": {
+      "n": 2,
+      "acertos_transformer": 1,
+      "acertos_ngrama": 1
+    },
+    "mais_mais_mas": {
+      "n": 1,
+      "acertos_transformer": 1,
+      "acertos_ngrama": 1
+    },
+    "ha_a": {
+      "n": 2,
+      "acertos_transformer": 2,
+      "acertos_ngrama": 1
+    },
+    "mim_eu": {
+      "n": 2,
+      "acertos_transformer": 1,
+      "acertos_ngrama": 2
+    },
+    "se_nao_concordancia": {
+      "n": 1,
+      "acertos_transformer": 0,
+      "acertos_ngrama": 0
+    },
+    "crase": {
+      "n": 2,
+      "acertos_transformer": 1,
+      "acertos_ngrama": 1
+    },
+    "que_quem": {
+      "n": 1,
+      "acertos_transformer": 1,
+      "acertos_ngrama": 1
+    },
+    "dupla_negacao": {
+      "n": 1,
+      "acertos_transformer": 1,
+      "acertos_ngrama": 1
+    },
+    "sujeito_inexistente_haver": {
+      "n": 2,
+      "acertos_transformer": 0,
+      "acertos_ngrama": 2
+    }
+  },
+  "leitura": "acerto acima de 0,5 com p<0,05 é julgamento de gramaticalidade. Entre o acaso e o insignificante, o modelo NÃO julga gramática — e nenhuma afirmação sobre «saber português» se sustenta."
+}

@@ -299,5 +299,19 @@
     "licenca": "DESCONHECIDA — declarada pelo utilizador como material de treino",
     "redistribuivel": false,
     "risco": "se for gerado por um modelo de terceiros, os termos de uso desse modelo podem restringir treino. Não foi possível verificar a ferramenta de origem."
+  },
+  "dialogos_v2": {
+    "caminho": "dados/dialogos/conversas_v2.md",
+    "sha256": "765644a97931bc69d634143bd692c4b2edfa1e584498532849e437c9fc05251b",
+    "conversas": 30,
+    "turnos": 460,
+    "turnos_utilizador": 230,
+    "turnos_ia": 230,
+    "palavras": 5377,
+    "finalidade": "conversation",
+    "proveniencia": "GERADO PELO UTILIZADOR no chat e entregue nesta sessão (não extraído dos PDFs)",
+    "licenca": "do autor do projecto",
+    "redistribuivel": false,
+    "nota": "Padrão utilizador/IA em formato de diálogo, com linguagem de Angola (KKKK, \"uma cena\", \"mano\")."
   }
 }

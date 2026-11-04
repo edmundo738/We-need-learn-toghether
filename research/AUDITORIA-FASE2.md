@@ -727,3 +727,113 @@ repositório.
 **3 de 9 finalidades com dados** (era 2). **Tokens únicos 78 125 = 80,3% do ponto de
 cruzamento** (era 67,8%) **e 3,40% do limite de utilidade.** Ainda abaixo do cruzamento, e a
 cobertura subiu sobretudo por um corpus de domínio diferente — não por mais prosa.
+
+---
+
+# ADENDA C — segundo corpus de diálogo, e a avaliação que estava errada três vezes
+
+O utilizador entregou mais 30 conversas (460 turnos, 230 de cada lado) no formato
+utilizador/IA. Junto com as 50 anteriores, o corpus de diálogo passou de 9 653 para
+~21 mil tokens. A pergunta natural era «duplicar resolve a memorização?».
+
+**A resposta exigiu primeiro corrigir o instrumento. E o instrumento estava errado.**
+
+## C1. Três métodos de avaliação, dois errados (MEASURED)
+
+**Método 1 — janelas cegas de 128.** Concatena tudo e corta. Simples, mas uma janela
+começa a meio de uma conversa, e o modelo nunca sabe que mudou de assunto. Foi com este
+que a Adenda B mediu 8,86 de validação.
+
+**Método 2 — uma janela por conversa, sobras preenchidas com o token 0, perda mascarada.**
+**ERRADO DUAS VEZES:**
+
+- o token 0 do vocabulário v1 é o byte `\x00` — um byte de controlo que o modelo **nunca
+  vê em treino**. Eu inventei um token de padding que não existe;
+- mais grave: **mascarar a perda não mascara a atenção.** Os `\x00` continuam no contexto
+  e corrompem as previsões das posições reais. Medido: perda de treino **0,0557** pela via
+  cega e **6,0247** pela via mascarada — 100× de diferença, e a segunda ainda contaminada.
+
+E ainda: a perda de treino era medida em corte cego com a de validação por conversa —
+**bases diferentes**, e a folga entre elas não significava nada.
+
+**Método 3 (usado) — janelas dentro de cada conversa, sem enchimento, cauda descartada.**
+Nenhuma janela atravessa uma fronteira, nenhuma posição é inventada. O descarte é
+reportado, não silencioso.
+
+## C2. O resultado honesto (MEASURED, `resultado_avaliacao_limpa.json`)
+
+Método 3, mesmas 800 passos, lote 4, lr 3e-3, semente 0, pré-treino em prosa:
+
+| condição | janelas | perda treino | perda validação | folga | vs acaso 9,011 |
+|---|---|---|---|---|---|
+| v1 (50 conv.) | 50 | 0,0301 | 9,1121 | 9,0820 | **acima** |
+| v2 (30 conv.) | 49 | 0,0177 | 8,4727 | 8,4550 | abaixo |
+| ambas (80 conv.) | 107 | 0,1026 | **8,2711** | 8,1685 | abaixo |
+
+**Três factos, e os três importam:**
+
+1. **Mais dados ajudam de facto.** A validação desce de 9,11 (v1) para 8,27 (ambas):
+   **0,74 nats abaixo do acaso** num vocabulário de 8 192. É melhor que não saber nada.
+2. **E é muito pouco.** A perda de treino é 0,10 e a de validação 8,27: folga de
+   **8,17 nats**. O modelo continua a decorar.
+3. **Duplicar os dados não resolve.** A folga caiu de 9,08 para 8,17 = **0,90×**.
+   O regime é de decoração; são precisas ordens de grandeza, não 2×.
+
+**Nota que corrige a Adenda B:** lá escrevi que o braço B estava «praticamente no acaso»
+com 8,8613. Com o método 3, o número comparável é **9,1121 — ACIMA do acaso**. A medição
+anterior estava a favorecer o modelo pela forma como cortava as janelas. O diagnóstico de
+memorização não muda; a leitura «está perto do acaso» era generosa.
+
+## C3. Dimensão 2 da avaliação — gramática. De zero para medida (MEASURED)
+
+`nucleo/avaliacao/gramatica/pares_v1.json`: **26 pares correcto/violado em 14 fenómenos**,
+frases escritas por este projecto. Do Bechara vem a noção de que fenómeno cada par viola;
+**nenhuma frase, definição ou exemplo do livro é reproduzido** (ver C4).
+
+| modelo | acertos | taxa | p vs moeda (0,5) |
+|---|---|---|---|
+| moeda ao ar | 13,0/26 | 0,500 | — |
+| **Transformer (prosa, 800 passos)** | 12,0/26 | **0,462** | 1,0000 |
+| **trigrama (mesmos dados)** | 18,5/26 | **0,712** | 0,0755 |
+
+**O Transformer fica ABAIXO da moeda ao ar.** Não distingue a frase correcta da violada.
+O trigrama, com os mesmos dados, acerta 71% — logo **os dados contêm o sinal gramatical e
+o Transformer não o extrai**.
+
+Onde falha por completo: **colocação pronominal 0/2** («Me deu o livro», «Não disse-me
+nada») e **haver impessoal 0/2** («Haviam muitas pessoas», «Houveram problemas»).
+São exactamente os contrastes que exigem comparação entre duas construções, e o modelo
+atribui probabilidade a cada frase isoladamente — não compara.
+
+**Ressalva estatística:** com 26 pares, p=0,0755 não é significativo a 5%. O trigrama é
+uma **tendência**, não um facto estabelecido; para detectar um efeito de 0,2 seriam precisos
+~100 pares. E o Transformer abaixo de 0,5 é indistinguível do acaso, não «pior que acaso».
+
+## C4. Bechara: o que se pode e não se pode fazer (DECISÃO DE LICENÇA)
+
+O `README`/`CATALOGO-OPEN-SOURCE.md` (linha 49) é explícito: **«Bechara, Rogers, Adoum,
+guias | © editoras | só manifesto, nunca em git»**. O PDF tem camada de texto utilizável
+(574 páginas, 1,4 M caracteres, autor Evanildo Bechara, 2014) — mas é obra protegida.
+
+**O que foi feito:** extraiu-se do PDF apenas a *estrutura* (que fenómenos existem e como se
+violam) e escreveram-se 26 pares de frases originais. Nenhum texto do livro entra no
+repositório, no corpus, no tokenizador ou nos pesos. O PDF continua só em `/tmp`, fora do git.
+
+**O que NÃO foi feito:** não foi usado como corpus de treino. Acrescentaria ~1,4 M de
+caracteres e faria muita falta (o corpus é de 244 mil), mas seriam dados de um autor
+protegido — e a directiva é «licença e proveniência por documento».
+
+**Consequência honesta:** a maior fonte de português disponível nos uploads está a ser
+desperdiçada por razões legais. É a limitação central do projecto e fica registada, não
+resolvida.
+
+## C5. Estado das dimensões de avaliação
+
+| estado | antes | agora |
+|---|---|---|
+| IMPLEMENTADO | 1 | **2** (língua/perplexidade **+ gramática**) |
+| PARCIAL | 1 | 1 (generalização, agora medida em diálogo) |
+| DESENHADO | 7 | **6** |
+
+Um bug de contagem foi corrigido no caminho: `resumo()` fazia `.split(" ")[0]` sobre estados
+compostos e contava mal. Dizia «1 implementada» por sorte do prefixo; são **2**.

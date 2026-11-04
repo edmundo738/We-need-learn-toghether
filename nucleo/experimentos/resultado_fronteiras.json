@@ -1,0 +1,24 @@
+{
+  "classe": "MEASURED",
+  "acaso_log_vocab": 9.0109,
+  "corte_cego": {
+    "treino": 0.0557,
+    "val": 9.4385,
+    "folga": 9.3829
+  },
+  "por_conversa_mascarado": {
+    "treino": 6.0247,
+    "val": 9.6318,
+    "folga": 3.6072
+  },
+  "efeito_de_mascarar_na_val": 0.1933,
+  "conversas_val_que_nao_terminam_em_janela_cheia": 6,
+  "conversas_val": 6,
+  "acima_do_acaso_cego": true,
+  "acima_do_acaso_mascarado": true,
+  "correcao_de_erro_anterior": "a versão anterior usava pad_id=0 (byte \\x00, nunca visto em treino) SEM máscara, e comparava treino em corte cego com validação por conversa. Valores obsoletos: val_por_conversa 11,0625. Não usar.",
+  "nota": "as duas condições usam AGORA a mesma base: máscara nas posições que não são texto real. A folga é comparável.",
+  "OBSOLETO": true,
+  "porque": "o método «por conversa+mask» usava pad_id=0 (byte \\x00, nunca visto em treino) e mascarava só a PERDA, não a ATENÇÃO: os tokens de enchimento contaminavam as previsões das posições reais. Além disso comparava treino em corte cego com validação por conversa — bases diferentes. Medido: treino 0,0557 (cego) vs 6,0247 (mascarado), 100x de diferença.",
+  "substituido_por": "resultado_avaliacao_limpa.json (janelas intra-conversa, sem enchimento)"
+}

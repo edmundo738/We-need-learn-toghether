@@ -1,0 +1,53 @@
+{
+  "classe": "MEASURED",
+  "protocolo": {
+    "passos": 800,
+    "lote": 4,
+    "lr": 0.003,
+    "ctx": 128,
+    "pre_treino_prosa": true,
+    "seeds": [
+      0
+    ],
+    "divisao": "por conversa inteira, semente 20261104"
+  },
+  "acaso": 9.0109,
+  "condicoes": [
+    {
+      "nome": "v1",
+      "conversas_treino": 40,
+      "conversas_val": 10,
+      "janelas_treino": 75,
+      "perda_treino": 0.051,
+      "perda_val": 8.8613,
+      "folga": 8.8103,
+      "segundos": 344.8,
+      "acima_do_acaso": false
+    },
+    {
+      "nome": "v2",
+      "conversas_treino": 24,
+      "conversas_val": 6,
+      "janelas_treino": 60,
+      "perda_treino": 0.0557,
+      "perda_val": 9.4385,
+      "folga": 9.3829,
+      "segundos": 336.2,
+      "acima_do_acaso": true
+    },
+    {
+      "nome": "ambas",
+      "conversas_treino": 68,
+      "conversas_val": 12,
+      "janelas_treino": 145,
+      "perda_treino": 0.1633,
+      "perda_val": 8.1781,
+      "folga": 8.0147,
+      "segundos": 340.1,
+      "acima_do_acaso": false
+    }
+  ],
+  "comentario": "folga = perda de validacao menos perda de treino. Encolher com mais dados apoia a hipotese de falta de dados.",
+  "reducao_da_folga_de_v1_para_ambas": 0.7956,
+  "razao_de_folga_ambas_sobre_v1": 0.9097
+}

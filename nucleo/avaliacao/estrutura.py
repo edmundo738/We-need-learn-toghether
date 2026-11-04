@@ -43,7 +43,9 @@ DIMENSOES = [
         "taxa de acerto em frases com uma violação plantada vs versão correcta",
         "moeda ao ar (50%)",
         "acima de 50% com intervalo de confiança que exclua 0,5",
-        "DESENHADO — exige pares de frases construídos à mão",
+        "IMPLEMENTADO e MEDIDO (era 0) — 26 pares em 14 fenómenos, "
+        "resultado_gramatical.json: Transformer 0,462 (p=1,00 vs moeda), "
+        "trigrama 0,712 (p=0,0755). O Transformer NÃO julga gramática.",
     ),
     Dimensao(
         "Conhecimento",
@@ -99,16 +101,32 @@ DIMENSOES = [
         "diferença de perda entre validação do mesmo autor e de autor novo",
         "a própria validação actual (mesmo autor)",
         "perda em autor novo não muito acima da do mesmo autor",
-        "PARCIAL — a validação actual é do mesmo autor, logo o baseline é o problema",
+        "PARCIAL — e MEDIDO em diálogo: avaliacao_limpa.py mostra que 50->80 "
+        "conversas melhora a validação de 9,11 para 8,27 (acaso 9,011) mas a "
+        "folga treino-val fica em 8,17 nats: decora, não generaliza",
     ),
 ]
 
 
 def resumo() -> dict:
-    conta: dict[str, int] = {}
+    """Conta por estado. O prefixo do estado tem de ser lido do texto real.
+
+    A primeira versão fazia `d.estado.split(" ")[0]`, o que dava
+    «IMPLEMENTADO» e «DESENHADO» — mas os estados com prefixo composto
+    («IMPLEMENTADO e MEDIDO...») eram contados como implementados por
+    acidente do prefixo, e «PARCIAL — e MEDIDO...» como parcial. O resultado
+    impresso («1 implementada») estava certo por sorte e errado na leitura:
+    eram 2 implementadas. Fica explícito.
+    """
+    conta = {"IMPLEMENTADO": 0, "PARCIAL": 0, "DESENHADO": 0}
     for d in DIMENSOES:
-        chave = d.estado.split(" ")[0]
-        conta[chave] = conta.get(chave, 0) + 1
+        e = d.estado.upper()
+        if e.startswith("IMPLEMENTADO"):
+            conta["IMPLEMENTADO"] += 1
+        elif e.startswith("PARCIAL"):
+            conta["PARCIAL"] += 1
+        else:
+            conta["DESENHADO"] += 1
     return conta
 
 
@@ -123,7 +141,9 @@ def main() -> None:
         print()
     print("resumo:", resumo())
     print()
-    print("LEITURA HONESTA: 1 dimensão implementada, 1 parcial, 7 desenhadas.")
+    r = resumo()
+    print(f"LEITURA HONESTA: {r['IMPLEMENTADO']} implementadas, {r['PARCIAL']} parciais, "
+          f"{r['DESENHADO']} desenhadas.")
     print("Uma dimensão desenhada e não executada NÃO é um resultado — é um plano.")
 
 

@@ -73,7 +73,7 @@
       "nome": "conversation",
       "descricao": "Padrões de diálogo",
       "fonte_actual": "dados/dialogos/conversas_v1.md: 50 conversas, 512 turnos, 2 900 palavras",
-      "tokens_existentes": 12126,
+      "tokens_existentes": 21875,
       "licenca": "obra do autor do projecto — uso privado; redistribuição NÃO autorizada",
       "redistribuivel": false,
       "onde_buscar": [
@@ -123,7 +123,7 @@
   ],
   "cobertas": 3,
   "total": 9,
-  "tokens_unicos": 78125,
-  "soma_ingenua_por_categoria": 144124,
+  "tokens_unicos": 87874,
+  "soma_ingenua_por_categoria": 153873,
   "nota": "pt_general e pt_africa partilham o mesmo texto; somar duplica"
 }

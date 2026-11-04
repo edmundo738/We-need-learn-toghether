@@ -1,0 +1,57 @@
+{
+  "classe": "MEASURED",
+  "metodo": "janelas intra-conversa, sem enchimento, sem atravessar fronteiras",
+  "acaso_log_vocab": 9.0109,
+  "condicoes": [
+    {
+      "nome": "v1",
+      "conversas_treino": 40,
+      "conversas_val": 10,
+      "janelas_treino": 50,
+      "janelas_val": 13,
+      "tokens_usados_treino": 6400,
+      "tokens_descartados_treino": 3214,
+      "tokens_usados_val": 1664,
+      "tokens_descartados_val": 672,
+      "perda_treino": 0.0301,
+      "perda_val": 9.1121,
+      "folga": 9.082,
+      "val_acima_do_acaso": true
+    },
+    {
+      "nome": "v2",
+      "conversas_treino": 24,
+      "conversas_val": 6,
+      "janelas_treino": 49,
+      "janelas_val": 10,
+      "tokens_usados_treino": 6272,
+      "tokens_descartados_treino": 1401,
+      "tokens_usados_val": 1280,
+      "tokens_descartados_val": 462,
+      "perda_treino": 0.0177,
+      "perda_val": 8.4727,
+      "folga": 8.455,
+      "val_acima_do_acaso": false
+    },
+    {
+      "nome": "ambas",
+      "conversas_treino": 68,
+      "conversas_val": 12,
+      "janelas_treino": 107,
+      "janelas_val": 15,
+      "tokens_usados_treino": 13696,
+      "tokens_descartados_treino": 4899,
+      "tokens_usados_val": 1920,
+      "tokens_descartados_val": 850,
+      "perda_treino": 0.1026,
+      "perda_val": 8.2711,
+      "folga": 8.1685,
+      "val_acima_do_acaso": false
+    }
+  ],
+  "folga_v1": 9.082,
+  "folga_ambas": 8.1685,
+  "razao_folga_ambas_sobre_v1": 0.899,
+  "todas_acima_do_acaso": false,
+  "substitui": "resultado_fronteiras.json (método 2, contaminado por padding não mascarado na atenção) e a parte de validação de resultado_escala_dialogo.json"
+}
