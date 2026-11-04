@@ -72,14 +72,16 @@
     {
       "nome": "conversation",
       "descricao": "Padrões de diálogo",
-      "fonte_actual": "nenhuma — as obras têm diálogo, mas não é diálogo com um interlocutor que responde",
-      "tokens_existentes": 0,
-      "licenca": "desconhecida",
+      "fonte_actual": "dados/dialogos/conversas_v1.md: 50 conversas, 512 turnos, 2 900 palavras",
+      "tokens_existentes": 12126,
+      "licenca": "obra do autor do projecto — uso privado; redistribuição NÃO autorizada",
       "redistribuivel": false,
       "onde_buscar": [
-        "conversas nossas, transcritas e anonimizadas"
+        "mais conversas do mesmo tipo",
+        "conversas reais, transcritas e anonimizadas",
+        "SFT: pares instrução/resposta derivados destas conversas"
       ],
-      "teste_de_avaliacao": "manter referência a turnos anteriores; pedir esclarecimento"
+      "teste_de_avaliacao": "manter referência a turnos anteriores; pedir esclarecimento. MEDIDO: 9 653 tokens contra 1,7 M parâmetros -> o modelo decora (folga treino-vs-validação 8,81 nats, 94% não explicada por nomes). Ver resultado_adaptacao.json e resultado_memorizacao_dialogo.json"
     },
     {
       "nome": "instructions",
@@ -119,9 +121,9 @@
       "teste_de_avaliacao": "consistência das respostas sobre o que o sistema é e não é"
     }
   ],
-  "cobertas": 2,
+  "cobertas": 3,
   "total": 9,
-  "tokens_unicos": 65999,
-  "soma_ingenua_por_categoria": 131998,
+  "tokens_unicos": 78125,
+  "soma_ingenua_por_categoria": 144124,
   "nota": "pt_general e pt_africa partilham o mesmo texto; somar duplica"
 }

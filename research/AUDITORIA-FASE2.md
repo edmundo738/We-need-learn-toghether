@@ -624,3 +624,106 @@ Nenhuma delas pode sequer começar sem dados que não existem (ver A4).
   default continua `True`. Não foi alterado nesta ronda porque a escolha depende de a
   Etapa 2 querer 1 M de parâmetros a menos a troco de 0,34 nats — é decisão de projecto,
   não de código, e fica registada como tal.
+
+---
+
+# ADENDA B — dados de diálogo: o que se aprendeu e o que não
+
+O utilizador entregou `conversas_simuladas_treino_IA.md` (50 conversas, 512 turnos,
+2 900 palavras). É o **primeiro dado** da finalidade `conversation`, que a Adenda A4 tinha
+medido a **zero**. Tudo o que segue está em `resultado_adaptacao.json`,
+`resultado_memorizacao_dialogo.json` e `resultado_dialogo_amostras.json`.
+
+## B1. Proveniência verificada antes de ingerir (MEASURED)
+
+O ficheiro não declara autor. Nos uploads há PDFs de terceiros (Natasha Lunn, Leil Lowndes,
+Carl Rogers), e ingerir derivado disso seria violar a regra de licença. Verificação por sha
+de 8-gramas de palavras contra o texto extraído de cada PDF:
+
+**0 de 5 458 8-gramas coincidem em todos os PDFs testados.** O ficheiro não deriva deles.
+Estrutura: 79 falantes distintos em 50 conversas (Cabrera: `Conversas Sobre o Amor` tem
+personagens fixas — não é a mesma obra), 0 turnos repetidos, 0,1% de 5-gramas repetidos.
+
+**Limite declarado:** a licença é **desconhecida** e, se o ficheiro foi gerado por um modelo
+de terceiros, os termos desse modelo podem restringir treino. Não foi possível verificar a
+ferramenta de origem. Fica registado como risco, não resolvido.
+
+## B2. Contagem: 9 653 tokens, não os 2 900 «esperados» (MEASURED)
+
+O texto tem 2 900 palavras mas **12 126 tokens** no vocabulário v1 — o BPE foi treinado em
+prosa e comprime mal a marcação `**Nome:**` e a pontuação de diálogo. Dos 12 126, só 9 653
+cabem em janelas completas de 128 no treino (75 janelas) e 2 345 na validação (18 janelas).
+
+Isto é o ponto 1 do `DEZ-PONTOS.md` a repetir-se: **1,7 M parâmetros contra 9 653 tokens =
+1 900 tokens/parâmetro no papel, e 0,006 tokens/parâmetro efectivos quando se compara com o
+número de parâmetros a aprender.** Não há dados para afinar 1,7 M de pesos.
+
+## B3. A comparação que importa (MEASURED)
+
+Divisão **por conversa inteira** (40 treino / 10 validação, semente 20261104), nunca por
+janelas — senão turnos da mesma conversa caem nos dois lados.
+
+| braço | início | fim (validação) |
+|---|---|---|
+| A — pesos aleatórios → diálogo | 10,1973 | 9,2549 |
+| B — prosa (800 passos) → diálogo (800 passos) | 9,7561 | **8,8613** |
+
+`log(8192) = 9,011`, o valor de um modelo uniforme. **Em conversas que nunca viu, o modelo
+treinado está a 8,86 — praticamente o acaso.** A prosa ajudou (9,76 → 8,86 começa abaixo dos
+10,20 do braço A), mas o resultado final é ~1,6% melhor que não saber nada.
+
+## B4. O achado que impede a leitura errada (MEASURED)
+
+O braço B tem perda **0,0510** nas conversas de **treino** e **8,8613** nas de validação.
+**Folga de 8,81 nats.** Com 9 653 tokens e 800 passos, o modelo **decorou** as 75 janelas.
+
+Ablação para descartar a explicação fácil: trocar os **13 falantes que só existem na
+validação** (Ari, Breno, Edgar, Eli, Ema, Inês, Iris, Lito, Luz, Mia, Mina, Paulo, Vítor) por
+nomes do treino, mantendo o resto igual. Resultado: a perda desce de 8,8613 para **8,3490** —
+**0,51 nats, ou 5,8% da folga**. Os nomes **não** explicam a memorização; foi o texto.
+
+## B5. As amostras fecham o caso (MEASURED)
+
+Prompt `**Lia:** Olá, como estás?`, temperatura 0,8:
+
+> « e isso. Não sei anan15 escolher depois no que não. Mas. vamos possibilidades depois de
+> passar a cum de acinhar clínaniel:*********** Espero que quero boas deinhar é sempre»
+
+Greedy, mesmo prompt:
+
+> « e isso. Não sei.\\n\\n************\* Proin tomar sa tarefas sem ontem:**Mara:****Mário:\*...»
+
+**A marcação é aprendida (`**`, `:`, troca de falante). O português não.** Palavras
+inexistentes (`anan15`, `prenquenoproviso`, `Espeitar`, `faosa`), colapso de asteriscos,
+frases que não terminam. Nenhum turno é utilizável como resposta.
+
+## B6. O que isto significa para a estratégia C (INFERRED)
+
+A estratégia C dizia «núcleo próprio como instrumento de investigação, não como modelo de
+conversa». **Esta medição confirma-o com números em vez de opinião**, e acrescenta uma
+distinção que faltava:
+
+- **O instrumento funciona**: a cadeia texto → tokenizador → treino → pesos → geração é
+  observável de ponta a ponta, e o modelo aprendeu *algo* real (formato de diálogo).
+- **O produto não existe**: 9 653 tokens não ensinam conversação. Para a finalidade
+  `conversation` ser treinável falta, pela curva do `ESTRATEGIA.md`, chegar aos ~97 mil
+  tokens — **10× o que existe** — e mesmo aí seria um modelo que imita o formato.
+
+**Não se resolve afinando mais passos.** Já está decorado: mais passos só apertam a folga de
+8,81 e pioram a validação. O caminho é mais dados, e mais dados de diálogo não existem no
+repositório.
+
+## B7. Cobertura actualizada (MEASURED)
+
+`nucleo/dados/finalidades.py` passa a contar as duas fontes (obras + diálogos), cada uma
+**uma vez**: `pt_general`/`pt_africa` partilham as obras, `conversation` usa os diálogos.
+
+| finalidade | tokens |
+|---|---|
+| pt_general, pt_africa | 65 999 |
+| **conversation** | **12 126** (era 0) |
+| as outras 6 | 0 |
+
+**3 de 9 finalidades com dados** (era 2). **Tokens únicos 78 125 = 80,3% do ponto de
+cruzamento** (era 67,8%) **e 3,40% do limite de utilidade.** Ainda abaixo do cruzamento, e a
+cobertura subiu sobretudo por um corpus de domínio diferente — não por mais prosa.

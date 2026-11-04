@@ -1,0 +1,28 @@
+{
+  "classe": "MEASURED",
+  "modelo": "prosa (800 passos) -> diálogo (800 passos), d_model 128, 4 camadas, 1 722 624 params, tying=False",
+  "checkpoint": "nucleo/experimentos/checkpoints/dialogo_seed0 (fora do git por *.npz)",
+  "amostras": [
+    {
+      "prompt": "**Lia:** Olá, como estás?",
+      "temperatura": 0.8,
+      "saida": " e isso. Não sei anan15 escolher depois no que não. Mas. vamos possibilidades depois de passar a cum de acinhar clínaniel:*********** Espero que quero boas deinhar é sempre"
+    },
+    {
+      "prompt": "**Rui:** Preciso de uma opinião",
+      "temperatura": 0.8,
+      "saida": " pequenoproviso. E preciso, por aprender mais** Deseitar que cont coisa ou pensar e despedeitar que acpara tempo com por ac das converigud.Ana:***Nei que gostado. Aindaheixão"
+    },
+    {
+      "prompt": "**Sara:** Hoje não estou",
+      "temperatura": 0.8,
+      "saida": " o pequeno bonita:** Um comportamento:* M sei está bem. Estava sem pensar sem pensar.\n\n*****Mara:**** Sim. faosa:**** Boa de mim o mundo"
+    },
+    {
+      "prompt": "**Lia:** Olá, como estás?",
+      "temperatura": 0.0,
+      "saida": " e isso. Não sei.\n\n************* Proin tomar sa tarefas sem ontem:**Mara:****Mário:*Mário:**Ivo:*"
+    }
+  ],
+  "leitura": "a marcação (** e :) é aprendida; o português não. Palavras inexistentes (anan15, prenquenoproviso, Espeitar, faosa), colapso de asteriscos. Confirmado o que a folga de 8,81 nats já dizia: decoração e formato, não língua nem diálogo."
+}

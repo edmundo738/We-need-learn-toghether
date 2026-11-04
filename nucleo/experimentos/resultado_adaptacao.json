@@ -1,0 +1,107 @@
+{
+  "A_so_dialogo": {
+    "perda_val_inicial": 10.1973,
+    "perda_val_final": 9.2549,
+    "segundos": 165.3,
+    "passos": 800,
+    "lr": 0.003,
+    "historico": [
+      {
+        "passo": 1,
+        "perda_treino": 10.0458
+      },
+      {
+        "passo": 100,
+        "perda_treino": 2.0694
+      },
+      {
+        "passo": 200,
+        "perda_treino": 0.5225
+      },
+      {
+        "passo": 300,
+        "perda_treino": 0.182
+      },
+      {
+        "passo": 400,
+        "perda_treino": 0.2101
+      },
+      {
+        "passo": 500,
+        "perda_treino": 0.0514
+      },
+      {
+        "passo": 600,
+        "perda_treino": 0.124
+      },
+      {
+        "passo": 700,
+        "perda_treino": 0.0404
+      },
+      {
+        "passo": 800,
+        "perda_treino": 0.2102
+      }
+    ]
+  },
+  "B_prosa_para_dialogo": {
+    "perda_val_inicial_prosa_pura": 9.7561,
+    "perda_val_final": 8.8613,
+    "segundos_afinacao": 162.7,
+    "segundos_pretreino_prosa": 172.0,
+    "passos": 800,
+    "lr": 0.003,
+    "historico": [
+      {
+        "passo": 1,
+        "perda_treino": 10.5266
+      },
+      {
+        "passo": 100,
+        "perda_treino": 1.4847
+      },
+      {
+        "passo": 200,
+        "perda_treino": 0.4059
+      },
+      {
+        "passo": 300,
+        "perda_treino": 0.1863
+      },
+      {
+        "passo": 400,
+        "perda_treino": 0.0966
+      },
+      {
+        "passo": 500,
+        "perda_treino": 0.0309
+      },
+      {
+        "passo": 600,
+        "perda_treino": 0.0647
+      },
+      {
+        "passo": 700,
+        "perda_treino": 0.0218
+      },
+      {
+        "passo": 800,
+        "perda_treino": 0.1037
+      }
+    ]
+  },
+  "memorizacao_B": {
+    "perda_treino_dialogo": 0.051,
+    "perda_val_dialogo": 8.8613,
+    "folga": 8.8103,
+    "nota": "folga grande = memorizou as conversas de treino; só a perda de VALIDAÇÃO (conversas nunca vistas) mede generalização"
+  },
+  "classe": "MEASURED",
+  "divisao": {
+    "metodo": "por conversa inteira",
+    "semente": 20261104,
+    "conversas_treino": 40,
+    "conversas_val": 10
+  },
+  "nota": "A e B com os mesmos 800 passos, lote 4, lr 3e-3, semente 0. A perda inicial de B é o CONTROL: prosa pura avaliada em diálogo."
+}

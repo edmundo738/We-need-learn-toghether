@@ -274,5 +274,30 @@
   ],
   "excluidos": {
     "outros/who_am_i.txt": "2 caracteres extraídos de 17 páginas — PDF sem camada de texto utilizável (provavelmente digitalizado). Não é um problema de código: exigiria OCR. Excluído em vez de incluído como ficheiro vazio."
+  },
+  "dialogos": {
+    "caminho": "dados/dialogos/conversas_v1.md",
+    "sha256": "22e6e47185745c0317c4f60ed10967728fc57f1e433e91121e76791e760c2602",
+    "conversas": 50,
+    "turnos": 512,
+    "palavras": 5466,
+    "falantes_distintos": 79,
+    "finalidade": "conversation",
+    "proveniencia": "DADO PELO UTILIZADOR (não produzido por este projecto, não extraído dos PDFs)",
+    "verificacao_de_origem": {
+      "metodo": "sha de 8-gramas de palavras contra o texto extraído de cada PDF",
+      "resultado": "0 de 5458 8-gramas coincidem em TODOS os PDFs testados",
+      "pdfs_testados": [
+        "Conversas Sobre o Amor (Natasha Lunn)",
+        "ebook-conversando-com-ia",
+        "Como Falar com Qualquer Pessoa (Leil Lowndes)",
+        "tornar-se-pessoa (Carl Rogers)",
+        "Who Am I"
+      ],
+      "conclusao": "não deriva das obras de terceiros presentes nos uploads"
+    },
+    "licenca": "DESCONHECIDA — declarada pelo utilizador como material de treino",
+    "redistribuivel": false,
+    "risco": "se for gerado por um modelo de terceiros, os termos de uso desse modelo podem restringir treino. Não foi possível verificar a ferramenta de origem."
   }
 }

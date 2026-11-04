@@ -73,9 +73,13 @@ FINALIDADES = [
     Finalidade(
         "conversation",
         "Padrões de diálogo",
-        "nenhuma — as obras têm diálogo, mas não é diálogo com um interlocutor que responde",
-        onde_buscar=["conversas nossas, transcritas e anonimizadas"],
-        teste_de_avaliacao="manter referência a turnos anteriores; pedir esclarecimento",
+        "dados/dialogos/conversas_v1.md: 50 conversas, 512 turnos, 2 900 palavras",
+        onde_buscar=["mais conversas do mesmo tipo", "conversas reais, transcritas e anonimizadas",
+                     "SFT: pares instrução/resposta derivados destas conversas"],
+        teste_de_avaliacao="manter referência a turnos anteriores; pedir esclarecimento. "
+                           "MEDIDO: 9 653 tokens contra 1,7 M parâmetros -> o modelo decora "
+                           "(folga treino-vs-validação 8,81 nats, 94% não explicada por nomes). "
+                           "Ver resultado_adaptacao.json e resultado_memorizacao_dialogo.json",
     ),
     Finalidade(
         "instructions",
@@ -102,18 +106,22 @@ FINALIDADES = [
 
 
 def medir_existentes() -> None:
-    """Preenche tokens_existentes com o que está realmente em dados/obras."""
+    """Preenche tokens_existentes com o que está realmente em dados/."""
+    total_obras = total_dialogo = 0
     try:
         from nucleo.tokenizador.bpe import TokenizadorBPE
         tok = TokenizadorBPE.carregar(RAIZ / "nucleo" / "tokenizador" / "vocabulario_v1")
-        total = 0
         for f in sorted((RAIZ / "dados" / "obras").glob("*.txt")):
-            total += len(tok.codificar(f.read_text(encoding="utf-8", errors="replace")))
+            total_obras += len(tok.codificar(f.read_text(encoding="utf-8", errors="replace")))
+        for f in sorted((RAIZ / "dados" / "dialogos").glob("*.md")):
+            total_dialogo += len(tok.codificar(f.read_text(encoding="utf-8", errors="replace")))
     except Exception:
-        total = 65999   # valor medido anteriormente
+        total_obras, total_dialogo = 65999, 9653   # valores medidos anteriormente
     for fin in FINALIDADES:
         if fin.nome in ("pt_general", "pt_africa"):
-            fin.tokens_existentes = total
+            fin.tokens_existentes = total_obras
+        elif fin.nome == "conversation":
+            fin.tokens_existentes = total_dialogo
     # licença: o manifesto diz caracteres_redistribuiveis = 0
     try:
         man = json.loads((RAIZ / "dados" / "manifest.json").read_text())
@@ -142,15 +150,17 @@ def main() -> None:
 
     # ATENÇÃO: pt_general e pt_africa partilham os MESMOS 65 999 tokens.
     # Somar `tokens_existentes` conta-os duas vezes e dá 131 998 — mais que
-    # o corpus real, e "135,6% do cruzamento" quando o corpus é 67,8% dele.
-    # O total correcto é a UNIÃO, que aqui é o corpus (as duas categorias
-    # são perspectivas sobre o mesmo texto, não colecções distintas).
-    total_unico = max(f.tokens_existentes for f in FINALIDADES)
+    # o corpus real. O total correcto é a UNIÃO das FONTES distintas:
+    # obras (65 999) + diálogos (9 653). Cada fonte conta uma vez, mesmo que
+    # alimente duas finalidades.
+    total_unico = sum(f.tokens_existentes for f in FINALIDADES
+                      if f.nome in ("pt_general", "conversation"))
     soma_ingenua = sum(f.tokens_existentes for f in FINALIDADES)
     cobertas = sum(1 for f in FINALIDADES if f.tokens_existentes > 0)
     print(f"\n{cobertas} de {len(FINALIDADES)} finalidades têm qualquer dado.")
-    print(f"Tokens ÚNICOS: {total_unico:,}  (a soma por categoria daria "
-          f"{soma_ingenua:,} — conta o mesmo texto duas vezes)")
+    print(f"Tokens ÚNICOS: {total_unico:,}  (soma das fontes SEM sobreposição; a soma "
+          f"cega por categoria daria {soma_ingenua:,} porque pt_general e pt_africa "
+          f"são o mesmo texto)")
     print(f"Contra {alvo:,} (cruzamento) e {util:,} (utilidade).")
     print(f"Cobertura do cruzamento: {total_unico/alvo*100:.1f}%  ·  "
           f"da utilidade: {total_unico/util*100:.2f}%")

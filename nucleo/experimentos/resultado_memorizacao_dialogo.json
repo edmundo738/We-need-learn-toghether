@@ -1,0 +1,24 @@
+{
+  "classe": "MEASURED",
+  "perda_treino_dialogo": 0.051,
+  "perda_val_dialogo": 8.8613,
+  "perda_val_com_nomes_do_treino": 8.349,
+  "folga_memorizacao": 8.8103,
+  "quanto_da_folga_era_nome": 0.5123,
+  "fraccao_explicada_pelo_nome": 0.0581,
+  "falantes_so_na_val": [
+    "Ari",
+    "Breno",
+    "Edgar",
+    "Eli",
+    "Ema",
+    "Inês",
+    "Iris",
+    "Lito",
+    "Luz",
+    "Mia",
+    "Mina",
+    "Paulo",
+    "Vítor"
+  ]
+}
