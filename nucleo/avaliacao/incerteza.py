@@ -77,41 +77,59 @@ def main() -> None:
     rng = np.random.default_rng(0)
     fora = rng.integers(0, tok.tamanho_vocab, dentro.shape)
 
-    # O Transformer precisa de pesos treinados. Sem checkpoint persistido
-    # nesta sessão, usa-se um modelo de inicialização aleatória como CONTROL
-    # NEGATIVO: se um modelo aleatório separar os dois conjuntos, a métrica
-    # mede o formato do texto e não conhecimento.
+    # CONTROL NEGATIVO: modelo de inicialização aleatória. Se ele separar os
+    # dois conjuntos, a métrica mede o formato do texto e não conhecimento.
     cfg = Config(vocab=tok.tamanho_vocab, d_model=128, n_camadas=4,
-                 n_cabecas=4, ctx=ctx, d_ff=384)
+                 n_cabecas=4, ctx=ctx, d_ff=384, tying=False)
     m_aleatorio = Transformer(cfg, semente=0)
-    p_dentro_t = perda_por_janela_transformer(m_aleatorio, dentro)
-    p_fora_t = perda_por_janela_transformer(m_aleatorio, fora)
+    p_dentro_ale = perda_por_janela_transformer(m_aleatorio, dentro)
+    p_fora_ale = perda_por_janela_transformer(m_aleatorio, fora)
+
+    # O MODELO TREINADO: é este que responde à pergunta. Sem ele, o ficheiro
+    # anterior media apenas o controlo — e um controlo não é um resultado.
+    p_dentro_t = p_fora_t = None
+    ckpt = RAIZ / "nucleo" / "experimentos" / "checkpoints" / "semblying_seed0"
+    if (ckpt / "pesos.npz").exists():
+        m_treinado = Transformer.carregar(ckpt)
+        p_dentro_t = perda_por_janela_transformer(m_treinado, dentro)
+        p_fora_t = perda_por_janela_transformer(m_treinado, fora)
 
     p_dentro_n = perda_ngrama(treino.reshape(-1), dentro, tok.tamanho_vocab)
     p_fora_n = perda_ngrama(treino.reshape(-1), fora, tok.tamanho_vocab)
 
     res = {
         "classe": "MEASURED",
-        "nota": "Transformer com pesos ALEATÓRIOS serve de controlo negativo; "
-                "sem checkpoint persistido não é possível medir o modelo treinado",
-        "transformer_aleatorio": {"dentro": round(p_dentro_t, 4), "fora": round(p_fora_t, 4),
-                                   "razao": round(p_fora_t / p_dentro_t, 4)},
+        "nota": "checkpoint semblying_seed0 treinado 1000 passos (val 5,7156); "
+                "aleatorio = controlo negativo; trigrama = baseline com os dados",
+        "transformer_aleatorio": {"dentro": round(p_dentro_ale, 4),
+                                   "fora": round(p_fora_ale, 4),
+                                   "razao": round(p_fora_ale / p_dentro_ale, 4)},
+        "transformer_treinado": None if p_dentro_t is None else {
+            "dentro": round(p_dentro_t, 4), "fora": round(p_fora_t, 4),
+            "razao": round(p_fora_t / p_dentro_t, 4),
+            "checkpoint": str(ckpt)},
         "trigrama": {"dentro": round(p_dentro_n, 4), "fora": round(p_fora_n, 4),
                       "razao": round(p_fora_n / p_dentro_n, 4)},
     }
     (RAIZ / "nucleo" / "experimentos" / "resultado_incerteza.json").write_text(
         json.dumps(res, indent=2, ensure_ascii=False))
 
-    print(f"{'modelo':<24} {'dentro':>9} {'fora':>9} {'razão fora/dentro':>18}")
-    print("-" * 64)
-    print(f"{'Transformer aleatório':<24} {p_dentro_t:>9.4f} {p_fora_t:>9.4f} "
-          f"{p_fora_t/p_dentro_t:>17.2f}x")
-    print(f"{'trigrama (treinado)':<24} {p_dentro_n:>9.4f} {p_fora_n:>9.4f} "
-          f"{p_fora_n/p_dentro_n:>17.2f}x")
+    print(f"{'modelo':<26} {'dentro':>9} {'fora':>9} {'fora/dentro':>13}")
+    print("-" * 62)
+    print(f"{'Transformer aleatório':<26} {p_dentro_ale:>9.4f} {p_fora_ale:>9.4f} "
+          f"{p_fora_ale/p_dentro_ale:>12.2f}x")
+    if p_dentro_t is not None:
+        print(f"{'Transformer treinado':<26} {p_dentro_t:>9.4f} {p_fora_t:>9.4f} "
+              f"{p_fora_t/p_dentro_t:>12.2f}x")
+    else:
+        print(f"{'Transformer treinado':<26} {'—':>9} {'—':>9} {'sem ckpt':>13}")
+    print(f"{'trigrama (treinado)':<26} {p_dentro_n:>9.4f} {p_fora_n:>9.4f} "
+          f"{p_fora_n/p_dentro_n:>12.2f}x")
     print()
-    print("LEITURA: o trigrama, que TEM os dados, paga muito mais por texto fora")
-    print("do domínio. O Transformer aleatório quase não distingue — como esperado,")
-    print("porque não sabe nada. É o controlo negativo a funcionar.")
+    print("LEITURA: se o Transformer TREINADO separar mais que o aleatório (1,00x),")
+    print("tem alguma noção de familiaridade — pré-requisito para dizer «não sei».")
+    print("Se ficar em ~1,00x como o aleatório, não distingue saber de não saber,")
+    print("e nenhuma política de factualidade funcionaria neste modelo.")
 
 
 if __name__ == "__main__":

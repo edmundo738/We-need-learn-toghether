@@ -1,10 +1,16 @@
 {
   "classe": "MEASURED",
-  "nota": "Transformer com pesos ALEATÓRIOS serve de controlo negativo; sem checkpoint persistido não é possível medir o modelo treinado",
+  "nota": "checkpoint semblying_seed0 treinado 1000 passos (val 5,7156); aleatorio = controlo negativo; trigrama = baseline com os dados",
   "transformer_aleatorio": {
-    "dentro": 9.0239,
-    "fora": 9.0364,
-    "razao": 1.0014
+    "dentro": 9.9297,
+    "fora": 10.0359,
+    "razao": 1.0107
+  },
+  "transformer_treinado": {
+    "dentro": 5.7034,
+    "fora": 13.6268,
+    "razao": 2.3892,
+    "checkpoint": "/home/user/We-need-learn-toghether/nucleo/experimentos/checkpoints/semblying_seed0"
   },
   "trigrama": {
     "dentro": 5.0484,

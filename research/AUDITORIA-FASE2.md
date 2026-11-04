@@ -579,10 +579,24 @@ O trigrama, que tem os dados, paga **2,15×** por texto fora do domínio. O Tran
 aleatório quase não distingue — **é o controlo negativo a funcionar**: um modelo sem
 conhecimento não pode ter noção de familiaridade.
 
-**O que NÃO se mediu:** o Transformer *treinado*. Não havia checkpoint persistido. Os
-checkpoints criados nesta ronda (`sem_tying_seed*`, val 5,75) permitem fechar isto, mas
-o teste com eles **ainda não foi corrido** — está declarado como próximo passo, não como
-resultado.
+**FECHADO na mesma ronda.** Com o checkpoint `semblying_seed0` (1000 passos, val 5,7156):
+
+| modelo | dentro | fora | fora/dentro |
+|---|---|---|---|
+| Transformer aleatório | 9,9297 | 10,0359 | **1,01×** |
+| **Transformer treinado** | 5,7034 | 13,6268 | **2,39×** |
+| trigrama | 5,0484 | 10,8589 | 2,15× |
+
+O treinado separa **2,39×** contra **1,01×** do aleatório: tem sinal de familiaridade, logo
+uma política de factualidade teria em que se apoiar. E há uma distinção que não se pode
+colapsar: o Transformer tem **pior perda absoluta** que o trigrama dentro do domínio
+(5,7034 vs 5,0484) mas **melhor separação** (2,39× vs 2,15×). Perder numa não implica perder
+na outra — `nucleo/testes/test_incerteza.py` fixa as duas afirmações em conjunto para que
+nenhuma seja citada sozinha.
+
+Ressalva: o «fora do domínio» são tokens uniformes do vocabulário, não língua natural. Mede
+o caso extremo, não a subtileza de reconhecer um texto em inglês. Um rácio alto contra ruído
+não garante discriminação fina.
 
 ## A6. Avaliação — 1 de 9 dimensões implementada (MEASURED)
 
