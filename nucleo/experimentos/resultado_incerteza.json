@@ -1,0 +1,14 @@
+{
+  "classe": "MEASURED",
+  "nota": "Transformer com pesos ALEATÓRIOS serve de controlo negativo; sem checkpoint persistido não é possível medir o modelo treinado",
+  "transformer_aleatorio": {
+    "dentro": 9.0239,
+    "fora": 9.0364,
+    "razao": 1.0014
+  },
+  "trigrama": {
+    "dentro": 5.0484,
+    "fora": 10.8589,
+    "razao": 2.1509
+  }
+}

@@ -1,0 +1,728 @@
+{
+  "classe": "MEASURED",
+  "passos": 1000,
+  "seeds": 3,
+  "ctx": 128,
+  "lote": 2,
+  "lr": 0.003,
+  "resultados": [
+    {
+      "semente": 0,
+      "tying": true,
+      "n_parametros": 1722624,
+      "checkpoint": "/home/user/We-need-learn-toghether/nucleo/experimentos/checkpoints/tying_seed0",
+      "historico": [
+        {
+          "passo": 50,
+          "perda_treino": 7.1407,
+          "perda_val": 7.0841
+        },
+        {
+          "passo": 100,
+          "perda_treino": 7.1255,
+          "perda_val": 6.933
+        },
+        {
+          "passo": 150,
+          "perda_treino": 6.4068,
+          "perda_val": 6.8026
+        },
+        {
+          "passo": 200,
+          "perda_treino": 6.4307,
+          "perda_val": 6.6939
+        },
+        {
+          "passo": 250,
+          "perda_treino": 6.4127,
+          "perda_val": 6.5339
+        },
+        {
+          "passo": 300,
+          "perda_treino": 6.5474,
+          "perda_val": 6.4466
+        },
+        {
+          "passo": 350,
+          "perda_treino": 6.6101,
+          "perda_val": 6.4399
+        },
+        {
+          "passo": 400,
+          "perda_treino": 6.4032,
+          "perda_val": 6.3587
+        },
+        {
+          "passo": 450,
+          "perda_treino": 6.2488,
+          "perda_val": 6.3312
+        },
+        {
+          "passo": 500,
+          "perda_treino": 6.0565,
+          "perda_val": 6.2703
+        },
+        {
+          "passo": 550,
+          "perda_treino": 6.4189,
+          "perda_val": 6.265
+        },
+        {
+          "passo": 600,
+          "perda_treino": 5.5801,
+          "perda_val": 6.2286
+        },
+        {
+          "passo": 650,
+          "perda_treino": 6.3142,
+          "perda_val": 6.2948
+        },
+        {
+          "passo": 700,
+          "perda_treino": 5.8857,
+          "perda_val": 6.2084
+        },
+        {
+          "passo": 750,
+          "perda_treino": 5.6367,
+          "perda_val": 6.1927
+        },
+        {
+          "passo": 800,
+          "perda_treino": 5.9166,
+          "perda_val": 6.1754
+        },
+        {
+          "passo": 850,
+          "perda_treino": 5.7067,
+          "perda_val": 6.2192
+        },
+        {
+          "passo": 900,
+          "perda_treino": 5.9633,
+          "perda_val": 6.1459
+        },
+        {
+          "passo": 950,
+          "perda_treino": 5.6614,
+          "perda_val": 6.1744
+        },
+        {
+          "passo": 1000,
+          "perda_treino": 5.3017,
+          "perda_val": 6.1236
+        }
+      ],
+      "melhor_val": 6.1236,
+      "melhor_passo": 1000,
+      "final_val": 6.1236,
+      "final_treino": 5.3017,
+      "segundos": 133.0
+    },
+    {
+      "semente": 1,
+      "tying": true,
+      "n_parametros": 1722624,
+      "checkpoint": "/home/user/We-need-learn-toghether/nucleo/experimentos/checkpoints/tying_seed1",
+      "historico": [
+        {
+          "passo": 50,
+          "perda_treino": 6.8971,
+          "perda_val": 7.0545
+        },
+        {
+          "passo": 100,
+          "perda_treino": 6.3372,
+          "perda_val": 6.9823
+        },
+        {
+          "passo": 150,
+          "perda_treino": 7.1339,
+          "perda_val": 6.8729
+        },
+        {
+          "passo": 200,
+          "perda_treino": 7.7692,
+          "perda_val": 6.6346
+        },
+        {
+          "passo": 250,
+          "perda_treino": 6.4825,
+          "perda_val": 6.6704
+        },
+        {
+          "passo": 300,
+          "perda_treino": 6.8003,
+          "perda_val": 6.6549
+        },
+        {
+          "passo": 350,
+          "perda_treino": 6.8005,
+          "perda_val": 6.5895
+        },
+        {
+          "passo": 400,
+          "perda_treino": 6.4225,
+          "perda_val": 6.4815
+        },
+        {
+          "passo": 450,
+          "perda_treino": 6.4852,
+          "perda_val": 6.4593
+        },
+        {
+          "passo": 500,
+          "perda_treino": 6.0943,
+          "perda_val": 6.3645
+        },
+        {
+          "passo": 550,
+          "perda_treino": 5.9896,
+          "perda_val": 6.3181
+        },
+        {
+          "passo": 600,
+          "perda_treino": 5.8773,
+          "perda_val": 6.2386
+        },
+        {
+          "passo": 650,
+          "perda_treino": 5.821,
+          "perda_val": 6.2315
+        },
+        {
+          "passo": 700,
+          "perda_treino": 5.8959,
+          "perda_val": 6.2687
+        },
+        {
+          "passo": 750,
+          "perda_treino": 5.8448,
+          "perda_val": 6.3316
+        },
+        {
+          "passo": 800,
+          "perda_treino": 6.0824,
+          "perda_val": 6.2185
+        },
+        {
+          "passo": 850,
+          "perda_treino": 5.8145,
+          "perda_val": 6.2414
+        },
+        {
+          "passo": 900,
+          "perda_treino": 5.8452,
+          "perda_val": 6.1701
+        },
+        {
+          "passo": 950,
+          "perda_treino": 5.9971,
+          "perda_val": 6.1575
+        },
+        {
+          "passo": 1000,
+          "perda_treino": 5.4025,
+          "perda_val": 6.0937
+        }
+      ],
+      "melhor_val": 6.0937,
+      "melhor_passo": 1000,
+      "final_val": 6.0937,
+      "final_treino": 5.4025,
+      "segundos": 132.8
+    },
+    {
+      "semente": 2,
+      "tying": true,
+      "n_parametros": 1722624,
+      "checkpoint": "/home/user/We-need-learn-toghether/nucleo/experimentos/checkpoints/tying_seed2",
+      "historico": [
+        {
+          "passo": 50,
+          "perda_treino": 7.4272,
+          "perda_val": 7.0712
+        },
+        {
+          "passo": 100,
+          "perda_treino": 7.2114,
+          "perda_val": 7.0695
+        },
+        {
+          "passo": 150,
+          "perda_treino": 6.9432,
+          "perda_val": 7.0193
+        },
+        {
+          "passo": 200,
+          "perda_treino": 6.7322,
+          "perda_val": 6.9211
+        },
+        {
+          "passo": 250,
+          "perda_treino": 6.9767,
+          "perda_val": 6.7059
+        },
+        {
+          "passo": 300,
+          "perda_treino": 7.3917,
+          "perda_val": 6.5815
+        },
+        {
+          "passo": 350,
+          "perda_treino": 6.1425,
+          "perda_val": 6.458
+        },
+        {
+          "passo": 400,
+          "perda_treino": 6.2205,
+          "perda_val": 6.3817
+        },
+        {
+          "passo": 450,
+          "perda_treino": 6.0915,
+          "perda_val": 6.352
+        },
+        {
+          "passo": 500,
+          "perda_treino": 5.794,
+          "perda_val": 6.3131
+        },
+        {
+          "passo": 550,
+          "perda_treino": 5.8626,
+          "perda_val": 6.4799
+        },
+        {
+          "passo": 600,
+          "perda_treino": 5.6575,
+          "perda_val": 6.4091
+        },
+        {
+          "passo": 650,
+          "perda_treino": 6.0316,
+          "perda_val": 6.3003
+        },
+        {
+          "passo": 700,
+          "perda_treino": 5.6394,
+          "perda_val": 6.188
+        },
+        {
+          "passo": 750,
+          "perda_treino": 6.0393,
+          "perda_val": 6.2082
+        },
+        {
+          "passo": 800,
+          "perda_treino": 5.8356,
+          "perda_val": 6.1162
+        },
+        {
+          "passo": 850,
+          "perda_treino": 6.1383,
+          "perda_val": 6.1694
+        },
+        {
+          "passo": 900,
+          "perda_treino": 5.5867,
+          "perda_val": 6.1844
+        },
+        {
+          "passo": 950,
+          "perda_treino": 5.8193,
+          "perda_val": 6.1356
+        },
+        {
+          "passo": 1000,
+          "perda_treino": 5.7129,
+          "perda_val": 6.056
+        }
+      ],
+      "melhor_val": 6.056,
+      "melhor_passo": 1000,
+      "final_val": 6.056,
+      "final_treino": 5.7129,
+      "segundos": 132.4
+    },
+    {
+      "semente": 0,
+      "tying": false,
+      "n_parametros": 2771200,
+      "checkpoint": "/home/user/We-need-learn-toghether/nucleo/experimentos/checkpoints/semblying_seed0",
+      "historico": [
+        {
+          "passo": 50,
+          "perda_treino": 6.7044,
+          "perda_val": 6.8269
+        },
+        {
+          "passo": 100,
+          "perda_treino": 6.389,
+          "perda_val": 6.4788
+        },
+        {
+          "passo": 150,
+          "perda_treino": 5.726,
+          "perda_val": 6.2874
+        },
+        {
+          "passo": 200,
+          "perda_treino": 5.5847,
+          "perda_val": 6.136
+        },
+        {
+          "passo": 250,
+          "perda_treino": 5.7021,
+          "perda_val": 6.0034
+        },
+        {
+          "passo": 300,
+          "perda_treino": 5.8935,
+          "perda_val": 5.9488
+        },
+        {
+          "passo": 350,
+          "perda_treino": 5.793,
+          "perda_val": 5.8591
+        },
+        {
+          "passo": 400,
+          "perda_treino": 5.8517,
+          "perda_val": 5.835
+        },
+        {
+          "passo": 450,
+          "perda_treino": 5.5035,
+          "perda_val": 5.8082
+        },
+        {
+          "passo": 500,
+          "perda_treino": 5.2415,
+          "perda_val": 5.7929
+        },
+        {
+          "passo": 550,
+          "perda_treino": 5.6396,
+          "perda_val": 5.7313
+        },
+        {
+          "passo": 600,
+          "perda_treino": 4.6712,
+          "perda_val": 5.7739
+        },
+        {
+          "passo": 650,
+          "perda_treino": 5.503,
+          "perda_val": 5.77
+        },
+        {
+          "passo": 700,
+          "perda_treino": 5.2454,
+          "perda_val": 5.7183
+        },
+        {
+          "passo": 750,
+          "perda_treino": 5.2165,
+          "perda_val": 5.7841
+        },
+        {
+          "passo": 800,
+          "perda_treino": 5.3358,
+          "perda_val": 5.7175
+        },
+        {
+          "passo": 850,
+          "perda_treino": 4.8958,
+          "perda_val": 5.7007
+        },
+        {
+          "passo": 900,
+          "perda_treino": 5.5346,
+          "perda_val": 5.7733
+        },
+        {
+          "passo": 950,
+          "perda_treino": 5.2285,
+          "perda_val": 5.6747
+        },
+        {
+          "passo": 1000,
+          "perda_treino": 4.4292,
+          "perda_val": 5.7156
+        }
+      ],
+      "melhor_val": 5.6747,
+      "melhor_passo": 950,
+      "final_val": 5.7156,
+      "final_treino": 4.4292,
+      "segundos": 154.9
+    },
+    {
+      "semente": 1,
+      "tying": false,
+      "n_parametros": 2771200,
+      "checkpoint": "/home/user/We-need-learn-toghether/nucleo/experimentos/checkpoints/semblying_seed1",
+      "historico": [
+        {
+          "passo": 50,
+          "perda_treino": 6.6855,
+          "perda_val": 6.8332
+        },
+        {
+          "passo": 100,
+          "perda_treino": 6.0832,
+          "perda_val": 6.5082
+        },
+        {
+          "passo": 150,
+          "perda_treino": 6.472,
+          "perda_val": 6.3455
+        },
+        {
+          "passo": 200,
+          "perda_treino": 7.4968,
+          "perda_val": 6.1333
+        },
+        {
+          "passo": 250,
+          "perda_treino": 5.372,
+          "perda_val": 6.0447
+        },
+        {
+          "passo": 300,
+          "perda_treino": 6.3515,
+          "perda_val": 6.0367
+        },
+        {
+          "passo": 350,
+          "perda_treino": 6.125,
+          "perda_val": 5.917
+        },
+        {
+          "passo": 400,
+          "perda_treino": 5.619,
+          "perda_val": 5.8323
+        },
+        {
+          "passo": 450,
+          "perda_treino": 5.3995,
+          "perda_val": 5.869
+        },
+        {
+          "passo": 500,
+          "perda_treino": 5.3734,
+          "perda_val": 5.7984
+        },
+        {
+          "passo": 550,
+          "perda_treino": 5.4232,
+          "perda_val": 5.7289
+        },
+        {
+          "passo": 600,
+          "perda_treino": 4.9718,
+          "perda_val": 5.7111
+        },
+        {
+          "passo": 650,
+          "perda_treino": 5.1624,
+          "perda_val": 5.7339
+        },
+        {
+          "passo": 700,
+          "perda_treino": 4.9872,
+          "perda_val": 5.7901
+        },
+        {
+          "passo": 750,
+          "perda_treino": 5.0003,
+          "perda_val": 5.7379
+        },
+        {
+          "passo": 800,
+          "perda_treino": 5.4359,
+          "perda_val": 5.782
+        },
+        {
+          "passo": 850,
+          "perda_treino": 4.8976,
+          "perda_val": 5.7978
+        },
+        {
+          "passo": 900,
+          "perda_treino": 4.8979,
+          "perda_val": 5.7707
+        },
+        {
+          "passo": 950,
+          "perda_treino": 5.5779,
+          "perda_val": 5.7375
+        },
+        {
+          "passo": 1000,
+          "perda_treino": 3.9565,
+          "perda_val": 5.7497
+        }
+      ],
+      "melhor_val": 5.7111,
+      "melhor_passo": 600,
+      "final_val": 5.7497,
+      "final_treino": 3.9565,
+      "segundos": 151.9
+    },
+    {
+      "semente": 2,
+      "tying": false,
+      "n_parametros": 2771200,
+      "checkpoint": "/home/user/We-need-learn-toghether/nucleo/experimentos/checkpoints/semblying_seed2",
+      "historico": [
+        {
+          "passo": 50,
+          "perda_treino": 7.191,
+          "perda_val": 6.8361
+        },
+        {
+          "passo": 100,
+          "perda_treino": 6.755,
+          "perda_val": 6.4953
+        },
+        {
+          "passo": 150,
+          "perda_treino": 6.0385,
+          "perda_val": 6.2851
+        },
+        {
+          "passo": 200,
+          "perda_treino": 5.8318,
+          "perda_val": 6.1103
+        },
+        {
+          "passo": 250,
+          "perda_treino": 6.243,
+          "perda_val": 6.0136
+        },
+        {
+          "passo": 300,
+          "perda_treino": 6.8541,
+          "perda_val": 5.9979
+        },
+        {
+          "passo": 350,
+          "perda_treino": 5.3965,
+          "perda_val": 5.9221
+        },
+        {
+          "passo": 400,
+          "perda_treino": 5.6448,
+          "perda_val": 5.81
+        },
+        {
+          "passo": 450,
+          "perda_treino": 5.2708,
+          "perda_val": 5.8077
+        },
+        {
+          "passo": 500,
+          "perda_treino": 5.0684,
+          "perda_val": 5.7951
+        },
+        {
+          "passo": 550,
+          "perda_treino": 5.0979,
+          "perda_val": 5.7626
+        },
+        {
+          "passo": 600,
+          "perda_treino": 4.8407,
+          "perda_val": 5.7681
+        },
+        {
+          "passo": 650,
+          "perda_treino": 5.6526,
+          "perda_val": 5.8139
+        },
+        {
+          "passo": 700,
+          "perda_treino": 4.7481,
+          "perda_val": 5.763
+        },
+        {
+          "passo": 750,
+          "perda_treino": 4.8877,
+          "perda_val": 5.773
+        },
+        {
+          "passo": 800,
+          "perda_treino": 5.053,
+          "perda_val": 5.7417
+        },
+        {
+          "passo": 850,
+          "perda_treino": 4.8613,
+          "perda_val": 5.7142
+        },
+        {
+          "passo": 900,
+          "perda_treino": 4.1659,
+          "perda_val": 5.8298
+        },
+        {
+          "passo": 950,
+          "perda_treino": 4.2805,
+          "perda_val": 5.7732
+        },
+        {
+          "passo": 1000,
+          "perda_treino": 5.3012,
+          "perda_val": 5.792
+        }
+      ],
+      "melhor_val": 5.7142,
+      "melhor_passo": 850,
+      "final_val": 5.792,
+      "final_treino": 5.3012,
+      "segundos": 149.6
+    }
+  ],
+  "tying": {
+    "n_parametros": 1722624,
+    "final_val_media": 6.0911,
+    "final_val_desvio": 0.0339,
+    "final_val_por_seed": [
+      6.1236,
+      6.0937,
+      6.056
+    ],
+    "melhor_val_media": 6.0911,
+    "perda_ao_parar_media": 0.0,
+    "seeds_que_pioram": 0,
+    "passo_do_minimo": [
+      1000,
+      1000,
+      1000
+    ]
+  },
+  "sem_tying": {
+    "n_parametros": 2771200,
+    "final_val_media": 5.7524,
+    "final_val_desvio": 0.0383,
+    "final_val_por_seed": [
+      5.7156,
+      5.7497,
+      5.792
+    ],
+    "melhor_val_media": 5.7,
+    "perda_ao_parar_media": 0.0524,
+    "seeds_que_pioram": 3,
+    "passo_do_minimo": [
+      950,
+      600,
+      850
+    ]
+  },
+  "diferenca_sem_tying_menos_tying": -0.3387,
+  "nota": "A/B com os mesmos dados, ordem de lotes por seed, lr, lote e lr constantes. A única variável é tying. Diferença positiva = sem tying é MELHOR; negativa = tying é melhor.",
+  "erro_padrao_da_diferenca": 0.0295,
+  "diferenca_em_erros_padrao": -11.47
+}

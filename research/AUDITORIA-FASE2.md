@@ -482,3 +482,131 @@ Digo isto explicitamente porque a revisão pediu uma auditoria independente, e u
 | INFERRED | 0 | — |
 
 Nenhuma conclusão deste relatório é INFERRED. O que não foi medido está marcado como não medido.
+
+---
+
+# ADENDA (2.ª ronda) — o que esta auditoria deixou por auditar
+
+Esta secção existe porque a regra do projecto é **«uma auditoria também tem de ser auditada»**.
+O corpo acima foi escrito antes de cinco peças existirem. Aqui ficam, com a mesma
+classificação, e com um resultado que **contradiz uma conclusão anterior**.
+
+## A1. Weight tying — o ganho que se assumiu e não se mediu (MEASURED)
+
+O corpo anterior dizia «tying melhora o condicionamento» — verdade sobre o **gradiente**
+(máximo de `emb.peso` caiu 33,9 → 0,635) — e daí passou, sem medir, a tratá-lo como ganho.
+
+A/B com **3 seeds, tudo o resto constante** (dados, ordem de lotes por seed, lr 3e-3,
+lote 2, 1000 passos, ctx 128), `nucleo/experimentos/sobreajuste.py`:
+
+| braço | parâmetros | perda de validação (final) | piora ao parar |
+|---|---|---|---|
+| tying | 1 722 624 | **6,0911 ± 0,0339** | +0,0000 |
+| sem tying | 2 771 200 | **5,7524 ± 0,0383** | +0,0524 |
+
+**Diferença: −0,3387 nats = −11,47 erros-padrão.** As três seeds de tying (6,124 / 6,094 /
+6,056) ficam **todas acima** das três de sem-tying (5,716 / 5,750 / 5,792). Não há sobreposição.
+
+**O tying poupa 1 048 576 parâmetros e custa 0,34 nats.** O condicionamento melhorou e o
+desempenho piorou: são coisas diferentes e o resumo anterior confundiu-as.
+
+Leitura de capacidade: sem tying o mínimo de validação chega entre o passo **600 e 950**;
+com tying o modelo **ainda está a descer ao passo 1000**. O tying não é «melhor» nem
+«pior» em absoluto — é 1 M de parâmetros a menos, e neste corpus esses parâmetros valem
+0,34 nats. `nucleo/testes/test_tying_custa.py` fixa os seis números e falha se o sinal mudar.
+
+## A2. Sobreajuste e o valor final que se reportou (MEASURED)
+
+O treino de 1500 passos foi reportado como «perda_val 5,90 final». A curva completa
+(`resultado_corpus_real.json`) diz que a validação **estagnou em ~5,72 por volta do passo
+575 e subiu a 5,90 até ao fim**. Reportar o valor final reportou o **pior** ponto da segunda
+metade como se fosse o resultado.
+
+Na repetição com 3 seeds, sem tying: mínimo em 950/600/850, e parar no passo 1000 custou
+**+0,0524 nats** em média. É pequeno, mas é o sinal contrário ao que «5,90 final» sugere.
+
+Consequência prática: **o checkpoint tem de ser o do melhor ponto, não o último.**
+O código não fazia isso. `nucleo/testes/test_checkpoint.py` testa `guardar`/`carregar`
+ao bit e fixa a conclusão de que o melhor ponto ≠ último ponto.
+
+## A3. Um defeito real no `guardar()` com tying (MEASURED, corrigido)
+
+Encontrado por `test_checkpoint.py`, não por leitura. Com tying, `cabeca.W` é uma **vista
+viva** sincronizada só em `_matriz()` (chamada no `forward` e no `Adam.step`). `guardar()`
+lia `self.cabeca.W.data` directamente; quem alterasse `emb.peso.data` e gravasse **sem
+forward** escrevia a transposta antiga, e `carregar` recusava o ficheiro acabado de criar.
+Medido: diferença máxima 0,01, `ValueError` na leitura.
+
+Corrigido em `guardar()`: a cabeça passa a ser derivada de `emb.peso.data.T` no momento de
+gravar. Dois testes novos: o caminho directo grava bem, e um ficheiro corrompido à mão
+**continua a ser recusado** (a validação de `carregar` não foi enfraquecida para fazer passar).
+
+Nota de método: o meu **primeiro** teste deste caso estava errado — assumia que
+`cabeca.W` sincronizava ao mutar `emb.peso`, o que não acontece. O erro estava no teste,
+não no código; só o segundo teste, escrito sobre o mecanismo real, encontrou o defeito.
+
+## A4. Dados por finalidade — 9 categorias, 2 com dados (MEASURED)
+
+`nucleo/dados/finalidades.py`, `resultado_finalidades.json`:
+
+| finalidade | tokens | % do cruzamento (97 320) |
+|---|---|---|
+| pt_general | 65 999 | 67,8% |
+| pt_africa | 65 999 | 67,8% |
+| science_tech, programming, games, conversation, instructions, reasoning, identity | **0** | 0% |
+
+**2 de 9 finalidades têm qualquer dado. Total ÚNICO: 65 999 tokens = 67,8% do ponto de
+cruzamento e 2,87% do limite de utilidade (2,3 M).**
+
+Erro corrigido aqui: a primeira versão somava `tokens_existentes` por categoria e deu
+**131 998 tokens — 135,6% do cruzamento**. Mas `pt_general` e `pt_africa` são **o mesmo
+texto**: somá-los conta-o duas vezes e produz uma cobertura acima do corpus real.
+O ficheiro passou a distinguir `tokens_unicos` de `soma_ingenua_por_categoria`.
+
+**Nenhum dos 65 999 tokens é redistribuível** (`dados/manifest.json`: caracteres_redistribuiveis = 0).
+
+## A5. Incerteza — o controlo negativo que devia falhar, falhou como devia (MEASURED)
+
+Pergunta: o modelo distingue o que sabe do que não sabe? Medido com texto do domínio
+(validação do corpus) contra tokens uniformes do vocabulário, `nucleo/avaliacao/incerteza.py`:
+
+| modelo | dentro | fora | razão |
+|---|---|---|---|
+| Transformer com pesos aleatórios | 9,0239 | 9,0364 | **1,00×** |
+| trigrama treinado | 5,0484 | 10,8589 | **2,15×** |
+
+O trigrama, que tem os dados, paga **2,15×** por texto fora do domínio. O Transformer
+aleatório quase não distingue — **é o controlo negativo a funcionar**: um modelo sem
+conhecimento não pode ter noção de familiaridade.
+
+**O que NÃO se mediu:** o Transformer *treinado*. Não havia checkpoint persistido. Os
+checkpoints criados nesta ronda (`sem_tying_seed*`, val 5,75) permitem fechar isto, mas
+o teste com eles **ainda não foi corrido** — está declarado como próximo passo, não como
+resultado.
+
+## A6. Avaliação — 1 de 9 dimensões implementada (MEASURED)
+
+`nucleo/avaliacao/estrutura.py` declara 9 dimensões, cada uma com métrica, **baseline** e
+critério de aceitação:
+
+| estado | dimensões |
+|---|---|
+| IMPLEMENTADO | 1 — língua/perplexidade em bits-por-byte com trigrama de baseline |
+| PARCIAL | 1 — generalização (a validação actual é do **mesmo autor**, logo o baseline é o problema) |
+| DESENHADO | 7 — gramática, conhecimento, instruções, conversação, memória, raciocínio, factualidade |
+
+**Sete dimensões desenhadas e não executadas não são sete resultados: são um plano.**
+Nenhuma delas pode sequer começar sem dados que não existem (ver A4).
+
+## A7. O que esta adenda NÃO resolve
+
+- **B continua bloqueada**: `huggingface.co` e `raw.githubusercontent.com` inacessíveis.
+  Sem pesos, a estratégia de especialização não é testável — permanece **UNKNOWN**.
+- **Cruzamento com uma seed e uma divisão.** As 7 janelas contaminadas e a divisão 90/10
+  de um só autor continuam de pé (corpo principal, §contaminação).
+- **Nenhum dos juízos de qualidade linguística** foi feito com modelo externo de avaliação;
+  o corpus tem 1 autor e o avaliador não pode ser o próprio autor.
+- **O ganho do tying está medido mas não incorporado numa decisão**: o `Config.tying`
+  default continua `True`. Não foi alterado nesta ronda porque a escolha depende de a
+  Etapa 2 querer 1 M de parâmetros a menos a troco de 0,34 nats — é decisão de projecto,
+  não de código, e fica registada como tal.

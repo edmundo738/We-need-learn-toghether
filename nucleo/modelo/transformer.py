@@ -376,7 +376,14 @@ class Transformer(nn.Modulo):
         pasta.mkdir(parents=True, exist_ok=True)
         tensores = {k: t.data for k, t in self.parametros().items()}
         if self.cfg.tying:
-            tensores["cabeca.W"] = self.cabeca.W.data
+            # Não ler `cabeca.W.data` directamente: com tying é uma vista
+            # sincronizada em `_matriz()` (chamada no forward e no step do
+            # optimizador). Quem altere `emb.peso.data` à mão e grave sem
+            # forward escreveria a transposta ANTIGA — e o `carregar` recusaria
+            # o próprio ficheiro que acabámos de gravar. Medido: 0.01 de
+            # diferença máxima, ValueError na leitura. Derivar aqui garante
+            # que o que se grava é sempre coerente com o que se guarda.
+            tensores["cabeca.W"] = self.emb.peso.data.T
         np.savez_compressed(pasta / "pesos.npz", **tensores)
         (pasta / "config.json").write_text(
             json.dumps(asdict(self.cfg), indent=2, ensure_ascii=False)

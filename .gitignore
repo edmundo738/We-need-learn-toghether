@@ -38,3 +38,8 @@ dados/*.db
 dados/*.db-wal
 dados/*.db-shm
 dados/estado.json
+
+# Checkpoints de treino: os pesos (.npz) já estão ignorados acima e ficam
+# fora do git por tamanho (10 MB cada). O config de cada um é reconstruível
+# a partir de resultado_sobreajuste.json, que está versionado.
+nucleo/experimentos/checkpoints/
