@@ -1,0 +1,21 @@
+{
+  "classe": "MEASURED",
+  "validacao": "Dom Casmurro (obra inteira, nunca vista no treino)",
+  "tokens_validacao": 115545,
+  "janelas_validacao": 902,
+  "trigrama": {
+    "perda_nats": 5.4845,
+    "bits_por_byte": 2.4788,
+    "suavizacao": "desconto absoluto d=0,75 + backoff recursivo",
+    "vocabulario": 8192
+  },
+  "transformer": {
+    "checkpoint": "machado_melhor",
+    "passo": 550,
+    "perda_nats": 5.9231,
+    "bits_por_byte": 2.677
+  },
+  "diferenca_bpb": 0.1982,
+  "vencedor": "trigrama",
+  "nota": "Avaliação justa: ambos no mesmo texto, mesma tokenização, mesma divisão. O trigrama não tem parâmetros treinados; o Transformer tem 2,77 M. Se o Transformer não ganha, mais capacidade não está a ser convertida em melhor previsão."
+}

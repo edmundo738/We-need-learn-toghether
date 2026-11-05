@@ -36,7 +36,9 @@ from pathlib import Path
 import numpy as np
 
 RAIZ = Path(__file__).resolve().parents[2]
-CTX, TOKENS_POR_BYTE, TRIGRAMA = 128, 0.313, 2.4766
+CTX, TRIGRAMA = 128, 2.4766
+from nucleo.experimentos.metricas import tokens_por_byte as _tpb
+TOKENS_POR_BYTE = _tpb()
 
 
 def main() -> None:

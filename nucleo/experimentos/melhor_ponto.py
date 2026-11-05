@@ -27,7 +27,9 @@ from pathlib import Path
 import numpy as np
 
 RAIZ = Path(__file__).resolve().parents[2]
-CTX, TOKENS_POR_BYTE = 128, 0.313
+CTX = 128
+from nucleo.experimentos.metricas import tokens_por_byte as _tpb
+TOKENS_POR_BYTE = _tpb()
 PASSO_FIXO = 500          # escolhido a priori, da curva independente da seed 0
 
 

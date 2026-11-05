@@ -1,0 +1,10 @@
+{
+  "vocab": 8192,
+  "d_model": 128,
+  "n_camadas": 4,
+  "n_cabecas": 4,
+  "ctx": 128,
+  "d_ff": 384,
+  "dropout": 0.0,
+  "tying": false
+}

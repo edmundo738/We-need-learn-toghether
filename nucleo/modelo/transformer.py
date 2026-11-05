@@ -338,18 +338,30 @@ class Transformer(nn.Modulo):
         n_novos: int,
         temperatura: float = 0.0,
         semente: int | None = None,
+        repeticao: float = 0.0,
     ) -> np.ndarray:
         """Geração autoregressiva. `temperatura=0` é greedy e determinística.
 
         Corta o contexto à janela: se a sequência crescer além de `ctx`,
         as posições mudam de sentido, por isso o corte é explícito e não
         silencioso.
+
+        `repeticao` > 0 penaliza tokens já presentes na janela recente
+        (penalidade de presença, não de frequência: cada token distinto é
+        penalizado uma vez). MEDIDO: sem isto o modelo entrava em colapso
+        com 15 travessões seguidos e frases como "que lhe lhe". A causa é
+        que a distribuição aprende a repetir o que acabou de dizer; a
+        penalização não corrige o modelo, só impede a degradação total na
+        amostragem. Valor típico: 1,2. Zero reproduz o comportamento antigo.
         """
         ids = np.asarray(ids, dtype=np.int64).reshape(1, -1)
         rng = np.random.default_rng(semente)
         for _ in range(n_novos):
             janela = ids[:, -self.cfg.ctx:]
-            logits = self.forward(janela).data[-1]          # última posição
+            logits = self.forward(janela).data[-1].astype(np.float64)  # última posição
+            if repeticao > 0 and len(janela[0]) > 1:
+                recentes = np.unique(janela[0][:-1])
+                logits[recentes] -= repeticao
             if temperatura <= 0:
                 proximo = int(np.argmax(logits))
             else:

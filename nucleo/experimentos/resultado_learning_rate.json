@@ -1,0 +1,69 @@
+{
+  "classe": "MEASURED",
+  "trigrama": 2.4766,
+  "divisao": "por obra, validação = Dom Casmurro",
+  "passos": 1200,
+  "seeds": [
+    0
+  ],
+  "lote": 8,
+  "nota": "valores medidos em duas corridas; a primeira foi cortada por tempo antes de gravar o JSON, os 3 braços constantes estão acima tal como impressos no log. Os braços cosine correram em separado.",
+  "resultados": [
+    {
+      "rotulo": "lr 3e-3 constante (actual)",
+      "lr": 0.003,
+      "schedule": "constante",
+      "melhor_perda_val": 5.934,
+      "melhor_passo": 500,
+      "bits_por_byte": 2.6819,
+      "margem_vs_trigrama": -0.2053
+    },
+    {
+      "rotulo": "lr 1e-3 constante",
+      "lr": 0.001,
+      "schedule": "constante",
+      "melhor_perda_val": 6.2514,
+      "melhor_passo": 400,
+      "bits_por_byte": 2.8254,
+      "margem_vs_trigrama": -0.3488
+    },
+    {
+      "rotulo": "lr 1e-3 cosine+warmup",
+      "lr": 0.001,
+      "schedule": "cosine",
+      "melhor_perda_val": 6.2922,
+      "melhor_passo": 400,
+      "bits_por_byte": 2.8438,
+      "margem_vs_trigrama": -0.3672
+    },
+    {
+      "rotulo": "lr 4e-4 constante",
+      "lr": 0.0004,
+      "schedule": "constante",
+      "melhor_perda_val": 6.6305,
+      "melhor_passo": 600,
+      "bits_por_byte": 2.9967,
+      "margem_vs_trigrama": -0.5201
+    },
+    {
+      "rotulo": "lr 4e-4 cosine+warmup",
+      "lr": 0.0004,
+      "schedule": "cosine",
+      "melhor_perda_val": 6.6943,
+      "melhor_passo": 300,
+      "bits_por_byte": 3.0256,
+      "margem_vs_trigrama": -0.549
+    }
+  ],
+  "melhor": {
+    "rotulo": "lr 3e-3 constante (actual)",
+    "lr": 0.003,
+    "schedule": "constante",
+    "melhor_perda_val": 5.934,
+    "melhor_passo": 500,
+    "bits_por_byte": 2.6819,
+    "margem_vs_trigrama": -0.2053
+  },
+  "bate_o_trigrama": false,
+  "conclusao": "Baixar o learning rate PIORA. 3e-3 constante é o melhor dos 5. O cosine também não ajuda neste orçamento. Os hiperparâmetros NÃO são a causa da derrota contra o trigrama — hipótese refutada."
+}

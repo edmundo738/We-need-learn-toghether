@@ -66,6 +66,8 @@ def estado() -> dict:
     cura = ler_json("resultado_curadoria_publico.json")
     sobre = ler_json("resultado_underfitting.json")
     adapt = ler_json("resultado_adaptacao.json")
+    final_cmp = ler_json("resultado_comparacao_final.json")
+    bom = ler_json("resultado_checkpoint_bom.json")
 
     d = {
         "corpus": {
@@ -77,7 +79,13 @@ def estado() -> dict:
             "alvo_cruzamento": final["alvo_cruzamento"] if final else 97320,
         },
         "baselines": {
-            "trigrama_bpb": 2.4766,
+            # medido em resultado_comparacao_final.json, mesma validação e
+            # mesma tokenização para os dois lados. Nunca escrito à mão.
+            "trigrama_bpb": final_cmp["trigrama"]["bits_por_byte"] if final_cmp else None,
+            "transformer_bpb_vs_trigrama": (
+                final_cmp["transformer"]["bits_por_byte"] if final_cmp else None),
+            "vencedor": final_cmp["vencedor"] if final_cmp else None,
+            "diferenca_bpb": final_cmp["diferenca_bpb"] if final_cmp else None,
             "transformer_bpb": melhor["melhor_observado"]["bits_por_byte_media"] if melhor else None,
             "transformer_bpb_fixo": melhor["passo_fixo_500"]["bits_por_byte_media"] if melhor else None,
             "margem": melhor["margem_melhor"] if melhor else None,
@@ -92,13 +100,32 @@ def estado() -> dict:
         "tamanhos": None,
         "curva": sobre["curva"] if sobre else None,
         "dialogo": None,
+        "modelo": {
+            "parametros": _contar_parametros(CHECKPOINT_OMISSAO),
+        },
+        "checkpoint_servido": {
+            "nome": CHECKPOINT_OMISSAO,
+            "passo": bom["melhor_passo"] if bom else None,
+            "perda_val": bom["melhor_perda_val"] if bom else None,
+            "bits_por_byte": bom["bits_por_byte"] if bom else None,
+        },
         "checkpoints": sorted(p.name for p in CHECKPOINTS.glob("*"))
         if CHECKPOINTS.exists() else [],
     }
     if ctxm:
         a, b = ctxm["resultado"]
-        d["contexto"] = {"ctx128": a["bits_por_byte"], "ctx256": b["bits_por_byte"],
-                         "pior": b["bits_por_byte"] > a["bits_por_byte"]}
+        diag = ler_json("resultado_diagnostico_contexto.json") or {}
+        arit = {x["ctx"]: x for x in diag.get("aritmetica", [])}
+        d["contexto"] = {
+            "ctx128": a["bits_por_byte"], "ctx256": b["bits_por_byte"],
+            "pior": b["bits_por_byte"] > a["bits_por_byte"],
+            "diag": {
+                "pos128": arit.get(128, {}).get("parametros_de_posicao"),
+                "pos256": arit.get(256, {}).get("parametros_de_posicao"),
+                "amostras128": arit.get(128, {}).get("amostras_por_parametro_de_posicao"),
+                "amostras256": arit.get(256, {}).get("amostras_por_parametro_de_posicao"),
+            },
+        }
     if menor:
         d["tamanhos"] = [{"rotulo": r["rotulo"], "params": r["parametros"],
                           "bpb": r["bits_por_byte"]} for r in menor["resultados"]]
@@ -109,6 +136,16 @@ def estado() -> dict:
             "acaso": round(math.log(8192), 3),
         }
     return d
+
+
+def _contar_parametros(nome: str) -> int | None:
+    """Conta os parâmetros do checkpoint a partir dos pesos, não do README."""
+    f = CHECKPOINTS / nome / "pesos.npz"
+    if not f.exists():
+        return None
+    import numpy as np
+    with np.load(f) as z:
+        return int(sum(z[k].size for k in z.files))
 
 
 def carregar_modelo(nome: str):
@@ -126,15 +163,23 @@ def carregar_modelo(nome: str):
         return m, tok
 
 
-def gerar(nome: str, prompt: str, n: int = 60, temp: float = 0.8) -> dict:
+#: checkpoint servido por omissão. `machado_melhor` está guardado no passo 550
+#: (val 5,9231), que é o óptimo medido da curva. Os `publico_seed*` estão no
+#: passo 1500 — o pior ponto (val 6,7498) — e ficam só para comparação.
+CHECKPOINT_OMISSAO = "machado_melhor"
+
+
+def gerar(nome: str, prompt: str, n: int = 60, temp: float = 0.8,
+          repeticao: float = 0.0) -> dict:
     import numpy as np
     m, tok = carregar_modelo(nome)
     ids = tok.codificar(prompt) if prompt else [tok.codificar("\n")[0]]
     with _lock:
-        saida = m.gerar(np.array([ids]), n_novos=n, temperatura=temp, semente=7)[0]
+        saida = m.gerar(np.array([ids]), n_novos=n, temperatura=temp,
+                        semente=7, repeticao=repeticao)[0]
     novo = list(saida[len(ids):])
     return {"prompt": prompt, "texto": tok.descodificar(novo),
-            "checkpoint": nome, "temperatura": temp}
+            "checkpoint": nome, "temperatura": temp, "repeticao": repeticao}
 
 
 HTML = """<!DOCTYPE html>
@@ -190,8 +235,10 @@ async function carregar(){
   const ganha=b.ganha===true;
   const pctCruz=c.tokens_unicos?Math.round(c.tokens_unicos/c.alvo_cruzamento*100):null;
   let h='';
-  h+='<div class="warnbox"><b>Leitura honesta.</b> Este modelo tem 2,77 M de parâmetros e '
-    +'178 mil tokens de treino. O <b>trigrama ganha-lhe '+(b.margem?Math.abs(b.margem).toFixed(2):'—')
+  const npar=(s.modelo&&s.modelo.parametros)?(s.modelo.parametros/1e6).toFixed(2).replace('.',','):'?';
+  const ntok=(s.corpus&&s.corpus.tokens_treino)?(s.corpus.tokens_treino/1000).toFixed(0):'?';
+  h+='<div class="warnbox"><b>Leitura honesta.</b> Este modelo tem '+npar+' M de parâmetros e '
+    +ntok+' mil tokens de treino. O <b>trigrama ganha-lhe '+(b.margem?Math.abs(b.margem).toFixed(2):'—')
     +' bits/byte</b>. Não é um modelo de conversa — é um instrumento de investigação, e o painel mostra '
     +'as medições desfavoráveis ao lado das favoráveis.</div>';
 
@@ -234,8 +281,9 @@ async function carregar(){
       +'<tr><td>128</td><td class="num">'+fmt(s.contexto.ctx128)+'</td><td class="ok">melhor</td></tr>'
       +'<tr><td>256</td><td class="num">'+fmt(s.contexto.ctx256)+'</td><td class="bad">pior</td></tr>'
       +'</table><div class="note">Orçamento igual (1 024 tokens/passo). Dobrar o contexto duplica a '
-      +'tabela de posições (16 384 → 32 768 parâmetros) sem mais dados: 10,9 → 5,4 amostras por '
-      +'parâmetro de posição.</div>';
+      +'tabela de posições ('+(s.contexto.diag.pos128||'?')+' → '+(s.contexto.diag.pos256||'?')
+      +' parâmetros) sem mais dados: '+(s.contexto.diag.amostras128||'?')+' → '
+      +(s.contexto.diag.amostras256||'?')+' amostras por parâmetro de posição.</div>';
   } else h+='<div class="note">—</div>';
   h+='</div>';
 
@@ -245,16 +293,26 @@ async function carregar(){
     +'</select><span class="note" id="ckinfo"></span></div>'
     +'<textarea id="prompt">O meu nome é Brás Cubas, e eu</textarea>'
     +'<div class="row"><span class="note">temperatura</span>'
-    +'<input type="range" id="temp" min="0" max="1.5" step="0.1" value="0.8" style="max-width:220px">'
-    +'<span class="note" id="tval">0,8</span>'
+    +'<input type="range" id="temp" min="0" max="1.5" step="0.1" value="0.8" style="max-width:170px">'
+    +'<span class="note" id="tval">0,8</span></div>'
+    +'<div class="row"><span class="note">anti-repetição</span>'
+    +'<input type="range" id="rep" min="0" max="3" step="0.2" value="1.2" style="max-width:170px">'
+    +'<span class="note" id="rval">1,2</span></div>'
+    +'<div class="row"><span class="note">tokens</span>'
+    +'<input type="range" id="nn" min="10" max="120" step="10" value="60" style="max-width:170px">'
+    +'<span class="note" id="nval">60</span>'
     +'<button id="btn">Gerar</button></div>'
     +'<pre id="out">Escolhe um checkpoint e clica em Gerar.</pre>'
     +'<div class="note">A geração bloqueia o servidor durante o pedido (é local, uma pessoa). '
-    +'Modelo de 2,77 M parâmetros: espera texto imperfeito, não conversa.</div></div>';
+    +'Modelo de '+npar+' M parâmetros: espera texto imperfeito, não conversa.</div></div>';
 
   document.getElementById('app').innerHTML=h;
   const temp=document.getElementById('temp'), tv=document.getElementById('tval');
+  const rep=document.getElementById('rep'), rv=document.getElementById('rval');
+  const nn=document.getElementById('nn'), nv=document.getElementById('nval');
   temp.oninput=()=>tv.textContent=Number(temp.value).toFixed(1).replace('.',',');
+  rep.oninput=()=>rv.textContent=Number(rep.value).toFixed(1).replace('.',',');
+  nn.oninput=()=>nv.textContent=nn.value;
   document.getElementById('btn').onclick=async()=>{
     const btn=document.getElementById('btn'), out=document.getElementById('out');
     btn.disabled=true; out.textContent='a gerar…';
@@ -262,7 +320,9 @@ async function carregar(){
       const r=await fetch('/api/gerar',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({checkpoint:document.getElementById('ck').value,
           prompt:document.getElementById('prompt').value,
-          temperatura:Number(temp.value)})});
+          temperatura:Number(temp.value),
+          repeticao:Number(rep.value),
+          n:Number(nn.value)})});
       const j=await r.json();
       out.textContent=j.erro?('ERRO: '+j.erro):(j.prompt+j.texto);
     }catch(e){out.textContent='ERRO: '+e}
@@ -307,10 +367,11 @@ class Handler(BaseHTTPRequestHandler):
         try:
             n = int(self.headers.get("Content-Length", 0))
             d = json.loads(self.rfile.read(n) or b"{}")
-            r = gerar(d.get("checkpoint", "publico_seed0"),
+            r = gerar(d.get("checkpoint", CHECKPOINT_OMISSAO),
                       str(d.get("prompt", ""))[:400],
                       n=int(d.get("n", 60)),
-                      temp=float(d.get("temperatura", 0.8)))
+                      temp=float(d.get("temperatura", 0.8)),
+                      repeticao=float(d.get("repeticao", 0.0)))
             self._json(r)
         except Exception as e:
             self._json({"erro": f"{type(e).__name__}: {e}"}, 500)

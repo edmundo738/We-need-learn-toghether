@@ -1,0 +1,9 @@
+{
+  "classe": "MEASURED",
+  "checkpoint": "machado_melhor",
+  "melhor_passo": 550,
+  "melhor_perda_val": 5.9231,
+  "bits_por_byte": 2.677,
+  "treino_ate": 700,
+  "nota": "substitui publico_seed* no painel; aqueles foram gravados no passo 1500, que é o pior ponto da curva (val 6,7498 vs 5,9340)."
+}

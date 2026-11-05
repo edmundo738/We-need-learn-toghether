@@ -39,7 +39,12 @@ dados/*.db-wal
 dados/*.db-shm
 dados/estado.json
 
-# Checkpoints de treino: os pesos (.npz) já estão ignorados acima e ficam
-# fora do git por tamanho (10 MB cada). O config de cada um é reconstruível
-# a partir de resultado_sobreajuste.json, que está versionado.
-nucleo/experimentos/checkpoints/
+# Checkpoints de treino: ficam fora do git por tamanho (~10 MB cada).
+# EXCEPÇÃO: `machado_melhor` é o que o painel serve por omissão e está
+# versionado. Sem ele, a primeira experiência de quem clona o repositório é
+# um painel que responde 500 em /api/gerar — foi exactamente o defeito que o
+# utilizador encontrou. Reproedutibilidade exige o checkpoint no commit.
+nucleo/experimentos/checkpoints/*
+!nucleo/experimentos/checkpoints/machado_melhor/
+!nucleo/experimentos/checkpoints/machado_melhor/pesos.npz
+!nucleo/experimentos/checkpoints/machado_melhor/config.json

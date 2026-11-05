@@ -34,7 +34,9 @@ import numpy as np
 
 RAIZ = Path(__file__).resolve().parents[2]
 CTX = 128
-TOKENS_POR_BYTE = 0.313   # medido: 294 107 tokens / 938 807 caracteres
+from nucleo.experimentos.metricas import tokens_por_byte
+# medido em nucleo/experimentos/medida_tokens_por_byte.json: 294 107 / 938 807
+TOKENS_POR_BYTE = tokens_por_byte()
 
 
 def carregar() -> dict[str, list[int]]:
