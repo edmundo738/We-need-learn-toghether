@@ -1,0 +1,34 @@
+{
+  "classe": "MEASURED",
+  "trigrama_bits_por_byte": 2.4766,
+  "desenho": "passos iguais (800) e tokens/passo iguais (1024) nos dois braços; a única variável é ctx. lote compensado para igualar o orçamento.",
+  "resultado": [
+    {
+      "ctx": 128,
+      "lote": 8,
+      "tokens_por_passo": 1024,
+      "tokens_vistos": 819200,
+      "janelas_treino": 1395,
+      "janelas_val": 902,
+      "melhor_perda_val": 5.934,
+      "melhor_passo": 500,
+      "bits_por_byte": 2.6796,
+      "margem_vs_trigrama": -0.203
+    },
+    {
+      "ctx": 256,
+      "lote": 4,
+      "tokens_por_passo": 1024,
+      "tokens_vistos": 819200,
+      "janelas_treino": 697,
+      "janelas_val": 451,
+      "melhor_perda_val": 5.9832,
+      "melhor_passo": 700,
+      "bits_por_byte": 2.7018,
+      "margem_vs_trigrama": -0.2252
+    }
+  ],
+  "melhoria_do_ctx_256_bpb": -0.0222,
+  "ctx_256_bate_o_trigrama": false,
+  "aviso": "uma seed. Sem desvio não se distingue efeito de ruído; o desvio típico entre seeds neste corpus é ~0,013 bpb, pelo que uma melhoria abaixo disso NÃO é interpretável."
+}

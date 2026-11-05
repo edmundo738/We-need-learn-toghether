@@ -993,3 +993,81 @@ de ordem superior.
 **Nota de método:** esta correção custou 27 minutos de treino e vale mais do que qualquer
 número que eu acrescentasse a favor do modelo. Uma inferência transformada em medição
 derrubou-se a si mesma.
+
+---
+
+# ADENDA E — contexto 256: pior, e o mecanismo está identificado
+
+A Adenda D10 apontou o contexto como próximo suspeito. Testado, e o resultado é contra-intuitivo.
+
+## E1. Desenho com orçamento igualado (MEASURED)
+
+Comparar «ctx 256 por 800 passos» com «ctx 128 por 800 passos» seria trapaça: 256×8 = 2 048
+tokens por passo contra 1 024. O maior veria o dobro do texto e ganharia por isso.
+Lote compensado: **ctx 128 lote 8** vs **ctx 256 lote 4** — os dois a 1 024 tokens/passo,
+800 passos, 819 200 tokens vistos.
+
+| contexto | bits/byte | melhor passo |
+|---|---|---|
+| 128 | **2,6796** | 500 |
+| 256 | 2,7018 | 700 |
+
+**Diferença: −0,0222 bpb.** O contexto maior é *pior*. Nenhum dos dois bate o trigrama (2,4766).
+
+## E2. O mecanismo: parâmetros POR POSIÇÃO (MEASURED)
+
+`self.emb_pos = Embedding(cfg.ctx, cfg.d_model)` — uma tabela com **um vector por posição**,
+não RoPE nem sinusóide. Cada posição tem 128 parâmetros próprios, treinados apenas com os
+tokens que caem naquela posição.
+
+| | parâmetros de posição | janelas de treino | amostras por parâmetro de posição |
+|---|---|---|---|
+| ctx 128 | 16 384 | 1 395 | **10,9** |
+| ctx 256 | 32 768 | 697 | **5,4** |
+
+**Dobrar o contexto duplica a tabela e mantém o corpus.** Metade dos dados por parâmetro de
+posição. É o **único** sítio do modelo onde o argumento dados/parâmetro se aplica — e explica
+porque é que reduzir o modelo inteiro (`modelo_menor.py`) não ajudou: a posicional ficava do
+mesmo tamanho, e o problema não estava lá.
+
+Isto também reconcilia os dois resultados que pareciam contradizer-se: o modelo maior ganha
+(2,6796 < 2,7066) **e** mais contexto perde. Não é o número total de parâmetros que manda —
+é a *distribuição* de dados pelos parâmetros que cada posição tem de aprender.
+
+## E3. A hipótese alternativa foi descartada (MEASURED)
+
+Havia uma explicação rival: o modelo pode estar a memorizar os **inícios de janela** (todos os
+capítulos começam de forma parecida) e não usar o contexto longo. A perda por faixa de posição
+nos dados de treino, ctx 128:
+
+| faixa | perda (treino) |
+|---|---|
+| início (0-31) | 5,0396 |
+| meio (60-91) | 4,8814 |
+| fim (96-127) | 5,0046 |
+
+**Uniforme.** O início até é ligeiramente *pior* que o meio. A hipótese está descartada por
+medição, não por argumento.
+
+## E4. O que isto implica, e o que NÃO se fez
+
+A posicional aprendida é o único componente cujo custo cresce linearmente com o contexto sem
+qualquer ganho de dados. **O teste que a confirmaria é substituí-la por RoPE ou sinusóide**,
+que não têm parâmetros por posição.
+
+**Não foi feito.** Mudar a posicional altera a arquitectura, está congelado pela directiva
+(«sem alterar o Transformer às cegas») e exige regressão completa. Fica declarado como o
+próximo passo com mais valor, com esta previsão explícita para poder ser testada:
+
+> **HYPOTHESIS:** com RoPE, o contexto 256 deixa de ser pior que o 128, e o modelo aproxima-se
+> do trigrama. Se com RoPE o ctx 256 continuar pior, a previsão está errada e o problema é
+> outro.
+
+## E5. O que continua a ser verdade, sem alterações
+
+- **O trigrama ganha** por 0,21 bpb. Nenhum dos sete modelos testados (4 tamanhos, 2 contextos,
+  corpus antigo e novo) lhe chegou perto.
+- **3 de 9 finalidades** com dados.
+- **O modelo não é conversacional.** Gerado ao vivo: `«Capitu olhou para melhor idéia a primeira
+  servir; eu devesse. A Casaca chegava na praia»`. Há pedaços reconhecíveis do corpus e nenhuma
+  sintaxe.

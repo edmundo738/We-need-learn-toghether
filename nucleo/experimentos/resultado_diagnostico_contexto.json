@@ -1,0 +1,40 @@
+{
+  "classe": "MEASURED",
+  "mecanismo": "emb_pos = Embedding(ctx, d_model): um vector POR POSIÇÃO, não RoPE nem sinusóide. Dobrar ctx duplica a tabela sem aumentar o corpus, logo metade das amostras por parâmetro de posição — o argumento dados/parâmetro APLICA-SE aqui, ao contrário de modelo_menor.py onde reduzir o modelo inteiro deixava a posicional igual.",
+  "aritmetica": [
+    {
+      "ctx": 128,
+      "janelas": 1395,
+      "parametros_de_posicao": 16384,
+      "parametros_por_posicao": 128,
+      "amostras_por_parametro_de_posicao": 10.9,
+      "tokens_por_parametro_de_posicao": 10.9
+    },
+    {
+      "ctx": 256,
+      "janelas": 697,
+      "parametros_de_posicao": 32768,
+      "parametros_por_posicao": 128,
+      "amostras_por_parametro_de_posicao": 5.45,
+      "tokens_por_parametro_de_posicao": 5.45
+    }
+  ],
+  "perda_por_faixa_de_posicao": [
+    {
+      "faixa": "inicio (0-31)",
+      "perda_treino": 5.0396,
+      "perda_val": 6.0115
+    },
+    {
+      "faixa": "meio (60-91)",
+      "perda_treino": 4.8814,
+      "perda_val": 5.9305
+    },
+    {
+      "faixa": "fim (96-127)",
+      "perda_treino": 5.0046,
+      "perda_val": 5.9293
+    }
+  ],
+  "leitura": "se a perda no início for muito menor que no fim, o modelo memorizou os inícios de janela (todos os capítulos começam de forma parecida) e não está a usar o contexto longo."
+}
