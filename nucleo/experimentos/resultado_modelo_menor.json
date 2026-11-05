@@ -1,0 +1,82 @@
+{
+  "classe": "MEASURED",
+  "trigrama_bits_por_byte": 2.4766,
+  "criterio_declarado_antes": "se algum modelo chegar a <= 2,4766 bpb, a explicação dados/parâmetro está confirmada",
+  "resultados": [
+    {
+      "rotulo": "d_model=128 d_ff=384",
+      "d_model": 128,
+      "d_ff": 384,
+      "n_camadas": 4,
+      "parametros": 2771200,
+      "tokens_por_parametro": 0.0644,
+      "melhor_perda_val": 5.934,
+      "melhor_passo": 500,
+      "bits_por_byte": 2.6796,
+      "ganha_do_trigrama": false
+    },
+    {
+      "rotulo": "d_model=128 d_ff=256",
+      "d_model": 128,
+      "d_ff": 256,
+      "n_camadas": 4,
+      "parametros": 2640128,
+      "tokens_por_parametro": 0.0676,
+      "melhor_perda_val": 5.9738,
+      "melhor_passo": 500,
+      "bits_por_byte": 2.6976,
+      "ganha_do_trigrama": false
+    },
+    {
+      "rotulo": "d_model=128 d_ff=128",
+      "d_model": 128,
+      "d_ff": 128,
+      "n_camadas": 4,
+      "parametros": 2509056,
+      "tokens_por_parametro": 0.0712,
+      "melhor_perda_val": 5.9823,
+      "melhor_passo": 500,
+      "bits_por_byte": 2.7014,
+      "ganha_do_trigrama": false
+    },
+    {
+      "rotulo": "d_model=64 d_ff=192",
+      "d_model": 64,
+      "d_ff": 192,
+      "n_camadas": 4,
+      "parametros": 1221760,
+      "tokens_por_parametro": 0.1461,
+      "melhor_perda_val": 5.9939,
+      "melhor_passo": 600,
+      "bits_por_byte": 2.7066,
+      "ganha_do_trigrama": false
+    },
+    {
+      "rotulo": "d_model=64 (corpus ANTIGO 66k)",
+      "d_model": 64,
+      "d_ff": 192,
+      "n_camadas": 4,
+      "parametros": 1221760,
+      "tokens_por_parametro": 0.0486,
+      "melhor_perda_val": 6.1107,
+      "melhor_passo": 200,
+      "bits_por_byte": 2.7594,
+      "ganha_do_trigrama": false,
+      "corpus": "antigo_66k"
+    }
+  ],
+  "melhor": {
+    "rotulo": "d_model=128 d_ff=384",
+    "d_model": 128,
+    "d_ff": 384,
+    "n_camadas": 4,
+    "parametros": 2771200,
+    "tokens_por_parametro": 0.0644,
+    "melhor_perda_val": 5.934,
+    "melhor_passo": 500,
+    "bits_por_byte": 2.6796,
+    "ganha_do_trigrama": false
+  },
+  "algum_bate_o_trigrama": false,
+  "nota_controlo": "o controlo com corpus antigo distingue «modelo menor» de «mais dados». Se o pequeno melhora no corpus novo mas não no antigo, o ganho é dos dados, não do tamanho."
+}

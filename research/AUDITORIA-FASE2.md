@@ -960,3 +960,36 @@ limitação registada em A4 e B1: «nenhum dos 244 mil caracteres é redistribu�
   este corpus». Mas só se sabe testando o modelo menor.
 - **Qualidade linguística.** A perda é um número; não se gerou uma única amostra de Machado.
   Antes de qualquer afirmação sobre «saber português», é preciso ler o que ele escreve.
+
+## D10. A explicação da Adenda D9 foi testada e REFUTADA (MEASURED)
+
+D9 dizia: «a razão provável é dados/parâmetros», classificado **INFERRED**. A directiva é
+clara — uma explicação que não se mede não é um resultado. Medi-a com critério declarado
+**antes** de correr:
+
+> «Se um modelo menor chegar a ≤ 2,4766 bpb, a explicação confirma-se.»
+
+| modelo | parâmetros | bits/byte | margem |
+|---|---|---|---|
+| d_model 128, d_ff 384 | 2 771 200 | **2,6796** | −0,2030 |
+| d_model 128, d_ff 256 | 2 640 128 | 2,6976 | −0,2210 |
+| d_model 128, d_ff 128 | 2 509 056 | 2,7014 | −0,2248 |
+| d_model 64, d_ff 192 | 1 221 760 | 2,7066 | −0,2300 |
+| **controlo**: d_model 64, corpus antigo (66k) | 1 221 760 | 2,7594 | −0,2828 |
+
+**A explicação está errada.** Reduzir o modelo **piora-o** monotonamente; o maior é o melhor.
+Nenhum tamanho se aproxima do trigrama.
+
+O controlo faz o seu trabalho: o **mesmo** modelo pequeno dá 2,7066 no corpus novo e 2,7594
+no antigo. **Os dados ajudam 0,05 bpb; o tamanho não é o problema.** Isto isola as duas
+variáveis, que era exactamente o que faltava.
+
+**O que sobra é estrutural** (HYPOTHESIS, não resultado): um Transformer com posicionais
+aprendidas e contexto 128, treinado em 178 mil tokens, não captura regularidades locais tão
+bem como contar trigramas. Para testar isso o próximo passo é diferente do que eu tinha
+escrito em D9 — não é «encurtar o modelo», é **mais contexto** ou comparar contra n-gramas
+de ordem superior.
+
+**Nota de método:** esta correção custou 27 minutos de treino e vale mais do que qualquer
+número que eu acrescentasse a favor do modelo. Uma inferência transformada em medição
+derrubou-se a si mesma.
