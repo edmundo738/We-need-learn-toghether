@@ -36,16 +36,20 @@ FINALIDADES = [
     Finalidade(
         "pt_general",
         "Português corrente: gramática, notícia, ensaio, variantes",
-        "5 obras de Edmundo Nambo + Bechara (em dados/outros, fora do corpus)",
-        onde_buscar=["texto próprio e licenciado", "domínio público (Bechara não: ainda protegido)",
+        "4 obras de Machado de Assis (DOMÍNIO PÚBLICO, 938 807 car, 294 107 tokens) "
+        "+ 5 obras de Edmundo Nambo",
+        onde_buscar=["mais obras em domínio público (projecto Gutenberg, Biblioteca Nacional)",
                      "jornais com licença explícita"],
-        teste_de_avaliacao="perplexidade em texto de autor nunca visto; taxa de concordância verbal",
+        teste_de_avaliacao="perplexidade em autor nunca visto (divisão por obra); "
+                           "bits-por-byte contra trigrama. MEDIDO: 2,6821 vs 2,4766 "
+                           "— o trigrama ganha por 0,21 bpb",
     ),
     Finalidade(
         "pt_africa",
         "Português angolano e variantes africanas",
-        "as 5 obras do corpus",
-        onde_buscar=["literatura angolana em domínio público ou autorizada",
+        "as 5 obras do corpus (Edmundo Nambo). Machado é português do BRASIL, "
+        "NÃO serve para pt_africa — é a distinção que faltava",
+        onde_buscar=["literatura angolana em domínio público (autores falecidos há +70 anos)",
                      "PEPÁ (Pesquisas e Publicações Angola) com autorização"],
         teste_de_avaliacao="léxico e construções marcadas de Angola reconhecidas em contexto",
     ),
@@ -105,9 +109,12 @@ FINALIDADES = [
 ]
 
 
+total_publico_cache = 0
+
+
 def medir_existentes() -> None:
     """Preenche tokens_existentes com o que está realmente em dados/."""
-    total_obras = total_dialogo = 0
+    total_obras = total_dialogo = total_publico = 0
     try:
         from nucleo.tokenizador.bpe import TokenizadorBPE
         tok = TokenizadorBPE.carregar(RAIZ / "nucleo" / "tokenizador" / "vocabulario_v1")
@@ -115,11 +122,17 @@ def medir_existentes() -> None:
             total_obras += len(tok.codificar(f.read_text(encoding="utf-8", errors="replace")))
         for f in sorted((RAIZ / "dados" / "dialogos").glob("*.md")):
             total_dialogo += len(tok.codificar(f.read_text(encoding="utf-8", errors="replace")))
+        for f in sorted((RAIZ / "dados" / "publico_limpo").glob("*.txt")):
+            total_publico += len(tok.codificar(f.read_text(encoding="utf-8", errors="replace")))
     except Exception:
-        total_obras, total_dialogo = 65999, 9653   # valores medidos anteriormente
+        total_obras, total_dialogo, total_publico = 65999, 12126, 294107
+    global total_publico_cache
+    total_publico_cache = total_publico
     for fin in FINALIDADES:
-        if fin.nome in ("pt_general", "pt_africa"):
-            fin.tokens_existentes = total_obras
+        if fin.nome == "pt_general":
+            fin.tokens_existentes = total_obras + total_publico
+        elif fin.nome == "pt_africa":
+            fin.tokens_existentes = total_obras      # Machado é do Brasil, não de África
         elif fin.nome == "conversation":
             fin.tokens_existentes = total_dialogo
     # licença: o manifesto diz caracteres_redistribuiveis = 0
@@ -153,8 +166,8 @@ def main() -> None:
     # o corpus real. O total correcto é a UNIÃO das FONTES distintas:
     # obras (65 999) + diálogos (9 653). Cada fonte conta uma vez, mesmo que
     # alimente duas finalidades.
-    total_unico = sum(f.tokens_existentes for f in FINALIDADES
-                      if f.nome in ("pt_general", "conversation"))
+    total_unico = total_publico_cache + sum(f.tokens_existentes for f in FINALIDADES
+                      if f.nome in ("pt_africa", "conversation"))
     soma_ingenua = sum(f.tokens_existentes for f in FINALIDADES)
     cobertas = sum(1 for f in FINALIDADES if f.tokens_existentes > 0)
     print(f"\n{cobertas} de {len(FINALIDADES)} finalidades têm qualquer dado.")

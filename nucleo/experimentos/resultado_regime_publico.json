@@ -1,0 +1,52 @@
+{
+  "classe": "MEASURED",
+  "corpus": "Machado de Assis, domínio público, 294 107 tokens",
+  "divisao": "por obra: treino=['alienista', 'bras_cubas', 'cartomante'], validação=dom_casmurro",
+  "passos": 1500,
+  "lote": 8,
+  "lr": 0.003,
+  "ctx": 128,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "trigrama_bits_por_byte": 2.4766,
+  "transformer_bits_por_byte_media": 3.048,
+  "transformer_bits_por_byte_desvio": 0.0133,
+  "transformer_perda_val_media": 6.7498,
+  "transformer_perda_val_desvio": 0.0295,
+  "folga_media": 3.485,
+  "ganha_do_trigrama": false,
+  "margem_bits_por_byte": -0.5714,
+  "tokens_por_parametro": 0.064,
+  "resultados": [
+    {
+      "semente": 0,
+      "perda_treino": 3.2896,
+      "perda_val": 6.7745,
+      "folga": 3.4849,
+      "bits_por_byte": 3.0591,
+      "segundos": 576.2
+    },
+    {
+      "semente": 1,
+      "perda_treino": 3.3117,
+      "perda_val": 6.7171,
+      "folga": 3.4054,
+      "bits_por_byte": 3.0332,
+      "segundos": 549.3
+    },
+    {
+      "semente": 2,
+      "perda_treino": 3.1931,
+      "perda_val": 6.7578,
+      "folga": 3.5647,
+      "bits_por_byte": 3.0516,
+      "segundos": 559.8
+    }
+  ],
+  "tokens_treino": 178560,
+  "parametros": 2771200,
+  "nota_tpp": "178 560 tokens de TREINO / 2 771 200 parâmetros = 0,064 tokens por parâmetro. (A validação não treina, logo não entra.) Comparar com os ~4 000 dos modelos reais: são ~62 000x menos, não 60x. Eu tinha escrito «64 tokens/parâmetro» — confundi 0,064 com 64. Nenhuma conclusão muda, mas o factor estava errado por 1000x."
+}

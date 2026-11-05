@@ -5,26 +5,25 @@
     {
       "nome": "pt_general",
       "descricao": "Português corrente: gramática, notícia, ensaio, variantes",
-      "fonte_actual": "5 obras de Edmundo Nambo + Bechara (em dados/outros, fora do corpus)",
-      "tokens_existentes": 65999,
+      "fonte_actual": "4 obras de Machado de Assis (DOMÍNIO PÚBLICO, 938 807 car, 294 107 tokens) + 5 obras de Edmundo Nambo",
+      "tokens_existentes": 360106,
       "licenca": "obra do autor do projecto — uso privado; redistribuição NÃO autorizada",
       "redistribuivel": false,
       "onde_buscar": [
-        "texto próprio e licenciado",
-        "domínio público (Bechara não: ainda protegido)",
+        "mais obras em domínio público (projecto Gutenberg, Biblioteca Nacional)",
         "jornais com licença explícita"
       ],
-      "teste_de_avaliacao": "perplexidade em texto de autor nunca visto; taxa de concordância verbal"
+      "teste_de_avaliacao": "perplexidade em autor nunca visto (divisão por obra); bits-por-byte contra trigrama. MEDIDO: 2,6821 vs 2,4766 — o trigrama ganha por 0,21 bpb"
     },
     {
       "nome": "pt_africa",
       "descricao": "Português angolano e variantes africanas",
-      "fonte_actual": "as 5 obras do corpus",
+      "fonte_actual": "as 5 obras do corpus (Edmundo Nambo). Machado é português do BRASIL, NÃO serve para pt_africa — é a distinção que faltava",
       "tokens_existentes": 65999,
       "licenca": "obra do autor do projecto — uso privado; redistribuição NÃO autorizada",
       "redistribuivel": false,
       "onde_buscar": [
-        "literatura angolana em domínio público ou autorizada",
+        "literatura angolana em domínio público (autores falecidos há +70 anos)",
         "PEPÁ (Pesquisas e Publicações Angola) com autorização"
       ],
       "teste_de_avaliacao": "léxico e construções marcadas de Angola reconhecidas em contexto"
@@ -123,7 +122,7 @@
   ],
   "cobertas": 3,
   "total": 9,
-  "tokens_unicos": 87874,
-  "soma_ingenua_por_categoria": 153873,
+  "tokens_unicos": 381981,
+  "soma_ingenua_por_categoria": 447980,
   "nota": "pt_general e pt_africa partilham o mesmo texto; somar duplica"
 }

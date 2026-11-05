@@ -1,0 +1,173 @@
+{
+  "classe": "MEASURED",
+  "divisao": "por obra (validação = Dom Casmurro)",
+  "passo_fixo_escolhido_a_priori": 500,
+  "trigrama_bits_por_byte": 2.4766,
+  "melhor_observado": {
+    "perda_val_media": 5.9396,
+    "perda_val_desvio": 0.0081,
+    "bits_por_byte_media": 2.6821,
+    "passos": [
+      500,
+      600,
+      700
+    ],
+    "aviso": "optimismo selectivo: escolhido olhando a validação"
+  },
+  "passo_fixo_500": {
+    "perda_val_media": 5.977,
+    "perda_val_desvio": 0.0378,
+    "bits_por_byte_media": 2.699,
+    "aviso": "honesto: o passo 500 foi escolhido numa corrida separada"
+  },
+  "resultados": [
+    {
+      "semente": 0,
+      "curva": [
+        {
+          "passo": 100,
+          "perda_val": 6.4691
+        },
+        {
+          "passo": 200,
+          "perda_val": 6.1641
+        },
+        {
+          "passo": 300,
+          "perda_val": 6.036
+        },
+        {
+          "passo": 400,
+          "perda_val": 5.9878
+        },
+        {
+          "passo": 500,
+          "perda_val": 5.934
+        },
+        {
+          "passo": 600,
+          "perda_val": 5.9535
+        },
+        {
+          "passo": 700,
+          "perda_val": 5.9838
+        },
+        {
+          "passo": 800,
+          "perda_val": 6.0466
+        },
+        {
+          "passo": 900,
+          "perda_val": 6.0989
+        },
+        {
+          "passo": 1000,
+          "perda_val": 6.1521
+        }
+      ],
+      "melhor_passo": 500,
+      "melhor_val": 5.934,
+      "val_no_passo_fixo": 5.934
+    },
+    {
+      "semente": 1,
+      "curva": [
+        {
+          "passo": 100,
+          "perda_val": 6.4232
+        },
+        {
+          "passo": 200,
+          "perda_val": 6.1546
+        },
+        {
+          "passo": 300,
+          "perda_val": 6.0473
+        },
+        {
+          "passo": 400,
+          "perda_val": 5.9896
+        },
+        {
+          "passo": 500,
+          "perda_val": 5.9921
+        },
+        {
+          "passo": 600,
+          "perda_val": 5.9489
+        },
+        {
+          "passo": 700,
+          "perda_val": 6.0133
+        },
+        {
+          "passo": 800,
+          "perda_val": 6.0495
+        },
+        {
+          "passo": 900,
+          "perda_val": 6.0536
+        },
+        {
+          "passo": 1000,
+          "perda_val": 6.1081
+        }
+      ],
+      "melhor_passo": 600,
+      "melhor_val": 5.9489,
+      "val_no_passo_fixo": 5.9921
+    },
+    {
+      "semente": 2,
+      "curva": [
+        {
+          "passo": 100,
+          "perda_val": 6.4395
+        },
+        {
+          "passo": 200,
+          "perda_val": 6.1803
+        },
+        {
+          "passo": 300,
+          "perda_val": 6.0573
+        },
+        {
+          "passo": 400,
+          "perda_val": 5.9793
+        },
+        {
+          "passo": 500,
+          "perda_val": 6.0049
+        },
+        {
+          "passo": 600,
+          "perda_val": 5.9752
+        },
+        {
+          "passo": 700,
+          "perda_val": 5.936
+        },
+        {
+          "passo": 800,
+          "perda_val": 6.0069
+        },
+        {
+          "passo": 900,
+          "perda_val": 6.092
+        },
+        {
+          "passo": 1000,
+          "perda_val": 6.1951
+        }
+      ],
+      "melhor_passo": 700,
+      "melhor_val": 5.936,
+      "val_no_passo_fixo": 6.0049
+    }
+  ],
+  "ganha_do_trigrama_melhor": false,
+  "ganha_do_trigrama_fixo": false,
+  "margem_melhor": -0.2055,
+  "margem_fixo": -0.2224
+}

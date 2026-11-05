@@ -1,0 +1,133 @@
+{
+  "classe": "MEASURED",
+  "seeds": [
+    0
+  ],
+  "passos": 4000,
+  "lote": 8,
+  "trigrama_bpb": 2.4766,
+  "curva": [
+    {
+      "passo": 250,
+      "perda_treino": 5.595,
+      "perda_val": 6.1029,
+      "bits_por_byte": 2.7558,
+      "epocas": 1.4
+    },
+    {
+      "passo": 500,
+      "perda_treino": 4.7982,
+      "perda_val": 5.934,
+      "bits_por_byte": 2.6796,
+      "epocas": 2.9
+    },
+    {
+      "passo": 750,
+      "perda_treino": 4.4307,
+      "perda_val": 5.9944,
+      "bits_por_byte": 2.7068,
+      "epocas": 4.3
+    },
+    {
+      "passo": 1000,
+      "perda_treino": 3.3801,
+      "perda_val": 6.1521,
+      "bits_por_byte": 2.7781,
+      "epocas": 5.7
+    },
+    {
+      "passo": 1250,
+      "perda_treino": 3.3836,
+      "perda_val": 6.3786,
+      "bits_por_byte": 2.8804,
+      "epocas": 7.2
+    },
+    {
+      "passo": 1500,
+      "perda_treino": 3.4076,
+      "perda_val": 6.7745,
+      "bits_por_byte": 3.0591,
+      "epocas": 8.6
+    },
+    {
+      "passo": 1750,
+      "perda_treino": 2.3361,
+      "perda_val": 7.1538,
+      "bits_por_byte": 3.2304,
+      "epocas": 10.0
+    },
+    {
+      "passo": 2000,
+      "perda_treino": 2.4575,
+      "perda_val": 7.5537,
+      "bits_por_byte": 3.411,
+      "epocas": 11.5
+    },
+    {
+      "passo": 2250,
+      "perda_treino": 2.6492,
+      "perda_val": 7.875,
+      "bits_por_byte": 3.5561,
+      "epocas": 12.9
+    },
+    {
+      "passo": 2500,
+      "perda_treino": 1.8434,
+      "perda_val": 8.3338,
+      "bits_por_byte": 3.7632,
+      "epocas": 14.3
+    },
+    {
+      "passo": 2750,
+      "perda_treino": 1.7746,
+      "perda_val": 8.7338,
+      "bits_por_byte": 3.9439,
+      "epocas": 15.8
+    },
+    {
+      "passo": 3000,
+      "perda_treino": 1.4969,
+      "perda_val": 9.2135,
+      "bits_por_byte": 4.1605,
+      "epocas": 17.2
+    },
+    {
+      "passo": 3250,
+      "perda_treino": 1.3312,
+      "perda_val": 9.5626,
+      "bits_por_byte": 4.3181,
+      "epocas": 18.6
+    },
+    {
+      "passo": 3500,
+      "perda_treino": 1.1803,
+      "perda_val": 9.8299,
+      "bits_por_byte": 4.4388,
+      "epocas": 20.1
+    },
+    {
+      "passo": 3750,
+      "perda_treino": 1.1106,
+      "perda_val": 10.2529,
+      "bits_por_byte": 4.6298,
+      "epocas": 21.5
+    },
+    {
+      "passo": 4000,
+      "perda_treino": 1.2274,
+      "perda_val": 10.6986,
+      "bits_por_byte": 4.8311,
+      "epocas": 22.9
+    }
+  ],
+  "melhor": {
+    "passo": 500,
+    "perda_treino": 4.7982,
+    "perda_val": 5.934,
+    "bits_por_byte": 2.6796,
+    "epocas": 2.9
+  },
+  "melhoria_de_1500_a_4000": -3.9241,
+  "ainda_a_descer": false,
+  "diagnostico": "a piorar: sobreajuste"
+}

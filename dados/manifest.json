@@ -313,5 +313,68 @@
     "licenca": "do autor do projecto",
     "redistribuivel": false,
     "nota": "Padrão utilizador/IA em formato de diálogo, com linguagem de Angola (KKKK, \"uma cena\", \"mano\")."
+  },
+  "dominio_publico": {
+    "justificacao_legal": "Machado de Assis (1839-1908). Obra em domínio público por mais de 70 anos após a morte do autor, tanto na lei brasileira (Lei 9.610/98) como na angolana. Verificado: os PDFs não contêm aviso de restrição de direitos; os créditos das bibliotecas digitais (BibVirt/USP, eLibro, UNAMA) permitem redistribuição para fins educacionais.",
+    "classe": "FACT (estatuto legal) + MEASURED (conteúdo)",
+    "obras": [
+      {
+        "slug": "dom_casmurro",
+        "titulo": "Dom Casmurro",
+        "autor": "Machado de Assis",
+        "ano": 1899,
+        "pdf_origem": "dom-casmurro.pdf",
+        "caracteres_brutos": 378015,
+        "caracteres_limpos": 376593,
+        "sha256_limpo": "d541821869e49f870a3064d1b133163a3496c08e74cf15ca3ece63eaf7508f27",
+        "licenca": "domínio público",
+        "redistribuivel": true
+      },
+      {
+        "slug": "bras_cubas",
+        "titulo": "Memórias Póstumas de Brás Cubas",
+        "autor": "Machado de Assis",
+        "ano": 1881,
+        "pdf_origem": "bras-cubas.pdf",
+        "caracteres_brutos": 368993,
+        "caracteres_limpos": 367242,
+        "sha256_limpo": "e010a791a110553e207072198e19a4dfb2dae6d8bd006155aa5ca542b583381e",
+        "licenca": "domínio público",
+        "redistribuivel": true
+      },
+      {
+        "slug": "alienista",
+        "titulo": "O Alienista",
+        "autor": "Machado de Assis",
+        "ano": 1882,
+        "pdf_origem": "o-alienista.pdf",
+        "caracteres_brutos": 101609,
+        "caracteres_limpos": 100781,
+        "sha256_limpo": "cf9c45b80d027759433a49a44151c0831d5c2e6c44c04fd9da1fd2fefb50bc1a",
+        "licenca": "domínio público",
+        "redistribuivel": true
+      },
+      {
+        "slug": "cartomante",
+        "titulo": "A Cartomante (conto)",
+        "autor": "Machado de Assis",
+        "ano": 1896,
+        "pdf_origem": "Contos_Machado_de_Assis.pdf",
+        "caracteres_brutos": 95659,
+        "caracteres_limpos": 94191,
+        "sha256_limpo": "3855d68771e7c3dee9f3d2828f251b59eda99c70b03e39de38b84112af09942d",
+        "licenca": "domínio público",
+        "redistribuivel": true
+      }
+    ],
+    "total_caracteres_limpos": 938807,
+    "tokens_v1": 294107
+  },
+  "nao_ingerido": {
+    "EB009": {
+      "motivo": "NÃO é Machado de Assis. É a tese «Na(rra)ção satírica e humorística: uma leitura da obra narrativa de Manuel Rui», de Marta de Oliveira — obra académica protegida. Manual Rui está vivo e a tese tem autora identificada.",
+      "decisao": "excluído do corpus. Seria útil (português angolano) mas não é livre.",
+      "verificado_por": "metadados do PDF (/Title, /Author) + leitura das primeiras páginas"
+    }
   }
 }

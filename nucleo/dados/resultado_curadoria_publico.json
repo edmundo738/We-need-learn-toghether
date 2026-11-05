@@ -1,0 +1,143 @@
+{
+  "classe": "MEASURED",
+  "fonte": "Machado de Assis (1839-1908), domínio público",
+  "total_antes": 944276,
+  "total_depois": 938807,
+  "palavras_antes": 163442,
+  "palavras_depois": 163039,
+  "removido_pct": 0.58,
+  "ficheiros": [
+    {
+      "ficheiro": "alienista.txt",
+      "antes": 101609,
+      "depois": 100781,
+      "palavras_antes": 16990,
+      "palavras_depois": 16964,
+      "filtros": [
+        {
+          "nome": "creditos_da_biblioteca",
+          "motivo": "créditos de digitalização da biblioteca/editora, não do autor",
+          "linhas": 3,
+          "caracteres": 236
+        },
+        {
+          "nome": "marca_de_paginacao",
+          "motivo": "números de página isolados injectados pela digitalização",
+          "linhas": 0,
+          "caracteres": 0
+        },
+        {
+          "nome": "credito_de_ocr",
+          "motivo": "metadados do processo de digitalização",
+          "linhas": 0,
+          "caracteres": 0
+        },
+        {
+          "nome": "linha_sem_conteudo",
+          "motivo": "linhas só com pontuação ou símbolos, sem conteúdo lexical",
+          "linhas": 294,
+          "caracteres": 294
+        }
+      ]
+    },
+    {
+      "ficheiro": "bras_cubas.txt",
+      "antes": 368993,
+      "depois": 367242,
+      "palavras_antes": 63299,
+      "palavras_depois": 63258,
+      "filtros": [
+        {
+          "nome": "creditos_da_biblioteca",
+          "motivo": "créditos de digitalização da biblioteca/editora, não do autor",
+          "linhas": 5,
+          "caracteres": 366
+        },
+        {
+          "nome": "marca_de_paginacao",
+          "motivo": "números de página isolados injectados pela digitalização",
+          "linhas": 3,
+          "caracteres": 8
+        },
+        {
+          "nome": "credito_de_ocr",
+          "motivo": "metadados do processo de digitalização",
+          "linhas": 0,
+          "caracteres": 0
+        },
+        {
+          "nome": "linha_sem_conteudo",
+          "motivo": "linhas só com pontuação ou símbolos, sem conteúdo lexical",
+          "linhas": 684,
+          "caracteres": 684
+        }
+      ]
+    },
+    {
+      "ficheiro": "cartomante.txt",
+      "antes": 95659,
+      "depois": 94191,
+      "palavras_antes": 16284,
+      "palavras_depois": 16155,
+      "filtros": [
+        {
+          "nome": "creditos_da_biblioteca",
+          "motivo": "créditos de digitalização da biblioteca/editora, não do autor",
+          "linhas": 28,
+          "caracteres": 1218
+        },
+        {
+          "nome": "marca_de_paginacao",
+          "motivo": "números de página isolados injectados pela digitalização",
+          "linhas": 8,
+          "caracteres": 8
+        },
+        {
+          "nome": "credito_de_ocr",
+          "motivo": "metadados do processo de digitalização",
+          "linhas": 4,
+          "caracteres": 116
+        },
+        {
+          "nome": "linha_sem_conteudo",
+          "motivo": "linhas só com pontuação ou símbolos, sem conteúdo lexical",
+          "linhas": 43,
+          "caracteres": 42
+        }
+      ]
+    },
+    {
+      "ficheiro": "dom_casmurro.txt",
+      "antes": 378015,
+      "depois": 376593,
+      "palavras_antes": 66869,
+      "palavras_depois": 66662,
+      "filtros": [
+        {
+          "nome": "creditos_da_biblioteca",
+          "motivo": "créditos de digitalização da biblioteca/editora, não do autor",
+          "linhas": 4,
+          "caracteres": 294
+        },
+        {
+          "nome": "marca_de_paginacao",
+          "motivo": "números de página isolados injectados pela digitalização",
+          "linhas": 177,
+          "caracteres": 600
+        },
+        {
+          "nome": "credito_de_ocr",
+          "motivo": "metadados do processo de digitalização",
+          "linhas": 1,
+          "caracteres": 29
+        },
+        {
+          "nome": "linha_sem_conteudo",
+          "motivo": "linhas só com pontuação ou símbolos, sem conteúdo lexical",
+          "linhas": 158,
+          "caracteres": 158
+        }
+      ]
+    }
+  ]
+}

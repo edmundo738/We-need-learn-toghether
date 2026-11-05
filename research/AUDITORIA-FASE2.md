@@ -837,3 +837,126 @@ resolvida.
 
 Um bug de contagem foi corrigido no caminho: `resumo()` fazia `.split(" ")[0]` sobre estados
 compostos e contava mal. Dizia «1 implementada» por sorte do prefixo; são **2**.
+
+---
+
+# ADENDA D — Machado de Assis: 4,5× mais dados, e a resposta definitiva
+
+O utilizador entregou quatro obras de Machado de Assis. **938 807 caracteres, 294 107
+tokens** — 4,5× o corpus que o projecto tinha. É a maior mudança de regime de dados desde
+o início, e pela primeira vez o corpus é **redistribuível**.
+
+## D1. Licença verificada, não assumida (FACT)
+
+Machado de Assis (1839-1908). Obra em **domínio público** por mais de 70 anos após a morte,
+na lei brasileira (9.610/98) e na angolana. Verificado também no concreto: os PDFs não
+contêm aviso de restrição; os créditos das bibliotecas (BibVirt/USP, eLibro, UNAMA)
+autorizam uso educacional e redistribuição sem alteração do texto.
+
+**O `EB009.pdf` NÃO é Machado de Assis.** É a tese *«Na(rra)ção satírica e humorística: uma
+leitura da obra narrativa de Manuel Rui»*, de **Marta de Oliveira** — obra académica
+protegida, sobre um autor vivo. **Excluído do corpus** e registado em `dados/manifest.json`
+como `nao_ingerido`. Seria valioso (português angolano) e não é livre.
+
+## D2. Curadoria: 0,6% removido, com contagem por filtro (MEASURED)
+
+`nucleo/dados/curadoria_publico.py`. Texto de PDF traz cabeçalhos de página e créditos de
+digitalização — treinar nisso ensina o modelo a gerar `www.nead.unama.br`.
+
+| filtro | linhas | caracteres |
+|---|---|---|
+| créditos da biblioteca | 40 | 2 114 |
+| linha sem conteúdo | 1 179 | 1 178 |
+| marca de paginação | 188 | 616 |
+| crédito de OCR | 5 | 145 |
+
+**944 276 → 938 807 caracteres (0,6% removido).** Os filtros apanharam o lixo e tocaram
+em quase nada do texto — que é o resultado que se quer e não era garantido.
+
+## D3. A divisão por obra resolve a contaminação (MEASURED)
+
+Treino: Brás Cubas + O Alienista + A Cartomante (**178 560 tokens**).
+Validação: **Dom Casmurro** (115 547 tokens). Nenhuma janela atravessa obras.
+
+Isto **fecha o defeito** registado na Adenda A: a divisão anterior era 90/10 por janelas
+contíguas e 7 de 20-gramas apareciam nos dois lados. Agora não pode acontecer.
+
+## D4. A decoração cai, e cai muito (MEASURED)
+
+| corpus | tokens | folga treino↔validação |
+|---|---|---|
+| original | 65 999 | **8–9 nats** |
+| Machado | 294 107 | **3,49 nats** |
+
+E a validação deixa de estar no acaso ou pior: **6,75 nats** contra `log(8192) = 9,01`.
+O diagnóstico de «decora porque não há dados» era **correcto**, e mais dados melhoram-no de
+facto. Isto valida retroactivamente a leitura das Adendas B e C.
+
+## D5. Não era underfitting — era sobreajuste desde o passo 600 (MEASURED)
+
+Havia uma explicação alternativa que tinha de ser descartada antes de concluir «o modelo é
+pior»: 1500 passos serem poucos. Corrida de **4 000 passos**, validação a cada 250:
+
+| passo | épocas | perda treino | perda val | bits/byte |
+|---|---|---|---|---|
+| 500 | 2,9 | 4,798 | **5,9340** | **2,6796** |
+| 1500 | 8,6 | 3,408 | 6,7745 | 3,0591 |
+| 2500 | 14,3 | 1,843 | 8,3338 | 3,7632 |
+| 4000 | 22,9 | 1,227 | **10,6986** | **4,8311** |
+
+**A validação piora monotonamente a partir do passo ~600.** A perda de treino cai de 5,6
+para 1,2 — é decoração pura. Com 1 395 janelas de treino e lote 8, o modelo esgota o sinal
+aos ~3 épocas.
+
+**Consequência de método:** o `regime_publico.py` reportou 1500 passos e deu 3,0480 bpb.
+O óptimo era 2,6796. **Reportar um número de um ponto arbitrário da curva exagerou a
+derrota em 0,37 bits/byte.** Fica registado.
+
+## D6. O trigrama ganha, e agora sabe-se por quanto (MEASURED, 3 seeds)
+
+`resultado_melhor_ponto.json`. Curva a cada 100 passos, 3 seeds, com duas medições para
+não haver optimismo selectivo:
+
+| | bits/byte | margem vs trigrama |
+|---|---|---|
+| trigrama | **2,4766** | — |
+| Transformer, melhor ponto observado | 2,6821 ± 0,0133 | **−0,2055** |
+| Transformer, passo 500 fixo (a priori) | 2,6990 | **−0,2224** |
+
+O optimismo de escolher o melhor ponto vale 0,017 bpb — pequeno, e mesmo assim insuficiente.
+**O trigrama ganha de forma inequívoca.** As 3 seeds concordam (óptimos aos passos 500, 600
+e 700; desvio de 0,008 nats).
+
+## D7. O erro que cometi e que a escala revela (correção)
+
+Escrevi que o modelo tinha «64 tokens por parâmetro». **É falso por um factor de 1 000.**
+178 560 / 2 771 200 = **0,064**. Eu confundi 0,064 com 64.
+
+Os modelos reais usam ~4 000 tokens/parâmetro. Este tem **0,064** — não está 60× abaixo,
+está **~62 000× abaixo**. A conclusão (faltam dados) não muda; a dimensão do problema muda,
+e fica mais severa do que eu a tinha descrito. Corrigido no teste e no JSON.
+
+## D8. Cobertura: o ponto de cruzamento foi ultrapassado (MEASURED)
+
+| | antes | agora |
+|---|---|---|
+| tokens únicos | 87 874 | **381 981** |
+| % do cruzamento (97 320) | 90,3% | **392,5%** |
+| % do limite de utilidade (2,3 M) | 3,82% | **16,61%** |
+| finalidades com dados | 3 de 9 | 3 de 9 |
+| dados redistribuíveis | **0** | **294 107 tokens (Machado)** |
+
+**Pela primeira vez o projecto tem dados que pode redistribuir.** É a resposta directa à
+limitação registada em A4 e B1: «nenhum dos 244 mil caracteres é redistribuível».
+
+## D9. O que continua por explicar (UNKNOWN)
+
+- **Porque é que 4,5× mais dados melhoraram a decoração e não chegaram para o trigrama.**
+  A explicação mais provável é a razão dados/parâmetros (D7), mas isso é INFERRED, não medido:
+  não se testou um modelo menor com os mesmos dados. **Esse é o próximo teste com valor** —
+  um Transformer com 300-500 mil parâmetros, mesma divisão por obra, contra o mesmo trigrama.
+- **Se o trigrama é batível dentro da directiva** (1-3 M parâmetros, 4 camadas, d_model 128).
+  Com 0,064 tokens/parâmetro e a curva a virar aos 600 passos, a resposta pode ser «não com
+  este corpus». Mas só se sabe testando o modelo menor.
+- **Qualidade linguística.** A perda é um número; não se gerou uma única amostra de Machado.
+  Antes de qualquer afirmação sobre «saber português», é preciso ler o que ele escreve.
