@@ -165,3 +165,76 @@ As raparigas que tu descreves no ensaio — a *"manga de 10"*, a *"catorzinha"*,
 *Fontes: wikidata (Q120277703), EverybodyWiki, agregadores de biografia (thebulletintime, nexomagazines, fameswiki, ventomagazies, biographylifes, worthcelebs), baike.baidu, grokipedia, perfil oficial sweetiefox.com, TikTok @swfx_real_fox (posts verificados), YouTube @sweetiefoxtv, AVN, Pornhub Awards, Pornhub Year in Review 2024.*
 
 *Nota final: cerca de metade das "biografias" dela na primeira página do Google são lixo gerado automaticamente. Se precisares de números para trabalho sério, a única fonte defensável é o site oficial e as plataformas onde ela própria publica.*
+
+
+---
+
+## 11. ADENDA — correcção de "primeiro vídeo de culinária" (1 Nov 2026)
+
+O autor forneceu capturas de dois vídeos. Duas coisas mudam neste dossiê.
+
+### 11.1 O canal tem ~573 mil inscritos e ~1 mês
+
+| vídeo | vistas | idade | gosto/vista |
+|---|---|---|---|
+| *Sweetie Fox is making a Sweet Roll from Skyrim* | **1 233 973** | 5 dias | 2,45 % |
+| *Let's Play Metro 2033* | 933 000 | ~1 mês | — |
+
+Um canal novo nesta categoria faz **100 a 1 000 views por vídeo**. Este faz **1,23 milhões**. Isso é **1 200× a 12 000×** a mediana da categoria. [MEASURED sobre os números que o autor colou]
+
+**Conclusão:** a audiência **não estava no canal — foi trazida**. Um canal com um mês não constrói 573 mil inscritos organicamente. O topo de funil dela não é descoberta; é **redireccionamento de uma audiência já existente**. Isso confirma o mecanismo com mais força do que eu tinha escrito: não é "conteúdo gratuito atrai gente nova", é "**gente que já a conhece é levada para uma plataforma onde ela pode ser monetizada e recomendada**".
+
+### 11.2 Ela NÃO está a esconder o produto — está a fazer piadas com ele
+
+Isto corrige a minha leitura anterior. Eu escrevi que o conteúdo do YouTube é "deliberadamente não-sexual". É verdade no conteúdo. **Mas não é verdade no tom.**
+
+Nos comentários que o autor colou, o público identifica marcas temporais específicas como sendo referências ao conteúdo adulto:
+
+- `1:47`, `1:48`, `1:49`, `1:50`, `2:00`, `2:11`, `2:24`, `2:42`, `2:44`, `4:09`, `4:55`, `5:39` — repetidamente comentadas com "flashbacks", "mesma coisa mas diferente", "sentiu nostalgia", "reflexo funcionou"
+- `"I love how she's cooking cream pie"` (28 likes) e a resposta russa: *"Crempai em todo o lado"* (2 mil likes)
+- `"She even makes the icing look sus"`
+- `"Ppl saying she is changing no she is not — in the entire video there were intentional things that we don't wanna talk about 😭"`
+- `"1:48 когда увидел анонс tes6"` — sobre a **varinha de mexer**, formato óbvio
+- `"Главное не забываем помыть руки перед едой(и ротиком)"`
+
+**Ou seja: a "inocência" do vídeo está construída para poder ser lida como não-inocente por quem já sabe.** É uma dupla camada deliberada — o mesmo truque da Megan Fox ao dizer *"that's a microcosm of how all our minds work"*, mas ao contrário: aqui a piada é do público, e ela deixa acontecer.
+
+Isto é mais sofisticado do que "conteúdo limpo para o YouTube". É **conteúdo limpo com piscadelas**, o que resolve o problema de outro modo: mantém a monetização **e** mantém a tensão.
+
+### 11.3 O público que se auto-identifica
+
+Frases que aparecem repetidamente (traduzidas):
+
+- **"É como ver o teu professor fora da escola"** — 1,2 mil likes
+- **"É como encontrar o teu amigo da escola fora da escola"** — 1,6 mil
+- **"Finalmente um vídeo que posso ver sem a minha família"** — 150; **"Finalmente um episódio que posso ver com o meu pai"** — 1,4 mil; **"agora posso vê-la na televisão da sala"** — 4,5 mil
+- **"O meu youtuber de infância favorito"** — 425 e 1,3 mil likes
+- **"Ela a fazer side quests"** — 2,5 mil
+- **"A diversificar o portefólio"** — 355
+- Vários: *"nunca pensei ver isto nas minhas recomendações"*, *"parece que entrei numa realidade protegida por password"*
+
+**A frase mais reveladora de todas**, e é russa: *"Antes construiu uma base de fãs enorme, depois foi para os Let's Plays 👏"* (3,2 mil likes). O público **sabe exactamente qual é a ordem** e acha graça.
+
+E outra, que é um aviso: *"Sinto como se tivesse entrado em uma realidade protegida por senha"* — ou seja, **o próprio público percebe que está num espaço construído**, não orgânico.
+
+### 11.4 O comentário que muda a leitura moral do dossiê
+
+> *"Hi, I'm 10 years old and a huge fan of your Minecraft content. You've helped me through some of my saddest moments this year."*
+
+E, ao lado, no mesmo vídeo de culinária: *"1:47"*, *"cream pie"*, *"1:48"*.
+
+**Isto é o problema inteiro, e é o que o autor tem estado a descrever sem o nomear.** A mesma plataforma, a mesma criadora, o mesmo vídeo: uma criança de 10 anos a dizer que foi ajudada, e adultos a fazer piadas sobre conteúdo que essa criança não deve ver. Ninguém fez nada de errado individualmente. **A arquitectura é que os pôs na mesma sala.**
+
+Não é uma acusação à Sweetie Fox. É a demonstração de por que razão o topo de funil **não pode** ser uma plataforma para crianças quando o produto está a um clique.
+
+### 11.5 O que se mantém e o que cai
+
+**Mantém-se:** o funil existe, é explícito, e ela própria o promove em cada post. [FACT]
+
+**Mantém-se:** os hobbies são reais (Minecraft, Skyrim, D&D, esgrima). Não é fachada. [CONSISTENT]
+
+**Cai:** "o conteúdo do YouTube é deliberadamente não-sexual". É **deliberadamente ambíguo**. [MEDIDO nos comentários]
+
+**Cai:** "topo de funil = descoberta". É **redireccionamento** de uma audiência já construída. [MEDIDO nas métricas]
+
+**Sobe de importância:** a *"alive internet theory"* e o *"é como ver o teu professor fora da escola"* não são elogios casuais. São a descrição, feita pelo público, do que é este tipo de canal: **uma pessoa real a fingir que não tem outra vida.**
