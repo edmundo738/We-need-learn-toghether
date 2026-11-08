@@ -1,0 +1,763 @@
+{
+  "nota": "Delta = média das diferenças absolutas de z-score sobre as 150 palavras mais frequentes. Quanto mais baixo, mais parecido.",
+  "escala": {
+    "delta_medio_entre_obras_do_mesmo_autor": 1.165,
+    "delta_medio_entre_obras_de_Machado": 0.506,
+    "delta_medio_obras_vs_controlo": 1.0947
+  },
+  "vizinho_mais_proximo": {
+    "AE_APENAS_EXISTO": "H99",
+    "H99": "AE_APENAS_EXISTO",
+    "LUNA_excerto": "Q_atraves_de_alguem",
+    "Q_bencao_de_dor": "Q_aventuras_zulu",
+    "Q_edmundo_sem_ia": "Q_bencao_de_dor",
+    "Q_atraves_de_alguem": "LUNA_excerto",
+    "Q_aventuras_zulu": "CTRL_bras_cubas",
+    "CTRL_dom_casmurro": "CTRL_bras_cubas",
+    "CTRL_bras_cubas": "CTRL_dom_casmurro",
+    "CTRL_cartomante": "CTRL_dom_casmurro",
+    "CTRL_alienista": "CTRL_bras_cubas"
+  },
+  "delta_completo": {
+    "AE_APENAS_EXISTO": {
+      "H99": 0.6331,
+      "LUNA_excerto": 1.4417,
+      "Q_bencao_de_dor": 1.2213,
+      "Q_edmundo_sem_ia": 1.3693,
+      "Q_atraves_de_alguem": 1.2637,
+      "Q_aventuras_zulu": 1.001,
+      "CTRL_dom_casmurro": 0.9441,
+      "CTRL_bras_cubas": 0.881,
+      "CTRL_cartomante": 0.9298,
+      "CTRL_alienista": 0.9912
+    },
+    "H99": {
+      "AE_APENAS_EXISTO": 0.6331,
+      "LUNA_excerto": 1.4201,
+      "Q_bencao_de_dor": 1.2698,
+      "Q_edmundo_sem_ia": 1.4905,
+      "Q_atraves_de_alguem": 1.471,
+      "Q_aventuras_zulu": 1.0408,
+      "CTRL_dom_casmurro": 1.0226,
+      "CTRL_bras_cubas": 0.9046,
+      "CTRL_cartomante": 0.8961,
+      "CTRL_alienista": 0.9375
+    },
+    "LUNA_excerto": {
+      "AE_APENAS_EXISTO": 1.4417,
+      "H99": 1.4201,
+      "Q_bencao_de_dor": 1.2109,
+      "Q_edmundo_sem_ia": 1.2625,
+      "Q_atraves_de_alguem": 1.1566,
+      "Q_aventuras_zulu": 1.2256,
+      "CTRL_dom_casmurro": 1.4782,
+      "CTRL_bras_cubas": 1.3793,
+      "CTRL_cartomante": 1.4593,
+      "CTRL_alienista": 1.3125
+    },
+    "Q_bencao_de_dor": {
+      "AE_APENAS_EXISTO": 1.2213,
+      "H99": 1.2698,
+      "LUNA_excerto": 1.2109,
+      "Q_edmundo_sem_ia": 1.209,
+      "Q_atraves_de_alguem": 1.3885,
+      "Q_aventuras_zulu": 1.1124,
+      "CTRL_dom_casmurro": 1.1757,
+      "CTRL_bras_cubas": 1.1511,
+      "CTRL_cartomante": 1.1889,
+      "CTRL_alienista": 1.3035
+    },
+    "Q_edmundo_sem_ia": {
+      "AE_APENAS_EXISTO": 1.3693,
+      "H99": 1.4905,
+      "LUNA_excerto": 1.2625,
+      "Q_bencao_de_dor": 1.209,
+      "Q_atraves_de_alguem": 1.349,
+      "Q_aventuras_zulu": 1.2818,
+      "CTRL_dom_casmurro": 1.4608,
+      "CTRL_bras_cubas": 1.3909,
+      "CTRL_cartomante": 1.4377,
+      "CTRL_alienista": 1.4914
+    },
+    "Q_atraves_de_alguem": {
+      "AE_APENAS_EXISTO": 1.2637,
+      "H99": 1.471,
+      "LUNA_excerto": 1.1566,
+      "Q_bencao_de_dor": 1.3885,
+      "Q_edmundo_sem_ia": 1.349,
+      "Q_aventuras_zulu": 1.3137,
+      "CTRL_dom_casmurro": 1.3972,
+      "CTRL_bras_cubas": 1.4263,
+      "CTRL_cartomante": 1.4554,
+      "CTRL_alienista": 1.4416
+    },
+    "Q_aventuras_zulu": {
+      "AE_APENAS_EXISTO": 1.001,
+      "H99": 1.0408,
+      "LUNA_excerto": 1.2256,
+      "Q_bencao_de_dor": 1.1124,
+      "Q_edmundo_sem_ia": 1.2818,
+      "Q_atraves_de_alguem": 1.3137,
+      "CTRL_dom_casmurro": 1.0219,
+      "CTRL_bras_cubas": 0.9599,
+      "CTRL_cartomante": 0.9973,
+      "CTRL_alienista": 1.0655
+    },
+    "CTRL_dom_casmurro": {
+      "AE_APENAS_EXISTO": 0.9441,
+      "H99": 1.0226,
+      "LUNA_excerto": 1.4782,
+      "Q_bencao_de_dor": 1.1757,
+      "Q_edmundo_sem_ia": 1.4608,
+      "Q_atraves_de_alguem": 1.3972,
+      "Q_aventuras_zulu": 1.0219,
+      "CTRL_bras_cubas": 0.4477,
+      "CTRL_cartomante": 0.4942,
+      "CTRL_alienista": 0.6006
+    },
+    "CTRL_bras_cubas": {
+      "AE_APENAS_EXISTO": 0.881,
+      "H99": 0.9046,
+      "LUNA_excerto": 1.3793,
+      "Q_bencao_de_dor": 1.1511,
+      "Q_edmundo_sem_ia": 1.3909,
+      "Q_atraves_de_alguem": 1.4263,
+      "Q_aventuras_zulu": 0.9599,
+      "CTRL_dom_casmurro": 0.4477,
+      "CTRL_cartomante": 0.5,
+      "CTRL_alienista": 0.4887
+    },
+    "CTRL_cartomante": {
+      "AE_APENAS_EXISTO": 0.9298,
+      "H99": 0.8961,
+      "LUNA_excerto": 1.4593,
+      "Q_bencao_de_dor": 1.1889,
+      "Q_edmundo_sem_ia": 1.4377,
+      "Q_atraves_de_alguem": 1.4554,
+      "Q_aventuras_zulu": 0.9973,
+      "CTRL_dom_casmurro": 0.4942,
+      "CTRL_bras_cubas": 0.5,
+      "CTRL_alienista": 0.505
+    },
+    "CTRL_alienista": {
+      "AE_APENAS_EXISTO": 0.9912,
+      "H99": 0.9375,
+      "LUNA_excerto": 1.3125,
+      "Q_bencao_de_dor": 1.3035,
+      "Q_edmundo_sem_ia": 1.4914,
+      "Q_atraves_de_alguem": 1.4416,
+      "Q_aventuras_zulu": 1.0655,
+      "CTRL_dom_casmurro": 0.6006,
+      "CTRL_bras_cubas": 0.4887,
+      "CTRL_cartomante": 0.505
+    }
+  },
+  "querys": {
+    "Q_bencao_de_dor": {
+      "obra_mais_proxima": "LUNA_excerto",
+      "dist_a_cada_obra": {
+        "AE_APENAS_EXISTO": 1.2213,
+        "H99": 1.2698,
+        "LUNA_excerto": 1.2109
+      },
+      "controlo_mais_proximo": "CTRL_bras_cubas",
+      "dist_min_controlo": 1.1511
+    },
+    "Q_edmundo_sem_ia": {
+      "obra_mais_proxima": "LUNA_excerto",
+      "dist_a_cada_obra": {
+        "AE_APENAS_EXISTO": 1.3693,
+        "H99": 1.4905,
+        "LUNA_excerto": 1.2625
+      },
+      "controlo_mais_proximo": "CTRL_bras_cubas",
+      "dist_min_controlo": 1.3909
+    },
+    "Q_atraves_de_alguem": {
+      "obra_mais_proxima": "LUNA_excerto",
+      "dist_a_cada_obra": {
+        "AE_APENAS_EXISTO": 1.2637,
+        "H99": 1.471,
+        "LUNA_excerto": 1.1566
+      },
+      "controlo_mais_proximo": "CTRL_dom_casmurro",
+      "dist_min_controlo": 1.3972
+    },
+    "Q_aventuras_zulu": {
+      "obra_mais_proxima": "AE_APENAS_EXISTO",
+      "dist_a_cada_obra": {
+        "AE_APENAS_EXISTO": 1.001,
+        "H99": 1.0408,
+        "LUNA_excerto": 1.2256
+      },
+      "controlo_mais_proximo": "CTRL_bras_cubas",
+      "dist_min_controlo": 0.9599
+    }
+  },
+  "sobreposicao_ngramas": {
+    "Q_bencao_de_dor": {
+      "AE_APENAS_EXISTO": {
+        "n6": {
+          "comuns": 1882,
+          "da_query": 51.87,
+          "da_ref": 3.6301
+        },
+        "n10": {
+          "comuns": 475,
+          "da_query": 11.19,
+          "da_ref": 0.4122
+        }
+      },
+      "H99": {
+        "n6": {
+          "comuns": 1944,
+          "da_query": 53.58,
+          "da_ref": 3.5171
+        },
+        "n10": {
+          "comuns": 460,
+          "da_query": 10.83,
+          "da_ref": 0.3618
+        }
+      },
+      "LUNA_excerto": {
+        "n6": {
+          "comuns": 17,
+          "da_query": 0.47,
+          "da_ref": 0.5423
+        },
+        "n10": {
+          "comuns": 1,
+          "da_query": 0.02,
+          "da_ref": 0.027
+        }
+      },
+      "CTRL_dom_casmurro": {
+        "n6": {
+          "comuns": 2439,
+          "da_query": 67.23,
+          "da_ref": 2.0658
+        },
+        "n10": {
+          "comuns": 647,
+          "da_query": 15.24,
+          "da_ref": 0.2128
+        }
+      },
+      "CTRL_bras_cubas": {
+        "n6": {
+          "comuns": 2432,
+          "da_query": 67.03,
+          "da_ref": 1.9576
+        },
+        "n10": {
+          "comuns": 634,
+          "da_query": 14.93,
+          "da_ref": 0.2123
+        }
+      },
+      "CTRL_cartomante": {
+        "n6": {
+          "comuns": 1689,
+          "da_query": 46.55,
+          "da_ref": 3.6654
+        },
+        "n10": {
+          "comuns": 309,
+          "da_query": 7.28,
+          "da_ref": 0.3765
+        }
+      },
+      "CTRL_alienista": {
+        "n6": {
+          "comuns": 1676,
+          "da_query": 46.2,
+          "da_ref": 3.4231
+        },
+        "n10": {
+          "comuns": 237,
+          "da_query": 5.58,
+          "da_ref": 0.2726
+        }
+      }
+    },
+    "Q_edmundo_sem_ia": {
+      "AE_APENAS_EXISTO": {
+        "n6": {
+          "comuns": 1398,
+          "da_query": 59.09,
+          "da_ref": 2.6965
+        },
+        "n10": {
+          "comuns": 358,
+          "da_query": 13.08,
+          "da_ref": 0.3107
+        }
+      },
+      "H99": {
+        "n6": {
+          "comuns": 1426,
+          "da_query": 60.27,
+          "da_ref": 2.5799
+        },
+        "n10": {
+          "comuns": 349,
+          "da_query": 12.76,
+          "da_ref": 0.2745
+        }
+      },
+      "LUNA_excerto": {
+        "n6": {
+          "comuns": 6,
+          "da_query": 0.25,
+          "da_ref": 0.1914
+        },
+        "n10": {
+          "comuns": 0,
+          "da_query": 0.0,
+          "da_ref": 0.0
+        }
+      },
+      "CTRL_dom_casmurro": {
+        "n6": {
+          "comuns": 1676,
+          "da_query": 70.84,
+          "da_ref": 1.4195
+        },
+        "n10": {
+          "comuns": 448,
+          "da_query": 16.37,
+          "da_ref": 0.1473
+        }
+      },
+      "CTRL_bras_cubas": {
+        "n6": {
+          "comuns": 1640,
+          "da_query": 69.32,
+          "da_ref": 1.3201
+        },
+        "n10": {
+          "comuns": 414,
+          "da_query": 15.13,
+          "da_ref": 0.1386
+        }
+      },
+      "CTRL_cartomante": {
+        "n6": {
+          "comuns": 1206,
+          "da_query": 50.97,
+          "da_ref": 2.6172
+        },
+        "n10": {
+          "comuns": 202,
+          "da_query": 7.38,
+          "da_ref": 0.2461
+        }
+      },
+      "CTRL_alienista": {
+        "n6": {
+          "comuns": 1205,
+          "da_query": 50.93,
+          "da_ref": 2.4611
+        },
+        "n10": {
+          "comuns": 192,
+          "da_query": 7.02,
+          "da_ref": 0.2208
+        }
+      }
+    },
+    "Q_atraves_de_alguem": {
+      "AE_APENAS_EXISTO": {
+        "n6": {
+          "comuns": 1992,
+          "da_query": 58.74,
+          "da_ref": 3.8422
+        },
+        "n10": {
+          "comuns": 555,
+          "da_query": 13.26,
+          "da_ref": 0.4816
+        }
+      },
+      "H99": {
+        "n6": {
+          "comuns": 1879,
+          "da_query": 55.41,
+          "da_ref": 3.3995
+        },
+        "n10": {
+          "comuns": 540,
+          "da_query": 12.9,
+          "da_ref": 0.4248
+        }
+      },
+      "LUNA_excerto": {
+        "n6": {
+          "comuns": 14,
+          "da_query": 0.41,
+          "da_ref": 0.4466
+        },
+        "n10": {
+          "comuns": 0,
+          "da_query": 0.0,
+          "da_ref": 0.0
+        }
+      },
+      "CTRL_dom_casmurro": {
+        "n6": {
+          "comuns": 2220,
+          "da_query": 65.47,
+          "da_ref": 1.8803
+        },
+        "n10": {
+          "comuns": 537,
+          "da_query": 12.83,
+          "da_ref": 0.1766
+        }
+      },
+      "CTRL_bras_cubas": {
+        "n6": {
+          "comuns": 2206,
+          "da_query": 65.05,
+          "da_ref": 1.7757
+        },
+        "n10": {
+          "comuns": 535,
+          "da_query": 12.78,
+          "da_ref": 0.1791
+        }
+      },
+      "CTRL_cartomante": {
+        "n6": {
+          "comuns": 1503,
+          "da_query": 44.32,
+          "da_ref": 3.2617
+        },
+        "n10": {
+          "comuns": 213,
+          "da_query": 5.09,
+          "da_ref": 0.2595
+        }
+      },
+      "CTRL_alienista": {
+        "n6": {
+          "comuns": 1463,
+          "da_query": 43.14,
+          "da_ref": 2.9881
+        },
+        "n10": {
+          "comuns": 184,
+          "da_query": 4.39,
+          "da_ref": 0.2116
+        }
+      }
+    },
+    "Q_aventuras_zulu": {
+      "AE_APENAS_EXISTO": {
+        "n6": {
+          "comuns": 4492,
+          "da_query": 49.25,
+          "da_ref": 8.6643
+        },
+        "n10": {
+          "comuns": 947,
+          "da_query": 8.24,
+          "da_ref": 0.8218
+        }
+      },
+      "H99": {
+        "n6": {
+          "comuns": 4285,
+          "da_query": 46.98,
+          "da_ref": 7.7524
+        },
+        "n10": {
+          "comuns": 922,
+          "da_query": 8.02,
+          "da_ref": 0.7252
+        }
+      },
+      "LUNA_excerto": {
+        "n6": {
+          "comuns": 21,
+          "da_query": 0.23,
+          "da_ref": 0.6699
+        },
+        "n10": {
+          "comuns": 0,
+          "da_query": 0.0,
+          "da_ref": 0.0
+        }
+      },
+      "CTRL_dom_casmurro": {
+        "n6": {
+          "comuns": 5443,
+          "da_query": 59.68,
+          "da_ref": 4.6101
+        },
+        "n10": {
+          "comuns": 1225,
+          "da_query": 10.65,
+          "da_ref": 0.4029
+        }
+      },
+      "CTRL_bras_cubas": {
+        "n6": {
+          "comuns": 5226,
+          "da_query": 57.3,
+          "da_ref": 4.2065
+        },
+        "n10": {
+          "comuns": 1143,
+          "da_query": 9.94,
+          "da_ref": 0.3827
+        }
+      },
+      "CTRL_cartomante": {
+        "n6": {
+          "comuns": 3536,
+          "da_query": 38.77,
+          "da_ref": 7.6736
+        },
+        "n10": {
+          "comuns": 473,
+          "da_query": 4.11,
+          "da_ref": 0.5763
+        }
+      },
+      "CTRL_alienista": {
+        "n6": {
+          "comuns": 3346,
+          "da_query": 36.69,
+          "da_ref": 6.834
+        },
+        "n10": {
+          "comuns": 412,
+          "da_query": 3.58,
+          "da_ref": 0.4739
+        }
+      }
+    }
+  },
+  "superficie": {
+    "AE_APENAS_EXISTO": {
+      "palavras": 27102,
+      "palavras_unicas": 3503,
+      "ttr_1000": 0.461,
+      "hapax_pct": 50.3,
+      "frase_media_palavras": 12.02,
+      "frase_desvio": 10.89,
+      "frases_40mais_pct": 2.48,
+      "travessao_por_mil": 33.8,
+      "reticencias_por_mil": 0.18,
+      "exclamacao_por_mil": 0.15,
+      "interrogacao_por_mil": 2.91,
+      "eu_por_mil": 6.42,
+      "kkk": 0.0,
+      "ingles_por_mil": 0.04
+    },
+    "H99": {
+      "palavras": 30278,
+      "palavras_unicas": 4086,
+      "ttr_1000": 0.483,
+      "hapax_pct": 52.06,
+      "frase_media_palavras": 10.92,
+      "frase_desvio": 12.01,
+      "frases_40mais_pct": 4.0,
+      "travessao_por_mil": 38.67,
+      "reticencias_por_mil": 0.03,
+      "exclamacao_por_mil": 0.03,
+      "interrogacao_por_mil": 2.44,
+      "eu_por_mil": 2.01,
+      "kkk": 0.0,
+      "ingles_por_mil": 0.1
+    },
+    "LUNA_excerto": {
+      "palavras": 736,
+      "palavras_unicas": 328,
+      "ttr_1000": 0.4457,
+      "hapax_pct": 64.02,
+      "frase_media_palavras": 8.18,
+      "frase_desvio": 6.76,
+      "frases_40mais_pct": 0.0,
+      "travessao_por_mil": 9.51,
+      "reticencias_por_mil": 0.0,
+      "exclamacao_por_mil": 0.0,
+      "interrogacao_por_mil": 0.0,
+      "eu_por_mil": 0.0,
+      "kkk": 0.0,
+      "ingles_por_mil": 250.0
+    },
+    "Q_bencao_de_dor": {
+      "palavras": 805,
+      "palavras_unicas": 370,
+      "ttr_1000": 0.4596,
+      "hapax_pct": 68.92,
+      "frase_media_palavras": 11.67,
+      "frase_desvio": 6.83,
+      "frases_40mais_pct": 0.0,
+      "travessao_por_mil": 0.0,
+      "reticencias_por_mil": 0.0,
+      "exclamacao_por_mil": 0.0,
+      "interrogacao_por_mil": 1.24,
+      "eu_por_mil": 12.42,
+      "kkk": 1.24,
+      "ingles_por_mil": 0.0
+    },
+    "Q_edmundo_sem_ia": {
+      "palavras": 523,
+      "palavras_unicas": 251,
+      "ttr_1000": 0.4799,
+      "hapax_pct": 68.53,
+      "frase_media_palavras": 32.69,
+      "frase_desvio": 20.42,
+      "frases_40mais_pct": 37.5,
+      "travessao_por_mil": 0.0,
+      "reticencias_por_mil": 5.74,
+      "exclamacao_por_mil": 1.91,
+      "interrogacao_por_mil": 1.91,
+      "eu_por_mil": 30.59,
+      "kkk": 0.0,
+      "ingles_por_mil": 0.0
+    },
+    "Q_atraves_de_alguem": {
+      "palavras": 767,
+      "palavras_unicas": 337,
+      "ttr_1000": 0.4394,
+      "hapax_pct": 65.88,
+      "frase_media_palavras": 7.45,
+      "frase_desvio": 4.97,
+      "frases_40mais_pct": 0.0,
+      "travessao_por_mil": 13.04,
+      "reticencias_por_mil": 0.0,
+      "exclamacao_por_mil": 0.0,
+      "interrogacao_por_mil": 2.61,
+      "eu_por_mil": 13.04,
+      "kkk": 0.0,
+      "ingles_por_mil": 0.0
+    },
+    "Q_aventuras_zulu": {
+      "palavras": 2197,
+      "palavras_unicas": 796,
+      "ttr_1000": 0.483,
+      "hapax_pct": 65.45,
+      "frase_media_palavras": 9.04,
+      "frase_desvio": 7.8,
+      "frases_40mais_pct": 0.41,
+      "travessao_por_mil": 19.12,
+      "reticencias_por_mil": 0.91,
+      "exclamacao_por_mil": 6.83,
+      "interrogacao_por_mil": 14.11,
+      "eu_por_mil": 14.57,
+      "kkk": 2.73,
+      "ingles_por_mil": 0.46
+    },
+    "CTRL_dom_casmurro": {
+      "palavras": 67842,
+      "palavras_unicas": 9379,
+      "ttr_1000": 0.53,
+      "hapax_pct": 56.38,
+      "frase_media_palavras": 15.4,
+      "frase_desvio": 11.72,
+      "frases_40mais_pct": 3.86,
+      "travessao_por_mil": 12.23,
+      "reticencias_por_mil": 5.0,
+      "exclamacao_por_mil": 4.05,
+      "interrogacao_por_mil": 5.23,
+      "eu_por_mil": 7.87,
+      "kkk": 0.0,
+      "ingles_por_mil": 0.35
+    },
+    "CTRL_bras_cubas": {
+      "palavras": 63939,
+      "palavras_unicas": 10699,
+      "ttr_1000": 0.526,
+      "hapax_pct": 58.93,
+      "frase_media_palavras": 17.13,
+      "frase_desvio": 14.6,
+      "frases_40mais_pct": 7.85,
+      "travessao_por_mil": 0.0,
+      "reticencias_por_mil": 9.4,
+      "exclamacao_por_mil": 4.93,
+      "interrogacao_por_mil": 4.29,
+      "eu_por_mil": 7.73,
+      "kkk": 0.0,
+      "ingles_por_mil": 0.86
+    },
+    "CTRL_cartomante": {
+      "palavras": 16422,
+      "palavras_unicas": 3726,
+      "ttr_1000": 0.466,
+      "hapax_pct": 62.96,
+      "frase_media_palavras": 14.66,
+      "frase_desvio": 11.07,
+      "frases_40mais_pct": 2.59,
+      "travessao_por_mil": 7.86,
+      "reticencias_por_mil": 3.9,
+      "exclamacao_por_mil": 3.9,
+      "interrogacao_por_mil": 3.47,
+      "eu_por_mil": 2.44,
+      "kkk": 0.0,
+      "ingles_por_mil": 0.3
+    },
+    "CTRL_alienista": {
+      "palavras": 17306,
+      "palavras_unicas": 4348,
+      "ttr_1000": 0.525,
+      "hapax_pct": 66.21,
+      "frase_media_palavras": 18.61,
+      "frase_desvio": 16.05,
+      "frases_40mais_pct": 9.14,
+      "travessao_por_mil": 12.89,
+      "reticencias_por_mil": 2.14,
+      "exclamacao_por_mil": 4.85,
+      "interrogacao_por_mil": 2.43,
+      "eu_por_mil": 0.58,
+      "kkk": 0.0,
+      "ingles_por_mil": 0.46
+    }
+  },
+  "vocabulario_delta": [
+    "a",
+    "que",
+    "de",
+    "o",
+    "e",
+    "não",
+    "um",
+    "se",
+    "me",
+    "do",
+    "com",
+    "da",
+    "era",
+    "os",
+    "uma",
+    "é",
+    "para",
+    "mas",
+    "em",
+    "as",
+    "eu",
+    "no",
+    "ao",
+    "lhe",
+    "mais",
+    "na",
+    "como",
+    "por",
+    "ele",
+    "à",
+    "ou",
+    "tinha",
+    "disse",
+    "foi",
+    "ela",
+    "dos",
+    "sem",
+    "quando",
+    "minha",
+    "depois"
+  ]
+}

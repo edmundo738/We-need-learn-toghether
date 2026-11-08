@@ -1,0 +1,273 @@
+{
+  "metodo": {
+    "n_grama": 5,
+    "desconto": 0.75,
+    "vocabulario": 84,
+    "tamanho_bloco_calibracao": 5996
+  },
+  "querys": {
+    "Q_bencao_de_dor": {
+      "bits_por_char": {
+        "AE": 3.4581,
+        "H99": 3.4471,
+        "LUNA": 6.3682,
+        "MACHADO_dom_ca": 3.104,
+        "MACHADO_bras_c": 3.0208,
+        "MACHADO_cartom": 3.6218,
+        "MACHADO_alieni": 3.6749
+      },
+      "obra_mais_proxima": "H99",
+      "margem_sobre_a_2a": 0.011,
+      "machado_mais_proximo": 3.0208
+    },
+    "Q_edmundo_sem_ia": {
+      "bits_por_char": {
+        "AE": 2.9729,
+        "H99": 2.9787,
+        "LUNA": 6.3472,
+        "MACHADO_dom_ca": 2.7118,
+        "MACHADO_bras_c": 2.7147,
+        "MACHADO_cartom": 3.2386,
+        "MACHADO_alieni": 3.249
+      },
+      "obra_mais_proxima": "AE",
+      "margem_sobre_a_2a": 0.0058,
+      "machado_mais_proximo": 2.7118
+    },
+    "Q_atraves_de_alguem": {
+      "bits_por_char": {
+        "AE": 3.2194,
+        "H99": 3.3798,
+        "LUNA": 6.3544,
+        "MACHADO_dom_ca": 3.1783,
+        "MACHADO_bras_c": 3.2207,
+        "MACHADO_cartom": 3.7584,
+        "MACHADO_alieni": 3.7639
+      },
+      "obra_mais_proxima": "AE",
+      "margem_sobre_a_2a": 0.1604,
+      "machado_mais_proximo": 3.1783
+    },
+    "Q_aventuras_zulu": {
+      "bits_por_char": {
+        "AE": 3.543,
+        "H99": 3.6415,
+        "LUNA": 6.3759,
+        "MACHADO_dom_ca": 3.3311,
+        "MACHADO_bras_c": 3.3818,
+        "MACHADO_cartom": 3.8893,
+        "MACHADO_alieni": 3.9513
+      },
+      "obra_mais_proxima": "AE",
+      "margem_sobre_a_2a": 0.0985,
+      "machado_mais_proximo": 3.3311
+    }
+  },
+  "calibracao": {
+    "AE": {
+      "n_blocos": 8,
+      "acertos_self": 8,
+      "registos": [
+        {
+          "vencedor": "AE_resto",
+          "bits": {
+            "AE_resto": 2.798,
+            "H99": 3.0239,
+            "LUNA": 6.3566,
+            "MACHADO_dom_ca": 3.1175,
+            "MACHADO_bras_c": 3.1238,
+            "MACHADO_cartom": 3.5699,
+            "MACHADO_alieni": 3.6277
+          }
+        },
+        {
+          "vencedor": "AE_resto",
+          "bits": {
+            "AE_resto": 2.9279,
+            "H99": 3.0645,
+            "LUNA": 6.3501,
+            "MACHADO_dom_ca": 3.2667,
+            "MACHADO_bras_c": 3.2417,
+            "MACHADO_cartom": 3.6427,
+            "MACHADO_alieni": 3.7134
+          }
+        },
+        {
+          "vencedor": "AE_resto",
+          "bits": {
+            "AE_resto": 2.8341,
+            "H99": 2.9253,
+            "LUNA": 6.3445,
+            "MACHADO_dom_ca": 3.0861,
+            "MACHADO_bras_c": 3.1004,
+            "MACHADO_cartom": 3.5083,
+            "MACHADO_alieni": 3.6921
+          }
+        },
+        {
+          "vencedor": "AE_resto",
+          "bits": {
+            "AE_resto": 2.9844,
+            "H99": 3.0971,
+            "LUNA": 6.3429,
+            "MACHADO_dom_ca": 3.1524,
+            "MACHADO_bras_c": 3.1912,
+            "MACHADO_cartom": 3.6614,
+            "MACHADO_alieni": 3.695
+          }
+        },
+        {
+          "vencedor": "AE_resto",
+          "bits": {
+            "AE_resto": 3.0749,
+            "H99": 3.1691,
+            "LUNA": 6.3466,
+            "MACHADO_dom_ca": 3.3536,
+            "MACHADO_bras_c": 3.3056,
+            "MACHADO_cartom": 3.815,
+            "MACHADO_alieni": 3.8368
+          }
+        },
+        {
+          "vencedor": "AE_resto",
+          "bits": {
+            "AE_resto": 2.9152,
+            "H99": 3.0985,
+            "LUNA": 6.3564,
+            "MACHADO_dom_ca": 3.1924,
+            "MACHADO_bras_c": 3.2317,
+            "MACHADO_cartom": 3.6721,
+            "MACHADO_alieni": 3.7692
+          }
+        },
+        {
+          "vencedor": "AE_resto",
+          "bits": {
+            "AE_resto": 2.9738,
+            "H99": 3.0651,
+            "LUNA": 6.3478,
+            "MACHADO_dom_ca": 3.1985,
+            "MACHADO_bras_c": 3.1927,
+            "MACHADO_cartom": 3.7136,
+            "MACHADO_alieni": 3.7614
+          }
+        },
+        {
+          "vencedor": "AE_resto",
+          "bits": {
+            "AE_resto": 2.8078,
+            "H99": 2.942,
+            "LUNA": 6.3615,
+            "MACHADO_dom_ca": 3.1178,
+            "MACHADO_bras_c": 3.1053,
+            "MACHADO_cartom": 3.494,
+            "MACHADO_alieni": 3.6027
+          }
+        }
+      ]
+    },
+    "H99": {
+      "n_blocos": 8,
+      "acertos_self": 8,
+      "registos": [
+        {
+          "vencedor": "H99_resto",
+          "bits": {
+            "H99_resto": 2.7047,
+            "AE": 3.0647,
+            "LUNA": 6.3489,
+            "MACHADO_dom_ca": 3.0233,
+            "MACHADO_bras_c": 2.9722,
+            "MACHADO_cartom": 3.4399,
+            "MACHADO_alieni": 3.5382
+          }
+        },
+        {
+          "vencedor": "H99_resto",
+          "bits": {
+            "H99_resto": 2.6947,
+            "AE": 3.2037,
+            "LUNA": 6.3434,
+            "MACHADO_dom_ca": 3.1092,
+            "MACHADO_bras_c": 3.0919,
+            "MACHADO_cartom": 3.5706,
+            "MACHADO_alieni": 3.5687
+          }
+        },
+        {
+          "vencedor": "H99_resto",
+          "bits": {
+            "H99_resto": 2.7005,
+            "AE": 3.0468,
+            "LUNA": 6.36,
+            "MACHADO_dom_ca": 3.0131,
+            "MACHADO_bras_c": 3.0507,
+            "MACHADO_cartom": 3.4219,
+            "MACHADO_alieni": 3.5143
+          }
+        },
+        {
+          "vencedor": "H99_resto",
+          "bits": {
+            "H99_resto": 2.637,
+            "AE": 3.0807,
+            "LUNA": 6.362,
+            "MACHADO_dom_ca": 3.0343,
+            "MACHADO_bras_c": 2.9937,
+            "MACHADO_cartom": 3.4064,
+            "MACHADO_alieni": 3.4603
+          }
+        },
+        {
+          "vencedor": "H99_resto",
+          "bits": {
+            "H99_resto": 2.7725,
+            "AE": 3.2601,
+            "LUNA": 6.3557,
+            "MACHADO_dom_ca": 3.1274,
+            "MACHADO_bras_c": 3.0888,
+            "MACHADO_cartom": 3.5448,
+            "MACHADO_alieni": 3.6263
+          }
+        },
+        {
+          "vencedor": "H99_resto",
+          "bits": {
+            "H99_resto": 2.6731,
+            "AE": 3.2527,
+            "LUNA": 6.3573,
+            "MACHADO_dom_ca": 3.3012,
+            "MACHADO_bras_c": 3.2876,
+            "MACHADO_cartom": 3.6795,
+            "MACHADO_alieni": 3.7337
+          }
+        },
+        {
+          "vencedor": "H99_resto",
+          "bits": {
+            "H99_resto": 2.6714,
+            "AE": 3.1496,
+            "LUNA": 6.3422,
+            "MACHADO_dom_ca": 3.1522,
+            "MACHADO_bras_c": 3.1336,
+            "MACHADO_cartom": 3.5363,
+            "MACHADO_alieni": 3.5908
+          }
+        },
+        {
+          "vencedor": "H99_resto",
+          "bits": {
+            "H99_resto": 2.6727,
+            "AE": 3.0878,
+            "LUNA": 6.3436,
+            "MACHADO_dom_ca": 2.9618,
+            "MACHADO_bras_c": 2.9474,
+            "MACHADO_cartom": 3.3995,
+            "MACHADO_alieni": 3.4437
+          }
+        }
+      ]
+    }
+  },
+  "interpretacao": "bits/char menor = modelo menos surpreendido. A calibração diz quantas vezes um bloco de um livro é reconhecido como sendo desse livro quando o modelo é treinado no resto desse mesmo livro."
+}
