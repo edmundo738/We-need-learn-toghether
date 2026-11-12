@@ -77,18 +77,35 @@ def test_a_curva_do_sobreajuste_esta_completa(servidor) -> None:
 
 
 def test_checkpoints_disponiveis_para_gerar(servidor) -> None:
+    """O painel tem de ter, pelo menos, o checkpoint que serve por omissão.
+
+    DEFEITO APANHADO: este teste exigia `any(c.startswith("publico_"))`.
+    Os `publico_seed*` são produzidos localmente por `regime_publico.py` e
+    estão fora do git (`*.npz` + `checkpoints/*` no .gitignore), portanto
+    num clone limpo o directório só tem `machado_melhor` e o teste falhava
+    sempre — a testar o ambiente, não o código. O que importa é que o
+    painel consiga gerar com o checkpoint que anuncia.
+    """
     e = servidor.estado()
     assert e["checkpoints"], "sem checkpoints o painel não pode gerar"
-    assert any(c.startswith("publico_") for c in e["checkpoints"])
+    assert servidor.CHECKPOINT_OMISSAO in e["checkpoints"], (
+        f"o painel serve «{servidor.CHECKPOINT_OMISSAO}» mas esse checkpoint "
+        f"não está em {e['checkpoints']}"
+    )
+    assert (servidor.CHECKPOINTS / servidor.CHECKPOINT_OMISSAO / "pesos.npz").exists()
 
 
 def test_gerar_produz_texto(servidor) -> None:
-    nome = servidor.estado()["checkpoints"]
-    alvo = next((c for c in nome if c.startswith("publico_")), None)
-    if alvo is None:
-        pytest.skip("sem checkpoint publico_*")
+    """Gerar tem de funcionar com o checkpoint servido por omissão.
+
+    Antes este teste escolhia um `publico_*` e fazia skip quando não havia.
+    Resultado: no ambiente onde o painel realmente corre, a geração ao vivo
+    — a única coisa que o utilizador vê a acontecer — nunca era testada.
+    Agora testa o que é servido de facto, e falha em vez de saltar.
+    """
+    alvo = servidor.CHECKPOINT_OMISSAO
     if not (servidor.CHECKPOINTS / alvo / "pesos.npz").exists():
-        pytest.skip("checkpoint sem pesos (*.npz fora do git)")
+        pytest.skip(f"checkpoint {alvo} sem pesos (*.npz fora do git)")
     r = servidor.gerar(alvo, "Capitu olhou", n=12, temp=0.0)
     assert r["checkpoint"] == alvo
     assert isinstance(r["texto"], str) and len(r["texto"]) > 0
